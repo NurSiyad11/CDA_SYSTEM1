@@ -2,21 +2,7 @@
 <div class="left-side-bar">
 		<div class="brand-logo">
 			<a href="index.php">
-				<!-- <img src="../vendors/images/img/cda _logo.png" alt="" class="dark-logo">
-				<img src="../vendors/images/img/light_logo1.png" alt="" class="light-logo"> -->
-				<!-- <img src="<?php// echo (!empty($row['Picture'])) ? '../uploads/'.$row['Picture'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" alt=""  class="avatar-photo"  class="light-logo">> -->
-				<div class="container p-5">
-					<div class="col-6">
-						<img src="<?php echo (!empty($row['Logo'])) ? '../uploads/logos/'.$row['Logo'] : '../uploads/logos/NO-IMAGE-AVAILABLE1.jpg'; ?>" class="border-radius-100 shadow" width="65" height="65" alt="">
-					</div>				
-				</div>
-				
-				<div class="container pd-5 ">
-				<!-- <span class="text-center mb-0" style="color: light"><?php// echo " ". $row['Name']; ?></span> -->
-				<!-- <h5 class="text-left h7 mb-0 " style="color:white"  ><?php //echo " ". $row['Com_name']. " "; ?></h5> -->
-				</div>
-				<!-- <img src="<?php //echo (!empty($row['Piture'])) ? '../uploads/'.$row['Picture'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" class="light-logo" width="50" height="50" alt=""> -->
-
+				<img src="../vendors/images/img/light_logo1.png" alt="" class="light-logo">
 			</a>
 			
 			<div class="close-sidebar" data-toggle="left-sidebar-close">
