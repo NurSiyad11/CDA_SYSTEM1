@@ -5,12 +5,9 @@
 <?php $get_id = $_GET['edit']; ?>
 <!-- Change Password -->
 <?php
-
 	if(isset($_POST['pass_change']))
 	{
 	$password=$_POST['password'];
-	
-
 	$result = mysqli_query($conn,"update user set password='$password' where id='$get_id'         
 		"); 		
 	if ($result) {
@@ -21,7 +18,6 @@
    }		
 }
 ?>
-
 
 <!-- Update users -->
 <?php
@@ -44,23 +40,13 @@
      	echo "<script type='text/javascript'> document.location = 'Mng_user.php'; </script>";
 	} else{
 	  die(mysqli_error());
-   }
-		
+   }		
 }
-
 ?>
-
 <body>
-
-
 	<?php include('includes/navbar.php')?>
-
 	<?php include('includes/right_sidebar.php')?>
-
 	<?php include('includes/left_sidebar.php')?>
-
-	<div class="mobile-menu-overlay"></div>
-
 	<div class="mobile-menu-overlay"></div>
 
 	<div class="main-container">
@@ -87,14 +73,10 @@
 						<div class="pull-left">
 							<h4 class="text-blue h4">Edit User</h4>
 							<p class="mb-20"></p>
-							
 						</div>
-						<!-- <div class="pull-right">
-							<a class="dropdown-item" href="changepass.php?edit=<?php //echo $row['id'];?>"><i class="dw dw-edit2"></i> Change Password</a>
-						</div> -->
 						<div class="col-md-4 col-sm-12 text-right">
-								<a href="task-add" data-toggle="modal" data-target="#task-add" class="bg-light-blue btn text-blue weight-500"><i class="ion-password-round"></i>Change Password</a>
-							</div>
+							<a href="task-add" data-toggle="modal" data-target="#task-add" class="bg-light-blue btn text-blue weight-500"><i class="ion-password-round"></i>Change Password</a>
+						</div>
 					</div>
 
 
@@ -155,25 +137,13 @@
 					<!-- add task popup End -->
 
 
-
-
-
-
-
-
-
-
-
-
-
 					<div class="wizard-content">
 						<form method="post" action="">
 							<section>
 								<?php
 									$query = mysqli_query($conn,"select * from user where id = '$get_id' ")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
-									?>
-
+								?>
 								<div class="row">
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
@@ -187,15 +157,12 @@
 											<input name="com_name" type="text" class="form-control wizard-required" required="true" autocomplete="off" value="<?php echo $row['Com_name']; ?>">
 										</div>
 									</div>
-
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label>Email Address :</label>
 											<input name="email" type="email" class="form-control" required="true" autocomplete="off" value="<?php echo $row['Email']; ?>">
 										</div>
-									</div>			
-
-
+									</div>	
 								</div>
 
 								<div class="row">
@@ -204,8 +171,7 @@
 											<label>Password :</label>
 											<input name="password" type="password" placeholder="**********" class="form-control" readonly required="true" autocomplete="off" value="<?php echo $row['password']; ?>">
 										</div>
-									</div>
-									
+									</div>									
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label>Address :</label>
@@ -219,11 +185,8 @@
 										</div>
 									</div>									
 								</div>
-								
-									<!--Orignal One-->
-								
-								<div class="row">								
-								
+																
+								<div class="row">				
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label>User Role :</label>
@@ -236,7 +199,6 @@
 											</select>
 										</div>
 									</div>
-
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label>User Status :</label>
@@ -262,9 +224,7 @@
 						</form>
 					</div>
 				</div>
-
 			</div>
-			<?php include('includes/footer.php'); ?>
 		</div>
 	</div>
 	<!-- js -->

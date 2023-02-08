@@ -7,36 +7,21 @@ if (isset($_GET['delete'])) {
 	$sql = "DELETE FROM ven_invoice where id = ".$delete;
 	$result = mysqli_query($conn, $sql);
 	if ($result) {
-		echo "<script>alert('Record deleted Successfully');</script>";
-															 
-     	echo "<script type='text/javascript'> document.location = 'vendor_Invoice.php'; </script>";
-		
+		echo "<script>alert('Record deleted Successfully');</script>";															 
+     	echo "<script type='text/javascript'> document.location = 'vendor_Invoice.php'; </script>";		
 	}
 }
 ?>
-
 <?php
 	if(isset($_POST['V_Invoice']))
 	{
-
 	$name=$_POST['name'];	   
 	$date=$_POST['date']; 	
 	$invoice=$_POST['invoice'];	
 	$amount=$_POST['amount']; 
 	$memo=$_POST['memo']; 	
-	
-	// $pdf=$_FILES['pdf']['name'];
-	// $pdf_type=$_FILES['pdf']['type'];
-	// $pdf_size=$_FILES['pdf']['size'];
-	// $pdf_tem_loc=$_FILES['pdf']['tmp_name'];
-	// $pdf_store="invpdf/".$pdf;
-
-	// move_uploaded_file($pdf_tem_loc,$pdf_store);
- 
-
-
-	     
-     $Vid = $conn->query("SELECT id as Vid from `user` where name='$name'  ")->fetch_assoc()['Vid'];
+		     
+     $Vid = $conn->query("SELECT id as Vid from `user` where Com_name='$name'  ")->fetch_assoc()['Vid'];
 
         mysqli_query($conn,"INSERT INTO ven_invoice(Vid,Date,V_invoice,Amount,Memo) 
 		VALUES('$Vid','$date','$invoice','$amount','$memo')         
@@ -46,9 +31,7 @@ if (isset($_GET['delete'])) {
 		window.location = "vendor_Invoice.php"; 
 		</script>
 		<?php   }
-
 ?>
-
 <body>	
 	<?php include('includes/navbar.php')?>
 	<?php include('includes/right_sidebar.php')?>
@@ -90,13 +73,13 @@ if (isset($_GET['delete'])) {
 										<div class="form-group">
 											<label>Vendor Name :</label>
 											<select name="name" id="nid" class="custom-select form-control" required="true" autocomplete="off">
-												<option value="">Select Customer</option>
+												<option value="">Select Vendor Company Name</option>
 													<?php
 													$query = mysqli_query($conn,"select * from user where role ='Vendor'");
 													while($row = mysqli_fetch_array($query)){
 													
 													?>
-												<option value="<?php echo $row['Name']; ?>"><?php echo $row['Name']; ?></option>
+												<option value="<?php echo $row['Com_name']; ?>"><?php echo $row['Com_name']; ?></option>
 													<?php } ?>
 											</select>
 										</div>
@@ -110,7 +93,7 @@ if (isset($_GET['delete'])) {
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label>Vendor Invoice Number :</label>
-											<input name="invoice" type="text" placeholder="Vendor Invoice No#" class="form-control" required="true" autocomplete="off">
+											<input name="invoice" type="number" placeholder="Vendor Invoice No#" class="form-control" required="true" autocomplete="off">
 										</div>
 									</div>
 								</div>
@@ -122,14 +105,6 @@ if (isset($_GET['delete'])) {
 											<input name="amount" type="text" placeholder="$00.00" class="form-control" required="true" autocomplete="off">
 										</div>
 									</div>
-<!-- 
-									<div class="">										
-										<label for="">Choose Your PDF File</label><br>
-										<input id="pdf" type="file" name="pdf" value="" required><br><br>
-									</div> -->
-
-
-
 									<div class="col-md-12">
 											<div class="form-group">
 												<label>Memo / Description</label>
@@ -153,131 +128,86 @@ if (isset($_GET['delete'])) {
 					</div>
 				</div>
 
-
-
-
 				<div class="card-box mb-30">
-				<div class="pd-20">
+					<div class="pd-20">
 						<h2 class="text-blue h4">Manage Vendor Invoice</h2>
 					</div>
-				<div class="pb-20">
-					<table class="data-table table stripe hover nowrap">
-						<thead>
-							<tr>
-								<th>NO#</th>
-								<th class="table-plus">Vendor  Name</th>
-								<th>VID</th>
-								<th>Ven Invoice No#</th>
-								<th>Date </th>
-								<th>Memo</th>
-								<th>Amount</th>					
-							
-						
-								<th class="datatable-nosort">ACTION</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-
-								 <?php
-								 $i =1;
-		                         $teacher_query = mysqli_query($conn,"SELECT user.Name, ven_invoice.id, ven_invoice.Vid,ven_invoice.V_invoice ,ven_invoice.Amount,ven_invoice.Date,ven_invoice.Memo FROM ven_invoice INNER JOIN user ON   ven_invoice.Vid=user.ID order by ven_invoice.Date Desc") or die(mysqli_error());
-		                         while ($row = mysqli_fetch_array($teacher_query)) {
-		                        $id = $row['id'];
-		                             ?>
-
-								<td><?php echo $i++; ?></td>
-								<td class="table-plus">
-									<div class="name-avatar d-flex align-items-center">
-										<div class="avatar mr-2 flex-shrink-0">
-											<!--
-											<img src="<?php echo (!empty($row['Location'])) ? '../uploads/'.$row['Location'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt="">
-								 			-->
-
-										</div>
-										<div class="txt">
-											<div class="weight-600"><?php echo $row['Name'] . " " ; ?></div>
-										</div>
-									</div>
-								</td>
+					<div class="pb-20">
+						<table class="data-table table stripe hover nowrap">
+							<thead>
+								<tr>
+									<th>NO#</th>
+									<th class="table-plus">Vendor Company Name</th>
 								
-								<td><?php echo $row['Vid']; ?></td>
-	                            <td><?php echo "INV# ". $row['V_invoice']; ?></td>
-								<td><?php echo $row['Date']; ?></td>
-								<td><?php echo $row['Memo']; ?></td>
-								<td><?php echo "$ ". number_format((float)$row['Amount'], '2','.',','); ?></td>
+									<th>Ven Invoice No#</th>
+									<th>Date </th>
+									<th>Memo</th>
+									<th>Amount</th>					
+								
 							
+									<th class="datatable-nosort">ACTION</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
 
-							
-								<td>
-									<div class="dropdown">
-										<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-											<i class="dw dw-more"></i>
-										</a>
-										<?php
-									
+									<?php
+									$i =1;
+									$teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name, ven_invoice.id, ven_invoice.Vid,ven_invoice.V_invoice ,ven_invoice.Amount,ven_invoice.Date,ven_invoice.Memo FROM ven_invoice INNER JOIN user ON   ven_invoice.Vid=user.ID order by ven_invoice.Date Desc") or die(mysqli_error());
+									while ($row = mysqli_fetch_array($teacher_query)) {
+									$id = $row['id'];
 										?>
-										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-											<a class="dropdown-item" href="edit_Ven_invoice.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> Edit</a>
-											<a class="dropdown-item" href="vendor_invoice.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
+
+									<td><?php echo $i++; ?></td>
+									<td class="table-plus">
+										<div class="name-avatar d-flex align-items-center">
+											<div class="avatar mr-2 flex-shrink-0">
+												<!--
+												<img src="<?php echo (!empty($row['Location'])) ? '../uploads/'.$row['Location'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt="">
+												-->
+
+											</div>
+											<div class="txt">
+												<div class="weight-600"><?php echo $row['Com_name'] . " " ; ?></div>
+											</div>
 										</div>
-									</div>
-								</td>
-							</tr>
-							<?php } ?>  
-						</tbody>
-					</table>
-					<script>
-						function checkdelete(){
-							return confirm('Do you Want to Delete this Record ? ');
-						}
-					</script>
-			   </div>
-			      
-			</div>
+									</td>
+									<td><?php echo "INV# ". $row['V_invoice']; ?></td>
+									<td><?php echo $row['Date']; ?></td>
+									<td><?php echo $row['Memo']; ?></td>
+									<td><?php echo "$ ". number_format((float)$row['Amount'], '2','.',','); ?></td>
 
-
-
-
-
-
-
-
-
-
-			</div>
-			<?php include('includes/footer.php'); ?>
+									<td>
+										<div class="dropdown">
+											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+												<i class="dw dw-more"></i>
+											</a>
+											<?php
+										
+											?>
+											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+												<a class="dropdown-item" href="edit_Ven_invoice.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> Edit</a>
+												<a class="dropdown-item" href="vendor_invoice.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
+											</div>
+										</div>
+									</td>
+								</tr>
+								<?php } ?>  
+							</tbody>
+						</table>
+						<script>
+							function checkdelete(){
+								return confirm('Do you Want to Delete this Record ? ');
+							}
+						</script>
+					</div>			      
+				</div>
+			</div>			
 		</div>
 	</div>
-	<!-- js -->
-	
-	<?php //include('includes/scripts.php')?>
 
-
-
-<!-- js -->
-
-	<script src="../vendors/scripts/core.js"></script>
-	<script src="../vendors/scripts/script.min.js"></script>
-	<script src="../vendors/scripts/process.js"></script>
-	<script src="../vendors/scripts/layout-settings.js"></script>
-	<script src="../src/plugins/apexcharts/apexcharts.min.js"></script>
-	<script src="../src/plugins/datatables/js/jquery.dataTables.min.js"></script>
-	<script src="../src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-	<script src="../src/plugins/datatables/js/dataTables.responsive.min.js"></script>
-	<script src="../src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-
-	<!-- buttons for Export datatable -->
-	<script src="../src/plugins/datatables/js/dataTables.buttons.min.js"></script>
-	<script src="../src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
-	<script src="../src/plugins/datatables/js/buttons.print.min.js"></script>
-	<script src="../src/plugins/datatables/js/buttons.html5.min.js"></script>
-	<script src="../src/plugins/datatables/js/buttons.flash.min.js"></script>
-	<script src="../src/plugins/datatables/js/vfs_fonts.js"></script>
-	
-	<script src="../vendors/scripts/datatable-setting.js"></script></body>
-
-
+	<!-- js -->	
+	<?php include('includes/scripts2.php')?>
 
 </body>
 </html>

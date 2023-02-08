@@ -23,17 +23,37 @@ if (isset($_GET['delete'])) {
 	$PV=$_POST['PV'];	
 	$amount=$_POST['amount']; 
 	$memo=$_POST['memo']; 	
+	$Ac_id=$_POST['Ac_name']; 	
 
-	 $query = mysqli_query($conn,"select * from cash_payment ")or die(mysqli_error());
-	 $count = mysqli_num_rows($query);     
+	//$amt = $amount+20;
+	echo "$amount";
+	
+
+
+	// $query = mysqli_query($conn,"select id from account where id='$Ac_id' ")or die(mysqli_error());
+	//  $count = mysqli_num_rows($query);   
+	
+	$total_in = $conn->query("SELECT sum(Amount) as total from `cash_receipt` where Acc_id=$Ac_id   ")->fetch_assoc()['total'];
+	$total_out = $conn->query("SELECT sum(Amount) as total from `cash_payment` where Acc_id=$Ac_id ")->fetch_assoc()['total'];
+	$Bal_Inc_exp = $total_in - $total_out;
+	echo "$Bal_Inc_exp";
+	
+	if($amount > $Bal_Inc_exp){ ?>
+		<script>alert('Haraagaagu kuguma filna...  ' );</script>;
+		<script>
+		window.location = "cash_payment.php"; 
+		</script>
+
+		<?php
+	} else{
      
-        mysqli_query($conn,"INSERT INTO cash_payment(name,Date,PV,Amount,Memo) VALUES('$name','$date','$PV','$amount','$memo')         
+        mysqli_query($conn,"INSERT INTO cash_payment(name,Date,PV,Amount,Memo,Acc_id) VALUES('$name','$date','$PV','$amount','$memo','$Ac_id')         
 		") or die(mysqli_error()); ?>
 		<script>alert('Payment Records Successfully  Added');</script>;
 		<script>
 		window.location = "cash_payment.php"; 
 		</script>
-		<?php   }
+		<?php   } }
 
 ?>
 
@@ -97,9 +117,30 @@ if (isset($_GET['delete'])) {
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label>Amount :</label>
-											<input name="amount" type="text" placeholder="$00.00" class="form-control" required="true" autocomplete="off">
+											<input name="amount" type="number" placeholder="$00.00" class="form-control" required="true" autocomplete="off">
 										</div>
 									</div>
+									<div class="col-md-4 col-sm-12">
+										<div class="form-group">
+											<label>Account :</label>
+											<select name="Ac_name" id="nid" class="custom-select form-control" required="true" autocomplete="off">
+												<option value="">Select Account</option>
+													<?php
+													$query = mysqli_query($conn,"select * from account");  
+													while($row = mysqli_fetch_array($query)){
+														 $test=$row['id'];
+														$total_income = $conn->query("SELECT sum(Amount) as total from `cash_receipt` where Acc_id=$test   ")->fetch_assoc()['total'];
+														 $total_expense = $conn->query("SELECT sum(Amount) as total from `cash_payment` where Acc_id=$test ")->fetch_assoc()['total'];
+														 $Ba_Inc_exp = $total_income - $total_expense;
+														 $bal_format =number_format((float)$Ba_Inc_exp, '2','.',',');
+														if($bal_format > 0){
+															?>													
+															<option value="<?php echo $row['id']; ?>"><?php echo $row['Acc_name'] ." $bal_format" ?> </option>
+													
+													<?php } }	?>
+											</select>
+										</div>
+									</div>	
 
 									<div class="col-md-12">
 											<div class="form-group">
@@ -109,8 +150,7 @@ if (isset($_GET['delete'])) {
 										</div>							
 								</div>
 																
-								<div class="row">				
-											
+								<div class="row">		
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label style="font-size:16px;"><b></b></label>

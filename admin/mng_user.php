@@ -3,10 +3,7 @@
 <?php include('../database/db.php')?>
 
 <?php 
-// if(!isset($_SESSION['alogin'])){
-// 	header('location:../index.php');
-// 	die();
-// }
+
 $time=time();
 $query=mysqli_query($conn,"select * from user");
 ?>
@@ -22,113 +19,100 @@ if (isset($_GET['delete'])) {
 		
 	}
 }
-
 ?>
-
-<body>
-	
+<body>	
 	<?php include('includes/navbar.php')?>
-
 	<?php include('includes/right_sidebar.php')?>
-
 	<?php include('includes/left_sidebar.php')?>
-
 	<div class="mobile-menu-overlay"></div>
 
 	<div class="main-container">
 		<div class="pd-ltr-20">
-			<div class="title pb-20">
-				<h2 class="h3 mb-0">User Manage</h2>
+			<div class="row">
+				<?php			
+					 $query = mysqli_query($conn,"select * from user  ")or die(mysqli_error());
+					 $count = mysqli_num_rows($query);					 				
+				?>
+				<div class="col-xl-4 mb-30">
+					<div class="card-box height-100-p widget-style1 bg-white">
+						<div class="d-flex flex-wrap align-items-center">
+							<div class="progress-data">
+								<div id="">
+								<img src="../vendors/images/img/user.png" class="border-radius-100 shadow" width="50" height="50" alt="">
+								</div>
+							</div>
+							<div class="widget-data">
+								<div class="h4 mb-0"><?php echo  ($count); ?></div>
+								<div class="weight-300 font-18">Total User</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-2 mb-30">
+					<?php							
+					$query = mysqli_query($conn,"select * from user where Role='Admin'  ")or die(mysqli_error());
+					$count = mysqli_num_rows($query);				
+					?> 
+					<div class="card-box height-100-p widget-style1 bg-white">
+						<div class="d-flex flex-wrap align-items-center ">							
+							<div class="widget-data">
+								<div class="h4 mb-0"><?php echo ($count); ?></div>
+								<div class="weight-300 font-18">Admins</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xl-2 mb-30">
+					<?php						
+						 $query= mysqli_query($conn,"select * from user where Role='Customer'  ")or die(mysqli_error());
+						 $count = mysqli_num_rows($query);				 
+					?> 
+					<div class="card-box height-100-p widget-style1 bg-white">
+						<div class="d-flex flex-wrap align-items-center">							
+							<div class="widget-data">
+								<div class="h4 mb-0"><?php echo ($count); ?></div>
+								<div class="weight-300 font-18">Customers</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xl-2 mb-30">
+					<?php						
+						 $query= mysqli_query($conn,"select * from user where Role='Vendor'  ")or die(mysqli_error());
+						 $count = mysqli_num_rows($query);					
+					?> 
+					<div class="card-box height-100-p widget-style1 bg-white">
+						<div class="d-flex flex-wrap align-items-center">
+						
+							<div class="widget-data">
+								<div class="h4 mb-0"><?php echo ($count); ?></div>
+								<div class="weight-300 font-18">Vendors</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xl-2 mb-30">
+					<?php						
+						 $query= mysqli_query($conn,"select * from user where Role='HOD'  ")or die(mysqli_error());
+						 $count = mysqli_num_rows($query);					 
+					?> 
+					<div class="card-box height-100-p widget-style1 bg-white">
+						<div class="d-flex flex-wrap align-items-center">							
+							<div class="widget-data">
+								<div class="h4 mb-0"><?php echo ($count); ?></div>
+								<div class="weight-300 font-18">Managers</div>
+							</div>
+						</div>
+					</div>
+				</div>				
 			</div>
-			
 
-			<div class="row pb-10">
-
-				
-
-				<div class="col-xl-3 col-lg-3 col-md-6 mb-20">
-					<div class="card-box height-100-p widget-style3">
-					<?php 
-						 $query_reg_customer = mysqli_query($conn,"select * from user where Role = 'Customer' ")or die(mysqli_error());
-						 $count_reg_customer = mysqli_num_rows($query_reg_customer);
-						 ?>
-
-						<div class="d-flex flex-wrap">
-							<div class="widget-data">
-								<div class="weight-700 font-24 text-dark"><?php echo($count_reg_customer);?></div>
-								<div class="font-20 text-secondary weight-500">Total Customers</div>
-							</div>
-							
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-xl-3 col-lg-3 col-md-6 mb-20">
-					<div class="card-box height-100-p widget-style3">
-
-						<?php 
-						 $query_reg_Vendor = mysqli_query($conn,"select * from user where Role = 'Vendor' ")or die(mysqli_error());
-						 $count_reg_Vendor = mysqli_num_rows($query_reg_Vendor);
-						 ?>
-
-						<div class="d-flex flex-wrap">
-							<div class="widget-data">
-								<div class="weight-700 font-24 text-dark"><?php echo htmlentities($count_reg_Vendor); ?></div>
-								<div class="font-20 text-secondary weight-500">Total Vendors</div>
-							</div>
-						
-							
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-lg-3 col-md-6 mb-20">
-					<div class="card-box height-100-p widget-style3">
-
-						<?php 
-						 $query_reg_hod = mysqli_query($conn,"select * from user where role = 'HOD' ")or die(mysqli_error());
-						 $count_reg_hod = mysqli_num_rows($query_reg_hod);
-						 ?>
-
-						<div class="d-flex flex-wrap">
-							<div class="widget-data">
-								<div class="weight-700 font-24 text-dark"><?php echo($count_reg_hod); ?></div>
-								<div class="font-20 text-secondary weight-500">Department Heads</div>
-							</div>
-						
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-xl-3 col-lg-3 col-md-6 mb-20">
-					<div class="card-box height-100-p widget-style3">
-
-						<?php 
-						 $query_reg_admin = mysqli_query($conn,"select * from user where role = 'Admin' ")or die(mysqli_error());
-						 $count_reg_admin = mysqli_num_rows($query_reg_admin);
-						 ?>
-
-						<div class="d-flex flex-wrap">
-							<div class="widget-data">
-								<div class="weight-700 font-24 text-dark"><?php echo($count_reg_admin); ?></div>
-								<div class="font-20 text-secondary weight-500">Administrators</div>
-							</div>
-						
-						</div>
-					</div>
-				</div>
-			</div>
-
-
-			<div class="card-box mb-30">
-					<?php
-					$sql = "SELECT id from user";
-					$query = $dbh -> prepare($sql);
-					$query->execute();
-					$results=$query->fetchAll(PDO::FETCH_OBJ);
-					$usercount=$query->rowCount();
-					?>
+			<div class="card-box mb-30">				
 				<div class="pd-20">
-						<h2 class="text-blue h4">ALL Users :  <?php echo($usercount);?></h2>
+						<h2 class="text-blue h4">ALL Users </h2>
 					</div>
 				<div class="pb-20">
 					<table class="data-table table stripe hover nowrap">
@@ -142,21 +126,18 @@ if (isset($_GET['delete'])) {
 								<th>Login Status</th>
 								<th>Last Login Time</th>
 								<th>POSITION</th>
-                                <th>Status</th>
-						
+                                <th>Status</th>						
 								<th class="datatable-nosort">ACTION</th>
 							</tr>
 						</thead>
-						<tbody>
-                            
+						<tbody>                            
 							<tr>
-
 								 <?php
 		                         $teacher_query = mysqli_query($conn,"select * from user") or die(mysqli_error());
 		                         while ($row = mysqli_fetch_array($teacher_query)) {
 		                         $id = $row['ID'];
 
-								 $status='Offline';
+								$status='Offline';
 								$class="btn-danger";
 								if($row['Login_status']>$time){
 										$status='Online';
@@ -244,67 +225,13 @@ if (isset($_GET['delete'])) {
 						},3000);
 					</script>
 
-
-			   </div>	
-			</div>
-
-        
-
-
-			
-		</div>
-        <?php include('includes/footer.php'); ?>
+			   	</div>	
+			</div>  		
+		</div>    
 
 	</div>
 	<!-- js -->
-    <?php  //include('includes/scripts.php'); ?>
-
-
-<!-- js -->
-
-<script src="../vendors/scripts/core.js"></script>
-	<script src="../vendors/scripts/script.min.js"></script>
-	<script src="../vendors/scripts/process.js"></script>
-	<script src="../vendors/scripts/layout-settings.js"></script>
-	<script src="../src/plugins/apexcharts/apexcharts.min.js"></script>
-	<script src="../src/plugins/datatables/js/jquery.dataTables.min.js"></script>
-	<script src="../src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-	<script src="../src/plugins/datatables/js/dataTables.responsive.min.js"></script>
-	<script src="../src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-
-    
-
-    
-	<!-- buttons for Export datatable -->
-	<script src="../src/plugins/datatables/js/dataTables.buttons.min.js"></script>
-	<script src="../src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
-	<script src="../src/plugins/datatables/js/buttons.print.min.js"></script>
-	<script src="../src/plugins/datatables/js/buttons.html5.min.js"></script>
-	<script src="../src/plugins/datatables/js/buttons.flash.min.js"></script>
-	<script src="../src/plugins/datatables/js/vfs_fonts.js"></script>
-	
-	<script src="../vendors/scripts/datatable-setting.js"></script></body>
-
-
-    <!-- js -->
-	<!-- <script src="vendors/scripts/core.js"></script>
-	<script src="vendors/scripts/script.min.js"></script>
-	<script src="vendors/scripts/process.js"></script>
-	<script src="vendors/scripts/layout-settings.js"></script>    
-	<script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
-	<script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-	<script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
-	<script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script> -->
-	<!-- buttons for Export datatable -->
-	<!-- <script src="src/plugins/datatables/js/dataTables.buttons.min.js"></script>
-	<script src="src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
-	<script src="src/plugins/datatables/js/buttons.print.min.js"></script>
-	<script src="src/plugins/datatables/js/buttons.html5.min.js"></script>
-	<script src="src/plugins/datatables/js/buttons.flash.min.js"></script>
-	<script src="src/plugins/datatables/js/pdfmake.min.js"></script>
-	<script src="src/plugins/datatables/js/vfs_fonts.js"></script>
-	<!-- Datatable Setting js -->
-	<!-- <script src="vendors/scripts/datatable-setting.js"></script></body> --> -->
+    <?php  include('includes/scripts2.php'); ?>   
 
 </body>
 </html>

@@ -1,15 +1,11 @@
 <?php include('includes/header.php')?>
 <?php include('../database/session.php')?>
 <?php include('../database/db.php')?>
-
 <?php $get_id = $_GET['edit']; ?>
 
 <?php
-
 	if(isset($_POST['update-invoice']))
 	{
-	
-
     $name=$_POST['name'];	
 	$Date=$_POST['Date'];  
 	$invoice=$_POST['invoice']; 
@@ -21,37 +17,27 @@
 	$pdf_type=$_FILES['pdf']['type'];
 	$pdf_size=$_FILES['pdf']['size'];
 	$pdf_tem_loc=$_FILES['pdf']['tmp_name'];
-	$pdf_store="invpdf/".$pdf;
+	$pdf_store="pdf/".$pdf;
 
 	move_uploaded_file($pdf_tem_loc,$pdf_store);
 
 
-	$cid = $conn->query("SELECT id as cid from `user` where name='$name'  ")->fetch_assoc()['cid'];
+	$cid = $conn->query("SELECT id as cid from `user` where Com_name='$name'  ")->fetch_assoc()['cid'];
 
 	$result = mysqli_query($conn,"update invoice set Cid='$cid',   Date='$Date', Invoice='$invoice',  Amount='$Amount', Memo='$memo', File='$pdf' where id='$get_id'         
 		"); 		
 	if ($result) {
      	echo "<script>alert('Record Successfully Updated');</script>";
      	echo "<script type='text/javascript'> document.location = 'Invoice.php'; </script>";
-	
-
 	} else{
 	  die(mysqli_error());
-   }
-		
+   }		
 }
-
 ?>
-
 <body>
-
-
 	<?php include('includes/navbar.php')?>
-
 	<?php include('includes/right_sidebar.php')?>
-
 	<?php include('includes/left_sidebar.php')?>
-
 	<div class="mobile-menu-overlay"></div>
 
 	<div class="main-container">
@@ -73,7 +59,6 @@
 					</div>
 				</div>
 
-
                 <div class="pd-20 card-box mb-30">
 					<div class="clearfix">
 						<div class="pull-left">
@@ -84,31 +69,27 @@
 					<div class="wizard-content">
 						<form method="post" action="" enctype="multipart/form-data">
 							<section>
-
-
-                            <?php
-									$query = mysqli_query($conn,"SELECT user.Name, invoice.id, invoice.Cid,invoice.invoice ,invoice.Amount,invoice.Date,invoice.Memo,invoice.File,invoice.Status FROM invoice INNER JOIN user ON   invoice.Cid=user.ID  where invoice.id = '$get_id' ")or die(mysqli_error());
+                           		 <?php
+									$query = mysqli_query($conn,"SELECT user.Name,user.Com_name, invoice.id, invoice.Cid,invoice.invoice ,invoice.Amount,invoice.Date,invoice.Memo,invoice.File,invoice.Status FROM invoice INNER JOIN user ON   invoice.Cid=user.ID  where invoice.id = '$get_id' ")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
-									?>
-
+								?>
 								<div class="row">
 								    <div class="col-md-4 col-sm-12">
 										<div class="form-group">
-											<label>Cusmtor Name :</label>
+											<label>Company Name :</label>
 											<select name="name" class="custom-select form-control" required="true" autocomplete="off">
-											<option value="<?php echo $row['Name']; ?>"><?php echo $row['Name']; ?></option>
+											<option value="<?php echo $row['Com_name']; ?>"><?php echo $row['Com_name']; ?></option>
 												<option value="">Select Customer</option>
 													<?php
 													$query = mysqli_query($conn,"select * from user where role ='Customer'");
 													while($row = mysqli_fetch_array($query)){
 													
 													?>
-												<option value="<?php echo $row['Name']; ?>"><?php echo $row['Name']; ?></option>
+												<option value="<?php echo $row['Com_name']; ?>"><?php echo $row['Com_name']; ?></option>
 													<?php } ?>
 											</select>
 										</div>
-									</div>	
-                                    
+									</div>	                                    
                                     
                                     <?php
 									$query = mysqli_query($conn,"select * from invoice where id = '$get_id' ")or die(mysqli_error());
@@ -123,7 +104,7 @@
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label>Invoice Number :</label>
-											<input name="invoice" type="text" placeholder="Invoice No#" class="form-control" required="true" autocomplete="off" value="<?php echo $row['invoice']; ?>" >
+											<input name="invoice" type="number" placeholder="Invoice No#" class="form-control" required="true" autocomplete="off" value="<?php echo $row['invoice']; ?>" >
 										</div>
 									</div>
 								</div>
@@ -174,7 +155,7 @@
                                         <?php
                                         if($info !=''){
                                            ?>                                       
-                                            <embed type="application/pdf" src="invpdf/<?php echo $info['File'] ; ?>" width="900" height="500">
+                                            <embed type="application/pdf" src="pdf/<?php echo $info['File'] ; ?>" width="900" height="500">
                                         <?php
                                         }else{
                                             echo "No file found";                                     
@@ -190,21 +171,9 @@
 
 						</form>
 					</div>
-				</div>
-
-
-
-
-
-
-                                                
-
-
-
-
-
+				</div>                                            
 			</div>
-			<?php include('includes/footer.php'); ?>
+		
 		</div>
 	</div>
 	<!-- js -->

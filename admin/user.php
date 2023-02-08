@@ -9,6 +9,7 @@
 	$name=$_POST['name'];	   
 	$email=$_POST['email']; 
 	$password=$_POST['password']; 
+	// $con_pass=$_POST['con_pass']; 
 	$com_name=$_POST['com_name']; 
 	$address=$_POST['address']; 	 
 	$role=$_POST['role']; 
@@ -17,11 +18,12 @@
 
 
 	 $query = mysqli_query($conn,"select * from user where Email = '$email'")or die(mysqli_error());
-	 $count = mysqli_num_rows($query);
-     
+	 $count = mysqli_num_rows($query);     
+	 
+
      if ($count > 0){ ?>
 	 <script>
-	 alert('Data Already Exist');
+	 alert('User Already Exist');
 	</script>
 	<?php
       }else{
@@ -30,25 +32,23 @@
 		<script>alert('User Records Successfully Added');</script>;
 		<script>
 		window.location = "user.php"; 
-
-
 		</script>
 		<?php   }
+
 }
 
 ?>
-
-
-
-<body>
-
-
-	
+	<script type="text/javascript">
+		function letterOnly(input){
+			var regex = /[^a-z ]/gi;
+			input.value =input.value.replace(regex, "");
+		}
+		
+	</script>
+<body>	
 <?php include('includes/navbar.php') ?>
-
 <?php include('includes/right_sidebar.php') ?>
 <?php include('includes/left_sidebar.php') ?>
-
 <div class="mobile-menu-overlay"></div>
 
 	<div class="main-container">
@@ -68,9 +68,7 @@
 							</nav>
 						</div>
 					</div>
-				</div>
-				
-
+				</div>		
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix">
 						<div class="pull-left">
@@ -85,52 +83,52 @@
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label >Name :</label>
-											<input name="name" type="text" placeholder="Enter personal Name" class="form-control wizard-required" required="true" autocomplete="off">
+											<input name="name" type="text" placeholder="Enter personal Name" class="form-control wizard-required" required="true" autocomplete="off" onkeyup="letterOnly(this)">
 										</div>
 									</div>
-
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label>Company Name :</label>
 											<input name="com_name" type="text" placeholder="Enter Company Name" class="form-control" required="true" autocomplete="off">
 										</div>
-									</div>
-									
+									</div>									
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label>Email Address :</label>
 											<input name="email" type="email" placeholder="Enter Email"class="form-control" required="true" autocomplete="off">
 										</div>
-									</div>								
-
+									</div>						
 								</div>
-
 								
 								<div class="row">
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label>Password :</label>
-											<input name="password" type="password" placeholder="**********" class="form-control" required="true" autocomplete="off">
+											<input name="password" id="password" type="password" required placeholder="**********" class="form-control" autocomplete="off">
 										</div>
-									</div>								
-									
+									</div>														
+									<div class="col-md-4 col-sm-12">
+										<div class="form-group">
+											<label>Confirm Password :</label>
+											<input name="con_pass" id="con_pass" type="password" required placeholder="**********" class="form-control" autocomplete="off">
+											<span id="confrmpass" class="text-danger font-weight-bol"> </span>
+										</div>
+									</div>	
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label>Address :</label>
 											<input name="address" type="text" placeholder="Enter Address" class="form-control" required="true" autocomplete="off">
 										</div>
-									</div>
+									</div>									
+								</div>
 
+								<div class="row">
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label>Phone Number :</label>
-											<input name="phonenumber" type="text" placeholder="Enter Phone Number"class="form-control" required="true" autocomplete="off">
+											<input name="phonenumber" type="number" placeholder="Enter Phone Number"class="form-control" required="true" autocomplete="off">
 										</div>
-									</div>
-								</div>
-								<div class="row">
-									
-								
+									</div>			
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label>User Role :</label>
@@ -149,14 +147,10 @@
 											<select name="Status" class="custom-select form-control" required="true" autocomplete="off">
 												<option value="">Select Status</option>
 												<option value="Active">Active</option>
-												<option value="Deactive">Deactive</option>
-												
+												<option value="Inactive">Inactive</option>												
 											</select>
 										</div>
 									</div>
-
-
-
 								</div>
 
 								<div class="row">				
@@ -165,7 +159,7 @@
 										<div class="form-group">
 											<label style="font-size:16px;"><b></b></label>
 											<div class="modal-footer justify-content-center">
-												<button class="btn btn-primary" name="add_user" id="add_user" data-toggle="modal">Add&nbsp;User</button>
+												<button class="btn btn-primary" name="add_user" id="add_user" data-toggle="modal"  onclick= ' return validation()' >Add&nbsp;User</button>
 											</div>
 										</div>
 									</div>
@@ -174,8 +168,22 @@
 						</form>
 					</div>
 				</div>
-
 			</div>
+
+			<script type="text/javascript">
+		
+
+				function validation(){			
+					var pass = document.getElementById('password').value;
+					var confirmpass = document.getElementById('con_pass').value;		
+
+					if(pass!=confirmpass){
+						document.getElementById('confrmpass').innerHTML =" ** Password does not match the confirm password";
+						return false;
+					}
+				}
+
+			</script>
 			<?php include('includes/footer.php'); ?>
 		</div>
 	</div>

@@ -42,7 +42,7 @@ Several quick start options are available:
 * Timedropper
 
 ## Sample Screens
-<img src="https://user-images.githubusercontent.com/38377336/86491687-03ca9a00-bd89-11ea-8a3a-11dcfcddd254.png" alt="Template 1">
+<!-- <img src="https://user-images.githubusercontent.com/38377336/86491687-03ca9a00-bd89-11ea-8a3a-11dcfcddd254.png" alt="Template 1"> -->
 
 ## Demo link
 A fully functional demo is available at

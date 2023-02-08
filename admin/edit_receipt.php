@@ -1,11 +1,9 @@
 <?php include('includes/header.php')?>
 <?php include('../database/session.php')?>
 <?php include('../database/db.php')?>
-
 <?php $get_id = $_GET['edit']; ?>
 
 <?php
-
 	if(isset($_POST['update-receipt']))
 	{
     $name=$_POST['name'];
@@ -18,37 +16,26 @@
 	$pdf_type=$_FILES['pdf']['type'];
 	$pdf_size=$_FILES['pdf']['size'];
 	$pdf_tem_loc=$_FILES['pdf']['tmp_name'];
-	$pdf_store="Rvpdf/".$pdf;
+	$pdf_store="pdf/".$pdf;
 
 	move_uploaded_file($pdf_tem_loc,$pdf_store);
 
-	$Cid = $conn->query("SELECT id as cid from `user` where name='$name'  ")->fetch_assoc()['cid'];
+	$Cid = $conn->query("SELECT id as cid from `user` where Com_name='$name'  ")->fetch_assoc()['cid'];
 
 	$result = mysqli_query($conn,"update receipt set Cid='$Cid',   Date='$Date', RV='$RV',  Amount='$Amount', Memo='$memo', File='$pdf' where id='$get_id'         
 		"); 		
 	if ($result) {
      	echo "<script>alert('Record Successfully Updated');</script>";
      	echo "<script type='text/javascript'> document.location = 'receipt.php'; </script>";
-	
-
 	} else{
 	  die(mysqli_error());
-   }
-		
+   }		
 }
-
 ?>
-
 <body>
-
-
 	<?php include('includes/navbar.php')?>
-
 	<?php include('includes/right_sidebar.php')?>
-
 	<?php include('includes/left_sidebar.php')?>
-
-
 	<div class="mobile-menu-overlay"></div>
 
 	<div class="main-container">
@@ -83,22 +70,22 @@
 							<section>
 								<div class="row">
 									<?php
-									$query = mysqli_query($conn,"SELECT user.Name, receipt.id, receipt.Cid,receipt.RV ,receipt.Amount,receipt.Date,receipt.Memo,receipt.File,receipt.Status FROM receipt INNER JOIN user ON   receipt.Cid=user.ID  where receipt.id = '$get_id' ")or die(mysqli_error());
+									$query = mysqli_query($conn,"SELECT user.Name, user.Com_name, receipt.id, receipt.Cid,receipt.RV ,receipt.Amount,receipt.Date,receipt.Memo,receipt.File,receipt.Status FROM receipt INNER JOIN user ON   receipt.Cid=user.ID  where receipt.id = '$get_id' ")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 									?>
                                   
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
-											<label>Cusmtor Name :</label>
+											<label>Company Name :</label>
 											<select name="name" id="name" class="custom-select form-control" required="true" autocomplete="off">
-											<option value="<?php echo $row['Name']; ?>"><?php echo $row['Name']; ?></option>
+											<option value="<?php echo $row['Com_name']; ?>"><?php echo $row['Com_name']; ?></option>
 												<option value="">Select Customer</option>
 													<?php
 													$query = mysqli_query($conn,"select * from user where role ='Customer'");
 													while($row = mysqli_fetch_array($query)){
 													
 													?>
-												<option value="<?php echo $row['Name']; ?>"><?php echo $row['Name']; ?></option>
+												<option value="<?php echo $row['Com_name']; ?>"><?php echo $row['Com_name']; ?></option>
 													<?php } ?>
 											</select>
 										</div>
@@ -107,17 +94,16 @@
 									$query = mysqli_query($conn,"select * from receipt where id = '$get_id' ")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 									?>
-
 									<div class="col-md-4 col-sm-12">
-											<div class="form-group">
-												<label>Date</label>
-												<input name="Date" class="form-control" required type="Date" value="<?php echo $row['Date']; ?>">
-											</div>
+										<div class="form-group">
+											<label>Date</label>
+											<input name="Date" class="form-control" required type="Date" value="<?php echo $row['Date']; ?>">
+										</div>
 									</div>									
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label>Receipt Number :</label>
-											<input name="RV" type="text" placeholder="Receipt No#" class="form-control" required="true" autocomplete="off" value="<?php echo $row['RV']; ?>" >
+											<input name="RV" type="number" placeholder="Receipt No#" class="form-control" required="true" autocomplete="off" value="<?php echo $row['RV']; ?>" >
 										</div>
 									</div>
 								</div>
@@ -143,8 +129,7 @@
 										</div>							
 								</div>
 																
-								<div class="row">				
-											
+								<div class="row">	
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label style="font-size:16px;"><b></b></label>
@@ -158,8 +143,7 @@
 
 							<section>
                                 <div class="row">
-                                    <?php
-                                    
+                                    <?php                                    
                                     $sql="SELECT File from receipt where id='$get_id' ";
                                     $query=mysqli_query($conn,$sql);
                                     while ($info=mysqli_fetch_array($query)) {
@@ -167,7 +151,7 @@
                                         <?php
                                         if($info !=''){
                                            ?>                                       
-                                            <embed type="application/pdf" src="Rvpdf/<?php echo $info['File'] ; ?>" width="900" height="500">
+                                            <embed type="application/pdf" src="pdf/<?php echo $info['File'] ; ?>" width="900" height="500">
                                         <?php
                                         }else{
                                            echo "No file found";   
@@ -182,24 +166,10 @@
                                     ?>
                                 </div>                                
                             </section>
-
 						</form>
 					</div>
-				</div>
-
-
-
-
-
-
-                                                
-
-
-
-
-
+				</div>                                         
 			</div>
-			<?php include('includes/footer.php'); ?>
 		</div>
 	</div>
 	<!-- js -->
