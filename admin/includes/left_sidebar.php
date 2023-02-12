@@ -59,6 +59,7 @@
 							<span class="micon dw dw-money-2"></span><span class="mtext">Financial</span>
 						</a>
 						<ul class="submenu">
+							<li><a href="Account_Reg.php">Account Registration</a></li>
 							<li><a href="cash_receipt.php">Cash Receipt</a></li>
 							<li><a href="cash_payment.php">Cash Payment</a></li>
 						</ul>

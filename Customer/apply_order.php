@@ -76,7 +76,6 @@
 						<form method="post" action="apply_order.php" enctype="multipart/form-data">
 							<section>
 
-								<?php //if ($role_id = 'Customer'): ?>
 								<?php $query= mysqli_query($conn,"select * from user where id = '$session_id'")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 								?>
@@ -91,12 +90,12 @@
 
 									<div class="col-md-6 col-sm-12">
 										<div class="form-group">
-											<label>Comapny Name</label>
+											<label>Company Name</label>
 											<input name="text" type="text" class="form-control" required="true" autocomplete="off" readonly value="<?php echo $row['Com_name']; ?>">
 										</div>
 									</div>						
 								</div>
-									<?php //endif ?>
+								
 								
 
 								

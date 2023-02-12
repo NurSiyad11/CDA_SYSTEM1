@@ -12,7 +12,7 @@
 							<a class="dropdown-toggle no-arrow" href="#" role="button" data-toggle="dropdown">
 								<i class="ion-arrow-down-c"></i>
 							</a>
-							<div class="dropdown-menu dropdown-menu-right">
+							<!-- <div class="dropdown-menu dropdown-menu-right">
 								<div class="form-group row">
 									<label class="col-sm-12 col-md-2 col-form-label">From</label>
 									<div class="col-sm-12 col-md-10">
@@ -34,34 +34,46 @@
 								<div class="text-right">
 									<button class="btn btn-primary">Search</button>
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</form>
 			</div>
 		</div>
 		<div class="header-right">
-			<div class="dashboard-setting user-notification">
+			<!-- <div class="dashboard-setting user-notification">
 				<div class="dropdown">
 					<a class="dropdown-toggle no-arrow" href="#" data-toggle="right-sidebar">
 						<i class="dw dw-settings2"></i>
 					</a>
 				</div>
-			</div>
+			</div> -->
 
 			<div class="user-notification">
+				<?php
+					$query_count = mysqli_query($conn,"select * from tbl_order where Status = 'Pending' ")or die(mysqli_error());
+					$count = mysqli_num_rows($query_count);						
+					
+				?>
 				<div class="dropdown">
+					
 					<a class="dropdown-toggle no-arrow" href="#" role="button" data-toggle="dropdown">
-						<i class="icon-copy dw dw-notification"></i>
-						<span class="badge notification-active"></span>
+						<i class="icon-copy dw dw-notification "> 
+						<?php 
+						if($count > 0){
+							?>
+							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger " ><p class="ml-2 text-light"> <?php echo ($count);?></p> <span class="visually-hidden"></span></span>
+							<?php } ?>
+
+						</i>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right">
 						<div class="notification-list mx-h-350 customscroll">
 							<?php 
 							//$count = $conn->query("SELECT sum(Amount) as total FROM `cash_receipt`   ")->fetch_assoc()['total'];
 							
-							$query_count = mysqli_query($conn,"select * from tbl_order where Status = 'Pending' ")or die(mysqli_error());
-							$count = mysqli_num_rows($query_count);						
+							// $query_count = mysqli_query($conn,"select * from tbl_order where Status = 'Pending' ")or die(mysqli_error());
+							// $count = mysqli_num_rows($query_count);						
 							 ?>
 						<h5><?php echo "Orders: ". ($count); ?></h5>
 						 
@@ -129,12 +141,16 @@
 				</div>
 			</div>
 
-
+<!-- <button type="button" class="btn btn-primary position-relative">
+  Mails <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+99 <span class="visually-hidden">unread messages</span></span>
+</button> -->
 			<div class="user-notification">
 				<div class="dropdown">
 					<a class="dropdown-toggle no-arrow" href="#" role="button" data-toggle="dropdown">
 						<i class="icon-copy dw dw-message"></i>
-						<span class="badge notification-active"></span>
+						<!-- <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+99 <span class="visually-hidden">unread messages</span></span> -->
+						
+						<!-- <span class="badge notification-active"></span> -->
 					</a>
 					<div class="dropdown-menu dropdown-menu-right">
 						<div class="notification-list mx-h-350 customscroll">

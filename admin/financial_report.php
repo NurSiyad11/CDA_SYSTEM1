@@ -13,6 +13,41 @@
 			<div class="min-height-200px">
                 		                    
                 <div class="row pb-10">
+
+                <?php					
+                    $RV = $conn->query("SELECT sum(Amount) as total FROM `cash_receipt`   ")->fetch_assoc()['total'];	
+                    $format =number_format((float)$RV, '2','.',',');
+                ?> 
+				<div class="col-xl-4 mb-30">
+					<div class="card-box height-100-p widget-style1 bg-white">
+						<div class="d-flex flex-wrap align-items-center">
+							<div class="progress-data">
+								<div id=""  >
+                                <!-- <i class="icon-copy dw dw-name"></i> -->
+                                <!-- <i class="icon-copy ion-calendar align-items-center " width="50" height="50"></i> -->
+								<img src="../vendors/images/img/dollor2.png" class="border-radius-100 shadow" width="50" height="50" alt="">
+								</div>
+							</div>
+							<div class="widget-data">
+								<div class="h4 mb-0"><?php echo  ($format); ?></div>
+								<div class="weight-300 font-18">Total Cash In</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
                     <div class="col-xl-4 col-lg-3 col-md-6 mb-20">
                         <div class="card-box height-100-p widget-style3">           
 

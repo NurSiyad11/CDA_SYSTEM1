@@ -2,26 +2,46 @@
 <?php include('../database/session.php')?>
 <?php include('../database/db.php')?>
 
-
-
 <body>
-	
 	<?php include('includes/navbar.php')?>
-
 	<?php include('includes/right_sidebar.php')?>
-
 	<?php include('includes/left_sidebar.php')?>
-
 	<div class="mobile-menu-overlay"></div>
 
 	<div class="main-container">
 		<div class="pd-ltr-20">
 			<div class="title pb-20">
 				<h2 class="h3 mb-0">Customer Report</h2>
-			</div>
-			
+			</div>	
 
-			<div class="row pb-10">                  	
+			<div class="row pb-10">       
+				<?php
+					$INV = $conn->query("SELECT sum(Amount) as total FROM `invoice`  ")->fetch_assoc()['total'];
+					$format =number_format((float)$INV, '2','.',',');
+				?>
+
+				<div class="col-xl-4 mb-30">
+					<div class="card-box height-100-p widget-style1 bg-white">
+						<div class="d-flex flex-wrap align-items-center">
+							<div class="progress-data">
+								<div id="">
+								<img src="../vendors/images/img/user.png" class="border-radius-100 shadow" width="50" height="50" alt="">
+								</div>
+							</div>
+							<div class="widget-data">
+								<div class="h4 mb-0"><?php echo  ($format); ?></div>
+								<div class="weight-300 font-18">Total User</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+
+
 				<div class="col-xl-3 col-lg-3 col-md-6 mb-20">
 					<div class="card-box height-100-p widget-style3">
 
@@ -86,6 +106,8 @@
 					</div>
 				</div>
 			</div>
+
+
 
 
 			<div class="card-box mb-30">

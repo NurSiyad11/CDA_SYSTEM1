@@ -2,7 +2,6 @@
 <?php include('../database/session.php')?>
 <?php include('../database/db.php')?>
 
-
 <!-- Inserting Account  -->
 <?php
 	if(isset($_POST['Acc_save']))
@@ -67,8 +66,7 @@ if (isset($_GET['delete'])) {
 		<?php   }
 ?>
 
-<body>
-	
+<body>	
 	<?php include('includes/navbar.php')?>
 	<?php include('includes/right_sidebar.php')?>
 	<?php include('includes/left_sidebar.php')?>
@@ -107,7 +105,7 @@ if (isset($_GET['delete'])) {
 						
 					</div>
 
-							<!-- add task popup start -->
+					<!-- add task popup start -->
 					<div class="modal fade customscroll" id="task-add" tabindex="-1" role="dialog">
 						<div class="modal-dialog modal-dialog-centered" role="document">
 							<div class="modal-content">
@@ -231,7 +229,7 @@ if (isset($_GET['delete'])) {
 									<th>NO#</th>
 									<th class="table-plus">Received From</th>								
 									<th>Receipt No#</th>
-									<th>Date </th>
+									<th>Account </th>
 									<th>Date </th>
 									<th>Memo</th>
 									<th>Amount</th>				
@@ -243,13 +241,10 @@ if (isset($_GET['delete'])) {
 
 									<?php
 									$i =1;
-								//	$teacher_query = mysqli_query($conn,"select * from cash_receipt order by Date Desc") or die(mysqli_error());
-
 									$query = mysqli_query($conn,"SELECT account.Acc_name, cash_receipt.id, cash_receipt.name, cash_receipt.RV ,cash_receipt.Amount,cash_receipt.Date,cash_receipt.Memo FROM cash_receipt INNER JOIN account ON   cash_receipt.Acc_id=account.id order by cash_receipt.Date Desc") or die(mysqli_error());	
 									while ($row = mysqli_fetch_array($query)) {
 									$id = $row['id'];
-										?>
-										
+										?>										
 									<td><?php echo $i++; ?></td>
 									<td class="table-plus">
 										<div class="name-avatar d-flex align-items-center">

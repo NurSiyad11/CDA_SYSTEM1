@@ -77,6 +77,11 @@
 						<div class="col-md-4 col-sm-12 text-right">
 							<a href="task-add" data-toggle="modal" data-target="#task-add" class="bg-light-blue btn text-blue weight-500"><i class="ion-password-round"></i>Change Password</a>
 						</div>
+
+						<div class="col-md-4 col-sm-12 text-right">
+							<a href="task-add1" data-toggle="modal" data-target="#task-add1" class="bg-light-blue btn text-blue weight-500"><i class="ion-password-round"></i>Generate A5 Pdf</a>
+						</div>
+
 					</div>
 
 
@@ -137,8 +142,108 @@
 					<!-- add task popup End -->
 
 
+
+
+
+					
+					<!-- add task2 code popup start -->
+					<div class="modal fade customscroll" id="task-add1" tabindex="-2" role="dialog">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLongTitle">Passord</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Close Modal">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body pd-0">
+									<div class="task-list-form">
+										<?php
+										$query = mysqli_query($conn,"select * from user where id = '$get_id' ")or die(mysqli_error());
+										$row = mysqli_fetch_array($query);
+										?>
+										<ul>
+											<li>
+
+
+
+											
+												<!-- <form method="post" action="">
+													<div class="form-group row">
+														<label class="col-md-4">Name :</label>
+														<div class="col-md-8">
+															<input type="text" name="name" class="form-control" readonly autocomplete="off" value="<?php echo $row['Name']; ?>" >
+														</div>
+													</div>
+													<div class="form-group row">
+														<label class="col-md-4">Company Name :</label>
+														<div class="col-md-8">
+															<input type="text" name="com_name" class="form-control"  readonly autocomplete="off" value="<?php echo $row['Com_name']; ?>"> 
+														</div>
+													</div>
+													<div class="form-group row">
+														<label class="col-md-4">Email :</label>
+														<div class="col-md-8">
+															<input type="email" name="email" class="form-control" readonly autocomplete="off" value="<?php echo $row['Email']; ?>"> 
+														</div>
+													</div>
+													<div class="form-group row">
+														<label class="col-md-4">Password :</label>
+														<div class="col-md-8">
+															<input type="text" name="password" class="form-control" required="true" autocomplete="off" value="<?php echo $row['password']; ?>"> 
+														</div>
+													</div>
+													<button type="submit" name="pass_change" id="pass_change"  class="btn btn-primary">Change</button>
+													<button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+												
+												</form> -->
+											</li>											
+										</ul>
+									</div>									
+								</div>								
+							</div>
+						</div>
+					</div>
+					<!-- add task popup End -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 					<div class="wizard-content">
-						<form method="post" action="">
+						<form method="post" action="htmltopdf.php">
 							<section>
 								<?php
 									$query = mysqli_query($conn,"select * from user where id = '$get_id' ")or die(mysqli_error());
@@ -205,7 +310,7 @@
 											<select name="Status" class="custom-select form-control" required="true" autocomplete="off">
 												<option value="<?php echo $row['Status']; ?>"><?php echo $row['Status']; ?></option>
 												<option value="Active">Active</option>
-												<option value="Deactive">Deactive</option>
+												<option value="Inactive">Inactive</option>
 											
 											</select>
 										</div>
@@ -213,9 +318,26 @@
 
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
+											<label >Signature :</label>
+											<input name="sign" type="text" class="form-control wizard-require" autocomplete="off">
+										</div>
+									</div>
+
+								</div>
+
+								<div class="row">
+									<div class="col-md-12 col-sm-12">
+										<?php
+										$query = mysqli_query($conn,"select * from user where id = '$get_id' ")or die(mysqli_error());
+										$row = mysqli_fetch_array($query);
+										?>
+										<div class="form-group">
 											<label style="font-size:16px;"><b></b></label>
 											<div class="modal-footer justify-content-center">
-												<button class="btn btn-primary" name="update" id="update" data-toggle="modal">Update&nbsp;Staff</button>
+												<button  href="createfile.php?edit=<?php echo $row['ID'];?>" class="btn btn-primary" name="update" id="update" data-toggle="modal">Update&nbsp;User</button>
+												<button class="btn btn-primary" name="A4pdf" id="A4pdf" data-toggle="modal">Generate&nbsp; A4 Pdf</button>
+												<button class="btn btn-primary" name="A5pdf" id="A5pdf" data-toggle="modal">Generate&nbsp;A5 Pdf</button>
+
 											</div>
 										</div>
 									</div>
@@ -223,6 +345,16 @@
 							</section>
 						</form>
 					</div>
+
+
+
+
+
+
+
+
+				
+					
 				</div>
 			</div>
 		</div>

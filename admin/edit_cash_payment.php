@@ -5,7 +5,6 @@
 <?php $get_id = $_GET['edit']; ?>
 
 <?php
-
 	if(isset($_POST['update-Payment']))
 	{
     $name=$_POST['name'];	
@@ -13,22 +12,34 @@
 	$PV=$_POST['PV'];
 	$Amount=$_POST['Amount']; 
 	$memo=$_POST['memo']; 
+	$Ac_id=$_POST['Ac_name']; 
 
-	$result = mysqli_query($conn,"update cash_payment set  name='$name',  Date='$Date', PV='$PV',  Amount='$Amount', Memo='$memo' where id='$get_id'         
-		"); 		
-	if ($result) {
-     	echo "<script>alert('Record Successfully Updated');</script>";
-     	echo "<script type='text/javascript'> document.location = 'cash_payment.php'; </script>";
+	$total_in = $conn->query("SELECT sum(Amount) as total from `cash_receipt` where Acc_id=$Ac_id   ")->fetch_assoc()['total'];
+	$total_out = $conn->query("SELECT sum(Amount) as total from `cash_payment` where Acc_id=$Ac_id ")->fetch_assoc()['total'];
+	$Bal_Inc_exp = $total_in - $total_out;
+	echo "$Bal_Inc_exp";
+	
+	if($Amount > $Bal_Inc_exp){ ?>
+		<script>alert('Haraagaagu kuguma filna...  ' );</script>;
+		<script>
+		window.location = "cash_payment.php"; 
+		</script>
+
+		<?php
 	} else{
-	  die(mysqli_error());
-   }		
+
+		$result = mysqli_query($conn,"update cash_payment set  Acc_id='$Ac_id',  name='$name',  Date='$Date', PV='$PV',  Amount='$Amount', Memo='$memo' where id='$get_id'         
+		"); 		
+		if ($result) {
+		echo "<script>alert('Record Successfully Updated');</script>";
+		echo "<script type='text/javascript'> document.location = 'cash_payment.php'; </script>";
+		} else{
+		die(mysqli_error());
+		}	
+	}	
 }
-
 ?>
-
 <body>
-
-
 	<?php include('includes/navbar.php')?>
 	<?php include('includes/right_sidebar.php')?>
 	<?php include('includes/left_sidebar.php')?>
@@ -53,7 +64,6 @@
 					</div>
 				</div>
 
-
                 <div class="pd-20 card-box mb-30">
 					<div class="clearfix">
 						<div class="pull-left">
@@ -65,7 +75,7 @@
 						<form method="post" action="">
 							<section>
                                     <?php
-									$query = mysqli_query($conn,"select * from cash_payment where id = '$get_id' ")or die(mysqli_error());
+									$query = mysqli_query($conn,"SELECT account.Acc_name,   cash_payment.id, cash_payment.name, cash_payment.PV ,cash_payment.Amount,cash_payment.Date, cash_payment.Memo FROM cash_payment INNER JOIN account ON   cash_payment.Acc_id=account.id  where cash_payment.id = '$get_id'") or die(mysqli_error());	
 									$row = mysqli_fetch_array($query);
 									?>                             
 								<div class="row">
@@ -97,6 +107,34 @@
 										</div>
 									</div>
 
+
+
+									<div class="col-md-4 col-sm-12">
+										<div class="form-group">
+											<label>Account :</label>
+											<select name="Ac_name" id="nid" class="custom-select form-control" required="true" autocomplete="off">
+											<option value="<?php echo $row['id'];?>"><?php echo $row['Acc_name'];?></option>
+													<?php
+													$query = mysqli_query($conn,"select * from account");  
+													while($row = mysqli_fetch_array($query)){
+														 $test=$row['id'];
+														$total_income = $conn->query("SELECT sum(Amount) as total from `cash_receipt` where Acc_id=$test   ")->fetch_assoc()['total'];
+														 $total_expense = $conn->query("SELECT sum(Amount) as total from `cash_payment` where Acc_id=$test ")->fetch_assoc()['total'];
+														 $Ba_Inc_exp = $total_income - $total_expense;
+														 $bal_format =number_format((float)$Ba_Inc_exp, '2','.',',');
+														if($bal_format > 0){
+															?>													
+															<option value="<?php echo $row['id']; ?>"><?php echo $row['Acc_name'] ." $bal_format" ?> </option>
+													
+													<?php } }	?>
+											</select>
+										</div>
+									</div>	
+
+									<?php
+									$query = mysqli_query($conn,"select * from cash_payment where id = '$get_id' ")or die(mysqli_error());
+									$row = mysqli_fetch_array($query);
+									?>   
 									<div class="col-md-12">
 										<div class="form-group">
 											<label>Memo / Description</label>
@@ -121,7 +159,6 @@
 					</div>
 				</div>                                            
 			</div>
-			<?php include('includes/footer.php'); ?>
 		</div>
 	</div>
 	<!-- js -->

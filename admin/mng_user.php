@@ -38,7 +38,7 @@ if (isset($_GET['delete'])) {
 						<div class="d-flex flex-wrap align-items-center">
 							<div class="progress-data">
 								<div id="">
-								<img src="../vendors/images/img/user.png" class="border-radius-100 shadow" width="50" height="50" alt="">
+								<img src="../vendors/images/img/All_users1.png" class="border-radius-100 shadow" width="50" height="50" alt="">
 								</div>
 							</div>
 							<div class="widget-data">
@@ -54,7 +54,12 @@ if (isset($_GET['delete'])) {
 					$count = mysqli_num_rows($query);				
 					?> 
 					<div class="card-box height-100-p widget-style1 bg-white">
-						<div class="d-flex flex-wrap align-items-center ">							
+						<div class="d-flex flex-wrap align-items-center ">	
+							<div class="progress-dat">
+								<div id="">
+								<img src="../vendors/images/img/Admin.png" class="border-radius-100 shadow" width="30" height="30" alt="">
+								</div>
+							</div>						
 							<div class="widget-data">
 								<div class="h4 mb-0"><?php echo ($count); ?></div>
 								<div class="weight-300 font-18">Admins</div>
@@ -69,10 +74,15 @@ if (isset($_GET['delete'])) {
 						 $count = mysqli_num_rows($query);				 
 					?> 
 					<div class="card-box height-100-p widget-style1 bg-white">
-						<div class="d-flex flex-wrap align-items-center">							
+						<div class="d-flex flex-wrap align-items-center">	
+							<div class="progress-dat">
+								<div id="">
+								<img src="../vendors/images/img/customer2.png" class="border-radius-100 shadow" width="30" height="30" alt="">
+								</div>
+							</div>						
 							<div class="widget-data">
 								<div class="h4 mb-0"><?php echo ($count); ?></div>
-								<div class="weight-300 font-18">Customers</div>
+								<div class="weight-300 font-17">Customers</div>
 							</div>
 						</div>
 					</div>
@@ -85,10 +95,15 @@ if (isset($_GET['delete'])) {
 					?> 
 					<div class="card-box height-100-p widget-style1 bg-white">
 						<div class="d-flex flex-wrap align-items-center">
+							<div class="progress-dat">
+								<div id="">
+								<img src="../vendors/images/img/vendor.png" class="border-radius-100 shadow" width="30" height="30" alt="">
+								</div>
+							</div>
 						
 							<div class="widget-data">
 								<div class="h4 mb-0"><?php echo ($count); ?></div>
-								<div class="weight-300 font-18">Vendors</div>
+								<div class="weight-300 font-17">Vendors</div>
 							</div>
 						</div>
 					</div>
@@ -100,10 +115,15 @@ if (isset($_GET['delete'])) {
 						 $count = mysqli_num_rows($query);					 
 					?> 
 					<div class="card-box height-100-p widget-style1 bg-white">
-						<div class="d-flex flex-wrap align-items-center">							
+						<div class="d-flex flex-wrap align-items-center">	
+							<div class="progress-dat">
+								<div id="">
+								<img src="../vendors/images/img/manager2.png" class="border-radius-100 shadow" width="30" height="30" alt="">
+								</div>
+							</div>						
 							<div class="widget-data">
 								<div class="h4 mb-0"><?php echo ($count); ?></div>
-								<div class="weight-300 font-18">Managers</div>
+								<div class="weight-300 font-17">Managers</div>
 							</div>
 						</div>
 					</div>
@@ -116,7 +136,7 @@ if (isset($_GET['delete'])) {
 					</div>
 				<div class="pb-20">
 					<table class="data-table table stripe hover nowrap">
-						<thead class="table-primary">
+						<thead >
 							<tr>
 								<th class="table-plus">FULL NAME</th>
 								<th>Company Name</th>
@@ -171,8 +191,8 @@ if (isset($_GET['delete'])) {
 	                             if($stats=="Active"){
 	                              ?>
                                     <span class="badge badge-success">Active</span>	                                
-	                                  <?php } if($stats=="Deactive")  { ?>
-                                       <span class="badge badge-danger">Deactive</span>
+	                                  <?php } if($stats=="Inactive")  { ?>
+                                       <span class="badge badge-danger">Inactive</span>
 	                                  <?php } ?>									 
 								<td>
 									<div class="dropdown">

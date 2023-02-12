@@ -25,14 +25,6 @@ if (isset($_GET['delete'])) {
 	$memo=$_POST['memo']; 	
 	$Ac_id=$_POST['Ac_name']; 	
 
-	//$amt = $amount+20;
-	echo "$amount";
-	
-
-
-	// $query = mysqli_query($conn,"select id from account where id='$Ac_id' ")or die(mysqli_error());
-	//  $count = mysqli_num_rows($query);   
-	
 	$total_in = $conn->query("SELECT sum(Amount) as total from `cash_receipt` where Acc_id=$Ac_id   ")->fetch_assoc()['total'];
 	$total_out = $conn->query("SELECT sum(Amount) as total from `cash_payment` where Acc_id=$Ac_id ")->fetch_assoc()['total'];
 	$Bal_Inc_exp = $total_in - $total_out;
@@ -96,19 +88,19 @@ if (isset($_GET['delete'])) {
                                     <div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label>Payee :</label>
-											<input name="name" type="text" class="form-control" required="true" >
+											<input name="name" type="text" class="form-control" placeholder="Payee" required="true" >
 										</div>
 									</div>
 									<div class="col-md-4 col-sm-12">
-											<div class="form-group">
-												<label>Date</label>
-												<input name="date" required class="form-control" type="date">
-											</div>
+										<div class="form-group">
+											<label>Date</label>
+											<input name="date" required class="form-control" type="date">
+										</div>
 									</div>									
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label>Payment Number :</label>
-											<input name="PV" type="text" class="form-control" required="true" autocomplete="off">
+											<input name="PV" type="text" class="form-control" required="true" placeholder="Payment No#"  autocomplete="off">
 										</div>
 									</div>
 								</div>
@@ -135,7 +127,7 @@ if (isset($_GET['delete'])) {
 														 $bal_format =number_format((float)$Ba_Inc_exp, '2','.',',');
 														if($bal_format > 0){
 															?>													
-															<option value="<?php echo $row['id']; ?>"><?php echo $row['Acc_name'] ." $bal_format" ?> </option>
+															<option value="<?php echo $row['id']; ?>"><?php echo $row['Acc_name'] ?> <p> <?php echo " $bal_format"?> </p> </option>
 													
 													<?php } }	?>
 											</select>
@@ -143,11 +135,11 @@ if (isset($_GET['delete'])) {
 									</div>	
 
 									<div class="col-md-12">
-											<div class="form-group">
-												<label>Memo / Description</label>
-												<textarea name="memo" style="height: 5em;" class="form-control text_area" type="text"></textarea>
-											</div>
-										</div>							
+										<div class="form-group">
+											<label>Memo / Description</label>
+											<textarea name="memo" placeholder="Description" style="height: 5em;" class="form-control text_area" type="text"></textarea>
+										</div>
+									</div>							
 								</div>
 																
 								<div class="row">		
@@ -165,105 +157,83 @@ if (isset($_GET['delete'])) {
 					</div>                    
 				</div>
 
-
 				<div class="card-box mb-30">
-				<div class="pd-20">
+					<div class="pd-20">
 						<h2 class="text-blue h4">All Cash Payment</h2>
 					</div>
-				<div class="pb-20">
-					<table class="data-table table stripe hover nowrap">
-						<thead>
-							<tr>
-								<th>NO#</th>
-								<th class="table-plus">Payee </th>								
-								<th>Payment No#</th>
-								<th>Date </th>
-								<th>Memo</th>
-								<th>Amount</th>								
-								<th class="datatable-nosort">ACTION</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								 <?php
-								 $i =1;
-		                         $teacher_query = mysqli_query($conn,"select * from cash_payment order by Date Desc") or die(mysqli_error());
-		                         while ($row = mysqli_fetch_array($teacher_query)) {
-		                         $id = $row['id'];
-		                             ?>
+					<div class="pb-20">
+						<table class="data-table table stripe hover nowrap">
+							<thead>
+								<tr>
+									<th>NO#</th>
+									<th class="table-plus">Payee </th>								
+									<th>Payment No#</th>
+									<th>Account </th>
+									<th>Date </th>
+									<th>Memo</th>
+									<th>Amount</th>								
+									<th class="datatable-nosort">ACTION</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<?php
+									$i =1;
+									// $teacher_query = mysqli_query($conn,"select * from cash_payment order by Date Desc") or die(mysqli_error());
 
-								<td><?php echo $i++; ?></td>
-								<td class="table-plus">
-									<div class="name-avatar d-flex align-items-center">
-										<div class="avatar mr-2 flex-shrink-0">
-											<!--
-											<img src="<?php echo (!empty($row['Location'])) ? '../uploads/'.$row['Location'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt="">
-								 			-->
+									$query = mysqli_query($conn,"SELECT account.Acc_name, cash_payment.id, cash_payment.name, cash_payment.PV , cash_payment.Amount, cash_payment.Date, cash_payment.Memo FROM cash_payment INNER JOIN account ON   cash_payment.Acc_id=account.id order by cash_payment.Date Desc") or die(mysqli_error());	
+									while ($row = mysqli_fetch_array($query)) {
+									$id = $row['id'];
+										?>
 
-										</div>
-										<div class="txt">
-											<div class="weight-600"><?php echo $row['name'] . " " ; ?></div>
-										</div>
-									</div>
-								</td>								
-								
-	                            <td><?php echo "PV# ". $row['PV']; ?></td>
-								<td><?php echo $row['Date']; ?></td>
-								<td><?php echo $row['Memo']; ?></td>
-								<td><?php echo "$ ". $row['Amount']; ?></td>
+									<td><?php echo $i++; ?></td>
+									<td class="table-plus">
+										<div class="name-avatar d-flex align-items-center">
+											<div class="avatar mr-2 flex-shrink-0">
+												<!--
+												<img src="<?php echo (!empty($row['Location'])) ? '../uploads/'.$row['Location'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt="">
+												-->
 
-								<td>
-									<div class="dropdown">
-										<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-											<i class="dw dw-more"></i>
-										</a>
-										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-											<a class="dropdown-item" href="edit_cash_payment.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> View</a>
-											<a class="dropdown-item" href="cash_payment.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
+											</div>
+											<div class="txt">
+												<div class="weight-600"><?php echo $row['name'] . " " ; ?></div>
+											</div>
 										</div>
-									</div>
-								</td>
-							</tr>
-							<?php } ?>  
-						</tbody>
-					</table>
-					<script>
-						function checkdelete(){
-							return confirm('Do you Want to Delete this Record ? ');
-						}
-					</script>
-			   </div>			   
+									</td>								
+									
+									<td><?php echo "PV# ". $row['PV']; ?></td>
+									<td><?php echo $row['Acc_name']; ?></td>
+									<td><?php echo $row['Date']; ?></td>
+									<td><?php echo $row['Memo']; ?></td>
+									<td><?php echo "$ ". $row['Amount']; ?></td>
+
+									<td>
+										<div class="dropdown">
+											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+												<i class="dw dw-more"></i>
+											</a>
+											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+												<a class="dropdown-item" href="edit_cash_payment.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> View</a>
+												<a class="dropdown-item" href="cash_payment.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
+											</div>
+										</div>
+									</td>
+								</tr>
+								<?php } ?>  
+							</tbody>
+						</table>
+						<script>
+							function checkdelete(){
+								return confirm('Do you Want to Delete this Record ? ');
+							}
+						</script>
+					</div>	
+				</div>			   
 			</div>
-			<?php include('includes/footer.php'); ?>
 		</div>
 	</div>
 	<!-- js -->
-	<?php //include('includes/scripts.php')?>
-
-
-		
-<!-- js -->
-
-<script src="../vendors/scripts/core.js"></script>
-	<script src="../vendors/scripts/script.min.js"></script>
-	<script src="../vendors/scripts/process.js"></script>
-	<script src="../vendors/scripts/layout-settings.js"></script>
-	<script src="../src/plugins/apexcharts/apexcharts.min.js"></script>
-	<script src="../src/plugins/datatables/js/jquery.dataTables.min.js"></script>
-	<script src="../src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-	<script src="../src/plugins/datatables/js/dataTables.responsive.min.js"></script>
-	<script src="../src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-
-	<!-- buttons for Export datatable -->
-	<script src="../src/plugins/datatables/js/dataTables.buttons.min.js"></script>
-	<script src="../src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
-	<script src="../src/plugins/datatables/js/buttons.print.min.js"></script>
-	<script src="../src/plugins/datatables/js/buttons.html5.min.js"></script>
-	<script src="../src/plugins/datatables/js/buttons.flash.min.js"></script>
-	<script src="../src/plugins/datatables/js/vfs_fonts.js"></script>
-	
-	<script src="../vendors/scripts/datatable-setting.js"></script></body>
-
+	<?php include('includes/scripts2.php')?>
 
 
 </body>

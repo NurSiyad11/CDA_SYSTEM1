@@ -134,14 +134,14 @@
 								<div class="row">
                                     <?php
                                     
-                                    $sql="SELECT File from invoice where id='$get_id' ";
+                                    $sql="SELECT File from invoice_receipt where id='$get_id' ";
                                     $query=mysqli_query($conn,$sql);
                                     while ($info=mysqli_fetch_array($query)) {
                                         ?>
                                         <?php
                                         if($info !=''){
                                            ?>                                       
-                                            <embed type="application/pdf" src="../admin/invpdf/<?php echo $info['File'] ; ?>" width="900" height="500">
+                                            <embed type="application/pdf" src="../admin/pdf/<?php echo $info['File'] ; ?>" width="900" height="500">
                                         <?php
                                         }else{
                                             echo "No file found";                                     
