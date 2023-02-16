@@ -3,20 +3,31 @@
 <?php include('../database/db.php')?>
 
 <?php $get_id = $_GET['edit']; ?>
+<?php
+	if(isset($_POST['submit']))
+	{
+//	$name=$_POST['name'];	   
+	$Date=$_POST['Date']; 	
+	$Message=$_POST['Message'];	
+	$Status=$_POST['Status']; 
+	$Memo=$_POST['Memo']; 	
+	     
+     $cid = $conn->query("SELECT id as cid from `user` where id='$get_id'  ")->fetch_assoc()['cid'];
 
-
+        mysqli_query($conn,"INSERT INTO debt_reminder(Cid,Date,Message,Status,Memo) 
+		VALUES('$cid','$Date','$Message','$Status','$Memo')         
+		") or die(mysqli_error()); ?>
+		<script>alert('Record Successfully  Submited');</script>;
+		<script>
+		window.location = "Cust_Report.php"; 
+		</script>
+		<?php   }
+?>
 
 <body>
-
-
 	<?php include('includes/navbar.php')?>
-
 	<?php include('includes/right_sidebar.php')?>
-
 	<?php include('includes/left_sidebar.php')?>
-
-	<div class="mobile-menu-overlay"></div>
-
 	<div class="mobile-menu-overlay"></div>
 
 	<div class="main-container">
@@ -96,14 +107,14 @@
                             $INV = $conn->query("SELECT sum(Amount) as total FROM `invoice` where Cid='$today'  ")->fetch_assoc()['total'];
                             $RV = $conn->query("SELECT sum(Amount) as total FROM `receipt` where Cid='$today'  ")->fetch_assoc()['total'];
                             $Bal = $INV - $RV;
-                            $format =number_format((float)$Bal, '2','.',',');										
+                            $format_balance =number_format((float)$Bal, '2','.',',');										
                         ?>	
                         
 
                             <div class="d-flex flex-wrap">
                                 <div class="widget-data">
-                                    <div class="weight-700 font-20 text-dark"><?php echo "$ " .($format); ?></div>
-                                    <div class="font-15 text-secondary weight-500">BALANCE</div>
+                                    <div class="weight-700 font-20 text-dark"><?php echo "$ " .($format_balance); ?></div>
+                                    <div class="font-15 text-secondary weight-500">BALANCE</div>    
                                 </div>
                                 <!-- <div class="widget-icon">
                                     <div class="icon"><i class="icon-copy dw dw-money-2" aria-hidden="true"></i></div>
@@ -138,7 +149,10 @@
                                 <!-- <a class="dropdown-item" href="inv_detail_report.php?edit=<?php echo $get_id;?>"><i class="dw dw-edit2"></i> Edit</a> -->
                                <center><a href="inv_detail_report.php?edit=<?php echo $get_id;?>" class="bg-light-blue btn text-blue weight-500"><i class="icon-copy dw dw-eye " ></i> All Invoice Pdf</a> 
                                 <a href="receipt_detail_report.php?edit=<?php echo $get_id;?>" class="bg-light-blue btn text-blue weight-500"><i class="icon-copy dw dw-eye " ></i> All Receipts Pdf </a>
-                                </center>
+                                <a  href="#" class="bg-light-blue btn text-blue weight-500" data-toggle="modal" data-target="#Medium-modal"><i class="dw dw-eye"></i> Dept Reminder</a>
+												<!-- <img src="vendors/images/modal-img2.jpg" alt="modal"> -->
+											</a>   
+                            </center>
                                 
                                 <!-- <a href="inv_detail_report.php?edit=<?php //echo $get_id;?>" data-color="#265ed7"><i class="icon-copy dw dw-edit2"></i></a>
                                 <a href="inv_detail_report.php?edit=<?php// echo $get_id;?>" data-color="#265ed7"><i class="icon-copy dw dw-edit2"></i></a> -->
@@ -205,91 +219,88 @@
                     </div>
 
                     
-					<!-- add task popup start -->
-					<div class="modal fade customscroll" id="task-add" tabindex="-1" role="dialog">
-						<div class="modal-dialog modal-dialog-centered" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLongTitle">Change Passord</h5>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Close Modal">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body pd-0">
-									<div class="task-list-form">
-										<?php                                  
-										//$query = mysqli_query($conn,"select * from user where id = '$id' ")or die(mysqli_error());
-										//$row = mysqli_fetch_array($query);
-										?>
-										<ul>
-											<li>
-                                                <section>
-                                                    <div class="row">
-                                                        <?php
+					<!-- Medium modal -->
+                    <div class="col-md-4 col-sm-12 mb-30">				
+                        <div class="modal fade" id="Medium-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="myLargeModalLabel">Dept Reminder</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    </div>                                    
+                                    <div class="modal-body">
+                                        <?php
+                                            // $query = mysqli_query($conn,"SELECT user.Name,user.Email, user.Picture, tbl_order.id, tbl_order.Date, tbl_order.Reason, tbl_order.Status FROM tbl_order INNER JOIN user ON   tbl_order.Cid=user.id where tbl_order.id='$get_id'")or die(mysqli_error());
+                                            $query = mysqli_query($conn,"select * from user where Role='Customer' AND ID='$get_id' ") or die(mysqli_error());
+                                            $row = mysqli_fetch_array($query);
+                                            ?>
 
-                                                        $teacher_query = mysqli_query($conn,"select * from invoice where Cid='$get_id' ") or die(mysqli_error());
-                                                        while ($row = mysqli_fetch_array($teacher_query)) {
-                                                        $id = $row['id'];
-                                                        $today= $conn->query("SELECT id as eid from `invoice` where id='$id' ")->fetch_assoc()['eid'];
-                                                        
-                                                        $sql="SELECT File from invoice where id='$today' ";
-                                                        $query=mysqli_query($conn,$sql);
-                                                        while ($info=mysqli_fetch_array($query)) {
-                                                            ?>
-                                                            <?php
-                                                            if($info !=''){
-                                                            ?>                                       
-                                                                <embed type="application/pdf" src="invpdf/<?php echo $info['File'] ; ?>" width="900" height="500">
-                                                            <?php
-                                                            }else{
-                                                                echo "No file found";                                     
-                                                            ?>
-                                                            <?php
-                                                            }
-                                                            ?>
-                                                        <?php
-                                                        } }
-                                                        ?>
-                                                    </div>                                
-                                                </section>
-                                                                    <!-- <form method="post" action="">
-													<div class="form-group row">
-														<label class="col-md-4">Name :</label>
-														<div class="col-md-8">
-															<input type="text" name="name" class="form-control" readonly autocomplete="off" value="<?php echo $row['Name']; ?>" >
-														</div>
-													</div>
-													<div class="form-group row">
-														<label class="col-md-4">Company Name :</label>
-														<div class="col-md-8">
-															<input type="text" name="com_name" class="form-control"  readonly autocomplete="off" value="<?php echo $row['Com_name']; ?>"> 
-														</div>
-													</div>
-													<div class="form-group row">
-														<label class="col-md-4">Email :</label>
-														<div class="col-md-8">
-															<input type="email" name="email" class="form-control" readonly autocomplete="off" value="<?php echo $row['Email']; ?>"> 
-														</div>
-													</div>
-													<div class="form-group row">
-														<label class="col-md-4">Password :</label>
-														<div class="col-md-8">
-															<input type="text" name="password" class="form-control" required="true" autocomplete="off" value="<?php echo $row['password']; ?>"> 
-														</div>
-													</div>
-													<button type="submit" name="pass_change" id="pass_change"  class="btn btn-primary">Change</button>
-													<button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
-												
-												</form> -->
-											</li>											
-										</ul>
-									</div>									
-								</div>								
-							</div>
-						</div>
-					</div>
-					<!-- add task popup End -->      
-                    
+                                        <form id="add-event" method=post>
+                                            <div class="modal-body">
+                                                <!-- <h4 class="text-blue h4 mb-10">Add Event Detai</h4> -->
+                                                <div class="form-group">
+                                                    <label>Customer Name</label>
+                                                    <input type="text" class="form-control" name="name" required="true" autocomplete="off"  readonly value="<?php echo $row['Name']; ?>">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Company Name</label>
+                                                    <input type='text' class="form-control" name="Com_name" required="true" autocomplete="off"  readonly value="<?php echo $row['Com_name']; ?>">
+                                                </div>
+                                               
+                                                <div class="form-group">
+                                                    <label>Balance</label>
+                                                    <input type='text' class="form-control" name="Com_name" required="true" autocomplete="off"  readonly value=" <?php echo "$ " .($format_balance); ?>">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Date</label>
+                                                    <input type='date' class="form-control" name="Date" required="true" autocomplete="off" >
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Message</label>
+                                                    <textarea class="form-control" name="Message" required autocomplete="off" >Xasuusin. Asc <?php echo $row['Name']; ?>  , Haraaga xisaabta deynta laguugu leeyahay waa <?php echo "$ " .($format_balance); ?> Wixii faahfaahin ah kala xiriir 2323232
+                                                    </textarea>
+                                                </div>
+                                             
+                                                <div class="form-group">
+                                                    <label>Status</label>
+                                                    <select class="form-control" name="Status">
+                                                        <option value="Show">Show</option>
+                                                        <option value="Hide">Hide</option>
+                                                       
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Description</label>
+                                                        <textarea name="Memo" style="height: 5em;" placeholder="Description" class="form-control text_area" type="text"></textarea>
+                                                    </div>
+                                                </div>	
+                                                <!-- <div class="form-group">
+                                                    <label>Event Icon</label>
+                                                    <select class="form-control" name="eicon">
+                                                        <option value="circle">circle</option>
+                                                        <option value="cog">cog</option>
+                                                        <option value="group">group</option>
+                                                        <option value="suitcase">suitcase</option>
+                                                        <option value="calendar">calendar</option>
+                                                    </select>
+                                                </div> -->
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" name="submit" class="btn btn-primary" >Submit</button>
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>					
+                    </div>
+
                     
 
 				</div>

@@ -12,7 +12,9 @@
 	$PV=$_POST['PV'];
 	$Amount=$_POST['Amount']; 
 	$memo=$_POST['memo']; 
-	$Ac_id=$_POST['Ac_name']; 
+	$Ac_name=$_POST['Ac_name']; 
+
+	$Ac_id = $conn->query("SELECT id as cid from `account` where Acc_name='$Ac_name'  ")->fetch_assoc()['cid'];
 
 	$total_in = $conn->query("SELECT sum(Amount) as total from `cash_receipt` where Acc_id=$Ac_id   ")->fetch_assoc()['total'];
 	$total_out = $conn->query("SELECT sum(Amount) as total from `cash_payment` where Acc_id=$Ac_id ")->fetch_assoc()['total'];
@@ -113,7 +115,7 @@
 										<div class="form-group">
 											<label>Account :</label>
 											<select name="Ac_name" id="nid" class="custom-select form-control" required="true" autocomplete="off">
-											<option value="<?php echo $row['id'];?>"><?php echo $row['Acc_name'];?></option>
+											<option value="<?php echo $row['Acc_name'];?>"><?php echo $row['Acc_name'];?></option>
 													<?php
 													$query = mysqli_query($conn,"select * from account");  
 													while($row = mysqli_fetch_array($query)){
@@ -124,7 +126,7 @@
 														 $bal_format =number_format((float)$Ba_Inc_exp, '2','.',',');
 														if($bal_format > 0){
 															?>													
-															<option value="<?php echo $row['id']; ?>"><?php echo $row['Acc_name'] ." $bal_format" ?> </option>
+															<option value="<?php echo $row['Acc_name']; ?>"><?php echo $row['Acc_name'] ." $bal_format" ?> </option>
 													
 													<?php } }	?>
 											</select>

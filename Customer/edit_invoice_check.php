@@ -4,19 +4,97 @@
 <?php $get_id = $_GET['edit']; ?>
 <?php
 	if(isset($_POST['Order_check']))
-	{
-	
-	$Status=$_POST['Status'];
-	
+	{	
 
-	$result = mysqli_query($conn,"update invoice set Status='$Status' where id='$get_id'         
-		"); 		
-	if ($result) {
-     	echo "<script>alert('Record Successfully Updated');</script>";
-     	echo "<script type='text/javascript'> document.location = 'order_check.php'; </script>";
-	} else{
-	  die(mysqli_error());
-   }		
+
+		$st = $conn->query("SELECT Status as st from `invoice` where id='$get_id'  ")->fetch_assoc()['st'];
+
+		if($st =='Approved'){
+			?>
+
+			<Script>
+				window.addEventListener('load',function(){
+				swal({
+					title: "Error",
+					text: "This invoice is not updated, b/c your Approved this invoice ",
+					icon: "error",
+					button: "Ok Done!",
+				
+							// title: "Are you sure?",
+							// text: "Once deleted, you will not be able to recover this imaginary file!",
+							// icon: "warning",
+							// buttons: true,
+							// dangerMode: true,
+							// })
+							// .then((willDelete) => {
+							// if (willDelete) {
+							// 	swal("Poof! Your imaginary file has been deleted!", {
+							// 	icon: "success",
+							// 	});
+							// } else {
+							// 	swal("Your imaginary file is safe!");
+							// }
+
+				})
+				.then(function() {
+							window.location = "invoice_check.php";
+						});
+			
+
+			});
+			
+			  </Script>
+
+			<?php
+
+			// echo "<script>alert('This invoice is was not updated, b/c your Approved this invoice  ');</script>";
+			//echo "<script type='text/javascript'> document.location = 'invoice_check.php'; </script>";
+			
+		}else {
+			$Status=$_POST['Status'];	
+
+			$result = mysqli_query($conn,"update invoice set Status='$Status' where id='$get_id'         
+				"); 		
+			if ($result) {
+				?>
+				<Script>
+				window.addEventListener('load',function(){
+				swal({
+					// title: "Success!",
+					// text: "Record Successfully Updated!",
+					// icon: "success",
+					//  button: "Ok Done!",
+
+
+					title: "Are you sure?",
+							text: "Once deleted, you will not be able to recover this imaginary file!",
+							icon: "warning",
+							buttons: true,
+							dangerMode: true,
+							})
+							.then((willDelete) => {
+							if (willDelete) {
+								swal("Poof! Your imaokkkkkginary file has been record!", {
+								icon: "success",
+								});
+							} else {
+								swal("Your fffimaginary file is safe!");
+							}
+						});
+
+			});
+
+				// swal("Good job!", "You clicked the button!", "success");
+
+			  </Script>
+				<?php
+
+				// echo "<script>alert('Record Successfully Updated');</script>";
+				//echo "<script type='text/javascript'> document.location = 'invoice_check.php'; </script>";
+			} else{
+			die(mysqli_error());
+		}	
+	}	
 }
 ?>
 
@@ -33,12 +111,12 @@
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
 							<div class="title">
-								<h4>Customer Order Check</h4>
+								<h4>Customer Invoice Check</h4>
 							</div>
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="order_check.php">Back</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Order Check</li>
+									<li class="breadcrumb-item"><a href="invoice_check.php">Back</a></li>
+									<li class="breadcrumb-item active" aria-current="page">Invoice Check</li>
 								</ol>
 							</nav>
 						</div>
@@ -48,7 +126,7 @@
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix">
 						<div class="pull-left">
-							<h4 class="text-blue h4">Check Order </h4>
+							<h4 class="text-blue h4">Invoice Check </h4>
 							<p class="mb-20"></p>
 						</div>
 					</div>
@@ -56,7 +134,7 @@
 						<form method="post" action="">
 							<section>
 								<?php
-									$query = mysqli_query($conn,"SELECT user.Name ,  Invoice_Receipt.invoice ,Invoice_Receipt.Amount,Invoice_Receipt.Date,Invoice_Receipt.Memo FROM Invoice_Receipt INNER JOIN user ON   Invoice_Receipt.Cid=user.ID where Invoice_Receipt.id='$get_id'")or die(mysqli_error());
+									$query = mysqli_query($conn,"SELECT user.Name ,  invoice_receipt.invoice ,invoice_receipt.Amount,invoice_receipt.Date,invoice_receipt.Memo,invoice_receipt.Status FROM invoice_receipt INNER JOIN user ON   invoice_receipt.Cid=user.ID where invoice_receipt.id='$get_id'")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 									?>
 
@@ -123,7 +201,7 @@
 										<div class="form-group">
 											<label style="font-size:16px;"><b></b></label>
 											<div class="modal-footer justify-content-center">
-												<button class="btn btn-primary" name="Order_check" id="Order_check" data-toggle="modal">Apply&nbsp;Order_Check</button>
+												<button class="btn btn-primary" name="Order_check" id="Order_check" data-toggle="modal">Update&nbsp;Invoice_Check</button>
 											</div>
 										</div>
 									</div>
@@ -134,14 +212,14 @@
 								<div class="row">
                                     <?php
                                     
-                                    $sql="SELECT File from Invoice_Receipt where id='$get_id' ";
+                                    $sql="SELECT File from invoice_receipt where id='$get_id' ";
                                     $query=mysqli_query($conn,$sql);
                                     while ($info=mysqli_fetch_array($query)) {
                                         ?>
                                         <?php
                                         if($info !=''){
                                            ?>                                       
-                                            <embed type="application/pdf" src="../admin/invpdf/<?php echo $info['File'] ; ?>" width="900" height="500">
+                                            <embed type="application/pdf" src="../admin/pdf/<?php echo $info['File'] ; ?>" width="900" height="500">
                                         <?php
                                         }else{
                                             echo "No file found";                                     

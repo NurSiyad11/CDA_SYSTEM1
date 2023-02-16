@@ -2,16 +2,11 @@
 <?php include('../database/session.php')?>
 <?php include('../database/db.php')?>
 
-
-
 <?php
 	if(isset($_POST['apply']))
 	{
-	//$order_type=$_POST['order_type']; 
 	$date=$_POST['date'];	
-	$description=$_POST['description'];
-
-	
+	$description=$_POST['description'];	
 
 	$pdf=$_FILES['pdf']['name'];
 	$pdf_type=$_FILES['pdf']['type'];
@@ -21,12 +16,7 @@
 
 	move_uploaded_file($pdf_tem_loc,$pdf_store);
 
-
-	$Cid = $conn->query("SELECT id as cid from `user` where id='$session_id'  ")->fetch_assoc()['cid'];
- 
-	 
-
-
+		$Cid = $conn->query("SELECT id as cid from `user` where id='$session_id'  ")->fetch_assoc()['cid'];
 
         mysqli_query($conn,"INSERT INTO tbl_order(Cid,Date,File,Reason,Status) VALUES('$Cid','$date','$pdf','$description','Pending')         
 		") or die(mysqli_error()); ?>
@@ -36,9 +26,7 @@
 		</script>
 		<?php   
 }
-
 ?>
-
 <body>	
 	<?php include('includes/navbar.php')?>
 	<?php include('includes/right_sidebar.php')?>
@@ -64,7 +52,6 @@
 					</div>
 				</div>
 
-
 				<div style="margin-left: 50px; margin-right: 50px;" class="pd-20 card-box mb-30">
 					<div class="clearfix">
 						<div class="pull-left">
@@ -75,11 +62,9 @@
 					<div class="wizard-content">
 						<form method="post" action="apply_order.php" enctype="multipart/form-data">
 							<section>
-
 								<?php $query= mysqli_query($conn,"select * from user where id = '$session_id'")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
-								?>
-						
+								?>						
 								<div class="row">
 									<div class="col-md-6 col-sm-12">
 										<div class="form-group">
@@ -87,18 +72,14 @@
 											<input name="name" type="text" class="form-control wizard-required" required="true" readonly autocomplete="off" value="<?php echo $row['Name']; ?>">
 										</div>
 									</div>
-
 									<div class="col-md-6 col-sm-12">
 										<div class="form-group">
 											<label>Company Name</label>
 											<input name="text" type="text" class="form-control" required="true" autocomplete="off" readonly value="<?php echo $row['Com_name']; ?>">
 										</div>
 									</div>						
-								</div>
-								
-								
-
-								
+								</div>				
+																
 								<div class="row">
 									<div class="col-md-6 col-sm-12">
 										<div class="form-group">
@@ -111,16 +92,11 @@
 										<div class="form-group">											
 											<label for="">Choose Your PDF File</label><br>
 											<input id="pdf" type="file" name="pdf" value="" required="true"><br><br>
-												
-		
+														
 										</div>
 									</div>
-
-		
-
-
-
 								</div>
+
 								<div class="row">
 									<div class="col-md-8 col-sm-12">
 										<div class="form-group">
@@ -139,16 +115,8 @@
 								</div>
 							</section>
 						</form>
-					</div>
-					
-				</div>
-
-
-
-
-
-
-				
+					</div>					
+				</div>	
 
 			</div>
 			<?php include('includes/footer.php'); ?>

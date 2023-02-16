@@ -12,7 +12,9 @@
 	$RV=$_POST['RV']; 	
 	$Amount=$_POST['Amount']; 
 	$memo=$_POST['memo']; 
-	$Ac_id=$_POST['Ac_name']; 
+	$Ac_name=$_POST['Ac_name']; 
+
+	$Ac_id = $conn->query("SELECT id as cid from `account` where Acc_name='$Ac_name'  ")->fetch_assoc()['cid'];
 
 	$result = mysqli_query($conn,"update cash_receipt set Acc_id='$Ac_id', name='$name',  Date='$Date', RV='$RV',  Amount='$Amount', Memo='$memo' where id='$get_id'         
 		"); 		
@@ -97,12 +99,12 @@
 										<div class="form-group">
 											<label>Account :</label>
 											<select name="Ac_name" id="nid" class="custom-select form-control" required="true" autocomplete="off">
-												<option value="<?php echo $row['id'];?>"><?php echo $row['Acc_name'];?></option>
+												<option value="<?php echo $row['Acc_name'];?>"><?php echo $row['Acc_name'];?></option>
 													<?php
 													$query1 = mysqli_query($conn,"select * from account");
 													while($row = mysqli_fetch_array($query1)){													
 													?>
-												<option value="<?php echo $row['id']; ?>"><?php echo $row['Acc_name']; ?></option>
+												<option value="<?php echo $row['Acc_name']; ?>"><?php echo $row['Acc_name']; ?></option>
 													<?php } ?>
 											</select>
 										</div>

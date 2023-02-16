@@ -74,16 +74,13 @@ $html='
 	<strong>Qaybta Password Waxaad Galisaa :  </strong>' . $password . '<br/>
 	<p>Kadib Sign in Taabo Si aad Systemka Gudaha ugu Gashid.  </p> <br/><br><br>
 
-	<table  border="" cellpadding="0" cellspacing="0" >
+	<table  border="" cellpadding="0" cellspacing="0" width="" >
 		<tr>
 			<th>
 			Customer Information :
 			</th>		
 			<th></th>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></th>
+		
 		</tr>
 		<tr>
 			<th></th>		
@@ -97,11 +94,7 @@ $html='
 			<strong>Username : </strong>' . $email .'<br/>
 			<strong>Paasword : </strong>' . $password .'<br/>
 			</td>
-			
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></th>
+		
 		</tr>
 	
 	</table>	

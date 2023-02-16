@@ -17,15 +17,58 @@
 	$Status=$_POST['Status']; 
 
 
-	 $query = mysqli_query($conn,"select * from user where Email = '$email'")or die(mysqli_error());
+	
+	$query1 = mysqli_query($conn,"select * from user where Com_name = '$com_name' ")or die(mysqli_error());
+	$count1 = mysqli_num_rows($query1);     
+
+	 $query = mysqli_query($conn,"select * from user where Email = '$email' ")or die(mysqli_error());
 	 $count = mysqli_num_rows($query);     
 	 
 
      if ($count > 0){ ?>
 	 <script>
-	 alert('User Already Exist');
+	//  alert('User Already Exist');
+
+
+		window.addEventListener('load',function(){
+			swal({
+				//title: "Warning",
+				text: "User Already exist ",
+				icon: "warning",
+				button: "Ok Done!",
+			
+					
+			})
+			.then(function() {
+						window.location = "user.php";
+					});
+
+		});
+
 	</script>
 	<?php
+	}elseif ($count1 > 0){ ?>
+		<script>
+	   //  alert('User Already Exist');
+   
+   
+		   window.addEventListener('load',function(){
+			   swal({
+				   //title: "Warning",
+				   text: "Comapany Already exist ",
+				   icon: "warning",
+				   button: "Ok Done!",
+			   
+					   
+			   })
+			   .then(function() {
+						   window.location = "user.php";
+					   });
+   
+		   });
+   
+	   </script>
+	   <?php
       }else{
         mysqli_query($conn,"INSERT INTO user(Name,Email,password,Com_name,Address,Role,Phone,Status) VALUES('$name','$email','$password','$com_name','$address','$role','$phonenumber','$Status')         
 		") or die(mysqli_error()); ?>

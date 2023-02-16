@@ -66,7 +66,7 @@
 						</div>
 					</div>
 					<div class="wizard-content">
-						<form method="post" action="" enctype="multipart/form-data">
+						<form method="post" action="A5pdf.php" enctype="multipart/form-data">
 							<section>
 								<div class="row">
 									<?php

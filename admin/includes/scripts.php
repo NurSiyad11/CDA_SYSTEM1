@@ -10,3 +10,6 @@
 	<script src="../src/plugins/datatables/js/dataTables.responsive.min.js"></script>
 	<script src="../src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
 	<script src="../vendors/scripts/dashboard.js"></script>
+
+	<!-- Script js sweet alert  -->
+	<script src="../src/scripts/sweetalert.min.js"></script>

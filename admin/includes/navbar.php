@@ -141,9 +141,9 @@
 				</div>
 			</div>
 
-<!-- <button type="button" class="btn btn-primary position-relative">
-  Mails <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+99 <span class="visually-hidden">unread messages</span></span>
-</button> -->
+			<!-- <button type="button" class="btn btn-primary position-relative">
+			Mails <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+99 <span class="visually-hidden">unread messages</span></span>
+			</button> -->
 			<div class="user-notification">
 				<div class="dropdown">
 					<a class="dropdown-toggle no-arrow" href="#" role="button" data-toggle="dropdown">
@@ -165,7 +165,7 @@
 							<ul>
 								<?php 
 								
-								$sql = "SELECT user.Name, user.Com_name, user.Picture, support.id, support.Title,support.Memo FROM support INNER JOIN user ON   support.Cid=user.ID where support.Status ='' order by support.RegDate desc";
+								$sql = "SELECT user.Name, user.Com_name, user.Picture, support.id, support.Message FROM support INNER JOIN user ON   support.Cid=user.ID where support.Status ='' order by support.RegDate desc";
 									$query = mysqli_query($conn, $sql) or die(mysqli_error());
 									while ($row = mysqli_fetch_array($query)) {
 
@@ -177,8 +177,8 @@
 										<h3><?php echo $row['Name'];?></h3>
 										
 										<p><?php echo $row['Com_name'];?></p>
-										<p><?php echo $row['Title'];?></p>
-										<p><?php echo $row['Memo'];?></p>
+										<p><?php echo $row['Message'];?></p>
+										<!-- <p><?php //echo $row['Memo'];?></p> -->
 										<!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p> -->
 									</a>
 								</li>

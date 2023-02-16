@@ -81,14 +81,48 @@
 						<div class="sidebar-small-cap">Extra</div>
 					</li>
 
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-user-2"></span><span class="mtext">Order Info</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="All_order.php">All Order</a></li>
+							<li><a href="Testing.php">Testing</a></li>
+						
+						</ul>
+					</li>
 					
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-user-2"></span><span class="mtext">Debt Reminder</span>
+						</a>
+						<ul class="submenu">
+							<!-- <li><a href="All_order.php">All Order</a></li>
+							<li><a href="Testing.php">Testing</a></li> -->
+							<li><a href="Mng_debt_reminder.php">Manage debt reminder</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-user-2"></span><span class="mtext">Support</span>
+						</a>
+						<ul class="submenu">
+							
+							<li><a href="All_Support.php">All Support</a></li>
+						</ul>
+					</li>
+					
+
+                
+					
+
                     <li class="dropdown">
 						<a href="video.php" class="dropdown-toggle no-arrow">
 							<span class="micon dw dw-eye"></span><span class="mtext">Video</span>
 						</a>
 						
                     </li>
-
+					<!-- 
 					<li>
 						<a href="javascript:;" class="dropdown-toggle">
 							<span class="micon dw dw-edit-2"></span><span class="mtext">Documentation</span>
@@ -99,13 +133,13 @@
 							<li><a href="color-settings.html">Color Settings</a></li>
 							<li><a href="third-party-plugins.html">Third Party Plugins</a></li>
 						</ul>
-					</li>
-					<li>
+					</li> -->
+					<!-- <li>
 						<a href="#" target="_blank" class="dropdown-toggle no-arrow">
 							<span class="micon dw dw-paper-plane1"></span>
 							<span class="mtext">Landing Page <img src="../vendors/images/coming-soon.png" alt="" width="25"></span>
 						</a>
-					</li>
+					</li> -->
 				</ul>
 			</div>
 		</div>

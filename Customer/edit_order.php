@@ -8,8 +8,27 @@
 		$st = $conn->query("SELECT Status as st from `tbl_order` where id='$get_id'  ")->fetch_assoc()['st'];
 
 		if($st !='Pending'){
-			echo "<script>alert('This order was not updated, b/c the Administrator received the order');</script>";
-			echo "<script type='text/javascript'> document.location = 'order_history.php'; </script>";
+			?>
+<Script>
+				window.addEventListener('load',function(){
+				swal({
+					title: "Warning",
+					text: "This order was not updated, b/c the Administrator received the order ",
+					icon: "warning",
+					button: "Ok Done!",				
+					
+				})
+				.then(function() {
+							window.location = "order_history.php";
+						});			
+
+			});
+			
+			  </Script>
+
+			<?php
+			// echo "<script>alert('This order was not updated, b/c the Administrator received the order');</script>";
+			// echo "<script type='text/javascript'> document.location = 'order_history.php'; </script>";
 			
 		}else {
 			//$order=$_POST['order']; 	
@@ -24,8 +43,6 @@
 
 			move_uploaded_file($pdf_tem_loc,$pdf_store);
 
-
-
 			$result = mysqli_query($conn,"update tbl_order set  Date='$date', Reason='$Reason', File='$pdf'  where id='$get_id'         
 				"); 		
 			if ($result) {
@@ -33,12 +50,10 @@
 				echo "<script type='text/javascript'> document.location = 'order_history.php'; </script>";
 			} else{
 			die(mysqli_error());
-			}
-		
+			}		
 		}
 	}
 ?>
-
 <body>
 	<?php include('includes/navbar.php')?>
 	<?php include('includes/right_sidebar.php')?>
@@ -67,17 +82,6 @@
 				<div style="margin-left: 50px; margin-right: 50px;" class="pd-20 card-box mb-30">
 					<div class="clearfix">
 						<div class="pull-left">
-							
-							<?php
-							//$sql="SELECT Status from tbl_order where id='$get_id' ";
-							//$query=mysqli_query($conn,$sql);
-							//echo "$query";
-							//$st = $conn->query("SELECT Status as St from `tbl_order` where id='$get_id'  ")->fetch_assoc()['st'];
-							//$a=$st;
-							//echo "$a";
-							
-							// echo "$sql"	?>
-							<!-- <div class="weight-700 font-20 text-dark"><?php// echo "$ " .($st);?></div> -->
 							<h4 class="text-blue h4">Update Order Form</h4>
 							<p class="mb-20"></p>
 						</div>
@@ -85,12 +89,10 @@
 					<div class="wizard-content">
 						<form method="post" action=""  enctype="multipart/form-data">
 							<section>
-
 								<?php if ($role_id = 'Customer'): ?>
 								<?php $query= mysqli_query($conn,"select * from user where id = '$session_id'")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
-								?>
-						
+								?>						
 								<div class="row">
 									<div class="col-md-6 col-sm-12">
 										<div class="form-group">
