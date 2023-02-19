@@ -30,14 +30,9 @@ if (isset($_POST["update_image"])) {
 ?>
 
 <body>
-	
-
 	<?php include('includes/navbar.php')?>
-
 	<?php include('includes/right_sidebar.php')?>
-
 	<?php include('includes/left_sidebar.php')?>
-
 	<div class="mobile-menu-overlay"></div>
 
 	<div class="main-container">
@@ -116,78 +111,78 @@ if (isset($_POST["update_image"])) {
 						</div>
 					</div>
 					
+
+
+
 					<div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 mb-30">
 						<div class="card-box height-100-p overflow-hidden">
 							<div class="profile-tab height-100-p">
 								<div class="tab height-100-p">
 									<ul class="nav nav-tabs customtab" role="tablist">
 										<li class="nav-item">
-											<a class="nav-link active" data-toggle="tab" href="#timeline" role="tab">Mangers </a>
+											<a class="nav-link active" data-toggle="tab" href="#timeline" role="tab">Administrator</a>
 										</li>
-
-										<!--
-										<li class="nav-item">
-											<a class="nav-link" data-toggle="tab" href="#setting" role="tab">Settings</a>
-										</li>
-										-->
+									
 									</ul>
-									<div class="tab-content">
-										<!-- Timeline Tab start -->
-										<div class="tab-pane fade show active" id="timeline" role="tabpanel">
-											<div class="pd-20">
-												<div class="profile-timeline">
-													<?php $query= mysqli_query($conn,"SELECT * from user where role='HOD' order by id desc limit 10")or die(mysqli_error());
-																while ($row = mysqli_fetch_array($query)) {
-		                        								$id = $row['ID'];
-															?>
-													<div class="timeline-month">
-														<h5><?php echo $row['Name']; ?></h5>
+									<div class="tab-content">									
+										<div class="container p-5">
+											<?php
+												$query = mysqli_query($conn,"SELECT * from user where id = '$session_id'")or die(mysqli_error());
+												$row = mysqli_fetch_array($query);
+											?>
+
+											<form method="post" action="" >
+												<div class="row">
+													<div class="col-md-6">
+														<label class="form-label">User Name</label>
+														<input type="text" name="name"  class="form-control" placeholder="Username" required readonly autocomplete="off" value="<?php echo $row['Name'];?>">
 													</div>
-													<div class="profile-timeline-list">
-														<ul>
-															
-															<li>
-																<div class="date"><?php echo $row['Email']; ?></div><br>
-																<div class="task-name"><i class="ion-ios-chatboxes"></i><?php echo "Name : ". $row['Name']; ?></div>
-																<p><?php echo "Role : ". $row['Role']; ?></p>
-																<p><?php echo "Phone : ". $row['Phone']; ?></p>
-																<p><?php echo "Address : ". $row['Address']; ?></p>
-																<p><?php echo "Status : ". $row['Status']; ?></p>
-																
-
-
-																<!--
-																<div class="task-time">
-																	<?php $stats=$row['Status'];
-								                                       if($stats==1){
-								                                        ?>
-								                                           <span style="color: green">Approved</span>
-								                                            <?php } if($stats==2)  { ?>
-								                                           <span style="color: red">Not Approved</span>
-								                                            <?php } if($stats==0)  { ?>
-									                                       <span style="color: blue">Pending</span>
-									                                <?php } ?>
-																</div>
-																-->
-
-															</li>
-															
-															
-														</ul>
-													</div>
-												<?php }?>
+													<div class="col-md-6">
+														<label for="inputPassword4" class="form-label">Company Name</label>
+														<input type="text"   name="Com_name"class="form-control"  placeholder="" readonly required autocomplete="off" value="<?php echo $row['Com_name'];?>">
+													</div>	
 												</div>
-											</div>
-										</div>
-										<!-- Timeline Tab End -->
-										<!-- Setting Tab start -->
+												<br>
 										
+												<div class="row">
+													<div class="col-md-6">
+														<label class="form-label">Phone</label>
+														<input type="number" name="phone" class="form-control" placeholder="25261326222" readonly  required autocomplete="off" value="<?php echo $row['Phone'];?>">
+													</div>													
+													<div class="col-6">
+														<label for="inputAddress" class="form-label">Address</label>
+														<input type="text" name="address" class="form-control" id="inputAddress" placeholder="Addrsess" readonly  required autocomplete="off" value="<?php echo $row['Address'];?>">
+													</div>
+												</div>
+												<br>
+												<div class="row">
+													<div class="col-md-6">
+														<label class="form-label">Status</label>
+														<input type="text" name="status" class="form-control" placeholder=""  required readonly autocomplete="off" value="<?php echo $row['Status'];?>">
+													</div>													
+													<div class="col-6">
+														<label for="inputAddress" class="form-label">Last Login Time</label>
+														<input type="text" name="lg_time" class="form-control" id="inputAddress" placeholder="" readonly required autocomplete="off" value="<?php echo $row['Login_time'];?>">
+													</div>
+												</div>
+												<br>
+
+
+											</form>
+										</div>
 										<!-- Setting Tab End -->
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+
+
+
+
+
+
+
 
 
 					

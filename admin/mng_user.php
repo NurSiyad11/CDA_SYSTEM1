@@ -201,6 +201,7 @@ if (isset($_GET['delete'])) {
 										</a>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 											<a class="dropdown-item" href="edit_user.php?edit=<?php echo $row['ID'];?>"><i class="dw dw-edit2"></i> Edit</a>
+											<a class="dropdown-item" href="generate_user_info.php?edit=<?php echo $row['ID'];?>"><i class="dw dw-edit2"></i> Pdf</a>
 											<a class="dropdown-item" href="Mng_user.php?delete=<?php echo $row['ID'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
 										</div>
 									</div>

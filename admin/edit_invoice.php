@@ -119,7 +119,7 @@
 
 									<div class="">										
 										<label for="">Choose Your PDF File</label><br>
-										<input id="pdf" type="file" name="pdf" required value="<?php echo $row['File']; ?>"><br><br>
+										<input id="pdf" type="file" name="pdf" required value="<?php echo $row['File']; ?>" accept="pdf/*" onchange="validateImage('file')"><br><br>
 									</div>
 
 
@@ -178,5 +178,6 @@
 	</div>
 	<!-- js -->
 	<?php include('includes/scripts.php')?>
+	<?php include('includes/script_pdf.php')?>
 </body>
 </html>

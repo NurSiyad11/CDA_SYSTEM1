@@ -84,14 +84,15 @@
 									<div class="col-md-6 col-sm-12">
 										<div class="form-group">
 											<label>order Date :</label>
-											<input name="date" type="date" class="form-control " required="true" autocomplete="off">
+											<input name="date" type="date" class="form-control " required="true" autocomplete="off" >
 										</div>
 									</div>
+					
 
 									<div class="col-md-6 col-sm-12">
 										<div class="form-group">											
 											<label for="">Choose Your PDF File</label><br>
-											<input id="pdf" type="file" name="pdf" value="" required="true"><br><br>
+											<input  id="file" type="file" name="pdf" required="true"  accept="pdf/*" onchange="validatePdf('file')"><br><br>
 														
 										</div>
 									</div>
@@ -124,5 +125,6 @@
 	</div>
 	<!-- js -->
 	<?php include('includes/scripts.php')?>
+	<?php include('includes/script_pdf.php')?>
 </body>
 </html>

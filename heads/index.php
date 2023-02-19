@@ -2,84 +2,6 @@
 <?php include('../database/db.php') ?>
 <?php include('../database/session.php') ?>
 
-<?php	
-	$dataPoints1 = array(
-		array("label"=> "Cash On Hand", "y"=> 36.12),
-		array("label"=> "feb", "y"=> 34.87),
-		array("label"=> "mar", "y"=> 40.30),
-		array("label"=> "april", "y"=> 35.30),
-		array("label"=> "may", "y"=> 39.50),
-		array("label"=> "jun", "y"=> 50.82),
-		array("label"=> "july", "y"=> 74.70)
-
-	);
-	$dataPoints2 = array(
-		array("label"=> "Cash On Hamd", "y"=> 14.61),
-		array("label"=> "feb", "y"=> 70.55),
-		array("label"=> "mar", "y"=> 72.50),
-		array("label"=> "april", "y"=> 81.30),
-		array("label"=> "may", "y"=> 63.60),
-		array("label"=> "june", "y"=> 69.38),
-		array("label"=> "july", "y"=> 98.70)
-
-		
-		
-		);		
-	?>
-
-	<script>
-	window.onload = function () {
-	
-	var chart = new CanvasJS.Chart("chartContainer", {
-		animationEnabled: true,
-		theme: "light3",
-		title:{
-			text: "Average Amount Cash in And Cash out."
-		},
-		axisY:{
-			includeZero: true
-		},
-		legend:{
-			cursor: "pointer",
-			verticalAlign: "center",
-			horizontalAlign: "right",
-			itemclick: toggleDataSeries
-		},
-		data: [{
-			type: "column",
-			name: "Total In",
-			indexLabel: "{y}",
-			yValueFormatString: "$#0.##",
-			showInLegend: true,
-			dataPoints: <?php echo json_encode($dataPoints1, JSON_NUMERIC_CHECK); ?>
-		},{
-			type: "column",
-			name: "Total out",
-			indexLabel: "{y}",
-			yValueFormatString: "$#0.##",
-			showInLegend: true,
-			dataPoints: <?php echo json_encode($dataPoints2, JSON_NUMERIC_CHECK); ?>
-		}]
-	});
-	chart.render();
-	
-	function toggleDataSeries(e){
-		if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-			e.dataSeries.visible = false;
-		}
-		else{
-			e.dataSeries.visible = true;
-		}
-		chart.render();
-	}
-	
-	}
-	</script>
-
-
-
-
-
 <body>
 	<?php include('includes/navbar.php') ?>
 	<?php include('includes/right_sidebar.php') ?>
@@ -160,9 +82,85 @@
 			<div class="row">				
 				<div class="col-xl-8 mb-30">
 					<div class="card-box height-100-p pd-20">
-						<h2 class="h4 mb-20">Activity</h2>
+						<h2 class="h4 mb-20">New Customer Receipts</h2>
+						<div class="card-box mb-30">
+							<!-- <div class="pd-20">
+								<h2 class="text-blue h4">New Customer Receipts</h2>
+							</div> -->
+							<div class="pb-20">
+								<table class="data-table table stripe hover nowrap">
+									<thead>
+										<tr>
+											<th>NO#</th>
+											<th class="table-plus">Customer Name</th>								
+											<th>Receipt No#</th>
+											<th>Date </th>
+											<th>Memo</th>
+											<th>Amount</th>
+											<th>Status</th>						
+											<th class="datatable-nosort">ACTION</th>
+										</tr>
+									</thead>
+
+
+									<tbody>
+										<?php                               
+										$sql = "SELECT user.Name, user.Com_name,  receipt.id, receipt.Cid,receipt.RV ,receipt.Amount,receipt.Date,receipt.Memo,receipt.Status,receipt.File FROM receipt INNER JOIN user ON   receipt.Cid=user.ID Where receipt.Status='Pending' order by receipt.Date Desc ";                           
+										$query = $dbh -> prepare($sql);
+										$query->execute();
+										$results=$query->fetchAll(PDO::FETCH_OBJ);
+										$cnt=1;
+										if($query->rowCount() > 0)
+										{
+										foreach($results as $result)
+										{               ?>  
+
+										<tr>
+											<td> <?php echo htmlentities($cnt);?></td>
+											<td><?php echo htmlentities($result->Com_name);?></td>
+											<td><?php echo htmlentities($result->RV);?></td>
+											<td><?php echo htmlentities($result->Date);?></td>	
+											<td><?php echo htmlentities($result->Memo);?></td>
+											<td ><?php echo "$ ". number_format((float)htmlentities($result->Amount), '2','.',','); ?></td>
+
+											<td><?php $stats=($result -> Status);
+											if($stats=="Pending"){
+											?>
+											<span class="badge badge-primary">Pending</span>
+												<!-- <span style="color: green">Pending</span> -->
+												<?php } if($stats=="Approved")  { ?>
+													<span class="badge badge-success">Approved</span>
+												<?php } if($stats=="Rejected")  { ?>
+													<span class="badge badge-danger">Rejected</span>
+												<?php } 
+											?>
+											</td>	
+											
+											<td>
+												<div class="table-actions">										
+													<div class="dropdown">
+														<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+															<i class="dw dw-more"></i>
+														</a>
+														<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+															<a class="dropdown-item" href="edit_receipt.php?edit=<?php echo  htmlentities($result->id); ?>"><i class="dw dw-eye"></i> View</a>
+															
+														</div>
+													</div>                                    
+												</div>
+											</td>
+										</tr>
+										<?php $cnt++;} }?>  
+									</tbody>
+								</table>						
+							</div>
+						</div>
+
+
+
+
 						<!-- <div id="chart5"></div> -->
-						<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+						<!-- <div id="chartContainer" style="height: 370px; width: 100%;"></div> -->
 					</div>
 				</div>
 
@@ -199,13 +197,14 @@
 				</div> -->
 			</div>
 			<!-- data-table table stripe hover nowrap -->
+
 			<?php include('includes/footer.php') ?>
 
 
 		</div>
 	</div>
-	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-	<?php include('includes/scripts.php') ?>
+	<!-- <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> -->
+	<?php include('includes/scripts2.php') ?>
 
 
 

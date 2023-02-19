@@ -113,7 +113,7 @@ if (isset($_GET['delete'])) {
 									</div>
 									<div class="">										
 										<label for="">Choose Your PDF File</label><br>
-										<input id="pdf" type="file" name="pdf" value="" required><br><br>
+										<input id="file" type="file" name="pdf" value="" required accept="pdf/*" onchange="validatePdf('file')"><br><br>
 									</div>
 									<div class="col-md-12">
 											<div class="form-group">
@@ -232,7 +232,7 @@ if (isset($_GET['delete'])) {
 	</div>
 	<!-- js -->	
 	<?php include('includes/scripts2.php')?>
-
+	<?php include('includes/script_pdf.php')?>
 
 
 

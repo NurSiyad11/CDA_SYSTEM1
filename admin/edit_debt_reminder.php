@@ -110,13 +110,6 @@
 											<input name="sys_date" type="text" class="form-control wizard-required" required="true" autocomplete="off"  readonly value="<?php echo $row['RegDate']; ?>">
 										</div>
 									</div>					
-
-									<!-- <div class="col-md-8 col-sm-12">
-										<div class="form-group">
-											<label>Resson :</label>
-											<input name="Resson" type="text" class="form-control" required="true" autocomplete="off" readonly value="<?php// echo $row['Reason']; ?>">
-										</div>
-									</div>								 -->
 								</div>
                                 <div class="row">
                                     <div class="col-md-2">

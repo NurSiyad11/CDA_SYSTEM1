@@ -94,13 +94,13 @@ if (isset($_GET['delete'])) {
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix">
 						<div class="row">
-						<div class="pull-left">
-							<h4 class="text-blue h4">Cash Receipt Form</h4>
-							<p class="mb-20"></p>
-						</div>
-						<div class="col-md-4 col-sm-12 text-right"> 
-							<a href="task-add" data-toggle="modal" data-target="#task-add" class="bg-light-blue btn text-blue weight-500" ><i class=" icon-copy ion-plus-circled "></i> Account Registration </a>
-						</div>
+							<div class="pull-left">
+								<h4 class="text-blue h4">Cash Receipt Form</h4>
+								<p class="mb-20"></p>
+							</div>
+							<div class="col-md-4 col-sm-12 text-right"> 
+								<a href="task-add" data-toggle="modal" data-target="#task-add" class="bg-light-blue btn text-blue weight-500" ><i class=" icon-copy ion-plus-circled "></i> Account Registration </a>
+							</div>
 						</div>
 						
 					</div>

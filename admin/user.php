@@ -9,13 +9,19 @@
 	$name=$_POST['name'];	   
 	$email=$_POST['email']; 
 	$password=$_POST['password']; 
-	// $con_pass=$_POST['con_pass']; 
 	$com_name=$_POST['com_name']; 
 	$address=$_POST['address']; 	 
 	$role=$_POST['role']; 
 	$phonenumber=$_POST['phonenumber']; 
 	$Status=$_POST['Status']; 
 
+	$image=$_FILES['image']['name'];
+	$image_type=$_FILES['image']['type'];
+	$image_size=$_FILES['image']['size'];
+	$image_tem_loc=$_FILES['image']['tmp_name'];
+	$image_store="../uploads/".$image;
+
+	move_uploaded_file($image_tem_loc,$image_store);
 
 	
 	$query1 = mysqli_query($conn,"select * from user where Com_name = '$com_name' ")or die(mysqli_error());
@@ -27,50 +33,36 @@
 
      if ($count > 0){ ?>
 	 <script>
-	//  alert('User Already Exist');
-
-
 		window.addEventListener('load',function(){
 			swal({
 				//title: "Warning",
 				text: "User Already exist ",
 				icon: "warning",
-				button: "Ok Done!",
-			
-					
+				button: "Ok Done!",			
 			})
 			.then(function() {
-						window.location = "user.php";
-					});
-
+					window.location = "user.php";
+				});
 		});
-
 	</script>
 	<?php
 	}elseif ($count1 > 0){ ?>
-		<script>
-	   //  alert('User Already Exist');
-   
-   
+		<script>    
 		   window.addEventListener('load',function(){
 			   swal({
 				   //title: "Warning",
 				   text: "Comapany Already exist ",
 				   icon: "warning",
-				   button: "Ok Done!",
-			   
-					   
+				   button: "Ok Done!",		   
 			   })
 			   .then(function() {
 						   window.location = "user.php";
-					   });
-   
-		   });
-   
+					   });  
+		   });   
 	   </script>
 	   <?php
       }else{
-        mysqli_query($conn,"INSERT INTO user(Name,Email,password,Com_name,Address,Role,Phone,Status) VALUES('$name','$email','$password','$com_name','$address','$role','$phonenumber','$Status')         
+        mysqli_query($conn,"INSERT INTO user(Name,Email,password,Com_name,Address,Role,Phone,Status,Picture) VALUES('$name','$email','$password','$com_name','$address','$role','$phonenumber','$Status','$image')         
 		") or die(mysqli_error()); ?>
 		<script>alert('User Records Successfully Added');</script>;
 		<script>
@@ -120,7 +112,7 @@
 						</div>
 					</div>
 					<div class="wizard-content">
-						<form method="post" action="">
+						<form method="post" action=""  enctype="multipart/form-data">
 							<section>
 								<div class="row">
 									<div class="col-md-4 col-sm-12">
@@ -196,13 +188,17 @@
 									</div>
 								</div>
 
-								<div class="row">				
+								<div class="row">	
+									<div class="col-md-4 col-sm-12">										
+										<label for="">Choose Your PDF File</label><br>
+										<input id="file" type="file" name="image"   accept="Image/*" onchange="validateImage('file')"><br><br>
+									</div>			
 											
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label style="font-size:16px;"><b></b></label>
 											<div class="modal-footer justify-content-center">
-												<button class="btn btn-primary" name="add_user" id="add_user" data-toggle="modal"  onclick= ' return validation()' >Add&nbsp;User</button>
+												<button class="btn btn-primary" name="add_user" id="add_user"  onclick= ' return validation()' >Add&nbsp;User</button>
 											</div>
 										</div>
 									</div>
@@ -214,8 +210,6 @@
 			</div>
 
 			<script type="text/javascript">
-		
-
 				function validation(){			
 					var pass = document.getElementById('password').value;
 					var confirmpass = document.getElementById('con_pass').value;		
@@ -225,12 +219,39 @@
 						return false;
 					}
 				}
-
 			</script>
+
 			<?php include('includes/footer.php'); ?>
 		</div>
 	</div>
 	<!-- js -->
 	<?php include('includes/scripts.php')?>
+	
+	<script type="text/javascript">
+		 function validateImage(id) {
+		    var formData = new FormData();
+		    var file = document.getElementById(id).files[0];
+		    formData.append("Filedata", file);
+		    var t = file.type.split('/').pop().toLowerCase();
+		    if (t != "jpeg" && t != "jpg" && t != "png") {
+		        alert('Please select a valid image file');
+		        document.getElementById(id).value = '';
+		        return false;
+		    }
+		    if (file.size > 1050000) {
+		        alert('Max Upload size is 1MB only');
+		        document.getElementById(id).value = '';
+		        return false;
+		    }
+
+		    return true;
+		}
+	</script>
+
+
+
+
+
+
 </body>
 </html>
