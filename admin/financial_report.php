@@ -14,38 +14,27 @@
                 		                    
                 <div class="row pb-10">
 
-                <?php					
-                    $RV = $conn->query("SELECT sum(Amount) as total FROM `cash_receipt`   ")->fetch_assoc()['total'];	
-                    $format =number_format((float)$RV, '2','.',',');
-                ?> 
-				<div class="col-xl-4 mb-30">
-					<div class="card-box height-100-p widget-style1 bg-white">
-						<div class="d-flex flex-wrap align-items-center">
-							<div class="progress-data">
-								<div id=""  >
-                                <!-- <i class="icon-copy dw dw-name"></i> -->
-                                <!-- <i class="icon-copy ion-calendar align-items-center " width="50" height="50"></i> -->
-								<img src="../vendors/images/img/dollor2.png" class="border-radius-100 shadow" width="50" height="50" alt="">
-								</div>
-							</div>
-							<div class="widget-data">
-								<div class="h4 mb-0"><?php echo  ($format); ?></div>
-								<div class="weight-300 font-18">Total Cash In</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-
-
-
-
-
-
-
-
-
-
+                    <?php					
+                        $RV = $conn->query("SELECT sum(Amount) as total FROM `cash_receipt`   ")->fetch_assoc()['total'];	
+                        $format =number_format((float)$RV, '2','.',',');
+                    ?> 
+                    <div class="col-xl-4 mb-30">
+                        <div class="card-box height-100-p widget-style1 bg-white">
+                            <div class="d-flex flex-wrap align-items-center">
+                                <div class="progress-data">
+                                    <div id=""  >
+                                    <!-- <i class="icon-copy dw dw-name"></i> -->
+                                    <!-- <i class="icon-copy ion-calendar align-items-center " width="50" height="50"></i> -->
+                                    <img src="../vendors/images/img/dollar5.png" class="border-radius-100 shadow" width="50" height="50" alt="">
+                                    </div>
+                                </div>
+                                <div class="widget-data">
+                                    <div class="h4 mb-0"><?php echo  ($format); ?></div>
+                                    <div class="weight-300 font-18">Total Cash In</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
                     <div class="col-xl-4 col-lg-3 col-md-6 mb-20">
@@ -91,6 +80,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="col-xl-4 col-lg-3 col-md-6 mb-20">
                         <div class="card-box height-100-p widget-style3">
 
@@ -126,6 +116,40 @@
                 <div class="pd-20">
                     <h2 class="text-blue h4">Cash in And Cash Out</h2>
                 </div>
+
+                <div class="container pd-5">
+                    <?php 
+                    $d= date('m');
+                    ?>
+                    <form action="" method="GET">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="from-group">
+                                    <label > From Date  </label>
+                                    <input type="date" name="from_date" class="form-control" value="<?php if(isset($_GET['from_date'])){ echo $_GET['from_date']; }else{ echo "2023-$d-01";}; ?>">
+                                </div>
+                            </div>
+                            
+                            <div class="col-4">
+                                <div class="from-group">
+                                    <label > To Date  </label>
+                                    <input type="date" name="to_date" class="form-control" value="<?php if(isset($_GET['to_date'])){ echo $_GET['to_date']; }else{ echo "2023-$d-30";} ?>" >
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <div class="from-group">
+                                    <label > Click to Filter  </label> <br>
+                                    <button type="submit" class="btn btn-primary">Filter</button>
+                                    <!-- <input type="date" name="to_date" class="form-control"> -->
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+
                 <div class="pb-20">
                     <table class="data-table table stripe hover nowrap">
                         <thead>
@@ -146,8 +170,16 @@
 
                                 <?php
                                 $i =1;
-                                $teacher_query = mysqli_query($conn,"SELECT id,name,D_RV,RV,Date,Memo,Amount,empty   FROM cash_receipt   UNION All SELECT id,name,D_PV,PV,Date,Memo,empty,Amount FROM cash_payment ORDER BY Date desc;") or die(mysqli_error());
-                                while ($row = mysqli_fetch_array($teacher_query)) {
+                                $income= 0;
+								 $expense =0;
+                                if(isset($_GET['from_date']) && isset($_GET['to_date'])){
+
+									$from_date= $_GET['from_date'];
+									$to_date= $_GET['to_date'];
+
+                                        // where Date BETWEEN '$from_date' and '$to_date'
+                                $query = mysqli_query($conn,"SELECT id,name,D_RV,RV,Date,Memo,Amount,empty   FROM cash_receipt   UNION All SELECT id,name,D_PV,PV,Date,Memo,empty,Amount FROM cash_payment  where Date BETWEEN '$from_date' AND '$to_date'   ORDER BY Date desc") or die(mysqli_error());
+                                while ($row = mysqli_fetch_array($query)) {
                                 $id = $row['id'];
                                     ?>
 
@@ -170,13 +202,37 @@
                                 <td><?php echo  $row['RV']; ?></td>
                                 <td><?php echo $row['Date']; ?></td>
                                 <td><?php echo $row['Memo']; ?></td>
-                                <td><?php echo  $row['Amount']; ?></td>
-                                <td><?php echo  $row['empty']; ?></td>
+                                <td><?php echo "$ ". number_format((float)$row['Amount'], '2','.',','); ?></td>
+                                <td><?php echo "$ ". number_format((float)$row['empty'], '2','.',','); ?></td>
+
+                                <!-- <td><?php echo  $row['Amount']; ?></td> -->
+                                <!-- <td><?php echo  $row['empty']; ?></td> -->
                       
                              
                             </tr>
-                            <?php } ?>  
+                            <?php 
+                            
+                            $total_income= $row['Amount'];
+                            $income += $total_income;
+
+							
+							$total_exp = $row['empty'];
+							$expense += $total_exp;
+
+                            ?>
+                            <?php } }?>  
                         </tbody>
+                        <tfoot class="table-info">
+                            <th></th>
+                            <th class="table-plus"></th>
+                            <th> </th>								
+                            <th></th>
+                            <th></th>
+                            <th>Total</th>
+                            <th><?php echo "$ ". number_format((float)$income, '2','.',',');  ?></th>
+                            <th><?php echo "$ ". number_format((float)$expense, '2','.',',');  ?></th>
+                            <!-- <th><?php //echo $to ?></th> -->
+                        </tfoot>
                     </table>
                 </div>
             </div>

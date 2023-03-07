@@ -3,223 +3,352 @@ session_start();
 include('database/db.php');
 if(isset($_POST['signin']))
 {
-
-
-
-
 	$username=$_POST['username'];
 	$password=$_POST['password'];
 
-	$sql ="SELECT * FROM user where Email ='$username' AND password ='$password' AND Status ='Active'";
+	$sql ="SELECT * FROM user where Email ='$username' AND password ='$password' ";
 	$query= mysqli_query($conn, $sql);
 	$count = mysqli_num_rows($query);
 	
 	if($count > 0)
 	{
 		while ($row = mysqli_fetch_assoc($query)) {
-		    if ($row['Role'] == 'Admin') {
-		    	$_SESSION['alogin']=$row['ID'];
-		    //	$_SESSION['arole']=$row['Login_status'];
-				//$today = date("F j, Y, g:i a");
 
-				// $Object = new DateTime();  
-				// $DateAndTime = $Object->format("d-m-Y h:i:s a"); 
-
-				//$date = date('Y-m-d H:i:s');
+			if($row['Status'] == 'Inactive'){
+				// $name = $row['Name'];
+				?>
+				<Script>
+					window.addEventListener('load',function(){
+						swal({
+							title: "Warning",
+							text: "Your Acount Is Inactive !!! ",							
+							icon: "warning",
+							button: "Ok!",
+						})
+						.then(function() {
+									window.location = "index.php";
+								});
+					});			
+				</Script>
+				<?php	
+			}	
+		   elseif($row['Role'] == 'Admin') {
+		    	$_SESSION['alogin']=$row['ID'];	  
 
 				$date = new DateTime();
 				$date->modify('+2 hour');
 				$date3 = $date->format("D-d-m-Y h:i:s a");
 
-				$time=time()+600;
-				$query=mysqli_query($conn,"update user set Login_status='$time', Login_time='$date3' where id=".$_SESSION['alogin']);
+				$time=time()+1800; // 30 daqiiqo 
+				$query=mysqli_query($conn,"update user set Login_status='$time', Login_time='$date3' where ID=".$_SESSION['alogin']);
 			 	echo "<script type='text/javascript'> document.location = 'admin/index.php'; </script>";
 		    }
-		    elseif ($row['Role'] == 'Customer') {
+			elseif ($row['Role'] == 'Customer') {
 		    	$_SESSION['alogin']=$row['ID'];
-		    	//$_SESSION['arole']=$row['Login_status'];
-
-				//Login Curent Time
-				// $Object = new DateTime();  
-				// $DateAndTime = $Object->format("d-m-Y h:i:s a");
+	
 				$date = new DateTime();
 				$date->modify('+2 hour');
 				$date3 = $date->format("D-d-m-Y h:i:s a");
 
-
-
 				//Login Status Time
-				$time=time()+600;
+				$time=time()+1800;
 				$query=mysqli_query($conn,"update user set Login_status='$time', Login_time='$date3' where id=".$_SESSION['alogin']);
 			 	
 			 	echo "<script type='text/javascript'> document.location = 'Customer/index.php'; </script>";
 		    }
-		    elseif ($row['Role'] == 'HOD') {
+			elseif ($row['Role'] == 'HOD') {
 		    	$_SESSION['alogin']=$row['ID'];
-		    	//$_SESSION['arole']=$row['Department'];
-				
-				// $Object = new DateTime();  
-				// $DateAndTime = $Object->format("d-m-Y h:i:s a");
 
 				$date = new DateTime();
 				$date->modify('+2 hour');
 				$date3 = $date->format("D-d-m-Y h:i:s a");
 
-				$time=time()+600;
+				$time=time()+1800;
 				$query=mysqli_query($conn,"update user set Login_status='$time', Login_time='$date3' where id=".$_SESSION['alogin']);
-			 	
 			 	echo "<script type='text/javascript'> document.location = 'heads/index.php'; </script>";
-		    }
+		    }		    
 		}
-
 	} 
-	else{ 
-	  
-	  echo "<script>alert('Invalid Details');</script>";
+	else{ 	  
+		?>
+		<Script>
+			window.addEventListener('load',function(){
+				swal({
+					title: "Error",
+					text: "Please Check Your Email or Password .... ",
+					icon: "error",
+					button: "Ok!",
+				})
+				.then(function() {
+							window.location = "index.php";
+						});
+			});			
+		</Script>
+		<?php	
+	//   echo "<script>alert('Please Check Your Email or Password');</script>";
+	//   echo "<script type='text/javascript'> document.location = 'index.php'; </script>";
 
 	}
-
 }
-// $_SESSION['alogin']=$_POST['username'];
-// 	echo "<script type='text/javascript'> document.location = 'changepassword.php'; </script>";
 ?>
 
 
 
+
+
+
+
+
+
+
 <!DOCTYPE html>
-<html>
-<head>
-	<!-- Basic Page Info -->
-	<meta charset="utf-8">
-	<title>CDA Management System</title>
-
-	<!-- Site favicon -->
-	<!-- <link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon">
-	<link rel="icon" type="image/png" sizes="32x32" href="vendors/images/favicon-32x32">
-	<link rel="icon" type="image/png" sizes="16x16" href="vendors/images/favicon-16x16"> -->
-
-	<!-- Mobile Specific Metas -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-	<!-- Google Font -->
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="vendors/styles/core.css">
-	<link rel="stylesheet" type="text/css" href="vendors/styles/icon-font.min.css">
-	<link rel="stylesheet" type="text/css" href="vendors/styles/style.css">
-
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-
-		gtag('config', 'UA-119386393-1');
-	</script>
-</head>
-<body class="login-page">
-	<div class="login-header box-shadow">
-		<div class="container-fluid d-flex justify-content-between align-items-center">
-			<div class="brand-logo">
-				<a href="login.html">
-					<!-- <img src="vendors/images/deskapp-logo.svg" alt=""> -->
-				</a>
-			</div>
-			<div class="login-menu">
-				<ul>
-					<li><a href="register.html">Register</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div class="login-wrap d-flex align-items-center flex-wrap justify-content-center">
-		<div class="container">
-			<div class="row align-items-center">
-				<div class="col-md-6 col-lg-7">
-					<img src="vendors/images/img/banner.png" alt="">
-				</div>
-				<div class="col-md-6 col-lg-5">
-					<div class="login-box bg-white box-shadow border-radius-10">
-						<div class="login-title">
-							<h2 class="text-center text-primary">Login To CDA </h2>
-						</div>
+<html lang="en">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>Home Page</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- bootstrap css -->
+      <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+      <!-- style css -->
+      <link rel="stylesheet" href="assets/css/style.css">
+      <!-- Responsive-->
+      <link rel="stylesheet" href="assets/css/responsive.css">
+      <!-- fevicon -->
+      <link rel="icon" href="assets/images/fevicon.png" type="image/gif" />
+      <!-- Scrollbar Custom CSS -->
+      <link rel="stylesheet" href="assets/ss/jquery.mCustomScrollbar.min.css">
+      <!-- Tweaks for older IEs-->
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+   </head>
+   <!-- body -->
+   
+   <body class="main-layout">
 
 
+   <?php include('header.php')?>
 
+      <!-- banner -->
+      <section class="banner_main">
+         <div id="myCarousel" class="carousel slide banner" data-ride="carousel">
+            <!-- <ol class="carousel-indicators">
+               <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+               <li data-target="#myCarousel" data-slide-to="1"></li>
+               <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol> -->
+            <div class="carousel-inner">
+               <div class="carousel-item active">
+                  <img class="first-slide" src="assets/images/img/banner1.png" alt="First slide">
+                  <div class="container">
+                  </div>
+               <!-- </div>
+               <div class="carousel-item">
+                  <img class="second-slide" src="assets/images/img/banner2.png" alt="Second slide">
+               </div> -->
+               <!-- <div class="carousel-item">
+                  <img class="third-slide" src="assets/images/img/banner1.png" alt="Third slide">
+               </div> -->
+            </div>
+            <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+            </a>
+         </div>
+         <div class="booking_ocline">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-5">
+                     <div class="book_room">
+                        <h1>C.D.A System</h1>
+                        <form class="book_now" name="signin" method="post" >
+                           <div class="row">
+                              <div class="col-md-12">
+                                 <span>User Name</span>
+                                 <img class="date_cua" src="assets/images/img/user.png">
+                                 <input class="online_book" placeholder="Enetr Username Here" type="email" name="username" id="username" required>
+                              </div>
+                              <div class="col-md-12">
+                                 <span>Password</span>
+                                 <img class="date_cua" src="assets/images/img/pass.png">
+                                 <input class="online_book" placeholder="Enetr Password Here" type="password" name="password" id="password" required>
+                              </div>
+                              <div class="col-md-12">
+                                 <button class="book_btn" name="signin" id="signin" type="submit">Login Now</button>
+                              </div>
+                           </div>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- end banner -->
+      <!-- about -->
+      <div class="about">
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-md-5">
+                  <div class="titlepage">
+                     <h2>About Us</h2>
+                     <!-- <p>The passage experienced a surge in popularity during the 1960s when Letraset used it on their dry-transfer sheets, and again during the 90s as desktop publishers bundled the text with their software. Today it's seen all around the web; on templates, websites, and stock designs. Use our generator to get your own, or read on for the authoritative history of lorem ipsum. </p> -->
+                    <p>our system is designed to help the customers of SGS company, to help them keep
+                        track of their complete data, including purchases, payments and debts owed to 
+                        customer.<br>
+                        The customer data activity section provides the customer with complete 
+                        information, for example: the customer will be able to know the product 
+                        purchased him, the quantity purchased and the amount purchased him.<br>
+                        The system also allows the customer to know the date of purchase and the 
+                        type of product he bought.
+                    
+                     </p>
+                     <a class="read_more" href="index.php">Login</a>
+                  </div>
+               </div>
+               <div class="col-md-7">
+                  <div class="about_img">
+                     <figure><img src="assets/images/img/about.jpg" alt="#"/></figure>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      
+      <!-- blog -->
+      <div  class="blog">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="titlepage">
+                     <h2>Our System</h2>
+                     <p>Our System has the protection of customer custom data, the customer will be <br>
+                        given a unique username and password to track his data. </p>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-4">
+                  <div class="blog_box">
+                     <div class="blog_img">
+                        <figure><img src="assets/images/img/desk_dash.PNG" alt="#"/></figure>
+                     </div>
+                     <div class="blog_room">
+                        <h3>Desktop Design</h3>
+                        <span>The standard </span>
+                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generatorsIf you are   </p>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-4">
+                  <div class="blog_box">
+                     <div class="blog_img">
+                        <figure><img src="assets/images/img/mob_dash.PNG" alt="#"/></figure>
+                     </div>
+                     <div class="blog_room">
+                        <h3>Mobile Desgin</h3>
+                        <span>The standard</span>
+                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generatorsIf you are   </p>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-4">
+                  <div class="blog_box">
+                     <div class="blog_img">
+                        <figure><img src="assets/images/img/lab_dash.PNG" alt="#"/></figure>
+                     </div>
+                     <div class="blog_room">
+                        <h3>Labtop Design</h3>
+                        <span>The standard </span>
+                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generatorsIf you are   </p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- end blog -->
+      <!--  contact -->
+      <div class="contact">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="titlepage">
+                     <h2>Contact Us</h2>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-6">
+                  <form id="" class="main_form" name="send" method="post" >
+                     <div class="row">
+                        <div class="col-md-12 ">
+                           <input class="contactus" required placeholder="Enetr Your Name" type="text" name="Name"> 
+                        </div>
+                        <div class="col-md-12">
+                           <input class="contactus" required placeholder="Enter Email Address" type="email" name="Email"> 
+                        </div>
+                        <div class="col-md-12">
+                           <input class="contactus" required placeholder="Phone Number" type="number" name="Phone">                          
+                        </div>
+                        <div class="col-md-12">
+                           <textarea class="textarea" required placeholder="Message" type="text" Message="msg"></textarea>
+                        </div>
+                        <div class="col-md-12">
+                           <button class="send_btn" name="send" id="send" type="submit">Send</button>
+                        </div>
+                     </div>
+                  </form>
+                  <?php
+                     //if(isset($_POST['send'])){
+                        ?>
+                        <!-- <h1><?php //echo "Thanks to contact" ?></h1> -->
+                        <?php
+                    // }
 
-						<form name="signin" method="post">
-							<div class="select-role">
-								<div class="btn-group btn-group-toggle" data-toggle="buttons">
-									<label class="btn active">
-										<input type="radio" name="options" id="admin">
-										<div class="icon"><img src="vendors/images/briefcase.svg" class="svg" alt=""></div>
-										<span>I'm</span>
-										Manager
-									</label>
-									<label class="btn">
-										<input type="radio" name="options" id="user">
-										<div class="icon"><img src="vendors/images/person.svg" class="svg" alt=""></div>
-										<span>I'm</span>
-										Customer
-									</label>
-								</div>
-							</div>
-							<div class="input-group custom">
-								<input type="text" class="form-control form-control-lg" required name="username" placeholder="Username">
-								<div class="input-group-append custom">
-									<span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
-								</div>
-							</div>
-							<div class="input-group custom">
-								<input type="password" class="form-control form-control-lg" required name="password" placeholder="**********">
-								<div class="input-group-append custom">
-									<span class="input-group-text"><i class="dw dw-padlock1"></i></span>
-								</div>
-							</div>
-							<div class="row pb-30">
-								<div class="col-6">
-									<div class="custom-control custom-checkbox">
-										<input type="checkbox" class="custom-control-input" id="customCheck1">
-										<label class="custom-control-label" for="customCheck1">Remember</label>
-									</div>
-								</div>
-								<div class="col-6">
-									<div class="forgot-password"><a href="forgot-password.html">Forgot Password</a></div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-12">
-									<div class="input-group mb-0">
-										<!--
-											use code for form submit
-											<input class="btn btn-primary btn-lg btn-block" type="submit" value="Sign In">
-										-->
+                    ?>
+                     
+                     
 
-										<input class="btn btn-primary btn-lg btn-block" name="signin" id="signin" type="submit" value="Sign In">
-										<!-- <a class="btn btn-primary btn-lg btn-block" href="index.html">Sign In</a> -->
-									</div>
-									<div class="font-16 weight-600 pt-10 pb-10 text-center" data-color="#707373">OR</div>
-									<div class="input-group mb-0">
-										<a class="btn btn-outline-primary btn-lg btn-block" href="register.html">Register To Create Account</a>
-									</div>
-								</div>
-							</div>
-						</form>
-
-
-
-
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- js -->
-	<script src="vendors/scripts/core.js"></script>
-	<script src="vendors/scripts/script.min.js"></script>
-	<script src="vendors/scripts/process.js"></script>
-	<script src="vendors/scripts/layout-settings.js"></script>
-</body>
+               </div>
+               <div class="col-md-6">
+                  <div class="map_main">
+                     <div class="map-responsive">
+                        <!-- <iframe src="https://www.google.com/search?q=map+of+somalia+howlwadaag&rlz=1C1GCEA_enSO1031SO1031&oq=map+of+somalia+howlwadaag&aqs=chrome..69i57j33i160l3.18839j0j7&sourceid=chrome&ie=UTF-8#" width="600" height="400" frameborder="0" style="border:0; width: 100%;" allowfullscreen=""></iframe> -->
+                           <img class="first-slide" src="assets/images/img/map3.png" alt="" >
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- end contact -->
+      <!--  footer -->
+     
+   <?php include('footer.php')?>
+      <!-- end footer -->
+      <!-- Javascript files-->
+      <script src="assets/js/jquery.min.js"></script>
+      <script src="assets/js/bootstrap.bundle.min.js"></script>
+      <script src="assets/js/jquery-3.0.0.min.js"></script>
+      <!-- sidebar -->
+      <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+      <script src="assets/js/custom.js"></script>
+	  <!-- Sweet alert -->
+	<script src="src/scripts/sweetalert.min.js"></script>
+   </body>
 </html>

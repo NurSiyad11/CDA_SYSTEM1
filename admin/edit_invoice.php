@@ -3,6 +3,32 @@
 <?php include('../database/db.php')?>
 <?php $get_id = $_GET['edit']; ?>
 
+<!-- Update Pdf file -->
+<?php
+	if(isset($_POST['update_file']))
+	{
+	$pdf=$_FILES['pdf']['name'];
+	$pdf_type=$_FILES['pdf']['type'];
+	$pdf_size=$_FILES['pdf']['size'];
+	$pdf_tem_loc=$_FILES['pdf']['tmp_name'];
+	$pdf_store="pdf/".$pdf;
+	move_uploaded_file($pdf_tem_loc,$pdf_store);
+
+		$result = mysqli_query($conn,"update invoice set  File='$pdf'  where id='$get_id'         
+			"); 		
+		if ($result) {
+			echo "<script>alert('File  Successfully Updated');</script>";
+			echo "<script type='text/javascript'> document.location = 'Invoice.php'; </script>";
+		} else{
+		die(mysqli_error());
+		}		
+		
+	}
+?>
+
+
+
+
 <?php
 	if(isset($_POST['update-invoice']))
 	{
@@ -13,18 +39,11 @@
 	$memo=$_POST['memo']; 
 
 
-	$pdf=$_FILES['pdf']['name'];
-	$pdf_type=$_FILES['pdf']['type'];
-	$pdf_size=$_FILES['pdf']['size'];
-	$pdf_tem_loc=$_FILES['pdf']['tmp_name'];
-	$pdf_store="pdf/".$pdf;
-
-	move_uploaded_file($pdf_tem_loc,$pdf_store);
 
 
 	$cid = $conn->query("SELECT id as cid from `user` where Com_name='$name'  ")->fetch_assoc()['cid'];
 
-	$result = mysqli_query($conn,"update invoice set Cid='$cid',   Date='$Date', Invoice='$invoice',  Amount='$Amount', Memo='$memo', File='$pdf' where id='$get_id'         
+	$result = mysqli_query($conn,"update invoice set Cid='$cid',   Date='$Date', Invoice='$invoice',  Amount='$Amount', Memo='$memo' where id='$get_id'         
 		"); 		
 	if ($result) {
      	echo "<script>alert('Record Successfully Updated');</script>";
@@ -61,12 +80,46 @@
 
                 <div class="pd-20 card-box mb-30">
 					<div class="clearfix">
-						<div class="pull-left">
-							<h4 class="text-blue h4"> Update Invoice Form</h4>
-							<p class="mb-20"></p>
+						<div class="row">
+							<div class="pull-left">
+								<h4 class="text-blue h4"> Update Invoice Form</h4>
+								<p class="mb-20"></p>
+							</div>
+							<div class="col-md-4 col-sm-12 text-right">
+								<a href="modal" class="bg-light-blue btn text-blue weight-500" data-toggle="modal" data-target="#modal" class="edit-avatar"><i class="dw dw-edit-2 "></i> Choose New File</a>
+							</div>
 						</div>
 					</div>
 					<div class="wizard-content">
+
+						<!-- Model choose New Pdf File -->
+						<form method="post" enctype="multipart/form-data">
+							<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered" role="document">
+									<div class="modal-content">
+										<div class="weight-500 col-md-12 pd-5">
+											<div class="form-group">
+												<div class="custom-file">
+													<input name="pdf" id="file" type="file" required class="custom-file-input" accept="pdf/*" onchange="validatePdf('file')">
+													<label class="custom-file-label" for="file" id="selector">Choose file</label>		
+												</div>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<input type="submit" name="update_file" value="Update" class="btn btn-primary">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+
+
+
+
+
+
+						<!-- Form update others  -->
 						<form method="post" action="" enctype="multipart/form-data">
 							<section>
                            		 <?php
@@ -117,22 +170,21 @@
 										</div>
 									</div>
 
-									<div class="">										
+									<!-- <div class="">										
 										<label for="">Choose Your PDF File</label><br>
 										<input id="pdf" type="file" name="pdf" required value="<?php echo $row['File']; ?>" accept="pdf/*" onchange="validateImage('file')"><br><br>
-									</div>
+									</div> -->
 
 
-									<div class="col-md-12">
+									<div class="col-md-8">
 											<div class="form-group">
 												<label>Memo / Description</label>
-												<textarea name="memo" style="height: 5em;" placeholder="Description" class="form-control text_area" type="text" ><?php echo $row['Memo']; ?></textarea>
+												<textarea name="memo" style="height: 7em;" placeholder="Description" class="form-control text_area" type="text" ><?php echo $row['Memo']; ?></textarea>
 											</div>
 										</div>							
 								</div>
 																
-								<div class="row">				
-											
+								<div class="row">											
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label style="font-size:16px;"><b></b></label>

@@ -146,7 +146,7 @@ if (isset($_POST["update_image"])) {
 														<label class="form-label">Phone</label>
 														<input type="number" name="phone" class="form-control" placeholder="25261326222" readonly  required autocomplete="off" value="<?php echo $row['Phone'];?>">
 													</div>													
-													<div class="col-6">
+													<div class="col-md-6">
 														<label for="inputAddress" class="form-label">Address</label>
 														<input type="text" name="address" class="form-control" id="inputAddress" placeholder="Addrsess" readonly  required autocomplete="off" value="<?php echo $row['Address'];?>">
 													</div>
@@ -157,7 +157,7 @@ if (isset($_POST["update_image"])) {
 														<label class="form-label">Status</label>
 														<input type="text" name="status" class="form-control" placeholder=""  required readonly autocomplete="off" value="<?php echo $row['Status'];?>">
 													</div>													
-													<div class="col-6">
+													<div class="col-md-6">
 														<label for="inputAddress" class="form-label">Last Login Time</label>
 														<input type="text" name="lg_time" class="form-control" id="inputAddress" placeholder="" readonly required autocomplete="off" value="<?php echo $row['Login_time'];?>">
 													</div>

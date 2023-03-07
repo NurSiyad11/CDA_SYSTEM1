@@ -27,7 +27,7 @@
 						</a>
 						<ul class="submenu">
 							<li><a href="user.php">Register User</a></li>
-							<li><a href="Mng_user.php">Manage User</a></li>
+							<li><a href="mng_user.php">Manage User</a></li>
 						</ul>
 					</li>
 
@@ -99,7 +99,7 @@
 						<ul class="submenu">
 							<!-- <li><a href="All_order.php">All Order</a></li>
 							<li><a href="Testing.php">Testing</a></li> -->
-							<li><a href="Mng_debt_reminder.php">Manage debt reminder</a></li>
+							<li><a href="mng_debt_reminder.php">Manage debt reminder</a></li>
 						</ul>
 					</li>
 					<li class="dropdown">

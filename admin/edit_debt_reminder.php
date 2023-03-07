@@ -122,7 +122,7 @@
                                     <div class="col-md-10">
                                         <div class="form-group">
                                             <!-- <label>Description</label> -->
-                                            <textarea name="Memo" style="height: 5em;" placeholder="Description" class="form-control text_area" readonly type="text"><?php echo $row['Message']; ?></textarea>
+                                            <textarea name="Memo" style="height: 10em;" placeholder="Description" class="form-control text_area" readonly type="text"><?php echo $row['Message']; ?></textarea>
                                         </div>
                                     </div>	
                                 </div>

@@ -29,85 +29,74 @@
 					</div>
 				</div>
 
-                <div class="row pb-10">
-                    <div class="col-xl-4 col-lg-3 col-md-6 mb-20">
-                        <div class="card-box height-100-p widget-style3">
+
+
+                <div class="row">
+                    <div class="col-xl-4 mb-30">
                         <?php 		                    
                             $today = $conn->query("SELECT id as cid from `user` where id='$get_id'  ")->fetch_assoc()['cid'];
                             $Total = $conn->query("SELECT sum(Amount) as total FROM `ven_invoice` where Vid='$today'  ")->fetch_assoc()['total'];
-                            $format =number_format((float)$Total, '2','.',',');
-                                               									
+                            $format =number_format((float)$Total, '2','.',',');                                                                            
                         ?>	
-                                
-
-                            <div class="d-flex flex-wrap">
-                                <div class="widget-data">
-                                    <div class="weight-700 font-20 text-dark"><?php echo  "$ " .($format);?></div>
-                                    
-                                    <div class="font-15 text-secondary weight-500"> Vendor Invoice </div>
+                        <div class="card-box height-100-p widget-style1 bg-white">
+                            <div class="d-flex flex-wrap align-items-center">
+                                <div class="progress-data">
+                                    <div id="">
+                                    <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="50" height="50" alt="">
+                                    </div>
                                 </div>
-                                <!-- <div class="widget-icon">
-                                    <div class="icon" data-color="#09cc06"><i class="icon-copy dw dw-money-1"></i></div>
-                                </div> -->
+                                <div class="widget-data">
+                                    <div class="h4 mb-0"><?php echo "$ ". ($format); ?></div>
+                                    <div class="weight-300 font-18">Vendor Invoices </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 mb-30">
+                    
+                        <div class="card-box height-100-p widget-style1 bg-white">
+                            <?php                                      
+                                $today = $conn->query("SELECT id as cid from `user` where id='$get_id'  ")->fetch_assoc()['cid'];
+                                $Total = $conn->query("SELECT sum(Amount) as total FROM `ven_payment` where Vid='$today'  ")->fetch_assoc()['total'];
+                                $format2 =number_format((float)$Total, '2','.',',');                                                                
+                            ?>   
+                            <div class="d-flex flex-wrap align-items-center ">	
+                                <div class="progress-data">
+                                    <div id="">
+                                    <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="50" height="50" alt="">
+                                    </div>
+                                </div>						
+                                <div class="widget-data">
+                                    <div class="h4 mb-0"><?php echo "$ ". ($format2); ?></div>
+                                    <div class="weight-300 font-18">Vendor Payment</div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-xl-4 col-lg-3 col-md-6 mb-20">
-                        <div class="card-box height-100-p widget-style3">
-
-                        <?php                                          
-                            
-                            $today = $conn->query("SELECT id as cid from `user` where id='$get_id'  ")->fetch_assoc()['cid'];
-                            $Total = $conn->query("SELECT sum(Amount) as total FROM `ven_payment` where Vid='$today'  ")->fetch_assoc()['total'];
-                            $format =number_format((float)$Total, '2','.',',');
-                        										
-                        ?>   
-                    
-                            <div class="d-flex flex-wrap">
-                                <div class="widget-data">							
-                                    <div class="weight-700 font-20 text-dark"><?php echo "$ " . htmlentities($format); ?></div>
-                                <div class="font-15 text-secondary weight-500">Vendor Payment</div>
-                                </div>
-                                <!-- <div class="widget-icon">
-                                    <div class="icon" data-color="#ff5b5b"><span class="icon-copy dw dw-money-1"></span></div>
-                                </div> -->
-                            </div>
-                        </div>				
-                    </div>
-
-
-                    <div class="col-xl-4 col-lg-3 col-md-6 mb-20">
-                        <div class="card-box height-100-p widget-style3">
-
-                        <?php 
-                        
-                    
-                            $today = $conn->query("SELECT id as cid from `user` where id='$get_id'  ")->fetch_assoc()['cid'];
-                            $INV = $conn->query("SELECT sum(Amount) as total FROM `ven_invoice` where Vid='$today'  ")->fetch_assoc()['total'];
-                            $RV = $conn->query("SELECT sum(Amount) as total FROM `ven_payment` where Vid='$today'  ")->fetch_assoc()['total'];
-                            $Bal = $INV - $RV;
-                            $format =number_format((float)$Bal, '2','.',',');										
-                        ?>	
-                        
-
-                            <div class="d-flex flex-wrap">
+                    <div class="col-xl-4 mb-30">
+                        <div class="card-box height-100-p widget-style1 bg-white">
+                            <?php 
+                                $today = $conn->query("SELECT id as cid from `user` where id='$get_id'  ")->fetch_assoc()['cid'];
+                                $INV = $conn->query("SELECT sum(Amount) as total FROM `ven_invoice` where Vid='$today'  ")->fetch_assoc()['total'];
+                                $RV = $conn->query("SELECT sum(Amount) as total FROM `ven_payment` where Vid='$today'  ")->fetch_assoc()['total'];
+                                $Bal = $INV - $RV;
+                                $format3 =number_format((float)$Bal, '2','.',',');										
+                            ?>	
+                            <div class="d-flex flex-wrap align-items-center">	
+                                <div class="progress-data">
+                                    <div id="">
+                                    <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="50" height="50" alt="">
+                                    </div>
+                                </div>						
                                 <div class="widget-data">
-                                    <div class="weight-700 font-20 text-dark"><?php echo "$ " .($format); ?></div>
-                                    <div class="font-15 text-secondary weight-500">BALANCE</div>
+                                    <div class="h4 mb-0"><?php echo "$ ". ($format3); ?></div>
+                                    <div class="weight-300 font-17">Balance </div>
                                 </div>
-                                <!-- <div class="widget-icon">
-                                    <div class="icon"><i class="icon-copy dw dw-money-2" aria-hidden="true"></i></div>
-                                </div> -->
                             </div>
                         </div>
-                    </div>
+                    </div>			
                 </div>
-
-
-
-
-
 
 
 

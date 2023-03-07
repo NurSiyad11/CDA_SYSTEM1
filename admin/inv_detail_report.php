@@ -4,6 +4,7 @@
 
 <?php $get_id = $_GET['edit']; ?>
 
+
 <body>
 	<?php include('includes/navbar.php')?>
 	<?php include('includes/right_sidebar.php')?>
@@ -89,7 +90,8 @@
                                         <td><?php echo $row['File']; ?></td>
                                         <td>
                                             <div class="table-actions">
-                                            <a href="task-add" data-toggle="modal" data-target="#task-add" class="bg-light-blue btn text-blue weight-500"><i class="icon-copy dw dw-eye " ></i> View</a>
+												
+                                            <a  href="inv_detail_report.php?view=<?php echo $row['id'];?>" data-toggle="modal" data-target="#task-add" class="bg-light-blue btn text-blue weight-500"><i class="icon-copy dw dw-eye " ></i> View</a>
                                                 <!-- <a href="edit_department.php?edit=<?php //echo htmlentities($result->id);?>" data-color="#265ed7"><i class="icon-copy dw dw-edit2"></i></a>
                                                 <a href="department.php?delete=<?php //echo htmlentities($result->id);?>" data-color="#e95959" onclick= ' return checkdelete()' ><i class="icon-copy dw dw-delete-3"></i></a> -->
                                             </div>
@@ -105,6 +107,7 @@
                             </table>
                         </div>
                     </div>
+					<?php $get_id_pdf = $_GET['view']; ?>
 
                     
 					<!-- add task popup start -->
@@ -134,19 +137,19 @@
                                                     <div class="row">
                                                         <?php
 
-                                                        $teacher_query = mysqli_query($conn,"select * from invoice where Cid='$get_id' ") or die(mysqli_error());
-                                                        while ($row = mysqli_fetch_array($teacher_query)) {
-                                                        $id = $row['id'];
-                                                        $today= $conn->query("SELECT id as eid from `invoice` where id='$id' ")->fetch_assoc()['eid'];
-                                                        
-                                                        $sql="SELECT File from invoice where id='$today' ";
+                                                        // $teacher_query = mysqli_query($conn,"select * from invoice where Cid='$get_id' ") or die(mysqli_error());
+                                                        // while ($row = mysqli_fetch_array($teacher_query)) {
+                                                        // $id = $row['id'];
+                                                        // $today= $conn->query("SELECT id as eid from `invoice` where id='$id' ")->fetch_assoc()['eid'];
+                                                        echo $get_id_pdf;
+                                                        $sql="SELECT File from invoice where id='$get_id_pdf' ";
                                                         $query=mysqli_query($conn,$sql);
                                                         while ($info=mysqli_fetch_array($query)) {
                                                             ?>
                                                             <?php
                                                             if($info !=''){
                                                             ?>                                       
-                                                                <embed type="application/pdf" src="invpdf/<?php echo $info['File'] ; ?>" width="900" height="500">
+                                                                <embed type="application/pdf" src="pdf/<?php echo $info['File'] ; ?>" width="900" height="500">
                                                             <?php
                                                             }else{
                                                                 echo "No file found";                                     
@@ -155,15 +158,20 @@
                                                             }
                                                             ?>
                                                         <?php
-                                                        } }
+                                                        } //}
                                                         ?>
                                                     </div>                                
                                                 </section>
-                                                                    <!-- <form method="post" action="">
+                                                 <!-- <form method="POST" action="">
+															<?php
+														$sql="SELECT * from invoice ";
+																$query=mysqli_query($conn,$sql);
+														$row = mysqli_fetch_array($query)
+														?>
 													<div class="form-group row">
 														<label class="col-md-4">Name :</label>
 														<div class="col-md-8">
-															<input type="text" name="name" class="form-control" readonly autocomplete="off" value="<?php echo $row['Name']; ?>" >
+															<input type="text" name="name" class="form-control" readonly autocomplete="off" value="<?php echo $row['id']; ?>" >
 														</div>
 													</div>
 													<div class="form-group row">

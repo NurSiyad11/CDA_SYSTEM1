@@ -177,22 +177,22 @@
 									$row = mysqli_fetch_array($query);
 								?>
 								<div class="row">
-									<div class="col-md-6 col-sm-12">
+									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label>order Date :</label>
-											<input name="date" type="date" class="form-control date-picker" required="true" autocomplete="off" value="<?php echo $row['Date']; ?>">
+											<input name="date" type="date" class="form-control" required="true" autocomplete="off" value="<?php echo $row['Date']; ?>">
 										</div>
 									</div>
-
+								<!-- 
 								</div>
-								<div class="row">
+								<div class="row"> -->
 									<div class="col-md-8 col-sm-12">
 										<div class="form-group">
 											<label>Description :</label>
 											<textarea id="textarea1" name="Reason" class="form-control" required length="150" maxlength="150" required="true" autocomplete="off"><?php echo $row['Reason']; ?></textarea>
 										</div>
 									</div>
-									<div class="col-md-4 col-sm-12">
+									<div class="col-md-2 col-sm-12">
 										<div class="form-group">
 											<label style="font-size:16px;"><b></b></label>
 											<div class="modal-footer justify-content-center">

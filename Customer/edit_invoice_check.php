@@ -76,7 +76,7 @@
 						<form method="post" action="">
 							<section>
 								<?php
-									$query = mysqli_query($conn,"SELECT user.Name ,  invoice_receipt.invoice ,invoice_receipt.Amount,invoice_receipt.Date,invoice_receipt.Memo,invoice_receipt.Status FROM invoice_receipt INNER JOIN user ON   invoice_receipt.Cid=user.ID where invoice_receipt.id='$get_id'")or die(mysqli_error());
+									$query = mysqli_query($conn,"SELECT user.Name ,  invoice_receipt.invoice ,invoice_receipt.Amount,invoice_receipt.Date,invoice_receipt.Memo,invoice_receipt.Status, invoice_receipt.File  FROM invoice_receipt INNER JOIN user ON   invoice_receipt.Cid=user.ID where invoice_receipt.id='$get_id'")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 									?>
 
@@ -135,6 +135,18 @@
 										<div class="form-group">
 											<label style="font-size:16px;"><b></b></label>
 											<div class="modal-footer justify-content-center">
+											<?php
+												// $query2 = "SELECT * FROM invoice_receipt where id='$get_id' ";
+												// $run2 = mysqli_query($conn,$query2);
+												
+												// $row = mysqli_fetch_assoc($run2);
+													?>
+												<!-- <a href="download.php?file=<?php// echo $rows['filename'] ?>">Download</a><br> -->
+												<?php
+												//}
+												?>
+											<a href="download.php?file=<?php echo $row['File'] ?>">Download</a><br>
+              
 												<!-- <button class="btn btn-primary" name="Order_check" id="Order_check" data-toggle="modal">Update&nbsp;Invoice_Check</button> -->
 												<a  href="#" class="btn btn-primary" data-toggle="modal" data-target="#Medium-modal"><i class="dw dw-edit-2"></i> Take Action</a>
 
@@ -146,28 +158,34 @@
 
 							<section>
 								<div class="row">
-                                    <?php
+									<div class="col-12">
+										<?php
+										
+										$sql="SELECT File from invoice_receipt where id='$get_id' ";
+										$query=mysqli_query($conn,$sql);
+										while ($info=mysqli_fetch_array($query)) {
+											?>
+											<a href="download.php?file=<?php echo $row['File'] ?>">Download</a><br>
+
+											<?php
+											if($info !=''){
+											?>        
+												<a href="download.php?file=<?php echo $row['File'] ?>">Download</a><br>                               
+												<embed type="application/pdf" src="../admin/pdf/<?php echo $info['File'] ; ?>" width="900" height="600">
+											<?php
+											}else{
+												echo "No file found";                                     
+											?>
+											<?php
+											}
+											?>
+										<?php
+										}
+
+										?>
+
+									</div>
                                     
-                                    $sql="SELECT File from invoice_receipt where id='$get_id' ";
-                                    $query=mysqli_query($conn,$sql);
-                                    while ($info=mysqli_fetch_array($query)) {
-                                        ?>
-                                        <?php
-                                        if($info !=''){
-                                           ?>                                       
-                                            <embed type="application/pdf" src="../admin/pdf/<?php echo $info['File'] ; ?>" width="900" height="500">
-                                        <?php
-                                        }else{
-                                            echo "No file found";                                     
-                                        ?>
-                                        <?php
-                                        }
-                                        ?>
-                                    <?php
-                                    }
-
-                                    ?>
-
                                 </div>
 							</section>
 						</form>
@@ -221,6 +239,7 @@
                                             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                                         </div>
                                     </form>
+									
                                 </div>
                                
                             </div>

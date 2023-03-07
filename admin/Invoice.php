@@ -12,34 +12,37 @@ if (isset($_GET['delete'])) {
 	}
 }
 ?>
+
 <?php
 	if(isset($_POST['Invoice']))
 	{
-	$name=$_POST['name'];	   
-	$date=$_POST['date']; 	
-	$invoice=$_POST['invoice'];	
-	$amount=$_POST['amount']; 
-	$memo=$_POST['memo']; 	
-	
-	$pdf=$_FILES['pdf']['name'];
-	$pdf_type=$_FILES['pdf']['type'];
-	$pdf_size=$_FILES['pdf']['size'];
-	$pdf_tem_loc=$_FILES['pdf']['tmp_name'];
-	$pdf_store="pdf/".$pdf;
+		$name=$_POST['name'];	   
+		$date=$_POST['date']; 	
+		$invoice=$_POST['invoice'];	
+		$amount=$_POST['amount']; 
+		$memo=$_POST['memo']; 	
+		
+		$pdf=$_FILES['pdf']['name'];
+		$pdf_type=$_FILES['pdf']['type'];
+		$pdf_size=$_FILES['pdf']['size'];
+		$pdf_tem_loc=$_FILES['pdf']['tmp_name'];
+		$pdf_store="pdf/".$pdf;
 
-	move_uploaded_file($pdf_tem_loc,$pdf_store);
+		move_uploaded_file($pdf_tem_loc,$pdf_store);
 	     
-     $cid = $conn->query("SELECT id as cid from `user` where Com_name='$name'  ")->fetch_assoc()['cid'];
+     	$cid = $conn->query("SELECT id as cid from `user` where Com_name='$name'  ")->fetch_assoc()['cid'];
 
         mysqli_query($conn,"INSERT INTO invoice(Cid,Date,invoice,Amount,Memo,File,Status) 
 		VALUES('$cid','$date','$invoice','$amount','$memo','$pdf','Pending')         
-		") or die(mysqli_error()); ?>
-		<script>alert('Invoice Records Successfully  Added');</script>;
+		") or die(mysqli_error());?>
+		<script>alert('Invoice Records Successfully  Added');</script>
 		<script>
 		window.location = "Invoice.php"; 
 		</script>
-		<?php   }
+		<?php  
+	 }
 ?>
+
 <body>	
 	<?php include('includes/navbar.php')?>
 	<?php include('includes/right_sidebar.php')?>
@@ -111,6 +114,14 @@ if (isset($_GET['delete'])) {
 											<input name="amount" type="text" placeholder="$00.00" class="form-control" required="true" autocomplete="off">
 										</div>
 									</div>
+
+									<div class="col-md-4 col-sm-12">
+										<div class="form-group">
+											<label>Example with prefix</label>
+											<input id="demo2" type="text" value="0" name="demo2">
+										</div>
+									</div>
+
 									<div class="">										
 										<label for="">Choose Your PDF File</label><br>
 										<input id="file" type="file" name="pdf" value="" required accept="pdf/*" onchange="validatePdf('file')"><br><br>
@@ -233,7 +244,6 @@ if (isset($_GET['delete'])) {
 	<!-- js -->	
 	<?php include('includes/scripts2.php')?>
 	<?php include('includes/script_pdf.php')?>
-
 
 
 

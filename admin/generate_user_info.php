@@ -22,7 +22,7 @@
 							</div>
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="Mng_user.php">Back </a></li>
+									<li class="breadcrumb-item"><a href="mng_user.php">Back </a></li>
 									<li class="breadcrumb-item active" aria-current="page">User Info</li>
 								</ol>
 							</nav>
