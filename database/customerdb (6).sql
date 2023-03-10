@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 07, 2023 at 02:25 PM
+-- Generation Time: Mar 10, 2023 at 05:20 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -136,6 +136,31 @@ INSERT INTO `debt_reminder` (`id`, `Cid`, `Date`, `Update_date`, `Message`, `Mem
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `faq`
+--
+
+CREATE TABLE `faq` (
+  `id` int(11) NOT NULL,
+  `Aid` int(11) NOT NULL,
+  `Question` varchar(255) NOT NULL,
+  `Description` varchar(5000) NOT NULL,
+  `Video` varchar(255) NOT NULL,
+  `Order_no` int(11) NOT NULL,
+  `RedDate` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `faq`
+--
+
+INSERT INTO `faq` (`id`, `Aid`, `Question`, `Description`, `Video`, `Order_no`, `RedDate`) VALUES
+(1, 2, 'How ejkjk', 'cjkhhhhhhhhhhhhh jk,hcx,', 'm38O12p1_BY', 2, '2023-03-09 05:48:14'),
+(2, 2, 'How can I send an order ?', 'Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS.\n', '838-iHZUyXQ', 1, '2023-03-09 05:56:59'),
+(3, 0, 'fgvv', 'xdc', 'dg', 3, '2023-03-09 14:33:27');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `invoice`
 --
 
@@ -251,7 +276,7 @@ CREATE TABLE `support` (
 INSERT INTO `support` (`id`, `Cid`, `Admin_id`, `Message`, `Reply`, `Time_user`, `Time_admin`, `Status`, `RegDate`) VALUES
 (4, 3, 2, '', 'yes diyrin okfb jkdfkjc kldc lkc lknck ', '0000-00-00 00:00:00', '2023-03-03-Fri - 07:37:10 am', 'Hide', '2022-09-07 10:16:38'),
 (10, 8, 2, '', 'wa la saxay xisabtada  ee iska hubi ', '0000-00-00 00:00:00', '2023-02-18 00:00:00', 'Show', '2022-09-16 13:27:54'),
-(11, 8, 2, '', 'Thanks to send ', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Show', '2022-09-22 12:18:12'),
+(11, 8, 2, '', 'Thanks to send ', '0000-00-00 00:00:00', '2023-03-10-Fri - 04:16:54 pm', 'Show', '2022-09-22 12:18:12'),
 (12, 3, 2, '', 'okey', '0000-00-00 00:00:00', '2023-02-16 00:00:00', 'Show', '2022-10-27 14:30:05'),
 (13, 1, 2, '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '2022-12-05 03:50:35'),
 (18, 1, 2, 'senbl', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Pending', '2023-02-16 15:51:21'),
@@ -287,7 +312,9 @@ INSERT INTO `tbl_order` (`id`, `Cid`, `Date`, `Reason`, `RegDate`, `Status`, `Fi
 (54, 1, '2023-02-11', 'dlb', '2023-02-12 09:48:35', 'Pending', 'JMM AA.pdf'),
 (55, 4, '2023-02-14', 'Dalab oo', '2023-02-12 15:03:03', 'Preparing', '1411535.png'),
 (56, 4, '2023-02-15', 'dalab', '2023-02-18 11:09:06', 'Pending', 'palgrave.dbm.3240306 (2).pdf'),
-(57, 4, '2023-02-18', 'Dalab', '2023-02-18 13:37:28', 'Pending', 'playerofcode (3).pdf');
+(57, 4, '2023-02-18', 'Dalab', '2023-02-18 13:37:28', 'Pending', 'playerofcode (3).pdf'),
+(58, 23, '2023-03-10', 'Order test', '2023-03-10 11:41:29', 'Pending', 'Dalab.pdf'),
+(59, 23, '2023-03-10', 'Dalabka labaad ', '2023-03-10 11:46:12', 'Pending', 'Dalab 2.pdf');
 
 -- --------------------------------------------------------
 
@@ -316,8 +343,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`ID`, `Name`, `Com_name`, `Email`, `password`, `Phone`, `Role`, `Status`, `Address`, `Picture`, `Login_time`, `Login_status`, `Reg_date`) VALUES
-(1, 'Farax Ali Mohamed', 'Testing Company', 'test@cda.com', '1234', 1231231, 'Customer', 'Active', 'Madiina', 'user3.jpg', 'Fri-03-03-2023 04:05:53 pm', '1677864203', '2022-11-24 12:09:33'),
-(2, 'Nur Siyad Abdi', 'Al-Marwa General Trading Com', 'nur@cda.com', '1234', 613231772, 'Admin', 'Active', 'Madina', 'profile-pic (8).png', 'Tue-07-03-2023 11:22:42 am', '1678179325', '2022-11-24 14:07:47'),
+(1, 'Farax Ali Mohamed', 'Testing Company', 'test@cda.com', '1234', 1231231, 'Customer', 'Active', 'Madiina', 'user3.jpg', 'Thu-09-03-2023 07:49:43 am', '1678366812', '2022-11-24 12:09:33'),
+(2, 'Nur Siyad Abdi', 'Al-Marwa General Trading Com', 'nur@cda.com', '1234', 613231772, 'Admin', 'Active', 'Madina', 'profile-pic (8).png', 'Fri-10-03-2023 02:27:47 pm', '1678453494', '2022-11-24 14:07:47'),
 (3, 'Maxamed Farax Xasan', 'mjjd Company', 'lllll@cda.com', '1234', 61222, 'Customer', 'Inactive', 'wadajir', '', 'Wed-22-02-2023 08:51:14 am', '1677045208', '2022-11-24 15:22:59'),
 (4, 'Ali Ahmed A/qadir', 'Ali Company', 'ali@cda.com', '1234', 666, 'Customer', 'Active', 'Wadajir', '1354944.png', 'Sat-18-02-2023 11:29:01 am', '1676746127', '2022-11-27 10:26:53'),
 (5, 'Geedi Ahmed', 'Yes Company', 'gedi@cda.com', '1234', 6112, 'Customer', 'Active', 'Kaaraan ', '', 'Wed-15-02-2023 05:12:29 pm', '1676483765', '2022-11-28 12:22:20'),
@@ -332,7 +359,8 @@ INSERT INTO `user` (`ID`, `Name`, `Com_name`, `Email`, `password`, `Phone`, `Rol
 (19, 'qadar', 'qadar Company', 'qadar@cda.com', '1234', 65626, 'Customer', 'Active', 'ok', '', '', '', '2023-02-18 18:10:16'),
 (20, 'asad', 'asad Company', 'asad@cda.com', '1234', 2147483647, 'Customer', 'Active', 'wadajir', '1425812.png', 'Sat-18-02-2023 09:22:34 pm', '1676744789', '2023-02-18 18:16:47'),
 (21, 'zaka', 'zaka Comapany', 'zaka@cda.com', '1234', 656, 'Customer', 'Active', 'hgfh', '8349206.png', 'Thu-23-02-2023 07:15:27 am', '1677126338', '2023-02-18 18:20:31'),
-(22, 'Maxamed Xassan Cali', 'AL-Madiina Pharma Bosaso', 'al-madiina@cda.com', '1234', 61222, 'Customer', 'Active', 'Bosaso', '', 'Tue-07-03-2023 12:24:10 pm', '1678182140', '2023-02-28 12:36:25');
+(22, 'Maxamed Xassan Cali', 'AL-Madiina Pharma Bosaso', 'al-madiina@cda.com', '1234', 61222, 'Customer', 'Active', 'Bosaso', '', 'Thu-09-03-2023 03:59:26 pm', '1678383856', '2023-02-28 12:36:25'),
+(23, 'Customer Name', 'Company Name', 'customer@cda.com', '1234', 0, 'Customer', 'Active', 'None', '', 'Fri-10-03-2023 02:31:17 pm', '1678465306', '2023-03-10 11:31:01');
 
 -- --------------------------------------------------------
 
@@ -429,6 +457,13 @@ ALTER TABLE `debt_reminder`
   ADD KEY `fk_debt_reminder_user` (`Cid`);
 
 --
+-- Indexes for table `faq`
+--
+ALTER TABLE `faq`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `Order_no` (`Order_no`);
+
+--
 -- Indexes for table `invoice`
 --
 ALTER TABLE `invoice`
@@ -508,6 +543,12 @@ ALTER TABLE `debt_reminder`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `faq`
+--
+ALTER TABLE `faq`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
@@ -529,13 +570,13 @@ ALTER TABLE `support`
 -- AUTO_INCREMENT for table `tbl_order`
 --
 ALTER TABLE `tbl_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `ven_invoice`

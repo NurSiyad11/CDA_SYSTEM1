@@ -184,4 +184,3 @@
 	<!-- js -->
 	<?php include('includes/scripts1.php'); ?>
 </body>
-</html>

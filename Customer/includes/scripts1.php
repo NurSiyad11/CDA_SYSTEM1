@@ -18,3 +18,13 @@
 	<script src="../src/plugins/datatables/js/vfs_fonts.js"></script>
 	<!-- Datatable Setting js -->
 	<script src="../vendors/scripts/datatable-setting.js"></script></body>
+	<!-- Vedio Player Script -->
+	<script src="../src/plugins/plyr/dist/plyr.js"></script>
+	<script>
+		plyr.setup({
+			tooltips: {
+				controls: !0
+			},
+		});
+	</script>
+
