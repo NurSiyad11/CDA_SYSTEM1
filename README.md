@@ -1,5 +1,5 @@
-# deskapp
-
+# C.D.A System
+<!--
 DeskApp Admin is a free to use Bootstrap 4 admin template. This template uses the default Bootstrap 4 styles along with a variety of powerful jQuery plugins and tools to create a powerful framework for creating admin panels or back-end dashboards.
 
 Theme uses several libraries for charts, calendar, text forms, date range, upload area, form autocomplete, range slider, progress bars, notifications and much more.
@@ -11,6 +11,7 @@ Several quick start options are available:
 * Clone the repo: git clone https://github.com/dropways/deskapp.git
 * Install with npm: 
   `npm install deskapp`
+  -->
 
 ## Built With
 * Bootstrap 4
