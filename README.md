@@ -44,6 +44,7 @@ Several quick start options are available:
 ## Sample Screens
 <!-- <img src="https://user-images.githubusercontent.com/38377336/86491687-03ca9a00-bd89-11ea-8a3a-11dcfcddd254.png" alt="Template 1"> -->
 
+<!--
 ## Demo link
 A fully functional demo is available at
 
@@ -74,3 +75,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+-->
