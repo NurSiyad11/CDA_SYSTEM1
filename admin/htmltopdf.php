@@ -30,21 +30,58 @@ $html='
 	<meta charset="UTF-8">
 	<title></title>
 	<style>
-	*{text-align:left;}
+	*{
+        margin-top: 0px;
+        margin-bottom: 0px;
+        margin-right: 10px;
+        margin-left: 10px;
+      }
+
+	h1{ text-align:center; 
+        color: #1D058D;
+        font-family: "Times New Roman";
+        font-size: 200%;
+        margin: 50px 5px 20px 5px;       
+    }
+    p{ text-align:left; 
+        color: black;
+        font-family: "Times New Roman";
+        margin: 30px 5px 20px 25px;
+
+    }
+    line{color: #1D058D;
+        margin: 30px 10px 20px 10px;
+
+    }
+	h3{ text-align:left; 
+        color: #1D058D;
+        font-family: "Times New Roman";
+        // font-size: 150%;
+        margin: 10px 5px 20px 25px;
+
+        
+    }
+	strong{ text-align:left; 
+        color: black;
+        font-family: "Times New Roman";
+        margin: 10px 5px 20px 25px;
+
+        
+    }
+
 	</style>
 </head>
 <body>	
 	<h1>Customer Budget Management System</h1><br><br><br>
-	
-	
+	<p>
+		Address : Muqdisho, Banaadir <br>
+		Deg : Howl Wadaag Tell: 602203 <br>
+		Email : example@gmail.com <br>
+	</p>
 
 	<table  cellpadding="10" cellspacing="0" width="100%">
 		<tr>
-			<td><p>
-			Adress : Muqdisho, Banaadir <br>
-			Deg : Howl Wadaag Tell: 602203 <br>
-			Email : example@gmail.com <br>
-			</p><br><br><br>
+			<td><br><br><br>
 			</td>		
 			<td></td>
 			<td></td>
@@ -54,7 +91,7 @@ $html='
 		</tr>
 		
 	</table>	
-	<p>	_____________________________________________________________________________________</p><br>
+	<line>	_________________________________________________________________________________________</line><br>
 	<h3>Customer Data Activity Management System </h3><br><br>
 
 	<table border="" cellpadding="10" cellspacing="0" width="100%">
@@ -69,7 +106,7 @@ $html='
 		Xogta Macaamiisha. C.D.A Management System, Systemkaan Waxa uu Kaa Caawinayaa In aad lasocitid Xogtaada.
 	</p><br><br><br>
 
-	<strong>Macaamiil Si aad ula soctid xogtaada Waxaad Boqataa caawiye.epizy.com </strong> <br>
+	<strong>Macaamiil Si aad ula soctid xogtaada Waxaad Boqataa https://systemcda.epizy.com </strong> <br>
 	<strong>Qaybta EMAIL ID Waxaad Galisaa :  </strong>' . $email . '<br/>
 	<strong>Qaybta Password Waxaad Galisaa :  </strong>' . $password . '<br/>
 	<p>Kadib Sign in Taabo Si aad Systemka Gudaha ugu Gashid.  </p> <br/><br><br>
@@ -77,7 +114,7 @@ $html='
 	<table  border="" cellpadding="0" cellspacing="0" width="" >
 		<tr>
 			<th>
-			Customer Information :
+			<Strong>Customer Information : </strong>
 			</th>		
 			<th></th>
 		
@@ -155,63 +192,4 @@ $dompdf->stream("playerofcode",array("Attachment"=>0));
 
 
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<?php include('../database/session.php')?>
-<?php include('../database/db.php')?>
-<?php $get_id = $_GET['edit']; ?>
-<!-- Update users -->
-<?php
-	// ob_clean();
-	// flush();
-	if(isset($_POST['update']))
-	{
-	$name=$_POST['name'];
-	$email=$_POST['email'];  
-	$com_name=$_POST['com_name']; 
-	$address=$_POST['address']; 
-
-	$user_role=$_POST['user_role']; 
-	$phonenumber=$_POST['phonenumber']; 
-	$Status=$_POST['Status']; 
-
-	$result = mysqli_query($conn,"update user set Name='$name',  Email='$email',Com_name='$com_name',  Address='$address',  Role='$user_role', Phone='$phonenumber', Status='$Status' where id='$get_id'         
-		"); 		
-	if ($result) {
-     	echo "<script>alert('Record Successfully Updated');</script>";
-     	echo "<script type='text/javascript'> document.location = 'Mng_user.php'; </script>";
-	} else{
-	  die(mysqli_error());
-   }		
-}
-?>
-
 

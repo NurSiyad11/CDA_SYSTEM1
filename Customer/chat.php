@@ -54,7 +54,7 @@
 				</div>
 				<div class="bg-white border-radius-4 box-shadow mb-30">
 					<div class="row no-gutters">
-						<div class="col-lg-3 col-md-4 col-sm-12">
+						<!-- <div class="col-lg-3 col-md-4 col-sm-12">
 							<div class="chat-list bg-light-gray">
 								<div class="chat-search">
 									<span class="ti-search"></span>
@@ -64,13 +64,13 @@
 								
 								</div>
 							</div>
-						</div>
+						</div> -->
 						
 							<?php 
 								$query = mysqli_query($conn,"SELECT user.Name,user.Picture, support.Message, support.Reply, support.Time_user, support.Time_admin  FROM support INNER JOIN user ON   support.Cid=user.id    where support.Cid='$session_id' and support.Status !='Hide'  order by support.Time_user Desc") or die(mysqli_error());
 							?>
 						
-						<div class="col-lg-9 col-md-8 col-sm-12">
+						<div class="col-lg-12 col-md-12 col-sm-12">
 							<form action="" method="post" >
 								<div class="chat-detail">
 									<div class="chat-profile-header clearfix">
@@ -86,18 +86,17 @@
 													<span><?php echo $row['Address'] ?></span>
 												</div>
 											</div>
-										</div>
-									
+										</div>									
 									</div>
 
 									
 										<div class="chat-box">
 											<div class="chat-footer">
 												<!-- <div class="file-upload"><a href="#"><i class="fa fa-paperclip"></i></a></div> -->
-												<div class="chat_text_area">
-													<textarea type="text" name="message" required placeholder="Type your message…."></textarea>
+												<div class="chat_text_area ">
+													<textarea  type="text" name="message" required autocomplete="off" placeholder="Type your message…."></textarea>
 												</div>
-												<div class="chat_send">
+												<div class="chat_send ">
 													<button class="btn btn-link" type="submit" name="chat"><i class="icon-copy ion-paper-airplane"></i></button>
 												</div>
 											</div>
@@ -124,6 +123,9 @@
 													
 													<?php 
 														//$query = mysqli_query($conn,"SELECT user.Name,user.Picture, support.Text, support.Reply, support.Time_user, support.Time_admin  FROM support INNER JOIN user ON   support.UID=user.id    where support.UID='$session_id' and support.Status !='Hide'  order by support.Time_user Desc") or die(mysqli_error());
+														$Aid = $conn->query("SELECT Admin_id as Aid from `support` where Cid='$session_id'  ")->fetch_assoc()['Aid'];
+														// $Admin_id = $conn->query("SELECT * from `user` where ID='$Aid' ")->fetch_assoc()['Admin_id'];
+														//  $query = mysqli_query($conn,"SELECT user.Name,user.Picture, support.Message, support.Reply, support.Time_user, support.Time_admin  FROM support INNER JOIN user ON   support.Cid=user.id    where support.Cid='$session_id' and support.Status !='Hide' and support.Admin_id='$Aid'  order by support.Time_user Desc") or die(mysqli_error());
 
 													?>
 													<li class="clearfix">
@@ -132,21 +134,18 @@
 															<!-- <img src="<?php //echo (!empty($row['Picture'])) ? '../uploads/'.$row['Picture'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>"  alt=""> -->
 
 														</span>
+														<?php
+														 $query1 = mysqli_query($conn,"SELECT user.Name,user.Picture, support.Message, support.Reply, support.Time_user, support.Time_admin  FROM support INNER JOIN user ON   support.Cid=user.id    where support.Cid='$session_id' and support.Status !='Hide'   order by support.Time_user Desc") or die(mysqli_error());
+
+														?>
 														<div class="chat-body clearfix">
 															<p><?php echo $row['Reply'];?></p>
 															<div class="chat_time"><?php echo $row['Time_admin'];?></div>
 														</div>
-													</li>
-														
-
-
-												
-													<?php }?>
-													
-												</ul>
-											
-											</div>
-											
+													</li>																							
+													<?php }?>													
+												</ul>											
+											</div>											
 										</div>
 									
 

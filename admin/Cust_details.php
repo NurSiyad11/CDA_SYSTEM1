@@ -3,12 +3,12 @@
 <?php include('../database/db.php')?>
 
 <?php $get_id = $_GET['edit']; ?>
-<?php// $get_id_pdf = $_GET['view']; ?>
+
+
 
 <?php
 	if(isset($_POST['submit']))
-	{
-//	$name=$_POST['name'];	   
+	{   
 	$Date=$_POST['Date']; 	
 	$Message=$_POST['Message'];	
 	$Status=$_POST['Status']; 
@@ -221,6 +221,8 @@
                                     
                                         ?>  
                                         <td ><?php echo $i++; ?></td>
+                                         <td><button data-id='<?php echo $row['id']; ?>' class="userinfo btn btn-danger">PDF</button></td>
+
                                        
                                         <td><?php echo  $row['D_INV']; ?></td>
                                         <td><?php echo  $row['invoice']; ?></td>
@@ -229,13 +231,8 @@
                                         <td><?php echo $row['Amount']; ?></td>
                                         <td><?php echo $row['empty']; ?></td>
                                         <td><?php echo $row['File']; ?></td>
-                                        <td>
-                                            <div class="table-actions">
-                                            <a href="task-add Cust_details.php?view=<?php echo $row['id'];?>"  data-toggle="modal" data-target="#task-add" class="bg-light-blue btn text-blue weight-500"><i class="icon-copy dw dw-eye " ></i> View</a>
-                                            <!-- <a class="dropdown-item" href="Cust_details.php?edit=<?php //echo $row['ID'];?>"><i class="dw dw-eye"></i> View</a> -->
+                                            
 
-                                            </div>
-                                        </td>     
                                         
                                         
 
@@ -245,6 +242,12 @@
                             </table>
                         </div>
                     </div>
+
+
+
+
+
+
 
 
                      
@@ -425,11 +428,79 @@
                                 </div>
                             </div>
                         </div>					
-                    </div>
-
-                    
+                    </div>                   
 
 				</div>
+
+
+
+
+
+
+
+
+
+                
+                <!-- <div class="modal fade" id="empModal"  role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">PDF</h4>
+                                      <button type="button" class="close" data-dismiss="modal">×</button>
+                                    </div>
+                                    <div class="modal-body">
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                    </div> -->
+
+
+
+
+					<!-- add task popup start PDF FILE Display Modal-->
+					<div class="modal fade customscroll" id="empModal" tabindex="-1" role="dialog">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLongTitle">File Pdf</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Close Modal">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body pd-0">
+									<div class="task-list-form">
+										<ul>
+											<li>
+                                                <section>
+                                                    <div class="row">
+                                                        <div class="col-6">
+
+                                                            </div>
+                                                        </div>
+                                                    
+                                                    </div>                                
+                                                </section>
+                                                           
+											</li>											
+										</ul>
+									</div>									
+								</div>								
+							</div>
+						</div>
+					</div>
+					<!-- add task popup End -->    
+
+
+
+
+
+
+
+
+
 
 			</div>
 			<?php include('includes/footer.php'); ?>

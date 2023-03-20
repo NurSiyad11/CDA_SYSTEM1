@@ -39,6 +39,9 @@
 						<ul class="submenu">
 							<li><a href="Invoice.php">Invoice</a></li>
 							<li><a href="Receipt.php">Recipts</a></li>
+							<li><a href="test.php">Test Sms send</a></li>
+
+							<li><a href="test2.php"> Hormud Sms send</a></li>
 						</ul>
 					</li>
 

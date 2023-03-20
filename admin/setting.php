@@ -1,9 +1,31 @@
 <?php include('includes/header.php')?>
 <?php include('../database/session.php')?>
 <?php include('../database/db.php')?>
+
+
 <?php
+	if(isset($_POST['Update']))
+	{
+    $Com_name=$_POST['Com_name'];	
+	$Email=$_POST['Email'];  
+	$Phone=$_POST['Phone']; 
+	$Tell=$_POST['Tell']; 
+	$Address=$_POST['Address']; 
+
+	$result = mysqli_query($conn,"update setting set Company_name='$Com_name',   Email='$Email', Phone='$Phone',  Tell='$Tell', Address='$Address'          
+		"); 		
+	if ($result) {
+     	echo "<script>alert('Record Successfully Updated');</script>";
+     	echo "<script type='text/javascript'> document.location = 'setting.php'; </script>";
+	} else{
+	  die(mysqli_error());
+   }		
+}
+?>
 
 
+<!-- Logo Update Code  -->
+<?php
 if (isset($_POST["setting"])) {
 
 	$image = $_FILES['image']['name'];
@@ -17,7 +39,7 @@ if (isset($_POST["setting"])) {
 
 	}
 
-    $result = mysqli_query($conn,"update user set Logo='$Logo' where id='$session_id'         
+    $result = mysqli_query($conn,"update setting set Logo='$Logo'         
 		")or die(mysqli_error());
     if ($result) {
      	echo "<script>alert('Company Logo Updated');</script>";
@@ -26,7 +48,6 @@ if (isset($_POST["setting"])) {
 	  die(mysqli_error());
    }
 }
-
 ?>
 
 <body>
@@ -57,7 +78,7 @@ if (isset($_POST["setting"])) {
 					<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mb-30">
 						<div class="pd-20 card-box height-100-p">
 
-							<?php $query= mysqli_query($conn,"select * from user  where id = '$session_id'")or die(mysqli_error());
+							<?php $query= mysqli_query($conn,"select * from setting ")or die(mysqli_error());
 								$row = mysqli_fetch_array($query);
 							?>
 
@@ -85,18 +106,22 @@ if (isset($_POST["setting"])) {
 									</div>
 								</form>
 							</div>
-							<h5 class="text-center h5 mb-0"><?php echo $row['Com_name']. " "; ?></h5>
-							<p class="text-center text-muted font-14"><?php echo $row['Name']; ?></p>
+							<h5 class="text-center h5 mb-0"><?php echo $row['Company_name']. " "; ?></h5>
+							<p class="text-center text-muted font-14"><?php echo $row['Address']; ?></p>
 							<div class="profile-info">
 								<h5 class="mb-20 h5 text-blue">Contact Information</h5>
 								<ul>
-									<!-- <li>
+									<li>
 										<span>Email Address:</span>
-										<?php //echo $row['Email']; ?>
-									</li> -->
+										<?php echo $row['Email']; ?>
+									</li>
 									<li>
 										<span>Phone Number:</span>
 										<?php echo $row['Phone']; ?>
+									</li>
+									<li>
+										<span>Tell:</span>
+										<?php echo $row['Tell']; ?>
 									</li>
 									<!-- <li>
 										<span>My Role:</span>
@@ -119,7 +144,6 @@ if (isset($_POST["setting"])) {
 										<li class="nav-item">
 											<a class="nav-link active" data-toggle="tab" href="#timeline" role="tab">Seeting </a>
 										</li>
-
 									
 									</ul>
 									<div class="tab-content">
@@ -127,7 +151,48 @@ if (isset($_POST["setting"])) {
 										<div class="tab-pane fade show active" id="timeline" role="tabpanel">
 											<div class="pd-20">
 												<div class="profile-timeline">
-													
+													<?php 
+													$query = mysqli_query($conn,"SELECT * FROM setting ")or die(mysqli_error());
+													$row = mysqli_fetch_array($query);
+													?>
+													<form action="" method="POST">
+														<div class="mb-3 row">
+															<label for="staticEmail" class="col-sm-2 col-form-label">Company Name</label>
+															<div class="col-sm-10">
+															<input type="text" name="Com_name" autocomplete="off" class="form-control" id="staticEmail" value="<?php echo $row['Company_name']; ?>">
+															</div>
+														</div>
+														<div class="mb-3 row">
+															<label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+															<div class="col-sm-10">
+															<input type="gmail" name="Email" autocomplete="off"class="form-control" id="staticEmail" value="<?php echo $row['Email']; ?>">
+															</div>
+														</div>
+														<div class="mb-3 row">
+															<label for="staticEmail" class="col-sm-2 col-form-label">Phone</label>
+															<div class="col-sm-10">
+															<input type="number"  name="Phone" autocomplete="off"class="form-control" id="staticEmail" value="<?php echo $row['Phone']; ?>">
+															</div>
+														</div>
+														<div class="mb-3 row">
+															<label for="staticEmail" class="col-sm-2 col-form-label">Tell</label>
+															<div class="col-sm-10">
+															<input type="number" name="Tell" autocomplete="off"class="form-control" id="staticEmail" value="<?php echo $row['Tell']; ?>">
+															</div>
+														</div>
+														<div class="mb-3 row">
+															<label for="staticEmail" class="col-sm-2 col-form-label">Address</label>
+															<div class="col-sm-10">
+															<input type="text" name="Address" autocomplete="off" class="form-control" id="staticEmail" value="<?php echo $row['Address']; ?>">
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-12">
+																<button type="submit" name="Update" class="btn btn-primary"> Submit </button>
+
+															</div>
+														</div>
+													</form>
                                                     
                                                     
 												</div>

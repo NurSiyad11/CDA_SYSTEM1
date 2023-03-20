@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 10, 2023 at 05:20 PM
+-- Generation Time: Mar 20, 2023 at 06:07 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -74,7 +74,8 @@ INSERT INTO `cash_payment` (`id`, `Acc_id`, `name`, `PV`, `Amount`, `Date`, `Mem
 (55, 2, 'Electrical And water Exp', 1110, '23.00', '2022-09-02', 'Expense', '', '', 0, 'PV#', '2022-09-22 10:43:00'),
 (56, 2, 'Rent Exp', 1111, '40.00', '2022-09-02', 'Rent', '', '', 0, 'PV#', '2022-09-22 10:44:29'),
 (58, 1, 'Farax', 12415, '500.00', '2023-02-07', 'ok', '', '', 0, 'PV#', '2023-02-07 18:13:01'),
-(59, 1, 'ghhghgh', 2420, '100.00', '2023-02-09', 'ghgj', '', '', 0, 'PV#', '2023-02-08 05:41:51');
+(59, 1, 'ghhghgh', 2420, '100.00', '2023-02-09', 'ghgj', '', '', 0, 'PV#', '2023-02-08 05:41:51'),
+(60, 1, 'Exp', 1214, '50.00', '2023-03-12', 'Exp', '', '', 0, 'PV#', '2023-03-12 06:59:41');
 
 -- --------------------------------------------------------
 
@@ -131,7 +132,8 @@ CREATE TABLE `debt_reminder` (
 INSERT INTO `debt_reminder` (`id`, `Cid`, `Date`, `Update_date`, `Message`, `Memo`, `Status`, `RegDate`) VALUES
 (2, 5, '2023-02-15', '0', 'Xasuusin. Asc Geedi Ahmed  , Haraaga xisaabta deynta laguugu leeyahay waa $ 650.65 Wixii faahfaahin ah kala xiriir 2323232\r\n                                                    ', '', 'Show', '2023-02-15 13:34:17'),
 (3, 4, '2023-02-14', '2023-02-16 10:51:26 ', 'Xasuusin. Asc Ali Ahmed A/qadir  , Haraaga xisaabta deynta laguugu leeyahay waa $ 300.00 Wixii faahfaahin ah kala xiriir 232323200\r\n                                                     \r\n                                                 \r\n                 ', 'okey bbbb    ', 'Hide', '2023-02-15 14:29:30'),
-(4, 4, '2023-02-16', '2023-02-26 04:05:58 ', 'Xasuusin. Asc Ali Ahmed A/qadir  , Haraaga xisaabta deynta laguugu leeyahay waa $ 500.00 Wixii faahfaahin ah kala xiriir 232323', 'fadalan iska clean karee adoo mahadsan    ', 'Show', '2023-02-16 07:39:25');
+(4, 4, '2023-02-16', '2023-02-26 04:05:58 ', 'Xasuusin. Asc Ali Ahmed A/qadir  , Haraaga xisaabta deynta laguugu leeyahay waa $ 500.00 Wixii faahfaahin ah kala xiriir 232323', 'fadalan iska clean karee adoo mahadsan    ', 'Show', '2023-02-16 07:39:25'),
+(5, 24, '2023-03-13', '2023-03-12 10:15:31 ', 'Xasuusin. Asc Saciid Ahmed  , Haraaga xisaabta deynta laguugu leeyahay waa $ 700.00 , sida uku dhawsiyaha badan ugu bixi lacahtaas Wixii faahfaahin ah kala xiriir 613231772 \r\n                                                 \r\n                             ', '  ', 'Show', '2023-03-12 07:07:20');
 
 -- --------------------------------------------------------
 
@@ -156,7 +158,8 @@ CREATE TABLE `faq` (
 INSERT INTO `faq` (`id`, `Aid`, `Question`, `Description`, `Video`, `Order_no`, `RedDate`) VALUES
 (1, 2, 'How ejkjk', 'cjkhhhhhhhhhhhhh jk,hcx,', 'm38O12p1_BY', 2, '2023-03-09 05:48:14'),
 (2, 2, 'How can I send an order ?', 'Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS.\n', '838-iHZUyXQ', 1, '2023-03-09 05:56:59'),
-(3, 0, 'fgvv', 'xdc', 'dg', 3, '2023-03-09 14:33:27');
+(3, 0, 'fgvv', 'xdc', 'dg', 3, '2023-03-09 14:33:27'),
+(4, 0, 'Hoehnbc hbf ?', 'vghgvjhghgjvjhxjchxvgjxgjxgjxk\r\nhjgv1\r\n1fghfg2fgjkhf\r\n3fgjhbf\r\n.uhiudh\r\nkj', 'jhdfjkdf', 4, '2023-03-12 07:29:12');
 
 -- --------------------------------------------------------
 
@@ -173,7 +176,7 @@ CREATE TABLE `invoice` (
   `Memo` varchar(200) NOT NULL,
   `File` varchar(255) NOT NULL DEFAULT 'No File Found',
   `Status` varchar(50) NOT NULL,
-  `empty` varchar(50) NOT NULL,
+  `empty` int(11) NOT NULL,
   `D_INV` varchar(50) NOT NULL DEFAULT 'INV#',
   `RegDate` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -183,21 +186,22 @@ CREATE TABLE `invoice` (
 --
 
 INSERT INTO `invoice` (`id`, `Cid`, `Date`, `invoice`, `Amount`, `Memo`, `File`, `Status`, `empty`, `D_INV`, `RegDate`) VALUES
-(65, 1, '2022-11-27', 1010, '200.00', 'invoice', 'CDA Management System.pdf', 'Approved', '', 'INV#', '2022-11-28 07:54:28'),
-(66, 3, '2022-11-28', 1011, '300.00', 'invoice', 'DeskApp - Bootstrap Admin Dashboard HTML Template.pdf', 'Rejected', '', 'INV#', '2022-11-28 07:54:54'),
-(67, 4, '2022-11-27', 1012, '400.00', 'invoice', 'CDA Management System.pdf', 'Approved', '', 'INV#', '2022-11-28 07:55:30'),
-(68, 3, '2022-11-29', 333, '500.00', 'invoice', 'CDA Management System.pdf', 'Pending', '', 'INV#', '2022-11-28 12:18:39'),
-(69, 5, '2022-11-28', 22233, '650.65', 'invoice', 'CDA Management System.pdf', 'Pending', '', 'INV#', '2022-11-28 12:23:53'),
-(70, 1, '2022-12-01', 11122, '600.00', 'gggg', '', 'Approved', '', 'INV#', '2022-12-01 09:58:11'),
-(71, 1, '2023-01-15', 799, '100.00', 'ufhjm', 'palgrave.dbm.3240248.pdf', 'Pending', '', 'INV#', '2023-01-16 12:38:54'),
-(72, 1, '2023-03-01', 11220, '1200.00', 'ok', '185.27.134.10 _ sql204.byetcluster.com _ epiz_33614320_Customer_DB _ phpMyAdmin 4.9.0.1.pdf', 'Rejected', '', 'INV#', '2023-02-07 08:29:55'),
-(73, 4, '2023-02-07', 122, '300.00', 'okey waye hada           \r\n                                                 \r\n                                                 \r\n                                                ', 'Ahmed _bisafi_statement_Feb-13-2023_07-38.pdf', 'Rejected', '', 'INV#', '2023-02-07 08:32:42'),
-(74, 22, '2022-04-02', 5914, '2866.44', 'invoice \r\n                                                ', 'inv_5914.pdf', 'Approved', '', 'INV#', '2023-02-28 12:43:12'),
-(75, 22, '2022-04-02', 5915, '4057.30', 'invoice \r\n                                                ', 'inv_5915.pdf', 'Approved', '', 'INV#', '2023-02-28 12:43:57'),
-(76, 22, '2022-07-21', 11075, '866.00', 'invoice', 'inv_11075 .pdf', 'Pending', '', 'INV#', '2023-02-28 12:44:58'),
-(77, 22, '2022-03-31', 0, '29548.94', 'BGB \r\n                                                ', 'BGB .pdf', 'Approved', '', 'INV#', '2023-02-28 12:58:14'),
-(78, 4, '2023-03-02', 12452, '200.00', 'invoice', '273.pdf', 'Pending', '', 'INV#', '2023-03-02 14:30:43'),
-(79, 1, '2023-03-05', 6564, '300.00', '', '185.27.134.10 _ sql204.byetcluster.com _ epiz_33614320_Customer_DB _ phpMyAdmin 4.9.0.1.pdf', 'Pending', '', 'INV#', '2023-03-05 05:02:40');
+(65, 1, '2022-11-27', 1010, '200.00', 'invoice', 'CDA Management System.pdf', 'Approved', 0, 'INV#', '2022-11-28 07:54:28'),
+(66, 3, '2022-11-28', 1011, '300.00', 'invoice', 'DeskApp - Bootstrap Admin Dashboard HTML Template.pdf', 'Rejected', 0, 'INV#', '2022-11-28 07:54:54'),
+(67, 4, '2022-11-27', 1012, '400.00', 'invoice', 'CDA Management System.pdf', 'Approved', 0, 'INV#', '2022-11-28 07:55:30'),
+(68, 3, '2022-11-29', 333, '500.00', 'invoice', 'CDA Management System.pdf', 'Pending', 0, 'INV#', '2022-11-28 12:18:39'),
+(69, 5, '2022-11-28', 22233, '650.65', 'invoice', 'CDA Management System.pdf', 'Pending', 0, 'INV#', '2022-11-28 12:23:53'),
+(70, 1, '2022-12-01', 11122, '600.00', 'gggg', '', 'Approved', 0, 'INV#', '2022-12-01 09:58:11'),
+(71, 1, '2023-01-15', 799, '100.00', 'ufhjm', 'palgrave.dbm.3240248.pdf', 'Pending', 0, 'INV#', '2023-01-16 12:38:54'),
+(72, 1, '2023-03-01', 11220, '1200.00', 'ok', '185.27.134.10 _ sql204.byetcluster.com _ epiz_33614320_Customer_DB _ phpMyAdmin 4.9.0.1.pdf', 'Rejected', 0, 'INV#', '2023-02-07 08:29:55'),
+(73, 4, '2023-02-07', 122, '300.00', 'okey waye hada           \r\n                                                 \r\n                                                 \r\n                                                ', 'Ahmed _bisafi_statement_Feb-13-2023_07-38.pdf', 'Rejected', 0, 'INV#', '2023-02-07 08:32:42'),
+(74, 22, '2022-04-02', 5914, '2866.44', 'invoice \r\n                                                ', 'inv_5914.pdf', 'Approved', 0, 'INV#', '2023-02-28 12:43:12'),
+(75, 22, '2022-04-02', 5915, '4057.30', 'invoice \r\n                                                ', 'inv_5915.pdf', 'Approved', 0, 'INV#', '2023-02-28 12:43:57'),
+(76, 22, '2022-07-21', 11075, '866.00', 'invoice', 'inv_11075 .pdf', 'Pending', 0, 'INV#', '2023-02-28 12:44:58'),
+(77, 22, '2022-03-31', 0, '29548.94', 'BGB \r\n                                                ', 'BGB .pdf', 'Approved', 0, 'INV#', '2023-02-28 12:58:14'),
+(78, 4, '2023-03-02', 12452, '200.00', 'invoice', '273.pdf', 'Pending', 0, 'INV#', '2023-03-02 14:30:43'),
+(79, 1, '2023-03-05', 6564, '300.00', '', '185.27.134.10 _ sql204.byetcluster.com _ epiz_33614320_Customer_DB _ phpMyAdmin 4.9.0.1.pdf', 'Pending', 0, 'INV#', '2023-03-05 05:02:40'),
+(80, 24, '2023-03-12', 121214, '1200.00', 'invoice \r\n                                       \r\n                                                ', 'Pick a Plan.pdf', 'Approved', 0, 'INV#', '2023-03-12 06:41:13');
 
 -- --------------------------------------------------------
 
@@ -213,8 +217,8 @@ CREATE TABLE `invoice_receipt` (
 ,`File` varchar(255)
 ,`Date` date
 ,`Memo` varchar(200)
-,`Amount` varchar(50)
-,`empty` varchar(50)
+,`Amount` decimal(12,2)
+,`empty` decimal(12,2)
 ,`Status` varchar(50)
 );
 
@@ -233,7 +237,7 @@ CREATE TABLE `receipt` (
   `Memo` varchar(200) NOT NULL,
   `Status` varchar(50) NOT NULL,
   `File` varchar(255) NOT NULL DEFAULT 'No File Found',
-  `empty` varchar(50) NOT NULL,
+  `empty` int(11) NOT NULL,
   `D_RV` varchar(50) NOT NULL DEFAULT 'RV#',
   `RegDate` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -243,13 +247,38 @@ CREATE TABLE `receipt` (
 --
 
 INSERT INTO `receipt` (`id`, `Cid`, `Date`, `RV`, `Amount`, `Memo`, `Status`, `File`, `empty`, `D_RV`, `RegDate`) VALUES
-(32, 1, '2022-11-28', 5360, '500.00', 'Receipt', 'Approved', 'CDA Management System.pdf', '', 'RV#', '2022-11-28 07:59:01'),
-(33, 3, '2022-11-28', 5361, '100.00', 'receipt', 'Approved', 'DeskApp - Bootstrap Admin Dashboard HTML Template.pdf', '', 'RV#', '2022-11-28 07:59:41'),
-(34, 4, '2022-11-28', 5362, '200.00', 'Receipt', 'Rejected', 'CDA Management System.pdf', '', 'RV#', '2022-11-28 08:00:28'),
-(35, 4, '2022-11-29', 111, '200.00', 'receipt', 'Pending', '18-188243_business-wallpaper-group-data-src-full-656727-consulting.jpg', '', 'RV#', '2022-11-28 12:54:32'),
-(36, 1, '2023-01-16', 990, '200.00', 'RV', 'Pending', 'mpdf.pdf', '', 'RV#', '2023-01-16 13:24:23'),
-(37, 1, '2023-02-08', 12566, '400.00', 'RV1', 'Pending', 'Ahmed _bisafi_statement_Feb-13-2023_07-38.pdf', '', 'RV#', '2023-02-07 09:15:46'),
-(38, 22, '2022-04-02', 6377, '10000.00', 'Receipt', 'Pending', 'RV_6377 .pdf', '', 'RV#', '2023-02-28 13:00:11');
+(32, 1, '2022-11-28', 5360, '500.00', 'Receipt', 'Approved', 'CDA Management System.pdf', 0, 'RV#', '2022-11-28 07:59:01'),
+(33, 3, '2022-11-28', 5361, '100.00', 'receipt', 'Approved', 'DeskApp - Bootstrap Admin Dashboard HTML Template.pdf', 0, 'RV#', '2022-11-28 07:59:41'),
+(34, 4, '2022-11-28', 5362, '200.00', 'Receipt', 'Rejected', 'CDA Management System.pdf', 0, 'RV#', '2022-11-28 08:00:28'),
+(35, 4, '2022-11-29', 111, '200.00', 'receipt', 'Pending', '18-188243_business-wallpaper-group-data-src-full-656727-consulting.jpg', 0, 'RV#', '2022-11-28 12:54:32'),
+(36, 1, '2023-01-16', 990, '200.00', 'RV', 'Pending', 'mpdf.pdf', 0, 'RV#', '2023-01-16 13:24:23'),
+(37, 1, '2023-02-08', 12566, '400.00', 'RV1', 'Pending', 'Ahmed _bisafi_statement_Feb-13-2023_07-38.pdf', 0, 'RV#', '2023-02-07 09:15:46'),
+(39, 24, '2023-03-12', 555, '500.00', 'Receipt', 'Approved', 'RV_6377 .pdf', 0, 'RV#', '2023-03-12 06:49:26'),
+(70, 22, '2022-04-02', 6377, '10000.00', 'Receipt', 'Pending', 'RV_6377 .pdf', 0, 'RV#', '2023-02-28 13:00:11');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `setting`
+--
+
+CREATE TABLE `setting` (
+  `id` int(11) NOT NULL,
+  `Company_name` varchar(50) NOT NULL,
+  `Address` varchar(30) NOT NULL,
+  `Email` varchar(20) NOT NULL,
+  `Tell` int(11) NOT NULL,
+  `Phone` int(11) NOT NULL,
+  `Logo` varchar(50) NOT NULL,
+  `RegDate` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `setting`
+--
+
+INSERT INTO `setting` (`id`, `Company_name`, `Address`, `Email`, `Tell`, `Phone`, `Logo`, `RegDate`) VALUES
+(1, 'New General Trading Company', 'Muqdisho, Banaadir', 'Company@gmail.com', 620000, 613000000, 'logo1-02.png', '2023-03-16 16:13:45');
 
 -- --------------------------------------------------------
 
@@ -278,9 +307,14 @@ INSERT INTO `support` (`id`, `Cid`, `Admin_id`, `Message`, `Reply`, `Time_user`,
 (10, 8, 2, '', 'wa la saxay xisabtada  ee iska hubi ', '0000-00-00 00:00:00', '2023-02-18 00:00:00', 'Show', '2022-09-16 13:27:54'),
 (11, 8, 2, '', 'Thanks to send ', '0000-00-00 00:00:00', '2023-03-10-Fri - 04:16:54 pm', 'Show', '2022-09-22 12:18:12'),
 (12, 3, 2, '', 'okey', '0000-00-00 00:00:00', '2023-02-16 00:00:00', 'Show', '2022-10-27 14:30:05'),
-(13, 1, 2, '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '2022-12-05 03:50:35'),
-(18, 1, 2, 'senbl', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Pending', '2023-02-16 15:51:21'),
-(19, 4, 2, 'hello', 'xfhbf', '2023-02-17 00:00:00', '2023-03-03-Fri - 07:58:00 am', 'Show', '2023-02-17 16:57:56');
+(13, 1, 2, '', 'th', '0000-00-00 00:00:00', '2023-03-13-Mon - 08:49:09 am', 'Show', '2022-12-05 03:50:35'),
+(18, 1, 2, 'senbl', 'ok', '0000-00-00 00:00:00', '2023-03-13-Mon - 08:48:45 am', 'Show', '2023-02-16 15:51:21'),
+(19, 4, 2, 'hello', 'xfhbf', '2023-02-17 00:00:00', '2023-03-03-Fri - 07:58:00 am', 'Show', '2023-02-17 16:57:56'),
+(20, 24, 2, 'Asc', 'Wcs', '2023-03-12-Sun - 10:17:42 am', '2023-03-12-Sun - 10:18:35 am', 'Show', '2023-03-12 07:17:42'),
+(21, 24, 2, 'questrion fhjkhfd', 'welcome jhjkfg', '2023-03-12-Sun - 10:19:13 am', '2023-03-13-Mon - 08:50:50 am', 'Hide', '2023-03-12 07:19:13'),
+(22, 24, 2, 'ggg', '', '2023-03-12-Sun - 06:14:10 pm', '', 'Pending', '2023-03-12 15:14:10'),
+(23, 24, 2, 'Huyydsttdsj  syukns djys jksh,mshiolHuyydsttdsj  syukns djys jksh,mshiol Huyydsttdsj  syukns djys jksh,mshiol', '', '2023-03-12-Sun - 06:36:10 pm', '', 'Pending', '2023-03-12 15:36:10'),
+(24, 22, 2, 'Asc', '', '2023-03-19-Sun - 07:34:25 pm', '', 'Pending', '2023-03-19 16:34:25');
 
 -- --------------------------------------------------------
 
@@ -343,15 +377,15 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`ID`, `Name`, `Com_name`, `Email`, `password`, `Phone`, `Role`, `Status`, `Address`, `Picture`, `Login_time`, `Login_status`, `Reg_date`) VALUES
-(1, 'Farax Ali Mohamed', 'Testing Company', 'test@cda.com', '1234', 1231231, 'Customer', 'Active', 'Madiina', 'user3.jpg', 'Thu-09-03-2023 07:49:43 am', '1678366812', '2022-11-24 12:09:33'),
-(2, 'Nur Siyad Abdi', 'Al-Marwa General Trading Com', 'nur@cda.com', '1234', 613231772, 'Admin', 'Active', 'Madina', 'profile-pic (8).png', 'Fri-10-03-2023 02:27:47 pm', '1678453494', '2022-11-24 14:07:47'),
+(1, 'Farax Ali Mohamed', 'Testing Company', 'test@cda.com', '1234', 1231231, 'Customer', 'Active', 'Madiina', 'user3.jpg', 'Mon-20-03-2023 06:42:06 am', '1679288855', '2022-11-24 12:09:33'),
+(2, 'Nur Siyad Abdi', 'Al-Marwa General Trading Com', 'nur@cda.com', '1234', 613231772, 'Admin', 'Active', 'Madina', 'profile-pic (8).png', 'Mon-20-03-2023 08:01:14 am', '1679290274', '2022-11-24 14:07:47'),
 (3, 'Maxamed Farax Xasan', 'mjjd Company', 'lllll@cda.com', '1234', 61222, 'Customer', 'Inactive', 'wadajir', '', 'Wed-22-02-2023 08:51:14 am', '1677045208', '2022-11-24 15:22:59'),
 (4, 'Ali Ahmed A/qadir', 'Ali Company', 'ali@cda.com', '1234', 666, 'Customer', 'Active', 'Wadajir', '1354944.png', 'Sat-18-02-2023 11:29:01 am', '1676746127', '2022-11-27 10:26:53'),
 (5, 'Geedi Ahmed', 'Yes Company', 'gedi@cda.com', '1234', 6112, 'Customer', 'Active', 'Kaaraan ', '', 'Wed-15-02-2023 05:12:29 pm', '1676483765', '2022-11-28 12:22:20'),
 (6, 'Ahmed Ali Kaahiye', 'Ahmed General Company', 'ahmed@cda.com', '1234', 333333, 'Vendor', 'Active', 'Howlwadag', '', '', '0', '2022-11-30 03:46:17'),
-(7, 'Hashim Muqtar Ali', 'Hashim Gen Company', 'hashim@cda.com', '1234', 1234567, 'Vendor', 'Active', 'wadajir', '', '', '1669988405', '2022-11-30 05:56:07'),
+(7, 'Hashim Muqtar Ali', 'Hashim Gen Company', 'hashim@cda.com', '1234', 1234567, 'Vendor', 'Active', 'wadajir', '', '', '1678607318', '2022-11-30 05:56:07'),
 (8, 'ggggggg', 'ggggggg', 'gg@cda.com', '1234', 6555, 'Admin', 'Active', 'kkkk', '', '03-12-2022 08:19:50 am', '1670045757', '2022-12-02 11:07:32'),
-(10, 'Manager', 'Al-xikma GenTrading Co.', 'Manager@cda.com', '1234', 77777, 'HOD', 'Active', 'wadajir', 'user.png', 'Fri-03-03-2023 06:45:25 pm', '1677860125', '2022-12-23 04:30:39'),
+(10, 'Manager', 'Al-xikma GenTrading Co.', 'Manager@cda.com', '1234', 77777, 'HOD', 'Active', 'wadajir', 'user.png', 'Sun-12-03-2023 09:51:09 am', '1678605669', '2022-12-23 04:30:39'),
 (11, 'da', 'eee', 'ee@reaaaaaa', '1234', 11111, 'HOD', 'Active', 'dddd', '', '', '', '2023-02-06 15:30:43'),
 (12, 'Farax', 'hasan Comapany', 'hasan@cda.com', '1234', 54, 'Customer', 'Active', 'l', '', '', '', '2023-02-06 15:48:51'),
 (13, 'muqtar', 'muqtar Gen company', 'muqtar@cda.com', '1234', 61465, 'Customer', 'Active', 'Wadajir', '', 'Thu-16-02-2023 06:12:33 am', '1676568992', '2023-02-13 13:00:18'),
@@ -359,8 +393,9 @@ INSERT INTO `user` (`ID`, `Name`, `Com_name`, `Email`, `password`, `Phone`, `Rol
 (19, 'qadar', 'qadar Company', 'qadar@cda.com', '1234', 65626, 'Customer', 'Active', 'ok', '', '', '', '2023-02-18 18:10:16'),
 (20, 'asad', 'asad Company', 'asad@cda.com', '1234', 2147483647, 'Customer', 'Active', 'wadajir', '1425812.png', 'Sat-18-02-2023 09:22:34 pm', '1676744789', '2023-02-18 18:16:47'),
 (21, 'zaka', 'zaka Comapany', 'zaka@cda.com', '1234', 656, 'Customer', 'Active', 'hgfh', '8349206.png', 'Thu-23-02-2023 07:15:27 am', '1677126338', '2023-02-18 18:20:31'),
-(22, 'Maxamed Xassan Cali', 'AL-Madiina Pharma Bosaso', 'al-madiina@cda.com', '1234', 61222, 'Customer', 'Active', 'Bosaso', '', 'Thu-09-03-2023 03:59:26 pm', '1678383856', '2023-02-28 12:36:25'),
-(23, 'Customer Name', 'Company Name', 'customer@cda.com', '1234', 0, 'Customer', 'Active', 'None', '', 'Fri-10-03-2023 02:31:17 pm', '1678465306', '2023-03-10 11:31:01');
+(22, 'Maxamed Xassan Cali', 'AL-Madiina Pharma Bosaso', 'al-madiina@cda.com', '1234', 61222, 'Customer', 'Active', 'Bosaso', '', 'Mon-20-03-2023 06:41:13 am', '1679288895', '2023-02-28 12:36:25'),
+(23, 'Customer Name', 'Company Name', 'customer@cda.com', '1234', 0, 'Customer', 'Active', 'None', '', 'Sun-12-03-2023 09:23:41 am', '1678602330', '2023-03-10 11:31:01'),
+(24, 'Saciid Ahmed', 'Saciid Company', 'saciid@cda.com', '1234', 66666666, 'Customer', 'Inactive', 'Kaxda', '', 'Mon-13-03-2023 08:26:09 am', '1678685253', '2023-03-12 06:33:21');
 
 -- --------------------------------------------------------
 
@@ -478,6 +513,12 @@ ALTER TABLE `receipt`
   ADD KEY `fk_receipt_user` (`Cid`);
 
 --
+-- Indexes for table `setting`
+--
+ALTER TABLE `setting`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `support`
 --
 ALTER TABLE `support`
@@ -528,7 +569,7 @@ ALTER TABLE `account`
 -- AUTO_INCREMENT for table `cash_payment`
 --
 ALTER TABLE `cash_payment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `cash_receipt`
@@ -540,31 +581,37 @@ ALTER TABLE `cash_receipt`
 -- AUTO_INCREMENT for table `debt_reminder`
 --
 ALTER TABLE `debt_reminder`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `faq`
 --
 ALTER TABLE `faq`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT for table `receipt`
 --
 ALTER TABLE `receipt`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+
+--
+-- AUTO_INCREMENT for table `setting`
+--
+ALTER TABLE `setting`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `support`
 --
 ALTER TABLE `support`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `tbl_order`
@@ -576,7 +623,7 @@ ALTER TABLE `tbl_order`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `ven_invoice`

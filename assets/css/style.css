@@ -301,7 +301,7 @@ button {
 /** banner section **/
 
 .banner_main {
-     position: relative;
+     position: absolute;
 }
 
 .banner .carousel-indicators li {

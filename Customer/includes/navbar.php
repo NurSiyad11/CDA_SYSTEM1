@@ -1,3 +1,13 @@
+<?php	
+$sts = $conn->query("SELECT Status as sts from `user` where ID='$session_id'  ")->fetch_assoc()['sts'];
+
+if($sts != 'Active'){
+	unset($_SESSION['alogin']);
+	session_destroy(); // destroy session
+	header("location: ../index.php"); 
+}
+?>
+
 <!-- Nav Bar Start -->
 <div class="header">
 		<div class="header-left">
@@ -48,7 +58,6 @@
 					</a>
 				</div>
 			</div>
-
 			<div class="user-notification">
 				<div class="dropdown">
 					<a class="dropdown-toggle no-arrow" href="#" role="button" data-toggle="dropdown">
@@ -352,3 +361,4 @@
 		</div>
 	</div>
 	<!-- Nav Ber End -->
+

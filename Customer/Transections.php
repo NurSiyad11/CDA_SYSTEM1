@@ -30,6 +30,7 @@
 								<th>Description</th>
 								<th>Invoice</th>
 								<th>Receipt</th>
+								<th>Balance</th>
 								<!-- <th>File</th> -->
 								<th>Action</th>												
 																
@@ -39,11 +40,8 @@
 						<tbody>
 
 							<?php
-
-							// $sql = "SELECT * from account order by Acc_name ";
-
-							$Cname = $conn->query("SELECT id as eid from `user` where id='$session_id'  ")->fetch_assoc()['eid'];
-							$sql = "SELECT * FROM Invoice_Receipt where Cid='$Cname' order by Date desc ";						
+							//$bal= 0;
+							$sql = "SELECT id,D_INV,invoice,File,Date,Memo,Amount,empty FROM invoice where Cid='$session_id' UNION All SELECT id,D_RV,RV,File,Date,Memo,empty,Amount FROM receipt    where Cid='$session_id'   order by Date desc ";
 							$query = $dbh -> prepare($sql);
 							$query->execute();
 							$results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -51,7 +49,7 @@
 							if($query->rowCount() > 0)
 							{
 							foreach($results as $result)
-							{               ?>  
+							{       ?>  
 
 							<tr>
 								<td> <?php echo htmlentities($cnt);?></td>
@@ -61,28 +59,53 @@
 								<td><?php echo htmlentities($result->Memo);?></td>
 								<td><?php echo "$ ". number_format((float)htmlentities($result->Amount), '2','.',','); ?></td>
 								<td><?php echo "$ ". number_format((float)htmlentities($result->empty), '2','.',','); ?></td>
+								<td>
+									<?php
+									$in= $result->Amount;
+									$out= $result->empty;
+									$bal= $in + $out;
+									
+									// echo "$ ". number_format((float)htmlentities($bal), '2','.',',');
+									$total= $bal + $in - $out;
+									//echo "$ ". number_format((float)htmlentities($result->balance), '2','.',',');
 
+									?>
+								</td>
 								
 								<td>
+									<?php if($result->D_INV != 'INV#') {
+									?>
 									<div class="table-actions">										
 										<div class="dropdown">
 											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
 												<i class="dw dw-more"></i>
 											</a>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-												<a class="dropdown-item" href="edit_invoice_check.php?edit=<?php echo  htmlentities($result->id); ?>"><i class="dw dw-eye"></i> View</a>
-												
+												<a class="dropdown-item" href="view_inv_rec.php?edit=<?php echo  htmlentities($result->id); ?>"><i class="dw dw-eye"></i> RV View</a>
 											</div>
 										</div>
 								
 									</div>
-								</td>
+									<?php }	else{
+										?>
+										<div class="table-actions">										
+										<div class="dropdown">
+											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+												<i class="dw dw-more"></i>
+											</a>
+											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+												<a class="dropdown-item" href="view_inv_rec.php?edit=<?php echo  htmlentities($result->id); ?>"><i class="dw dw-eye"></i> INV View</a>
+											</div>
+										</div>
+								
+									</div>
+									<?php
+									}		?>
+								</td>								
 							</tr>
-
-							<?php $cnt++;} }?>  
+							<?php $cnt++; } } ?>  
 
 						</tbody>
-
 
 						<!-- <tfoot class="table-secondary">
 							<tr>				

@@ -2,43 +2,7 @@
 <?php include('../database/session.php')?>
 <?php include('../database/db.php')?>
 <?php $get_id = $_GET['edit']; ?>
-<?php
-	if(isset($_POST['Update']))
-	{	
-		$st = $conn->query("SELECT Status as st from `invoice` where id='$get_id'  ")->fetch_assoc()['st'];
 
-		if($st =='Approved'){
-			?>
-			<Script>
-				window.addEventListener('load',function(){
-					swal({
-						title: "Warning",
-						text: "This invoice is not updated, b/c your Approved this invoice ",
-						icon: "warning",
-						button: "Ok Done!",
-					})
-					.then(function() {
-								window.location = "invoice_check.php";
-							});
-				});			
-			</Script>
-			<?php			
-		}else {
-			$Status=$_POST['Status'];	
-			$Memo=$_POST['Memo'];	
-
-			$result = mysqli_query($conn,"update invoice set Memo='$Memo', Status='$Status' where id='$get_id'         
-				"); 		
-			if ($result) {			
-				echo "<script>alert('Record Successfully Updated');</script>";
-				echo "<script type='text/javascript'> document.location = 'invoice_check.php'; </script>";
-				// header('location: edit_invoice_check.php');
-			} else{
-			die(mysqli_error());
-		}	
-	}	
-}
-?>
 
 <body>
 	<?php include('includes/navbar.php')?>
@@ -53,12 +17,12 @@
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
 							<div class="title">
-								<h4>Customer Invoice Check</h4>
+								<h4>Customer Invoice And Receipt View</h4>
 							</div>
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="invoice_check.php">Back</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Invoice Check</li>
+									<li class="breadcrumb-item"><a href="Transections.php">Back</a></li>
+									<li class="breadcrumb-item active" aria-current="page">View</li>
 								</ol>
 							</nav>
 						</div>
@@ -68,7 +32,7 @@
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix">
 						<div class="pull-left">
-							<h4 class="text-blue h4">Invoice Check </h4>
+							<!-- <h4 class="text-blue h4">Invoice And Receipt </h4> -->
 							<p class="mb-20"></p>
 						</div>
 					</div>
@@ -76,9 +40,9 @@
 						<form method="post" action="">
 							<section>
 								<?php
-									//$query = mysqli_query($conn,"SELECT user.Name ,  invoice_receipt.invoice ,invoice_receipt.Amount,invoice_receipt.Date,invoice_receipt.Memo,invoice_receipt.Status, invoice_receipt.File  FROM invoice_receipt INNER JOIN user ON   invoice_receipt.Cid=user.ID where invoice_receipt.id='$get_id'")or die(mysqli_error());
-									
-									$query = mysqli_query($conn,"SELECT user.Name ,  invoice.invoice ,invoice.Amount,invoice.Date,invoice.Memo,invoice.Status, invoice.File  FROM invoice INNER JOIN user ON   invoice.Cid=user.ID where invoice.id='$get_id'")or die(mysqli_error());
+									$inv = $conn->query("SELECT invoice as invoice from `invoice` where id='$get_id'  ")->fetch_assoc()['invoice'];
+									$Rv = $conn->query("SELECT RV as Rv from `receipt` where id='$get_id'  ")->fetch_assoc()['Rv'];
+									$query = mysqli_query($conn,"SELECT user.Name as Name,  invoice.invoice, invoice.Amount as Amount, invoice.Date as Date, invoice.Memo as Memo, invoice.Status as Status, invoice.File as File  FROM invoice INNER JOIN user ON   invoice.Cid=user.ID where invoice.id='$get_id' and invoice.Cid='$session_id' and invoice.invoice='$inv' UNION All SELECT  user.Name as Name, receipt.RV, receipt.Amount as Amount, receipt.Date as Date, receipt.Memo as Memo, receipt.Status as Status, receipt.File as File From receipt INNER JOIN user ON receipt.Cid=user.ID  where receipt.id='$get_id' and receipt.Cid='$session_id' and receipt.RV='$Rv' ")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 									?>
 
@@ -163,7 +127,7 @@
 									<div class="col-12">
 										<?php
 										
-										$sql="SELECT File from invoice where id='$get_id' ";
+										$sql="SELECT File from invoice where id='$get_id'  and Cid='$session_id' and invoice='$inv' Union All select File From receipt Where id='$get_id'  and Cid='$session_id' and RV='$Rv' ";
 										$query=mysqli_query($conn,$sql);
 										while ($info=mysqli_fetch_array($query)) {
 											?>
