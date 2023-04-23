@@ -7,22 +7,49 @@ if (isset($_POST["update_image"])) {
 
 	$image = $_FILES['image']['name'];
 
-	if(!empty($image)){
+	$query = mysqli_query($conn,"select * from user where Picture = '$image' ")or die(mysqli_error());
+	$count = mysqli_num_rows($query);   
+		
+	if($count > 0){ ?>
+		<script>
+		   window.addEventListener('load',function(){
+			   swal({
+				   //title: "Warning",
+				   text: "please change the name of picture ",
+				   icon: "warning",
+				   button: "Ok Done!",			
+			   })
+			   .then(function() {
+					   window.location = "Profile.php";
+				   });
+		   });
+	   </script>
+	   <?php
+	}
+	elseif(!empty($image)){
 		move_uploaded_file($_FILES['image']['tmp_name'], '../uploads/'.$image);
 		$Picture = $image;	
-	}
-	else {
+
+		$result = mysqli_query($conn,"update user set Picture='$Picture' where id='$session_id'         
+			")or die(mysqli_error());
+		if ($result) {
+			echo "<script>alert('Profile Picture Updated');</script>";
+			echo "<script type='text/javascript'> document.location = 'Profile.php'; </script>";
+		} else{
+		die(mysqli_error());
+		}
+	}	
+
+	elseif(empty($image)) {
 		echo "<script>alert('Please Select Picture to Update');</script>";
+		echo "<script type='text/javascript'> document.location = 'Profile.php'; </script>";
+
 	}
 
-    $result = mysqli_query($conn,"update user set Picture='$Picture' where id='$session_id'         
-		")or die(mysqli_error());
-    if ($result) {
-     	echo "<script>alert('Profile Picture Updated');</script>";
-     	echo "<script type='text/javascript'> document.location = 'Profile.php'; </script>";
-	} else{
-	  die(mysqli_error());
-   }
+
+
+
+
 }
 
 ?>
@@ -84,13 +111,14 @@ if (isset($_POST["update_image"])) {
 								</form>
 							</div>
 							<h5 class="text-center h5 mb-0"><?php echo $row['Name']; ?></h5>
-							<p class="text-center text-muted font-14"><?php echo $row['Com_name']; ?></p>
+							<p class="text-center text-muted  font-16"><span class="badge badge-success"><i class="icon-copy fa fa-circle" aria-hidden="true"></i > Online</span></p>
+							<!-- <p class="text-center text-muted font-14"><?php echo $row['Com_name']; ?></p> -->
 							<div class="profile-info">
 								<h5 class="mb-20 h5 text-blue">Contact Information</h5>
 								<ul>
 									<li>
 										<span>Email Address:</span>
-										<?php echo $row['Email']; ?>
+										<?php echo $row['Com_name']; ?>
 									</li>
 									<li>
 										<span>Phone Number:</span>

@@ -21,20 +21,20 @@ if (isset($_GET['delete'])) {
 	$amount=$_POST['amount']; 
 	$memo=$_POST['memo']; 	 
 	
-	$pdf=$_FILES['pdf']['name'];
-	$pdf_type=$_FILES['pdf']['type'];
-	$pdf_size=$_FILES['pdf']['size'];
-	$pdf_tem_loc=$_FILES['pdf']['tmp_name'];
-	$pdf_store="pdf/".$pdf;
+	// $pdf=$_FILES['pdf']['name'];
+	// $pdf_type=$_FILES['pdf']['type'];
+	// $pdf_size=$_FILES['pdf']['size'];
+	// $pdf_tem_loc=$_FILES['pdf']['tmp_name'];
+	// $pdf_store="pdf/".$pdf;
 
-	move_uploaded_file($pdf_tem_loc,$pdf_store);
+	// move_uploaded_file($pdf_tem_loc,$pdf_store);
 
 
-	
+	$Admin_id = $conn->query("SELECT id as Aid from `user` where ID='$session_id'  ")->fetch_assoc()['Aid'];	
 
 	$Cid = $conn->query("SELECT id as cid from `user` where Com_name='$name'  ")->fetch_assoc()['cid'];
      
-        mysqli_query($conn,"INSERT INTO receipt(Cid,Date,RV,Amount,Memo,File,Status) VALUES('$Cid','$date','$RV','$amount','$memo','$pdf','Pending')         
+        mysqli_query($conn,"INSERT INTO receipt(Admin_id,Cid,Date,RV,Amount,Memo,Status) VALUES('$Admin_id','$Cid','$date','$RV','$amount','$memo','Pending')         
 		") or die(mysqli_error()); ?>
 		<script>alert('Receipt Records Successfully  Added');</script>;
 		<script>
@@ -115,16 +115,16 @@ if (isset($_GET['delete'])) {
 											<input name="amount" type="text" placeholder="$00.00" class="form-control" required="true" autocomplete="off">
 										</div>
 									</div>
-									<div class="col-md-6 col-sm-12">
+									<!-- <div class="col-md-6 col-sm-12">
 										<div class="form-group">											
 											<label for="">Choose Your PDF File</label><br>
 											<input id="file" type="file" name="pdf" value="" required="true"  accept="pdf/*" onchange="validatePdf('file')"><br><br>		
 										</div>
-									</div>
-									<div class="col-md-12">
+									</div> -->
+									<div class="col-md-8">
 											<div class="form-group">
 												<label>Memo / Description</label>
-												<textarea name="memo" style="height: 5em;" class="form-control text_area" type="text"></textarea>
+												<textarea name="memo" style="height: 5em;" placeholder="Description" class="form-control text_area" type="text"></textarea>
 											</div>
 										</div>							
 								</div>
@@ -167,7 +167,16 @@ if (isset($_GET['delete'])) {
 								<tr>
 									<?php
 									$i =1;
-									$teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name,  receipt.id, receipt.Cid,receipt.RV ,receipt.Amount,receipt.Date,receipt.Memo,receipt.Status,receipt.File FROM receipt INNER JOIN user ON   receipt.Cid=user.ID order by receipt.Date Desc") or die(mysqli_error());
+									$Role = $conn->query("SELECT Role as role from `user` where ID='$session_id'  ")->fetch_assoc()['role'];
+									
+									if($Role =='Administrator'){
+										$teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name,  receipt.id, receipt.Cid,receipt.RV ,receipt.Amount,receipt.Date,receipt.Memo,receipt.Status,receipt.File FROM receipt INNER JOIN user ON   receipt.Cid=user.ID order by receipt.Date Desc") or die(mysqli_error());
+										
+									}
+									else{
+										$teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name,  receipt.id, receipt.Cid,receipt.RV ,receipt.Amount,receipt.Date,receipt.Memo,receipt.Status,receipt.File FROM receipt INNER JOIN user ON   receipt.Cid=user.ID where receipt.admin_id='$session_id' order by receipt.Date Desc") or die(mysqli_error());
+									
+									}
 									while ($row = mysqli_fetch_array($teacher_query)) {
 									$id = $row['id'];
 										?>

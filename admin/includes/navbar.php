@@ -1,4 +1,10 @@
 <!-- Nav Bar Start -->
+<?php //include('includes/Admin_Administrator.php') ?>
+
+
+
+
+
 <div class="header">
 		<div class="header-left">
 			<div class="menu-icon dw dw-menu"></div>
@@ -68,6 +74,7 @@
 						</i>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right">
+					<h5><?php echo "Orders: ". ($count); ?></h5>
 						<div class="notification-list mx-h-350 customscroll">
 							<?php 
 							//$count = $conn->query("SELECT sum(Amount) as total FROM `cash_receipt`   ")->fetch_assoc()['total'];
@@ -75,7 +82,7 @@
 							// $query_count = mysqli_query($conn,"select * from tbl_order where Status = 'Pending' ")or die(mysqli_error());
 							// $count = mysqli_num_rows($query_count);						
 							 ?>
-						<h5><?php echo "Orders: ". ($count); ?></h5>
+					
 						 
 							<ul>
 							<?php 
@@ -141,6 +148,38 @@
 				</div>
 			</div>
 
+			<!-- Sceripts Online User Update  -->
+			<script>
+						function updateUserStatus(){
+							jQuery.ajax({
+								url:'../update_user_status.php',
+								success:function(){
+									
+								}
+							});
+						}
+						
+						function getUserStatus(){
+							jQuery.ajax({
+								url:'../get_user_status.php',
+								success:function(result){
+									jQuery('#user_grid').html(result);
+								}
+							});
+						}
+						
+						setInterval(function(){
+							updateUserStatus();
+						},1000);
+						
+						setInterval(function(){
+							getUserStatus();
+						},3000);
+					</script>
+
+
+
+
 			<!-- <button type="button" class="btn btn-primary position-relative">
 			Mails <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+99 <span class="visually-hidden">unread messages</span></span>
 			</button> -->
@@ -204,7 +243,13 @@
 					</a>
 					<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 						<a class="dropdown-item" href="my_profile.php"><i class="dw dw-user1"></i> Profile</a>
+						<?php
+							$admin_role = $conn->query("SELECT Role as rol from `user` where ID='$session_id' ")->fetch_assoc()['rol'];
+						if($admin_role == 'Administrator'){
+						?>
 						<a class="dropdown-item" href="setting.php"><i class="dw dw-settings2"></i> Setting</a>
+						<?php } ?>
+
 						<a class="dropdown-item" href="faq.php"><i class="dw dw-help"></i> Help</a>
 						<a class="dropdown-item" href="../logout.php"><i class="dw dw-logout"></i> Log Out</a>
 					</div>
@@ -216,3 +261,7 @@
 		</div>
 	</div>
 	<!-- Nav Ber End -->
+
+	
+
+		

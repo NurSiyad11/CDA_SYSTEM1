@@ -4,6 +4,19 @@
 // $time=time();
 ?>
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script> -->
+<script>
+function showPass()
+{
+	var pass = document.getElementById('pass');
+	if(document.getElementById('check').checked)
+	{
+		pass.setAttribute('type','text');
+	}else{
+		pass.setAttribute('type','password');
+	}
+}
+
+</script>
 <body>
 	<?php include('includes/navbar.php') ?>
 	<?php include('includes/right_sidebar.php') ?>
@@ -11,92 +24,82 @@
 	<div class="mobile-menu-overlay"></div>
 
 	<div class="main-container">
-		<div class="pd-ltr-20">			
-			<div class="row">
-				<?php	        	
-						$customer_id = $conn->query("SELECT id as cid from `user` where id='$session_id'  ")->fetch_assoc()['cid'];
-						$Total = $conn->query("SELECT sum(Amount) as total FROM `invoice` where Cid='$customer_id'  ")->fetch_assoc()['total'];
-						$format =number_format((float)$Total, '2','.',',');
-				?>              
-				<div class="col-xl-4 mb-30">
-					<div class="card-box height-100-p widget-style1">
-						<div class="d-flex flex-wrap align-items-center">
-							<div class="progress-data">
-								<div id="">
-								<!-- <img src="../uploads/dollor1.png" class="border-radius-100 shadow" width="80" height="80" alt=""> -->
-								<img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="40" height="40" alt="">
-
-							</div>
-							</div>
-							<div class="widget-data">
-								<div class="h4 mb-0"><?php echo "$ ". ($format); ?></div>
-								<div class="weight-600 font-14">INVOICE</div>
-							</div>
-						</div>
-						<div class="card-box "></div>
-					</div>
-				</div>
-				
-
+		<div class="pd-ltr-20">	
 			
-
-				<div class="col-xl-4 mb-30">
-					<?php                        
-						$customer_id = $conn->query("SELECT id as cid from `user` where id='$session_id'  ")->fetch_assoc()['cid'];
-						$Total = $conn->query("SELECT sum(Amount) as total FROM `receipt` where Cid='$customer_id'  ")->fetch_assoc()['total'];
-						$format =number_format((float)$Total, '2','.',',');
-					?> 
-					<div class="card-box height-100-p widget-style1">
-						<div class="d-flex flex-wrap align-items-center">
-							<div class="progress-data">
-								<div id="">
-								<!-- <img src="../uploads/cash3.png" class="border-radius-100 shadow" width="80" height="80" alt=""> -->
-								<img src="../vendors/images/img/dollar.png" class="border-radius-100 shadow" width="40" height="40" alt="">
-	
-							</div>
-							</div>
-							<div class="widget-data">
-								<div class="h4 mb-0"><?php echo "$ ". ($format); ?></div>
-								<div class="weight-600 font-14">RECEIPT</div>
-							</div>
-						</div>
+			<div class="card-box pd-20 height-100-p mb-30">
+				<div class="row align-items-center ">
+					<?php 
+					$query = mysqli_query($conn,"select * from user where id = '$session_id' ")or die(mysqli_error());
+					$row = mysqli_fetch_assoc($query);
+					?>
+					<div class="col-md-4">
+						<img src="../vendors/images/banner-img2.png" alt="">
 					</div>
-				</div>
-				<div class="col-xl-4 mb-30">
-					<?php						
-						                        
-						$customer_id = $conn->query("SELECT id as cid from `user` where id='$session_id'  ")->fetch_assoc()['cid'];
-						$INV = $conn->query("SELECT sum(Amount) as total FROM `invoice` where Cid='$customer_id'  ")->fetch_assoc()['total'];
-						$RV = $conn->query("SELECT sum(Amount) as total FROM `receipt` where Cid='$customer_id'  ")->fetch_assoc()['total'];
-						$Bal = $INV - $RV;
-						$format =number_format((float)$Bal, '2','.',',');
-					?> 
-					<div class="card-box height-100-p widget-style1">
-						<div class="d-flex flex-wrap align-items-center">
-							<div class="progress-data">
-								<div id="">
-								<!-- <img src="../uploads/cash3.png" class="border-radius-100 shadow" width="80" height="80" alt=""> -->
-								<img src="../vendors/images/img/dollar2.png" class="border-radius-100 shadow" width="40" height="40" alt="">
-	
-							</div>
-							</div>
-							<div class="widget-data">
-								<div class="h4 mb-0"><?php echo "$ ". ($format); ?></div>
-								<div class="weight-600 font-14">Balance</div>
-							</div>
+					<div class="col-md-8">
+						<h4 class="font-17 weight-500 mb-10 text-muted text-capitalize">
+						<div class="weight-600 font-20 text-blue">Welcome Back!</div>	
+							<!-- Test General Trading Company -->
+							<?php echo $row['Com_name']?>
+						
+						</h4>
+						<div class="col-xl-6 mb-30">
+							<?php						
+														
+								$customer_id = $conn->query("SELECT id as cid from `user` where id='$session_id'  ")->fetch_assoc()['cid'];
+								$INV = $conn->query("SELECT sum(Amount) as total FROM `invoice` where Cid='$customer_id'  ")->fetch_assoc()['total'];
+								$RV = $conn->query("SELECT sum(Amount) as total FROM `receipt` where Cid='$customer_id'  ")->fetch_assoc()['total'];
+								$Bal = $INV - $RV;
+								$format =number_format((float)$Bal, '2','.',',');
+							?> 
+							<!-- <div class="card-box height-100-p widget-style1"> -->
+								<div class="d-flex flex-wrap align-items-center">
+									<div class="progress-data">
+										<div id="">
+										<!-- <img src="../uploads/cash3.png" class="border-radius-100 shadow" width="80" height="80" alt=""> -->
+										<!-- <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="10" height="10" alt=""> -->
+			
+										</div>
+									</div>
+									
+									<div class="widget-data ml-2">
+										<div class="h4 mb-0  ">
+											<div class="row bg-inf">
+												<div class="col-3 d-flex flex-wrap align-items-center" >
+													<img src="../vendors/images/img/dollar5.png" class="border-radius-100 shadow" width="40" height="40" alt="">
+												</div>
+
+											
+												<div class="col-7 ">
+													<input  type="password" readonly id="pass" class="form-control-plaintext weight-800 font-20  " id="staticEmail"  value="<?php echo "$ ". ($format); ?> "/>
+												</div>
+												<div class="col-1">
+													<input type="checkbox" id="check" onclick="showPass();"/>
+												</div>
+											</div>
+											<div class="weight-600 font-20 ml-5">Balance</div>
+										</div> 										
+									</div>
+								
+								</div>
+							<!-- </div> -->
 						</div>
+						<!-- <p class="font-18 max-width-600">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde hic non repellendus debitis iure, doloremque assumenda. Autem modi, corrupti, nobis ea iure fugiat, veniam non quaerat mollitia animi error corporis.</p> -->
 					</div>
 				</div>
 			</div>
-
-			<!-- <div class="row">
-				<div class="col-xl-8 mb-30">
+		
+		
+			<!-- 
+			<div class="row">
+				<div class="col-xl-6 mb-30">
 					<div class="card-box height-100-p pd-20">
 						<h2 class="h4 mb-20">Activity</h2>
+					
 						<div id="chart5"></div>
 					</div>
 				</div>
-				<div class="col-xl-4 mb-30">
+
+				<div class="col-xl-6 mb-30">
 					<div class="card-box height-100-p pd-20">
 						<h2 class="h4 mb-20">Lead Target</h2>
 						<div id="chart6"></div>
@@ -160,9 +163,6 @@
 						<tbody>
 
 							<?php
-
-							// $sql = "SELECT * from account order by Acc_name ";
-
 							$Cname = $conn->query("SELECT id as eid from `user` where id='$session_id'  ")->fetch_assoc()['eid'];
 							$sql = "SELECT * FROM Invoice_Receipt where Cid='$Cname' order by Date desc ";						
 							$query = $dbh -> prepare($sql);
@@ -290,16 +290,13 @@
 
 							<?php $cnt++;} }?>  
 
-						</tbody>
-
-
-
-						
+						</tbody>					
 					</table>
 			   </div>
 			</div>	
 		</div>
 	</div>
+
 	<?php include('includes/footer.php') ?>
 	
 	<?php include('includes/scripts1.php') ?>

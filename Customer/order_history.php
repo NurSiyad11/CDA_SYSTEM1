@@ -20,13 +20,13 @@
 					<div class="card-box height-100-p widget-style1 bg-white">
 						<div class="d-flex flex-wrap align-items-center">
 							<div class="progress-data">
-								<div id="">
+								<div data-toggle="tooltip" data-placement="bottom" title="Total Applied Ordered">
 								<img src="../vendors/images/img/order1.png" class="border-radius-100 shadow" width="50" height="50" alt="">
 								</div>
 							</div>
 							<div class="widget-data">
 								<div class="h4 mb-0"><?php echo  ($count); ?></div>
-								<div class="weight-300 font-18">Total Applied Orderd </div>
+								<div class="weight-300 font-18">Total Applied Ordered </div>
 							</div>
 						</div>
 					</div>
@@ -39,7 +39,7 @@
 					<div class="card-box height-100-p widget-style1 bg-white">
 						<div class="d-flex flex-wrap align-items-center ">	
 							<div class="progress-dat">
-								<div id="">
+								<div data-toggle="tooltip" data-placement="bottom" title="To view your new orders, please click here.">
 								<img src="../vendors/images/img/Pending1.png" class="border-radius-100 shadow" width="30" height="30" alt="">
 								</div>
 							</div>						
@@ -59,7 +59,7 @@
 					<div class="card-box height-100-p widget-style1 bg-white">
 						<div class="d-flex flex-wrap align-items-center">	
 							<div class="progress-dat">
-								<div id="">
+								<div data-toggle="tooltip" data-placement="bottom" title="Click here to view your orders being processing">
 								<img src="../vendors/images/img/preparing2.png" class="border-radius-100 shadow" width="30" height="30" alt="">
 								</div>
 							</div>						
@@ -79,7 +79,7 @@
 					<div class="card-box height-100-p widget-style1 bg-white">
 						<div class="d-flex flex-wrap align-items-center">
 							<div class="progress-dat">
-								<div id="">
+								<div id="" data-toggle="tooltip" data-placement="bottom" title="To view the rejected orders, please click here.">
 								<img src="../vendors/images/img/Rejected1.png" class="border-radius-100 shadow" width="30" height="30" alt="">
 								</div>
 							</div>
@@ -100,7 +100,7 @@
 					<div class="card-box height-100-p widget-style1 bg-white">
 						<div class="d-flex flex-wrap align-items-center">	
 							<div class="progress-dat">
-								<div id="">
+								<div id="" data-toggle="tooltip" data-placement="bottom" title="To view the Approved orders, please click here.">
 								<img src="../vendors/images/img/Approved.png" class="border-radius-100 shadow" width="30" height="30" alt="">
 								</div>
 							</div>						

@@ -4,8 +4,6 @@
 
 <?php $get_id = $_GET['edit']; ?>
 
-
-
 <?php
 	if(isset($_POST['submit']))
 	{   
@@ -48,6 +46,11 @@
 								</ol>
 							</nav>
 						</div>
+                        <div class="row">
+                            <div class="col-12">     
+                                <a  href="#" class="btn btn-primary" data-toggle="modal" data-target="#Medium-modal"> <i class="icon-copy ion-plus "></i> Add FAQ</a>
+                            </div>
+                        </div>
 					</div>
 				</div>
 
@@ -68,7 +71,7 @@
                                     </div>
                                 </div>
                                 <div class="widget-data">
-                                    <div class="h4 mb-0"><?php echo "$ ". ($format); ?></div>
+                                    <div class="h5 mb-0"><?php echo "$ ". ($format); ?></div>
                                     <div class="weight-300 font-18">Invoices </div>
                                 </div>
                             </div>
@@ -89,7 +92,7 @@
                                     </div>
                                 </div>						
                                 <div class="widget-data">
-                                    <div class="h4 mb-0"><?php echo "$ ". ($format2); ?></div>
+                                    <div class="h5 mb-0"><?php echo "$ ". ($format2); ?></div>
                                     <div class="weight-300 font-18">Receipts</div>
                                 </div>
                             </div>
@@ -112,7 +115,7 @@
                                     </div>
                                 </div>						
                                 <div class="widget-data">
-                                    <div class="h4 mb-0"><?php echo "$ ". ($format_balance); ?></div>
+                                    <div class="h5 mb-0"><?php echo "$ ". ($format_balance); ?></div>
                                     <div class="weight-300 font-17">Balance </div>
                                 </div>
                             </div>
@@ -136,28 +139,14 @@
                     ?>
                     
 				
-                    <div class="card-box mb-30">
-                        <div >
-                             <!-- <a href="inv_detail_report.php?edit=<?php //echo $get_id;?>"><i class="dw dw-edit2 "></i> Edit  </a>
-                             <a href="inv_detail_report.php?edit=<?php //echo $get_id;?>"><i class=" dw dw-edit2 "></i> Edit</a> -->
-
-                        </div>
+                    <div class="card-box mb-30">                       
                         <div class="pd-20" >
-                               
-                                <h2 class="text-blue h4"><?php echo "Company Name:  $com_name"?></h2>
-                                <p class="text-blue "><?php echo "Customer Name:  $cust_name"?></p>
-                                <!-- <a class="dropdown-item" href="inv_detail_report.php?edit=<?php echo $get_id;?>"><i class="dw dw-edit2"></i> Edit</a> -->
-                               <center><a href="inv_detail_report.php?edit=<?php echo $get_id;?>" class="bg-light-blue btn text-blue weight-500"><i class="icon-copy dw dw-eye " ></i> All Invoice Pdf</a> 
-                                <a href="receipt_detail_report.php?edit=<?php echo $get_id;?>" class="bg-light-blue btn text-blue weight-500"><i class="icon-copy dw dw-eye " ></i> All Receipts Pdf </a>
-                                <a  href="#" class="bg-light-blue btn text-blue weight-500" data-toggle="modal" data-target="#Medium-modal"><i class="dw dw-eye"></i> Dept Reminder</a>
-												<!-- <img src="vendors/images/modal-img2.jpg" alt="modal"> -->
-											</a>   
-                                </center>
-                                
-                                <!-- <a href="inv_detail_report.php?edit=<?php //echo $get_id;?>" data-color="#265ed7"><i class="icon-copy dw dw-edit2"></i></a>
-                                <a href="inv_detail_report.php?edit=<?php// echo $get_id;?>" data-color="#265ed7"><i class="icon-copy dw dw-edit2"></i></a> -->
-
-                            </div>
+                            <!-- <div class="row"> -->
+                            <h2 class="text-blue h4"><?php echo "Company Name:  $com_name"?></h2>
+                            <p class="text-blue "><?php echo "Customer Name:  $cust_name"?></p>
+                            <!-- </div>                                -->
+                         
+                        </div>
                             
                         <div class="container pd-5">
                             <form action="" method="GET">
@@ -191,15 +180,16 @@
                             <table class="data-table table stripe hover nowrap">
                                 <thead>
                                     <tr>				
-                                        <th> No#</th>                                       
+                                        <th> No#</th>     
+                                        <th class="datatable-nosort">ACTION</th>                                    
                                         <th> ##</th>							
                                         <th> Invoice No#</th>
                                         <th>Date</th>
                                         <th>Description</th>
                                         <th>Invoice</th>
                                         <th>Receipt</th>
-                                        <th>File</th>
-                                        <th class="datatable-nosort">ACTION</th>                                 
+                                     
+                                                                       
                                     
                                                                         
                                     </tr>
@@ -221,16 +211,24 @@
                                     
                                         ?>  
                                         <td ><?php echo $i++; ?></td>
-                                         <td><button data-id='<?php echo $row['id']; ?>' class="userinfo btn btn-danger">PDF</button></td>
-
-                                       
+                                        <?php
+                                        if($row['D_INV'] == 'INV#'){
+                                        ?>
+                                         <td><button data-id='<?php echo $row['id']; ?>' class="userinfo btn btn-danger">Inv PDF</button></td>
+                                         <?php
+                                           }else {
+                                            ?>
+                                            <td><a href="A5pdf.php?edit=<?php echo $row['id']?>" name="update-receipt" class="btn btn-danger"> <i class="icon-copy dw dw-"></i>Rv PDF</a></td>
+                                            <?php
+                                           } 
+                                        ?> 
                                         <td><?php echo  $row['D_INV']; ?></td>
                                         <td><?php echo  $row['invoice']; ?></td>
                                         <td><?php echo  $row['Date']; ?></td>								
                                         <td><?php echo $row['Memo']; ?></td>
                                         <td><?php echo $row['Amount']; ?></td>
                                         <td><?php echo $row['empty']; ?></td>
-                                        <td><?php echo $row['File']; ?></td>
+                                        <!-- <td><?php //echo $row['File']; ?></td> -->
                                             
 
                                         

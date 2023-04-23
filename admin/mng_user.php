@@ -1,6 +1,8 @@
 <?php include('includes/header.php')?>
 <?php include('../database/session.php')?>
 <?php include('../database/db.php')?>
+<?php include('includes/Administrator_only.php');?>
+
 
 <?php 
 
@@ -30,7 +32,7 @@ if (isset($_GET['delete'])) {
 		<div class="pd-ltr-20">
 			<div class="row">
 				<?php			
-					 $query = mysqli_query($conn,"select * from user  ")or die(mysqli_error());
+					 $query = mysqli_query($conn,"select * from user where Role != 'Administrator'  ")or die(mysqli_error());
 					 $count = mysqli_num_rows($query);					 				
 				?>
 				<div class="col-xl-4 mb-30">
@@ -57,7 +59,7 @@ if (isset($_GET['delete'])) {
 						<div class="d-flex flex-wrap align-items-center ">	
 							<div class="progress-dat">
 								<div id="">
-								<img src="../vendors/images/img/Admin.png" class="border-radius-100 shadow" width="30" height="30" alt="">
+								<a href="mng_admin.php"><img src="../vendors/images/img/Admin.png" class="border-radius-100 shadow" width="30" height="30" alt=""></a>
 								</div>
 							</div>						
 							<div class="widget-data">
@@ -77,7 +79,7 @@ if (isset($_GET['delete'])) {
 						<div class="d-flex flex-wrap align-items-center">	
 							<div class="progress-dat">
 								<div id="">
-								<img src="../vendors/images/img/customer2.png" class="border-radius-100 shadow" width="30" height="30" alt="">
+								<a href="mng_customer.php"><img src="../vendors/images/img/customer2.png" class="border-radius-100 shadow" width="30" height="30" alt=""></a>
 								</div>
 							</div>						
 							<div class="widget-data">
@@ -97,7 +99,7 @@ if (isset($_GET['delete'])) {
 						<div class="d-flex flex-wrap align-items-center">
 							<div class="progress-dat">
 								<div id="">
-								<img src="../vendors/images/img/vendor.png" class="border-radius-100 shadow" width="30" height="30" alt="">
+								<a href="mng_vendor.php"><img src="../vendors/images/img/vendor.png" class="border-radius-100 shadow" width="30" height="30" alt=""></a>
 								</div>
 							</div>
 						
@@ -118,7 +120,7 @@ if (isset($_GET['delete'])) {
 						<div class="d-flex flex-wrap align-items-center">	
 							<div class="progress-dat">
 								<div id="">
-								<img src="../vendors/images/img/manager2.png" class="border-radius-100 shadow" width="30" height="30" alt="">
+								<a href="mng_managers.php"><img src="../vendors/images/img/manager2.png" class="border-radius-100 shadow" width="30" height="30" alt=""></a>
 								</div>
 							</div>						
 							<div class="widget-data">
@@ -146,14 +148,15 @@ if (isset($_GET['delete'])) {
 								<th>Login Status</th>
 								<th>Last Login Time</th>
 								<th>POSITION</th>
-                                <th>Status</th>						
+								<th>Status</th>						
+								<th>Created By</th>
 								<th class="datatable-nosort">ACTION</th>
 							</tr>
 						</thead>
 						<tbody>                            
 							<tr>
 								 <?php
-		                         $teacher_query = mysqli_query($conn,"select * from user") or die(mysqli_error());
+		                         $teacher_query = mysqli_query($conn,"select * from user where Role != 'Administrator' ") or die(mysqli_error());
 		                         while ($row = mysqli_fetch_array($teacher_query)) {
 		                         $id = $row['ID'];
 
@@ -193,7 +196,14 @@ if (isset($_GET['delete'])) {
                                     <span class="badge badge-success">Active</span>	                                
 	                                  <?php } if($stats=="Inactive")  { ?>
                                        <span class="badge badge-danger">Inactive</span>
-	                                  <?php } ?>									 
+	                                  <?php } ?>	
+								</td>								 
+								
+								<?php
+									$admin_ID = $row['Admin_id'];
+									$admin_Name = $conn->query("SELECT Name as name from `user` where ID='$admin_ID' ")->fetch_assoc()['name'];
+								?>
+								<td> <?php echo ($admin_Name);?></td>
 								<td>
 									<div class="dropdown">
 										<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
@@ -201,7 +211,7 @@ if (isset($_GET['delete'])) {
 										</a>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 											<a class="dropdown-item" href="edit_user.php?edit=<?php echo $row['ID'];?>"><i class="dw dw-edit2"></i> Edit</a>
-											<a class="dropdown-item" href="generate_user_info.php?edit=<?php echo $row['ID'];?>"><i class="dw dw-edit2"></i> Pdf</a>
+											<!-- <a class="dropdown-item" href="generate_user_info.php?edit=<?php// echo $row['ID'];?>"><i class="dw dw-edit2"></i> Pdf</a> -->
 											<a class="dropdown-item" href="Mng_user.php?delete=<?php echo $row['ID'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
 										</div>
 									</div>

@@ -12,7 +12,82 @@
 	<div class="main-container">
 		<div class="pd-ltr-20">			
 	
+			<div class="row">
+				<?php	        	
+						$customer_id = $conn->query("SELECT id as cid from `user` where id='$session_id'  ")->fetch_assoc()['cid'];
+						$Total = $conn->query("SELECT sum(Amount) as total FROM `invoice` where Cid='$customer_id'  ")->fetch_assoc()['total'];
+						$format =number_format((float)$Total, '2','.',',');
+				?>              
+				<div class="col-xl-4 mb-30">
+					<div class="card-box height-100-p widget-style1">
+						<div class="d-flex flex-wrap align-items-center">
+							<div class="progress-data">
+								<div id="">
+								<!-- <img src="../uploads/dollor1.png" class="border-radius-100 shadow" width="80" height="80" alt=""> -->
+								<img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="40" height="40" alt="">
 
+							</div>
+							</div>
+							<div class="widget-data">
+								<div class="h4 mb-0"><?php echo "$ ". ($format); ?></div>
+								<div class="weight-600 font-14">INVOICE</div>
+							</div>
+						</div>
+						<div class="card-box "></div>
+					</div>
+				</div>
+				
+
+			
+
+				<div class="col-xl-4 mb-30">
+					<?php                        
+						$customer_id = $conn->query("SELECT id as cid from `user` where id='$session_id'  ")->fetch_assoc()['cid'];
+						$Total = $conn->query("SELECT sum(Amount) as total FROM `receipt` where Cid='$customer_id'  ")->fetch_assoc()['total'];
+						$format =number_format((float)$Total, '2','.',',');
+					?> 
+					<div class="card-box height-100-p widget-style1">
+						<div class="d-flex flex-wrap align-items-center">
+							<div class="progress-data">
+								<div id="">
+								<!-- <img src="../uploads/cash3.png" class="border-radius-100 shadow" width="80" height="80" alt=""> -->
+								<img src="../vendors/images/img/dollar.png" class="border-radius-100 shadow" width="40" height="40" alt="">
+	
+							</div>
+							</div>
+							<div class="widget-data">
+								<div class="h4 mb-0"><?php echo "$ ". ($format); ?></div>
+								<div class="weight-600 font-14">RECEIPT</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-4 mb-30">
+					<?php						
+						                        
+						$customer_id = $conn->query("SELECT id as cid from `user` where id='$session_id'  ")->fetch_assoc()['cid'];
+						$INV = $conn->query("SELECT sum(Amount) as total FROM `invoice` where Cid='$customer_id'  ")->fetch_assoc()['total'];
+						$RV = $conn->query("SELECT sum(Amount) as total FROM `receipt` where Cid='$customer_id'  ")->fetch_assoc()['total'];
+						$Bal = $INV - $RV;
+						$format =number_format((float)$Bal, '2','.',',');
+					?> 
+					<div class="card-box height-100-p widget-style1">
+						<div class="d-flex flex-wrap align-items-center">
+							<div class="progress-data">
+								<div id="">
+								<!-- <img src="../uploads/cash3.png" class="border-radius-100 shadow" width="80" height="80" alt=""> -->
+								<img src="../vendors/images/img/dollar2.png" class="border-radius-100 shadow" width="40" height="40" alt="">
+	
+							</div>
+							</div>
+							<div class="widget-data">
+								<div class="h4 mb-0"><?php echo "$ ". ($format); ?></div>
+								<div class="weight-600 font-14">Balance</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
 
 			<div class="card-box mb-30">

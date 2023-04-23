@@ -1,10 +1,14 @@
 <?php
 session_start();
 include('database/db.php');
+require('UserInfo.php');
 if(isset($_POST['signin']))
 {
 	$username=$_POST['username'];
 	$password=$_POST['password'];
+
+
+
 
 	$sql ="SELECT * FROM user where Email ='$username' AND password ='$password' ";
 	$query= mysqli_query($conn, $sql);
@@ -32,6 +36,7 @@ if(isset($_POST['signin']))
 				</Script>
 				<?php	
 			}	
+         //  Admin 
 		   elseif($row['Role'] == 'Admin') {
 		    	$_SESSION['alogin']=$row['ID'];	  
 
@@ -39,10 +44,47 @@ if(isset($_POST['signin']))
 				$date->modify('+2 hour');
 				$date3 = $date->format("D-d-m-Y h:i:s a");
 
-				$time=time()+1800; // 30 daqiiqo 
-				$query=mysqli_query($conn,"update user set Login_status='$time', Login_time='$date3' where ID=".$_SESSION['alogin']);
+			
+				// $query=mysqli_query($conn,"update user set Login_status='$time', Login_time='$date3' where ID=".$_SESSION['alogin']);
+            
+           $session = $row['ID'];
+           $get_device= UserInfo::get_device();
+           $get_os= UserInfo::get_os();
+           $get_browser= UserInfo::get_browser();
+
+           $time=time()+1800; // 30 daqiiqo 
+         //   $F_time = $time->format("h:i:s a");
+
+            // mysqli_query($conn,"INSERT INTO user_info(UID,Device,OS,Browser,Login_time,Login_status) VALUES('$session','$get_device','$get_os','$get_browser', '$date3' ,'$time' )         
+            // ") or die(mysqli_error()); 
+
+
 			 	echo "<script type='text/javascript'> document.location = 'admin/index.php'; </script>";
 		    }
+          // Administrator
+          elseif($row['Role'] == 'Administrator') {
+            $_SESSION['alogin']=$row['ID'];	  
+
+            
+           $date = new DateTime();
+           $date->modify('+2 hour');
+           $date3 = $date->format("D-d-m-Y h:i:s a");     
+            
+           $session = $row['ID'];
+           $get_device= UserInfo::get_device();
+           $get_os= UserInfo::get_os();
+           $get_browser= UserInfo::get_browser();
+
+           $time=time()+1800; // 30 daqiiqo 
+
+            // mysqli_query($conn,"INSERT INTO user_info(UID,Device,OS,Browser,Login_time,Login_status) VALUES('$session','$get_device','$get_os','$get_browser', '$date3' ,'$time' )         
+            // ") or die(mysqli_error()); 
+
+
+
+            echo "<script type='text/javascript'> document.location = 'admin/index.php'; </script>";
+         }
+         // Customer
 			elseif ($row['Role'] == 'Customer') {
 		    	$_SESSION['alogin']=$row['ID'];
 	
@@ -50,22 +92,41 @@ if(isset($_POST['signin']))
 				$date->modify('+2 hour');
 				$date3 = $date->format("D-d-m-Y h:i:s a");
 
-				//Login Status Time
-				$time=time()+1800;
-				$query=mysqli_query($conn,"update user set Login_status='$time', Login_time='$date3' where id=".$_SESSION['alogin']);
-			 	
+            
+            $session = $row['ID'];
+            $get_device= UserInfo::get_device();
+            $get_os= UserInfo::get_os();
+            $get_browser= UserInfo::get_browser();
+ 
+            $time=time()+1800; // 30 daqiiqo 
+ 
+            //  mysqli_query($conn,"INSERT INTO user_info(UID,Device,OS,Browser,Login_time,Login_status) VALUES('$session','$get_device','$get_os','$get_browser', '$date3' ,'$time' )         
+            //  ") or die(mysqli_error()); 
+ 
+ 
+ 
 			 	echo "<script type='text/javascript'> document.location = 'Customer/index.php'; </script>";
 		    }
+         //  Manager
 			elseif ($row['Role'] == 'HOD') {
 		    	$_SESSION['alogin']=$row['ID'];
 
 				$date = new DateTime();
 				$date->modify('+2 hour');
 				$date3 = $date->format("D-d-m-Y h:i:s a");
-
-				$time=time()+1800;
-				$query=mysqli_query($conn,"update user set Login_status='$time', Login_time='$date3' where id=".$_SESSION['alogin']);
-			 	echo "<script type='text/javascript'> document.location = 'heads/index.php'; </script>";
+            
+            $session = $row['ID'];
+            $get_device= UserInfo::get_device();
+            $get_os= UserInfo::get_os();
+            $get_browser= UserInfo::get_browser();
+ 
+            $time=time()+1800; // 30 daqiiqo 
+ 
+             mysqli_query($conn,"INSERT INTO user_info(UID,Device,OS,Browser,Login_time,Login_status) VALUES('$session','$get_device','$get_os','$get_browser', '$date3' ,'$time' )         
+             ") or die(mysqli_error()); 
+ 
+ 
+            echo "<script type='text/javascript'> document.location = 'heads/index.php'; </script>";
 		    }		    
 		}
 	} 
@@ -95,49 +156,11 @@ if(isset($_POST['signin']))
 
 
 
-
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-   <head>
-      <!-- basic -->
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <!-- mobile metas -->
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-      <!-- site metas -->
-      <title>Home Page</title>
-      <meta name="keywords" content="">
-      <meta name="description" content="">
-      <meta name="author" content="">
-      <!-- bootstrap css -->
-      <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-      <!-- style css -->
-      <link rel="stylesheet" href="assets/css/style.css">
-      <!-- Responsive-->
-      <link rel="stylesheet" href="assets/css/responsive.css">
-      <!-- fevicon -->
-      <link rel="icon" href="assets/images/fevicon.png" type="image/gif" />
-      <!-- Scrollbar Custom CSS -->
-      <link rel="stylesheet" href="assets/ss/jquery.mCustomScrollbar.min.css">
-      <!-- Tweaks for older IEs-->
-      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
-      <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-   </head>
-   <!-- body -->
-   
+ 
+<?php include('includes/head.php')?>
    <body class="main-layout">
 
-
-   <?php include('header.php')?>
+   <?php include('includes/header.php')?>
 
       <!-- banner -->
       <!-- <div class="container"> -->
@@ -176,10 +199,45 @@ if(isset($_POST['signin']))
                            <div class="col-md-5">
                               <div class="book_room">
                                  <h1>C.D.A System</h1>
+                                 <!-- <div class="select-role">
+                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                       <label class="btn active">
+                                          <input type="radio" name="options" id="admin">
+                                          <div class="icon"><img src="vendors/images/briefcase.svg" class="svg" alt=""></div>
+                                          <span>I'm</span>
+                                          Manager
+                                       </label>
+                                       <label class="btn">
+                                          <input type="radio" name="options" id="user">
+                                          <div class="icon"><img src="vendors/images/person.svg" class="svg" alt=""></div>
+                                          <span>I'm</span>
+                                          Customer
+                                       </label>
+                                    </div>
+                                 </div> -->
+                                 
                                  <form class="book_now" name="signin" method="post" >
                                     <div class="row">
                                        <div class="col-md-12">
                                           <span>User Name</span>
+                                          <img class="date_cua" src="assets/images/img/user.png">
+                                          <input class="online_book" placeholder="Enetr Your Email Here" type="email" name="username" id="username" required>
+                                       </div>
+                                       <div class="col-md-12">
+                                          <span>Password</span>
+                                          <img class="date_cua" src="assets/images/img/pass.png">
+                                          <input class="online_book" placeholder="Enetr Password Here" type="password" name="password" id="password" required>
+                                       </div>
+                                       <div class="col-md-12">
+                                          <button class="book_btn" name="signin" id="signin" type="submit">Login Now</button>
+                                       </div>
+                                    </div>
+                                 </form>
+<!-- 
+                                 <form class="book_now" name="signin" method="post" >
+                                    <div class="row">
+                                       <div class="col-md-12">
+                                          <span>Use Name</span>
                                           <img class="date_cua" src="assets/images/img/user.png">
                                           <input class="online_book" placeholder="Enetr Username Here" type="email" name="username" id="username" required>
                                        </div>
@@ -192,12 +250,14 @@ if(isset($_POST['signin']))
                                           <button class="book_btn" name="signin" id="signin" type="submit">Login Now</button>
                                        </div>
                                     </div>
-                                 </form>
+                                 </form> -->
                               </div>
                            </div>
                         </div>
                      </div>
                   </div>
+
+                  
                </section>
             </div>
          </div>
@@ -291,13 +351,7 @@ if(isset($_POST['signin']))
    <?php //include('footer.php')?>
       <!-- end footer -->
       <!-- Javascript files-->
-      <script src="assets/js/jquery.min.js"></script>
-      <script src="assets/js/bootstrap.bundle.min.js"></script>
-      <script src="assets/js/jquery-3.0.0.min.js"></script>
-      <!-- sidebar -->
-      <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-      <script src="assets/js/custom.js"></script>
-	  <!-- Sweet alert -->
-	<script src="src/scripts/sweetalert.min.js"></script>
+      <?php include('includes/scripts.php')?>
+
    </body>
 </html>

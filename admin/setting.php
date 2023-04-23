@@ -1,6 +1,7 @@
 <?php include('includes/header.php')?>
 <?php include('../database/session.php')?>
 <?php include('../database/db.php')?>
+<?php include('includes/Administrator_only.php')?>
 
 
 <?php

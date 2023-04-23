@@ -1,6 +1,7 @@
 <?php include('includes/header.php') ?>
 <?php include('../database/db.php') ?>
 <?php include('../database/session.php') ?>
+<?php include('includes/Admin_Administrator.php') ?>
 
 <?php	
 	$dataPoints1 = array(

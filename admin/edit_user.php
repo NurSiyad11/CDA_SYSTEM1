@@ -1,22 +1,24 @@
 <?php include('includes/header.php')?>
 <?php include('../database/session.php')?>
 <?php include('../database/db.php')?>
+<?php include('includes/Administrator_only.php');?>
+
 
 <?php $get_id = $_GET['edit']; ?>
 <!-- Change Password -->
 <?php
-	if(isset($_POST['pass_change']))
-	{
-	$password=$_POST['password'];
-	$result = mysqli_query($conn,"update user set password='$password' where id='$get_id'         
-		"); 		
-	if ($result) {
-     	echo "<script>alert('Password Changed Successfully ');</script>";
-     	echo "<script type='text/javascript'> document.location = 'mng_user.php'; </script>";
-	} else{
-	  die(mysqli_error());
-   }		
-}
+// 	if(isset($_POST['pass_change']))
+// 	{
+// 	$password=$_POST['password'];
+// 	$result = mysqli_query($conn,"update user set password='$password' where id='$get_id'         
+// 		"); 		
+// 	if ($result) {
+//      	echo "<script>alert('Password Changed Successfully ');</script>";
+//      	echo "<script type='text/javascript'> document.location = 'mng_user.php'; </script>";
+// 	} else{
+// 	  die(mysqli_error());
+//    }		
+// }
 ?>
 
 <!-- Update users -->
@@ -74,14 +76,14 @@
 							<h4 class="text-blue h4">Edit User</h4>
 							<p class="mb-20"></p>
 						</div>
-						<div class="col-md-4 col-sm-12 text-right">
+						<!-- <div class="col-md-4 col-sm-12 text-right">
 							<a href="task-add" data-toggle="modal" data-target="#task-add" class="bg-light-blue btn text-blue weight-500"><i class="ion-password-round"></i>Change Password</a>
-						</div>
+						</div> -->
 					</div>
 
 
-					<!-- add task popup start -->
-					<div class="modal fade customscroll" id="task-add" tabindex="-1" role="dialog">
+					<!-- Change Password Modal  popup start -->
+					<!-- <div class="modal fade customscroll" id="task-add" tabindex="-1" role="dialog">
 						<div class="modal-dialog modal-dialog-centered" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
@@ -133,7 +135,7 @@
 								</div>								
 							</div>
 						</div>
-					</div>
+					</div> -->
 					<!-- add task popup End -->
 
 

@@ -32,8 +32,10 @@ if (isset($_GET['delete'])) {
 	     
      	$cid = $conn->query("SELECT id as cid from `user` where Com_name='$name'  ")->fetch_assoc()['cid'];
 
-        mysqli_query($conn,"INSERT INTO invoice(Cid,Date,invoice,Amount,Memo,File,Status) 
-		VALUES('$cid','$date','$invoice','$amount','$memo','$pdf','Pending')         
+     	$Admin_id = $conn->query("SELECT id as Aid from `user` where ID='$session_id'  ")->fetch_assoc()['Aid'];
+
+        mysqli_query($conn,"INSERT INTO invoice(Admin_id,Cid,Date,invoice,Amount,Memo,File,Status) 
+		VALUES('$Admin_id','$cid','$date','$invoice','$amount','$memo','$pdf','Pending')         
 		") or die(mysqli_error());?>
 		<script>alert('Invoice Records Successfully  Added');</script>
 		<script>
@@ -115,12 +117,12 @@ if (isset($_GET['delete'])) {
 										</div>
 									</div>
 
-									<div class="col-md-4 col-sm-12">
+									<!-- <div class="col-md-4 col-sm-12">
 										<div class="form-group">
-											<label>Example with prefix</label>
-											<input id="demo2" type="text" value="0" name="demo2">
+											<label>Amount</label>
+											<input id="demo2" type="text"  name="demo2">
 										</div>
-									</div>
+									</div> -->
 
 									<div class="">										
 										<label for="">Choose Your PDF File</label><br>
@@ -169,14 +171,23 @@ if (isset($_GET['delete'])) {
 									<th class="datatable-nosort">ACTION</th>
 								</tr>
 							</thead>
+
 							<tbody>
 								<tr>
-
 									<?php
 									$i =1;
-									$teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name, invoice.id, invoice.Cid,invoice.invoice ,invoice.Amount,invoice.Date,invoice.Memo,invoice.File,invoice.Status FROM invoice INNER JOIN user ON   invoice.Cid=user.ID order by invoice.Date Desc") or die(mysqli_error());
+									$Role = $conn->query("SELECT Role as role from `user` where ID='$session_id'  ")->fetch_assoc()['role'];
+									
+									if($Role =='Administrator'){
+										$teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name, invoice.id, invoice.Cid,invoice.invoice ,invoice.Amount,invoice.Date,invoice.Memo,invoice.File,invoice.Status FROM invoice INNER JOIN user ON   invoice.Cid=user.ID order by invoice.Date Desc") or die(mysqli_error());
+										
+									}
+									else{
+										$teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name, invoice.id, invoice.Cid,invoice.invoice ,invoice.Amount,invoice.Date,invoice.Memo,invoice.File,invoice.Status FROM invoice INNER JOIN user ON   invoice.Cid=user.ID  where invoice.admin_id='$session_id' order by invoice.Date Desc") or die(mysqli_error());
+									
+									}
 									while ($row = mysqli_fetch_array($teacher_query)) {
-									$id = $row['id'];
+									//$id = $row['id'];
 										?>
 
 									<td><?php echo $i++; ?></td>
@@ -230,6 +241,12 @@ if (isset($_GET['delete'])) {
 								</tr>
 								<?php } ?>  
 							</tbody>
+
+
+
+
+
+							
 						</table>
 						<script>
 							function checkdelete(){

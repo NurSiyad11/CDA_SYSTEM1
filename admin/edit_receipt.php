@@ -6,24 +6,24 @@
 
 <!-- Update Pdf file -->
 <?php
-	if(isset($_POST['update_file']))
-	{
-		$pdf=$_FILES['pdf']['name'];
-		$pdf_type=$_FILES['pdf']['type'];
-		$pdf_size=$_FILES['pdf']['size'];
-		$pdf_tem_loc=$_FILES['pdf']['tmp_name'];
-		$pdf_store="pdf/".$pdf;
-		move_uploaded_file($pdf_tem_loc,$pdf_store);
+	// if(isset($_POST['update_file']))
+	// {
+	// 	$pdf=$_FILES['pdf']['name'];
+	// 	$pdf_type=$_FILES['pdf']['type'];
+	// 	$pdf_size=$_FILES['pdf']['size'];
+	// 	$pdf_tem_loc=$_FILES['pdf']['tmp_name'];
+	// 	$pdf_store="pdf/".$pdf;
+	// 	move_uploaded_file($pdf_tem_loc,$pdf_store);
 
-		$result = mysqli_query($conn,"update receipt set  File='$pdf'  where id='$get_id'         
-			"); 		
-		if ($result) {
-			echo "<script>alert('File  Successfully Updated');</script>";
-			echo "<script type='text/javascript'> document.location = 'Receipt.php'; </script>";
-		} else{
-		die(mysqli_error());
-		}			
-	}
+	// 	$result = mysqli_query($conn,"update receipt set  File='$pdf'  where id='$get_id'         
+	// 		"); 		
+	// 	if ($result) {
+	// 		echo "<script>alert('File  Successfully Updated');</script>";
+	// 		echo "<script type='text/javascript'> document.location = 'Receipt.php'; </script>";
+	// 	} else{
+	// 	die(mysqli_error());
+	// 	}			
+	// }
 ?>
 
 
@@ -84,16 +84,17 @@
 								<h4 class="text-blue h4"> Update Receipt Form</h4>
 								<p class="mb-20"></p>
 							</div>
-							<div class="col-md-4 col-sm-12 text-right">
+							<!-- <div class="col-md-4 col-sm-12 text-right">
 								<a href="modal" class="bg-light-blue btn text-blue weight-500" data-toggle="modal" data-target="#modal" class="edit-avatar"><i class="dw dw-edit-2 "></i> Choose New File</a>
-							</div>
+							</div> -->
 						</div>
 					</div>
 					<div class="wizard-content">
 
 
 						<!-- Model choose New Pdf File -->
-						<form method="post" enctype="multipart/form-data">
+
+						<!-- <form method="post" enctype="multipart/form-data">
 							<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 								<div class="modal-dialog modal-dialog-centered" role="document">
 									<div class="modal-content">
@@ -112,7 +113,8 @@
 									</div>
 								</div>
 							</div>
-						</form>
+						</form> -->
+						
 
 
 						<!-- Form Update Others receipts  -->
@@ -131,18 +133,18 @@
 											<option value="<?php echo $row['Com_name']; ?>"><?php echo $row['Com_name']; ?></option>
 												<option value="">Select Customer</option>
 													<?php
-													$query = mysqli_query($conn,"select * from user where role ='Customer'");
-													while($row = mysqli_fetch_array($query)){
+													$query1 = mysqli_query($conn,"select * from user where role ='Customer'");
+													while($row1 = mysqli_fetch_array($query1)){
 													
 													?>
-												<option value="<?php echo $row['Com_name']; ?>"><?php echo $row['Com_name']; ?></option>
+												<option value="<?php echo $row1['Com_name']; ?>"><?php echo $row1['Com_name']; ?></option>
 													<?php } ?>
 											</select>
 										</div>
 									</div>	
 									<?php
-									$query = mysqli_query($conn,"select * from receipt where id = '$get_id' ")or die(mysqli_error());
-									$row = mysqli_fetch_array($query);
+									// $query = mysqli_query($conn,"select * from receipt where id = '$get_id' ")or die(mysqli_error());
+									// $row = mysqli_fetch_array($query);
 									?>
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">

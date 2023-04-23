@@ -1,29 +1,10 @@
 <?php include('includes/header.php')?>
 <?php include('../database/session.php')?>
 <?php include('../database/db.php')?>
-<?php $get_id = $_GET['edit']; ?>
+
 
 <?php
 if (isset($_GET['delete'])) {
-	// swal({		
-	// 	title: "Are you sure?",
-	// 	text: "Once deleted, you will not be able to recover this imaginary file!",
-	// 	icon: "warning",
-	// 	buttons: true,
-	// 	dangerMode: true,
-	// })
-	//   .then((willDelete) => {
-	// 	if (willDelete) {
-	// 	  swal("Poof! Your imaginary file has been deleted!", {
-	// 		icon: "success",
-	// 	  });
-	// 	} else {
-	// 	  swal("Your imaginary file is safe!");
-	// 	}
-	//   });
-	
-	
-	
 	
 	$delete = $_GET['delete'];
 	$sql = "DELETE FROM tbl_order where id = ".$delete;
@@ -40,169 +21,137 @@ if (isset($_GET['delete'])) {
 <body>
 
 	<?php include('includes/navbar.php')?>
-
 	<?php include('includes/right_sidebar.php')?>
-
 	<?php include('includes/left_sidebar.php')?>
-
 	<div class="mobile-menu-overlay"></div>
 
 	<div class="main-container">
 		<div class="pd-ltr-20">
 			
-			<div class="row pb-10">
-				<div class="col-xl-2 col-lg-2 col-md-6 mb-20">
-					<div class="card-box height-100-p widget-style3">
+			<?php
+			$Role = $conn->query("SELECT Role as role from `user` where ID='$session_id'  ")->fetch_assoc()['role'];
+							
+			if($Role =='Administrator'){		
+			?>
+			<div class="row">
+                <?php			
+                    $query = mysqli_query($conn,"select * from tbl_order")or die(mysqli_error());
+                    $count = mysqli_num_rows($query);					 				
+                ?>
+                <div class="col-xl-4 mb-30">
+                    <div class="card-box height-100-p widget-style1 bg-white">
+                        <div class="d-flex flex-wrap align-items-center">
+                            <div class="progress-data">
+								<form action="" method="GET">
+									<div id="">	
+										<!--  <i class="icon-copy ion-disc" data-color="#17a2b8"></i> -->
+										<button class="btn btn-primary" type="submit" name="All_order"> <i class="icon-copy dw dw-invoice-1"></i> </button><span class="border-0"></span>
+									</div>
+								</form>
+                            </div>
+                            <div class="widget-data">
+                                <div class="h4 mb-0"><?php echo  ($count); ?></div>
+								<div class="weight-300 font-18">Total Applied Orderd </div>	
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-2 mb-30">
+                    <?php							
+                    $query = mysqli_query($conn,"select  Status from tbl_order where  Status = 'Pending'  ")or die(mysqli_error());
+                    $count = mysqli_num_rows($query);				
+                    ?> 
+                    <div class="card-box height-100-p widget-style1 bg-white">
+                        <div class="d-flex flex-wrap align-items-center ">	
+                            <div class="progress-dat">
+								<form action="" method="GET">
+									<div id="">									
+										<button class="btn btn-primary" type="submit" name="Pending_order"> <i class="icon-copy dw dw-balance"></i></button>
+									</div>
+								</form>
+                            </div>						
+                            <div class="widget-data">
+                                <div class="h4 mb-0"><?php echo ($count); ?></div>
+                                <div class="weight-300 font-16">Pending</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-						<?php
-						$sql = "SELECT id from tbl_order ";
-						$query = $dbh -> prepare($sql);
-						$query->execute();
-						$results=$query->fetchAll(PDO::FETCH_OBJ);
-						$empcount=$query->rowCount();
-						?>
+                <div class="col-xl-2 mb-30">
+                    <?php						
+                        $query= mysqli_query($conn,"select  Status from tbl_order where Status = 'Preparing'  ")or die(mysqli_error());
+                        $count = mysqli_num_rows($query);				 
+                    ?> 
+                    <div class="card-box height-100-p widget-style1 bg-white">
+                        <div class="d-flex flex-wrap align-items-center">	
+                            <div class="progress-dat">
+								<form action="" method="GET">
+									<div id="">									
+										<button class="btn btn-primary" type="submit" name="Preparing"> <i class="icon-copy dw dw-shopping-cart2"></i></button>
+									</div>
+								</form>
+                             
+                            </div>						
+                            <div class="widget-data">
+                                <div class="h4 mb-0"><?php echo ($count); ?></div>
+                                <div class="weight-300 font-14">Preparing</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-						<div class="d-flex flex-wrap">
-							<div class="widget-data">
-								<div class="weight-700 font-24 text-dark"><?php echo($empcount);?></div>
-								<div class="font-14 text-secondary weight-500">All_Applied_Order</div>
-							</div>
-							<!--
-							<div class="widget-icon">
-								<div class="icon" data-color="#00eccf"><i class="icon-copy dw dw-user-2"></i></div>
-							</div>
-							-->
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-2 col-lg-2 col-md-6 mb-20">
-					<div class="card-box height-100-p widget-style3">
+                <div class="col-xl-2 mb-30">
+                    <?php						
+                        $query= mysqli_query($conn,"select  Status from tbl_order where Status = 'Reject'  ")or die(mysqli_error());
+                        $count = mysqli_num_rows($query);					
+                    ?> 
+                    <div class="card-box height-100-p widget-style1 bg-white">
+                        <div class="d-flex flex-wrap align-items-center">
+                            <div class="progress-dat">
+								<form action="" method="GET">
+									<div id="">									
+										<button  class="btn btn-danger"  type="submit" name="Rejected"><i class="icon-copy ion-close"></i></button>
+									</div>
+								</form>
+                                
+                            </div>
+                        
+                            <div class="widget-data">
+                                <div class="h4 mb-0"><?php echo ($count); ?></div>
+                                <div class="weight-300 font-17">Rejected</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-						<?php 
-						 $status="Received Order";;
-						 $query = mysqli_query($conn,"select Status from tbl_order where Status = '$status'")or die(mysqli_error());
-						 $count_reg_staff = mysqli_num_rows($query);
-						 ?>
-
-						<div class="d-flex flex-wrap">
-							<div class="widget-data">
-								<div class="weight-700 font-24 text-dark"><?php echo htmlentities($count_reg_staff); ?></div>
-								<div class="font-14 text-secondary weight-500">Received_Order</div>
-							</div>
-							<!--
-							<div class="widget-icon">
-								<div class="icon" data-color="#09cc06"><span class="icon-copy fa fa-hourglass"></span></div>
-							</div>
-								-->
-						</div>
-					</div>
-				</div>
-
-
-				<div class="col-xl-2 col-lg-2 col-md-6 mb-20">
-					<div class="card-box height-100-p widget-style3">
-
-					<?php 
-						 $status="Preparing Order";;
-						 $query = mysqli_query($conn,"select Status from tbl_order where Status = '$status'")or die(mysqli_error());
-						 $count = mysqli_num_rows($query);
-						 ?>
-
-						<div class="d-flex flex-wrap">
-							<div class="widget-data">
-								<div class="weight-700 font-24 text-dark"><?php echo($count); ?></div>
-								<div class="font-14 text-secondary weight-500">Preparing_Order</div>
-							</div>
-							<!--
-							<div class="widget-icon">
-								<div class="icon"><i class="icon-copy fa fa-hourglass-end" aria-hidden="true"></i></div>
-							</div>
-								-->
-						</div>
-					</div>
-				</div>
-
-
-
-				<div class="col-xl-2 col-lg-2 col-md-6 mb-20">
-					<div class="card-box height-100-p widget-style3">
-
-					<?php 
-						 $status="Pending Order";;
-						 $query = mysqli_query($conn,"select Status from tbl_order where Status = '$status'")or die(mysqli_error());
-						 $count = mysqli_num_rows($query);
-						 ?>
-
-						<div class="d-flex flex-wrap">
-							<div class="widget-data">
-								<div class="weight-700 font-24 text-dark"><?php echo($count); ?></div>
-								<div class="font-14 text-secondary weight-500">Pending_Order </div>
-							</div>
-							<!--
-							<div class="widget-icon">
-								<div class="icon"><i class="icon-copy fa fa-hourglass-end" aria-hidden="true"></i></div>
-							</div>
-								-->
-						</div>
-					</div>
-				</div>
-
-				<div class="col-xl-2 col-lg-2 col-md-6 mb-20">
-					<div class="card-box height-100-p widget-style3">
-
-						
-					<?php 
-						 $status="Reject Order";;
-						 $query = mysqli_query($conn,"select Status from tbl_order where Status = '$status'")or die(mysqli_error());
-						 $count = mysqli_num_rows($query);
-						 ?>
-
-						<div class="d-flex flex-wrap">
-							<div class="widget-data">
-								<div class="weight-700 font-24 text-dark"><?php echo($count); ?></div>
-								<div class="font-14 text-secondary weight-500">Rejected_Order</div>
-							</div>
-							<!--
-							<div class="widget-icon">
-								<div class="icon"><i class="icon-copy fa fa-hourglass-end" aria-hidden="true"></i></div>
-							</div>
-								-->
-						</div>
-					</div>
-				</div>
-
-
-				<div class="col-xl-2 col-lg-2 col-md-6 mb-20">
-					<div class="card-box height-100-p widget-style3">
-
-					<?php 
-						 $status="Approved Order";;
-						 $query = mysqli_query($conn,"select Status from tbl_order where Status = '$status'")or die(mysqli_error());
-						 $count = mysqli_num_rows($query);
-						 ?>
-
-						<div class="d-flex flex-wrap">
-							<div class="widget-data">
-								<div class="weight-700 font-24 text-dark"><?php echo($count); ?></div>
-								<div class="font-14 text-secondary weight-500">Approved_Order</div>
-							</div>
-							<!--
-							<div class="widget-icon">
-								<div class="icon" data-color="#ff5b5b"><i class="icon-copy fa fa-hourglass-o" aria-hidden="true"></i></div>
-							</div>
-							-->
-						</div>
-					</div>
-				</div>
-			</div>
-
-
-
-
-
-
-
-
+                <div class="col-xl-2 mb-30">
+                    <?php						
+                        $query= mysqli_query($conn,"select  Status from tbl_order where  Status = 'Approved'  ")or die(mysqli_error());
+                        $count = mysqli_num_rows($query);					 
+                    ?> 
+                    <div class="card-box height-100-p widget-style1 bg-white">
+                        <div class="d-flex flex-wrap align-items-center">	
+                            <div class="progress-dat">
+								<form action="" method="GET">
+									<div id="">									
+										<button class="btn btn-success" type="submit" name="Approved"> <i class="icon-copy ion-checkmark"></i></button>
+									</div>
+								</form>
+                            </div>						
+                            <div class="widget-data">
+                                <div class="h4 mb-0"><?php echo ($count); ?></div>
+                                <div class="weight-300 font-17">Approved</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>				
+            </div>		
+			
+			<!-- Customer All Order Start -->
+			<?php 
+			if(isset($_GET['All_order'])){
+			?>
 			<div class="card-box mb-30">
 				<div class="pd-20">
 						<h2 class="text-blue h4">ALL Customer Orders</h2>
@@ -213,6 +162,7 @@ if (isset($_GET['delete'])) {
 							<tr>
 								<th>NO#</th>
 								<th class="table-plus datatable-nosort">Customer Name</th>
+								<th>Company Name</th>
 								<!-- <th>Oredr Type</th> -->
 								<th>DATE Ordered</th>
 								<th>Reg Date Ordered</th>
@@ -223,10 +173,9 @@ if (isset($_GET['delete'])) {
 						</thead>
 						<tbody>
 							<tr>
-
 								<?php 
 								$i =1;
-								$sql = "SELECT user.Name, user.Picture, tbl_order.id, tbl_order.RegDate, tbl_order.Date,tbl_order.File,tbl_order.Status FROM tbl_order INNER JOIN user ON   tbl_order.Cid=user.id ORDER BY tbl_order.id desc  ";
+								$sql = "SELECT user.Name, user.Com_name, user.Picture, tbl_order.id, tbl_order.RegDate, tbl_order.Date,tbl_order.File,tbl_order.Status FROM tbl_order INNER JOIN user ON   tbl_order.Cid=user.id ORDER BY tbl_order.id desc  ";
 									$query = mysqli_query($conn, $sql) or die(mysqli_error());
 									while ($row = mysqli_fetch_array($query)) {
 
@@ -243,7 +192,7 @@ if (isset($_GET['delete'])) {
 									</div>
 								</td>
 								
-								<!-- <td><?php //echo $row['Order_type']; ?></td> -->
+								<td><?php echo $row['Com_name']; ?></td>
 	                            <td><?php echo $row['Date']; ?></td>
 								<td><?php echo $row['RegDate']; ?></td>
 
@@ -272,9 +221,7 @@ if (isset($_GET['delete'])) {
 											<i class="dw dw-more"></i>
 										</a>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
-											<a class="dropdown-item" href="All_order.php?edit=<?php echo $row['id']; ?>" data-toggle="modal" data-target="#bd-example-modal-lg" type="button"><i class="dw dw-eye"></i> Edit</a>
-											</a>
+											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>											
 											<a class="dropdown-item" href="All_order.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
 											
 											
@@ -294,171 +241,1027 @@ if (isset($_GET['delete'])) {
 					
 			   </div>
 			</div>
+			<?php } elseif(isset($_GET['Pending_order'])){?>
+			<!-- Customer All Order END -->
 
 
-
-
-
-
-				<!-- Large modal -->
-			<div class="col-md-4 col-sm-12 mb-30">
-				<!-- <div class="pd-20 card-box height-100-p"> -->
-					<!-- <h5 class="h4">Large modal</h5>
-					<a href="#" class="btn-block" data-toggle="modal" data-target="#bd-example-modal-lg" type="button">
-						<img src="vendors/images/modal-img1.jpg" alt="modal">
-					</a> -->
-					<div class="modal fade bs-example-modal-lg" id="bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-						<div class="modal-dialog modal-lg modal-dialog-centered">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h4 class="modal-title" id="myLargeModalLabel">Large modal</h4>
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-								</div>
-								<div class="modal-body">
-								<div class="wizard-content">
-						<form method="post" action="">
-							<section>
-								<?php
-									$query = mysqli_query($conn,"SELECT user.Name,user.Email, user.Picture, tbl_order.id, tbl_order.Date, tbl_order.Reason, tbl_order.Status FROM tbl_order INNER JOIN user ON   tbl_order.Cid=user.id where tbl_order.id='$get_id'")or die(mysqli_error());
-									$row = mysqli_fetch_array($query);
-								?>
-								<div class="row">
-									<div class="col-md-4 col-sm-12">
-										<div class="form-group">
-											<label >Name :</label>
-											<input name="name" type="text" class="form-control wizard-required" required="true" autocomplete="off"  readonly value="<?php echo $row['Name']; ?>">
-										</div>
-									</div>							
-
-									<div class="col-md-4 col-sm-12">
-										<div class="form-group">
-											<label>Email Address :</label>
-											<input name="email" type="email" class="form-control" required="true" autocomplete="off" readonly value="<?php echo $row['Email']; ?>">
-										</div>
-									</div>
-								
-								</div>
-
-
-								<div class="row">
-									<div class="col-md-4 col-sm-12">
-										<div class="form-group">
-											<label >Date Ordered :</label>
-											<input name="date" type="text" class="form-control wizard-required" required="true" autocomplete="off"  readonly value="<?php echo $row['Date']; ?>">
-										</div>
-									</div>							
-
-									<div class="col-md-8 col-sm-12">
-										<div class="form-group">
-											<label>Resson :</label>
-											<input name="Resson" type="text" class="form-control" required="true" autocomplete="off" readonly value="<?php echo $row['Reason']; ?>">
-										</div>
-									</div>								
-								</div>
-
-								<div class="row">
-									
-									<div class="col-md-4 col-sm-12">
-										<div class="form-group">
-											<label>Status :</label>
-											<select name="Status" class="custom-select form-control" required="true" autocomplete="off">
-												<option value="<?php echo $row['Status']; ?>"><?php echo $row['Status']; ?></option>
-												<!-- <option value="Received Order">Received Order</option> -->
-												<option value="Preparing">Preparing Order</option>
-												<!-- <option value="Pending">Pending</option> -->
-												<option value="Approved Order">Approved Order</option>
-												<option value="Reject Order">Reject Order</option>
-											</select>
-										</div>
-									</div>
-									
-								</div>					
-								
-								<div class="row">
-									
-									
-									
-
-									<div class="col-md-4 col-sm-12">
-										<div class="form-group">
-											<label style="font-size:16px;"><b></b></label>
-											<div class="modal-footer justify-content-center">
-												<button class="btn btn-primary" name="order" id="order" data-toggle="modal">Apply&nbsp;Order</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</section>
-
-							<section>
-                                <div class="row">
-                                    <?php
-                                    
-                                    $sql="SELECT file from tbl_order where id='$get_id' ";
-                                    $query=mysqli_query($conn,$sql);
-                                    while ($info=mysqli_fetch_array($query)) {
-                                        ?>
-                                        <?php
-                                        if($info !=''){
-                                           ?>                                       
-                                            <embed type="application/pdf" src="../Customer/pdf/<?php echo $info['file'] ; ?>" width="900" height="500">
-                                        <?php
-                                        }else{
-                                            echo "No file found";                                     
-                                        ?>
-                                        <?php
-                                        }
-                                        ?>
-                                    <?php
-                                    }
-                                    ?>
-                                </div>                                
-                            </section>
-
-
-						</form>
+			<!-- Customer Pending Order Start -->		
+			<div class="card-box mb-30">
+				<div class="pd-20">
+						<h2 class="text-blue h4">Pending Orders</h2>
 					</div>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-									<button type="button" class="btn btn-primary">Save changes</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				<!-- </div> -->
+				<div class="pb-20">
+					<table class="data-table table stripe hover nowrap">
+						<thead>
+							<tr>
+								<th>NO#</th>
+								<th class="table-plus datatable-nosort">Customer Name</th>
+								<th>Company Name</th>						
+								<th>DATE Ordered</th>
+								<th>Reg Date Ordered</th>
+								<th> Status</th>							
+								<th class="datatable-nosort">ACTION</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<?php 
+								$i =1;
+								$sql = "SELECT user.Name, user.Com_name, user.Picture, tbl_order.id, tbl_order.RegDate, tbl_order.Date,tbl_order.File,tbl_order.Status FROM tbl_order INNER JOIN user ON   tbl_order.Cid=user.id where tbl_order.Status='Pending' ORDER BY tbl_order.id desc  ";
+									$query = mysqli_query($conn, $sql) or die(mysqli_error());
+									while ($row = mysqli_fetch_array($query)) {
+
+								 ?>  
+								<td ><?php echo $i++; ?></td>
+								<td class="table-plus">
+									<div class="name-avatar d-flex align-items-center">
+										<div class="avatar mr-2 flex-shrink-0">
+											<img src="<?php echo (!empty($row['Picture'])) ? '../uploads/'.$row['Picture'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt="">
+										</div>
+										<div class="txt">
+											<div class="weight-600"><?php echo $row['Name'];?></div>
+										</div>
+									</div>
+								</td>
+								
+								<td><?php echo $row['Com_name']; ?></td>
+	                            <td><?php echo $row['Date']; ?></td>
+								<td><?php echo $row['RegDate']; ?></td>
+
+								<td><?php $stats=$row['Status'];
+	                             if($stats=="Pending"){
+	                              ?>
+								 	 <span class="badge badge-primary">Pending</span>		                                 
+	                                  <?php } if($stats=="Preparing")  { ?>
+										<span class="badge badge-secondary">Preparing</span>	
+	                                  <?php } if($stats=="Approved")  { ?>
+								 <span class="badge badge-success">Approved</span>	
+									 <?php } if($stats=="Reject")  { ?>
+										<span class="badge badge-danger">Rejected</span>	
+	                             <?php } ?>
+								</td>				
+		
+								<td>
+									<div class="dropdown">
+										<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+											<i class="dw dw-more"></i>
+										</a>
+										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
+											
+											<a class="dropdown-item" href="All_order.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
+											
+											
+											
+										</div>
+									</div>
+								</td>
+							</tr>
+							<?php }?>
+						</tbody>
+					</table>
+					<script>
+						function checkdelete(){
+							return confirm('Do you Want to Delete this Record ? ');
+						}
+					</script>
+					
+			   </div>
 			</div>
+			<?php } elseif(isset($_GET['Preparing'])){?>
+			<!-- Customer Pending Order END -->
+
+
+
+			<!-- Customer Preaping Order Start -->
+			<div class="card-box mb-30">
+				<div class="pd-20">
+						<h2 class="text-blue h4">Preparing Orders</h2>
+					</div>
+				<div class="pb-20">
+					<table class="data-table table stripe hover nowrap">
+						<thead>
+							<tr>
+								<th>NO#</th>
+								<th class="table-plus datatable-nosort">Customer Name</th>
+								<th>Company Name</th>						
+								<th>DATE Ordered</th>
+								<th>Reg Date Ordered</th>
+								<th> Status</th>	
+								<th> Recorded By</th>						
+								<th class="datatable-nosort">ACTION</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<?php 
+								$i =1;
+								$sql = "SELECT user.Name, user.Com_name, user.Picture, tbl_order.id, tbl_order.Admin_id, tbl_order.RegDate, tbl_order.Date,tbl_order.File,tbl_order.Status FROM tbl_order INNER JOIN user ON   tbl_order.Cid=user.id where tbl_order.Status='Preparing' ORDER BY tbl_order.id desc  ";
+									$query = mysqli_query($conn, $sql) or die(mysqli_error());
+									while ($row = mysqli_fetch_array($query)) {
+
+								 ?>  
+								<td ><?php echo $i++; ?></td>
+								<td class="table-plus">
+									<div class="name-avatar d-flex align-items-center">
+										<div class="avatar mr-2 flex-shrink-0">
+											<img src="<?php echo (!empty($row['Picture'])) ? '../uploads/'.$row['Picture'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt="">
+										</div>
+										<div class="txt">
+											<div class="weight-600"><?php echo $row['Name'];?></div>
+										</div>
+									</div>
+								</td>
+								
+								<td><?php echo $row['Com_name']; ?></td>
+	                            <td><?php echo $row['Date']; ?></td>
+								<td><?php echo $row['RegDate']; ?></td>
+
+								<td><?php $stats=$row['Status'];
+	                             if($stats=="Pending"){
+	                              ?>
+								 	 <span class="badge badge-primary">Pending</span>		                                 
+	                                  <?php } if($stats=="Preparing")  { ?>
+										<span class="badge badge-secondary">Preparing</span>	
+	                                  <?php } if($stats=="Approved")  { ?>
+								 <span class="badge badge-success">Approved</span>	
+									 <?php } if($stats=="Reject")  { ?>
+										<span class="badge badge-danger">Rejected</span>	
+	                             <?php } ?>
+								</td>	
+								<?php
+                                $admins = $row['Admin_id'];
+                                $query_admin_record = mysqli_query($conn,"SELECT user.Name, tbl_order.id FROM tbl_order INNER JOIN user ON   tbl_order.Admin_id=user.ID  where tbl_order.Admin_id='$admins' ") or die(mysqli_error());
+                                $row_admin = mysqli_fetch_array($query_admin_record);
+                                ?>
+								<td><?php echo $row_admin['Name']; ?></td>		
+		
+								<td>
+									<div class="dropdown">
+										<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+											<i class="dw dw-more"></i>
+										</a>
+										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
+											
+											<a class="dropdown-item" href="All_order.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
+											
+											
+											
+										</div>
+									</div>
+								</td>
+							</tr>
+							<?php }?>
+						</tbody>
+					</table>
+					<script>
+						function checkdelete(){
+							return confirm('Do you Want to Delete this Record ? ');
+						}
+					</script>
+					
+			   </div>
+			</div>
+			<?php } elseif(isset($_GET['Rejected'])){?>
+			<!-- Customer Preparing Order END -->		
+
+			<!-- Customer Rejected Order Start -->
+			<div class="card-box mb-30">
+				<div class="pd-20">
+						<h2 class="text-blue h4">Rejected Orders</h2>
+					</div>
+				<div class="pb-20">
+					<table class="data-table table stripe hover nowrap">
+						<thead>
+							<tr>
+								<th>NO#</th>
+								<th class="table-plus datatable-nosort">Customer Name</th>
+								<th class="table-plus datatable-nosort" >Company Name</th>						
+								<th>DATE Ordered</th>
+								<th>Reg Date Ordered</th>
+								<th> Status</th>
+								<th>Recorded By</th>							
+								<th class="datatable-nosort">ACTION</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<?php 
+								$i =1;
+								$sql = "SELECT user.Name, user.Com_name, user.Picture, tbl_order.id, tbl_order.Admin_id, tbl_order.RegDate, tbl_order.Date,tbl_order.File,tbl_order.Status FROM tbl_order INNER JOIN user ON   tbl_order.Cid=user.id where tbl_order.Status='Reject' ORDER BY tbl_order.id desc  ";
+									$query = mysqli_query($conn, $sql) or die(mysqli_error());
+									while ($row = mysqli_fetch_array($query)) {
+
+								 ?>  
+								<td ><?php echo $i++; ?></td>
+								<td class="table-plus">
+									<div class="name-avatar d-flex align-items-center">
+										<div class="avatar mr-2 flex-shrink-0">
+											<img src="<?php echo (!empty($row['Picture'])) ? '../uploads/'.$row['Picture'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt="">
+										</div>
+										<div class="txt">
+											<div class="weight-600"><?php echo $row['Name'];?></div>
+										</div>
+									</div>
+								</td>
+								
+								<td><?php echo $row['Com_name']; ?></td>
+	                            <td><?php echo $row['Date']; ?></td>
+								<td><?php echo $row['RegDate']; ?></td>
+
+								<td><?php $stats=$row['Status'];
+	                             if($stats=="Pending"){
+	                              ?>
+								 	 <span class="badge badge-primary">Pending</span>		                                 
+	                                  <?php } if($stats=="Preparing")  { ?>
+										<span class="badge badge-secondary">Preparing</span>	
+	                                  <?php } if($stats=="Approved")  { ?>
+								 <span class="badge badge-success">Approved</span>	
+									 <?php } if($stats=="Reject")  { ?>
+										<span class="badge badge-danger">Rejected</span>	
+	                             <?php } ?>
+								</td>	
+								<?php
+                                $admins = $row['Admin_id'];
+                                $query_admin_record = mysqli_query($conn,"SELECT user.Name, tbl_order.id FROM tbl_order INNER JOIN user ON   tbl_order.Admin_id=user.ID  where tbl_order.Admin_id='$admins' ") or die(mysqli_error());
+                                $row_admin = mysqli_fetch_array($query_admin_record);
+                                ?>
+								<td><?php echo $row_admin['Name']; ?></td>			
+		
+								<td>
+									<div class="dropdown">
+										<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+											<i class="dw dw-more"></i>
+										</a>
+										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
+											
+											<a class="dropdown-item" href="All_order.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
+											
+											
+											
+										</div>
+									</div>
+								</td>
+							</tr>
+							<?php }?>
+						</tbody>
+					</table>
+					<script>
+						function checkdelete(){
+							return confirm('Do you Want to Delete this Record ? ');
+						}
+					</script>
+					
+			   </div>
+			</div>
+			<?php } elseif(isset($_GET['Approved'])){?>
+			<!-- Customer Rejected Order END -->
+
+			<!-- Customer Approve Order Start -->
+			<div class="card-box mb-30">
+				<div class="pd-20">
+						<h2 class="text-blue h4">Approved Orders</h2>
+					</div>
+				<div class="pb-20">
+					<table class="data-table table stripe hover nowrap">
+						<thead>
+							<tr>
+								<th>NO#</th>
+								<th class="table-plus datatable-nosort">Customer Name</th>
+								<th>Company Name</th>						
+								<th>DATE Ordered</th>
+								<th>Reg Date Ordered</th>
+								<th> Status</th>
+								<th>Recorded By</th>							
+								<th class="datatable-nosort">ACTION</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<?php 
+								$i =1;
+								$sql = "SELECT user.Name, user.Com_name, user.Picture, tbl_order.id, tbl_order.Admin_id, tbl_order.RegDate, tbl_order.Date,tbl_order.File,tbl_order.Status FROM tbl_order INNER JOIN user ON   tbl_order.Cid=user.id where tbl_order.Status='Approved' ORDER BY tbl_order.id desc  ";
+									$query = mysqli_query($conn, $sql) or die(mysqli_error());
+									while ($row = mysqli_fetch_array($query)) {
+
+								 ?>  
+								<td ><?php echo $i++; ?></td>
+								<td class="table-plus">
+									<div class="name-avatar d-flex align-items-center">
+										<div class="avatar mr-2 flex-shrink-0">
+											<img src="<?php echo (!empty($row['Picture'])) ? '../uploads/'.$row['Picture'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt="">
+										</div>
+										<div class="txt">
+											<div class="weight-600"><?php echo $row['Name'];?></div>
+										</div>
+									</div>
+								</td>
+								
+								<td><?php echo $row['Com_name']; ?></td>
+	                            <td><?php echo $row['Date']; ?></td>
+								<td><?php echo $row['RegDate']; ?></td>
+
+								<td><?php $stats=$row['Status'];
+	                             if($stats=="Pending"){
+	                              ?>
+								 	 <span class="badge badge-primary">Pending</span>		                                 
+	                                  <?php } if($stats=="Preparing")  { ?>
+										<span class="badge badge-secondary">Preparing</span>	
+	                                  <?php } if($stats=="Approved")  { ?>
+								 <span class="badge badge-success">Approved</span>	
+									 <?php } if($stats=="Reject")  { ?>
+										<span class="badge badge-danger">Rejected</span>	
+	                             <?php } ?>
+								</td>	
+								<?php
+                                $admins = $row['Admin_id'];
+                                $query_admin_record = mysqli_query($conn,"SELECT user.Name, tbl_order.id FROM tbl_order INNER JOIN user ON   tbl_order.Admin_id=user.ID  where tbl_order.Admin_id='$admins' ") or die(mysqli_error());
+                                $row_admin = mysqli_fetch_array($query_admin_record);
+                                ?>
+								<td><?php echo $row_admin['Name']; ?></td>					
+		
+								<td>
+									<div class="dropdown">
+										<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+											<i class="dw dw-more"></i>
+										</a>
+										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
+											
+											<a class="dropdown-item" href="All_order.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
+											
+											
+											
+										</div>
+									</div>
+								</td>
+							</tr>
+							<?php }?>
+						</tbody>
+					</table>
+					<script>
+						function checkdelete(){
+							return confirm('Do you Want to Delete this Record ? ');
+						}
+					</script>
+					
+			   </div>
+			</div>
+			<?php } else{ ?>
+			<!-- Customer Approved Order END -->
+
+			<!-- Customer Else Part DIspaly All Order Start -->
+			<div class="card-box mb-30">
+				<div class="pd-20">
+						<h2 class="text-blue h4">All Customer Orders</h2>
+					</div>
+				<div class="pb-20">
+					<table class="data-table table stripe hover nowrap">
+						<thead>
+							<tr>
+								<th>NO#</th>
+								<th class="table-plus datatable-nosort">Customer Name</th>
+								<th>Company Name</th>						
+								<th>DATE Ordered</th>
+								<th>Reg Date Ordered</th>
+								<th> Status</th>							
+								<th class="datatable-nosort">ACTION</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<?php 
+								$i =1;
+								$sql = "SELECT user.Name, user.Com_name, user.Picture, tbl_order.id, tbl_order.RegDate, tbl_order.Date,tbl_order.File,tbl_order.Status FROM tbl_order INNER JOIN user ON   tbl_order.Cid=user.id  ORDER BY tbl_order.id desc  ";
+									$query = mysqli_query($conn, $sql) or die(mysqli_error());
+									while ($row = mysqli_fetch_array($query)) {
+
+								 ?>  
+								<td ><?php echo $i++; ?></td>
+								<td class="table-plus">
+									<div class="name-avatar d-flex align-items-center">
+										<div class="avatar mr-2 flex-shrink-0">
+											<img src="<?php echo (!empty($row['Picture'])) ? '../uploads/'.$row['Picture'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt="">
+										</div>
+										<div class="txt">
+											<div class="weight-600"><?php echo $row['Name'];?></div>
+										</div>
+									</div>
+								</td>
+								
+								<td><?php echo $row['Com_name']; ?></td>
+	                            <td><?php echo $row['Date']; ?></td>
+								<td><?php echo $row['RegDate']; ?></td>
+
+								<td><?php $stats=$row['Status'];
+	                             if($stats=="Pending"){
+	                              ?>
+								 	 <span class="badge badge-primary">Pending</span>		                                 
+	                                  <?php } if($stats=="Preparing")  { ?>
+										<span class="badge badge-secondary">Preparing</span>	
+	                                  <?php } if($stats=="Approved")  { ?>
+								 <span class="badge badge-success">Approved</span>	
+									 <?php } if($stats=="Reject")  { ?>
+										<span class="badge badge-danger">Rejected</span>	
+	                             <?php } ?>
+								</td>				
+		
+								<td>
+									<div class="dropdown">
+										<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+											<i class="dw dw-more"></i>
+										</a>
+										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
+											
+											<a class="dropdown-item" href="All_order.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
+											
+											
+											
+										</div>
+									</div>
+								</td>
+							</tr>
+							<?php }?>
+						</tbody>
+					</table>
+					<script>
+						function checkdelete(){
+							return confirm('Do you Want to Delete this Record ? ');
+						}
+					</script>
+					
+			   </div>
+			</div>
+			<?php }?>
+			<!-- Customer Else Part Display All Order END -->
 
 
 
 
 
+
+			<?php
+				}
+				else{
+				?>
+			<div class="row">
+
+                <div class="col-xl-3 mb-30">
+                    <?php							
+                    $query = mysqli_query($conn,"select  Status from tbl_order where  Status = 'Pending'  ")or die(mysqli_error());
+                    $count = mysqli_num_rows($query);				
+                    ?> 
+                    <div class="card-box height-100-p widget-style1 bg-white">
+                        <div class="d-flex flex-wrap align-items-center ">	
+                            <div class="progress-dat">
+								<form action="" method="GET">
+									<div id="">									
+										<button class="btn btn-primary" type="submit" name="Pending_order"> <i class="icon-copy dw dw-balance"></i></button>
+									</div>
+								</form>
+                            </div>						
+                            <div class="widget-data">
+                                <div class="h4 mb-0"><?php echo ($count); ?></div>
+                                <div class="weight-300 font-16">Pending</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 mb-30">
+                    <?php						
+                        $query= mysqli_query($conn,"select  Status from tbl_order where Status = 'Preparing' AND Admin_id='$session_id'  ")or die(mysqli_error());
+                        $count = mysqli_num_rows($query);				 
+                    ?> 
+                    <div class="card-box height-100-p widget-style1 bg-white">
+                        <div class="d-flex flex-wrap align-items-center">	
+                            <div class="progress-dat">
+								<form action="" method="GET">
+									<div id="">									
+										<button class="btn btn-primary" type="submit" name="Preparing"> <i class="icon-copy dw dw-shopping-cart2"></i></button>
+									</div>
+								</form>
+                             
+                            </div>						
+                            <div class="widget-data">
+                                <div class="h4 mb-0"><?php echo ($count); ?></div>
+                                <div class="weight-300 font-14">Preparing</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 mb-30">
+                    <?php						
+                        $query= mysqli_query($conn,"select  Status from tbl_order where Status = 'Reject' AND Admin_id='$session_id'  ")or die(mysqli_error());
+                        $count = mysqli_num_rows($query);					
+                    ?> 
+                    <div class="card-box height-100-p widget-style1 bg-white">
+                        <div class="d-flex flex-wrap align-items-center">
+                            <div class="progress-dat">
+								<form action="" method="GET">
+									<div id="">									
+										<button  class="btn btn-danger"  type="submit" name="Rejected"><i class="icon-copy ion-close"></i></button>
+									</div>
+								</form>
+                                
+                            </div>
+                        
+                            <div class="widget-data">
+                                <div class="h4 mb-0"><?php echo ($count); ?></div>
+                                <div class="weight-300 font-17">Rejected</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 mb-30">
+                    <?php						
+                        $query= mysqli_query($conn,"select  Status from tbl_order where  Status = 'Approved' AND Admin_id='$session_id' ")or die(mysqli_error());
+                        $count = mysqli_num_rows($query);					 
+                    ?> 
+                    <div class="card-box height-100-p widget-style1 bg-white">
+                        <div class="d-flex flex-wrap align-items-center">	
+                            <div class="progress-dat">
+								<form action="" method="GET">
+									<div id="">									
+										<button class="btn btn-success" type="submit" name="Approved"> <i class="icon-copy ion-checkmark"></i></button>
+									</div>
+								</form>
+                            </div>						
+                            <div class="widget-data">
+                                <div class="h4 mb-0"><?php echo ($count); ?></div>
+                                <div class="weight-300 font-17">Approved</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>				
+            </div>		
+
+
+			<!-- Customer Pending Order Start -->
+			<?php 
+			if(isset($_GET['Pending_order'])){
+			?>		
+			<div class="card-box mb-30">
+				<div class="pd-20">
+						<h2 class="text-blue h4">Pending Orders</h2>
+					</div>
+				<div class="pb-20">
+					<table class="data-table table stripe hover nowrap">
+						<thead>
+							<tr>
+								<th>NO#</th>
+								<th class="table-plus datatable-nosort">Customer Name</th>
+								<th>Company Name</th>						
+								<th>DATE Ordered</th>
+								<th>Reg Date Ordered</th>
+								<th> Status</th>							
+								<th class="datatable-nosort">ACTION</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<?php 
+								$i =1;
+								$sql = "SELECT user.Name, user.Com_name, user.Picture, tbl_order.id, tbl_order.RegDate, tbl_order.Date,tbl_order.File,tbl_order.Status FROM tbl_order INNER JOIN user ON   tbl_order.Cid=user.id where tbl_order.Status='Pending' ORDER BY tbl_order.id desc  ";
+									$query = mysqli_query($conn, $sql) or die(mysqli_error());
+									while ($row = mysqli_fetch_array($query)) {
+
+								 ?>  
+								<td ><?php echo $i++; ?></td>
+								<td class="table-plus">
+									<div class="name-avatar d-flex align-items-center">
+										<div class="avatar mr-2 flex-shrink-0">
+											<img src="<?php echo (!empty($row['Picture'])) ? '../uploads/'.$row['Picture'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt="">
+										</div>
+										<div class="txt">
+											<div class="weight-600"><?php echo $row['Name'];?></div>
+										</div>
+									</div>
+								</td>
+								
+								<td><?php echo $row['Com_name']; ?></td>
+	                            <td><?php echo $row['Date']; ?></td>
+								<td><?php echo $row['RegDate']; ?></td>
+
+								<td><?php $stats=$row['Status'];
+	                             if($stats=="Pending"){
+	                              ?>
+								 	 <span class="badge badge-primary">Pending</span>		                                 
+	                                  <?php } if($stats=="Preparing")  { ?>
+										<span class="badge badge-secondary">Preparing</span>	
+	                                  <?php } if($stats=="Approved")  { ?>
+								 <span class="badge badge-success">Approved</span>	
+									 <?php } if($stats=="Reject")  { ?>
+										<span class="badge badge-danger">Rejected</span>	
+	                             <?php } ?>
+								</td>				
+		
+								<td>
+									<div class="dropdown">
+										<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+											<i class="dw dw-more"></i>
+										</a>
+										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
+											
+											<a class="dropdown-item" href="All_order.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
+											
+											
+											
+										</div>
+									</div>
+								</td>
+							</tr>
+							<?php }?>
+						</tbody>
+					</table>
+					<script>
+						function checkdelete(){
+							return confirm('Do you Want to Delete this Record ? ');
+						}
+					</script>
+					
+			   </div>
+			</div>
+			<?php } elseif(isset($_GET['Preparing'])){?>
+			<!-- Customer Pending Order END -->
+
+
+
+			<!-- Customer Preaping Order Start -->
+			<div class="card-box mb-30">
+				<div class="pd-20">
+						<h2 class="text-blue h4">Preparing Orders</h2>
+					</div>
+				<div class="pb-20">
+					<table class="data-table table stripe hover nowrap">
+						<thead>
+							<tr>
+								<th>NO#</th>
+								<th class="table-plus datatable-nosort">Customer Name</th>
+								<th>Company Name</th>						
+								<th>DATE Ordered</th>
+								<th>Reg Date Ordered</th>
+								<th> Status</th>							
+								<th class="datatable-nosort">ACTION</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<?php 
+								$i =1;
+								$sql = "SELECT user.Name, user.Com_name, user.Picture, tbl_order.id, tbl_order.RegDate, tbl_order.Date,tbl_order.File,tbl_order.Status FROM tbl_order INNER JOIN user ON   tbl_order.Cid=user.id where tbl_order.Status='Preparing' AND tbl_order.Admin_id='$session_id' ORDER BY tbl_order.id desc  ";
+									$query = mysqli_query($conn, $sql) or die(mysqli_error());
+									while ($row = mysqli_fetch_array($query)) {
+
+								 ?>  
+								<td ><?php echo $i++; ?></td>
+								<td class="table-plus">
+									<div class="name-avatar d-flex align-items-center">
+										<div class="avatar mr-2 flex-shrink-0">
+											<img src="<?php echo (!empty($row['Picture'])) ? '../uploads/'.$row['Picture'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt="">
+										</div>
+										<div class="txt">
+											<div class="weight-600"><?php echo $row['Name'];?></div>
+										</div>
+									</div>
+								</td>
+								
+								<td><?php echo $row['Com_name']; ?></td>
+	                            <td><?php echo $row['Date']; ?></td>
+								<td><?php echo $row['RegDate']; ?></td>
+
+								<td><?php $stats=$row['Status'];
+	                             if($stats=="Pending"){
+	                              ?>
+								 	 <span class="badge badge-primary">Pending</span>		                                 
+	                                  <?php } if($stats=="Preparing")  { ?>
+										<span class="badge badge-secondary">Preparing</span>	
+	                                  <?php } if($stats=="Approved")  { ?>
+								 <span class="badge badge-success">Approved</span>	
+									 <?php } if($stats=="Reject")  { ?>
+										<span class="badge badge-danger">Rejected</span>	
+	                             <?php } ?>
+								</td>				
+		
+								<td>
+									<div class="dropdown">
+										<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+											<i class="dw dw-more"></i>
+										</a>
+										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
+											
+											<a class="dropdown-item" href="All_order.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
+											
+											
+											
+										</div>
+									</div>
+								</td>
+							</tr>
+							<?php }?>
+						</tbody>
+					</table>
+					<script>
+						function checkdelete(){
+							return confirm('Do you Want to Delete this Record ? ');
+						}
+					</script>
+					
+			   </div>
+			</div>
+			<?php } elseif(isset($_GET['Rejected'])){?>
+			<!-- Customer Preparing Order END -->		
+
+			<!-- Customer Rejected Order Start -->
+			<div class="card-box mb-30">
+				<div class="pd-20">
+						<h2 class="text-blue h4">Rejected Orders</h2>
+					</div>
+				<div class="pb-20">
+					<table class="data-table table stripe hover nowrap">
+						<thead>
+							<tr>
+								<th>NO#</th>
+								<th class="table-plus datatable-nosort">Customer Name</th>
+								<th>Company Name</th>						
+								<th>DATE Ordered</th>
+								<th>Reg Date Ordered</th>
+								<th> Status</th>							
+								<th class="datatable-nosort">ACTION</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<?php 
+								$i =1;
+								$sql = "SELECT user.Name, user.Com_name, user.Picture, tbl_order.id, tbl_order.RegDate, tbl_order.Date,tbl_order.File,tbl_order.Status FROM tbl_order INNER JOIN user ON   tbl_order.Cid=user.id where tbl_order.Status='Reject' AND tbl_order.Admin_id='$session_id'  ORDER BY tbl_order.id desc  ";
+									$query = mysqli_query($conn, $sql) or die(mysqli_error());
+									while ($row = mysqli_fetch_array($query)) {
+
+								 ?>  
+								<td ><?php echo $i++; ?></td>
+								<td class="table-plus">
+									<div class="name-avatar d-flex align-items-center">
+										<div class="avatar mr-2 flex-shrink-0">
+											<img src="<?php echo (!empty($row['Picture'])) ? '../uploads/'.$row['Picture'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt="">
+										</div>
+										<div class="txt">
+											<div class="weight-600"><?php echo $row['Name'];?></div>
+										</div>
+									</div>
+								</td>
+								
+								<td><?php echo $row['Com_name']; ?></td>
+	                            <td><?php echo $row['Date']; ?></td>
+								<td><?php echo $row['RegDate']; ?></td>
+
+								<td><?php $stats=$row['Status'];
+	                             if($stats=="Pending"){
+	                              ?>
+								 	 <span class="badge badge-primary">Pending</span>		                                 
+	                                  <?php } if($stats=="Preparing")  { ?>
+										<span class="badge badge-secondary">Preparing</span>	
+	                                  <?php } if($stats=="Approved")  { ?>
+								 <span class="badge badge-success">Approved</span>	
+									 <?php } if($stats=="Reject")  { ?>
+										<span class="badge badge-danger">Rejected</span>	
+	                             <?php } ?>
+								</td>				
+		
+								<td>
+									<div class="dropdown">
+										<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+											<i class="dw dw-more"></i>
+										</a>
+										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
+											
+											<a class="dropdown-item" href="All_order.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
+											
+											
+											
+										</div>
+									</div>
+								</td>
+							</tr>
+							<?php }?>
+						</tbody>
+					</table>
+					<script>
+						function checkdelete(){
+							return confirm('Do you Want to Delete this Record ? ');
+						}
+					</script>
+					
+			   </div>
+			</div>
+			<?php } elseif(isset($_GET['Approved'])){?>
+			<!-- Customer Rejected Order END -->
+
+			<!-- Customer Approve Order Start -->
+			<div class="card-box mb-30">
+				<div class="pd-20">
+						<h2 class="text-blue h4">Approved Orders</h2>
+					</div>
+				<div class="pb-20">
+					<table class="data-table table stripe hover nowrap">
+						<thead>
+							<tr>
+								<th>NO#</th>
+								<th class="table-plus datatable-nosort">Customer Name</th>
+								<th>Company Name</th>						
+								<th>DATE Ordered</th>
+								<th>Reg Date Ordered</th>
+								<th> Status</th>							
+								<th class="datatable-nosort">ACTION</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<?php 
+								$i =1;
+								$sql = "SELECT user.Name, user.Com_name, user.Picture, tbl_order.id, tbl_order.RegDate, tbl_order.Date,tbl_order.File,tbl_order.Status FROM tbl_order INNER JOIN user ON   tbl_order.Cid=user.id where tbl_order.Status='Approved' AND tbl_order.Admin_id='$session_id' ORDER BY tbl_order.id desc  ";
+									$query = mysqli_query($conn, $sql) or die(mysqli_error());
+									while ($row = mysqli_fetch_array($query)) {
+
+								 ?>  
+								<td ><?php echo $i++; ?></td>
+								<td class="table-plus">
+									<div class="name-avatar d-flex align-items-center">
+										<div class="avatar mr-2 flex-shrink-0">
+											<img src="<?php echo (!empty($row['Picture'])) ? '../uploads/'.$row['Picture'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt="">
+										</div>
+										<div class="txt">
+											<div class="weight-600"><?php echo $row['Name'];?></div>
+										</div>
+									</div>
+								</td>
+								
+								<td><?php echo $row['Com_name']; ?></td>
+	                            <td><?php echo $row['Date']; ?></td>
+								<td><?php echo $row['RegDate']; ?></td>
+
+								<td><?php $stats=$row['Status'];
+	                             if($stats=="Pending"){
+	                              ?>
+								 	 <span class="badge badge-primary">Pending</span>		                                 
+	                                  <?php } if($stats=="Preparing")  { ?>
+										<span class="badge badge-secondary">Preparing</span>	
+	                                  <?php } if($stats=="Approved")  { ?>
+								 <span class="badge badge-success">Approved</span>	
+									 <?php } if($stats=="Reject")  { ?>
+										<span class="badge badge-danger">Rejected</span>	
+	                             <?php } ?>
+								</td>				
+		
+								<td>
+									<div class="dropdown">
+										<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+											<i class="dw dw-more"></i>
+										</a>
+										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
+											
+											<a class="dropdown-item" href="All_order.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
+											
+											
+											
+										</div>
+									</div>
+								</td>
+							</tr>
+							<?php }?>
+						</tbody>
+					</table>
+					<script>
+						function checkdelete(){
+							return confirm('Do you Want to Delete this Record ? ');
+						}
+					</script>
+					
+			   </div>
+			</div>
+			<?php } else{ ?>
+			<!-- Customer Approved Order END -->
+
+			<!-- Customer Else Part DIspaly All Order Start -->
+			<div class="card-box mb-30">
+				<div class="pd-20">
+						<h2 class="text-blue h4">Pending Orders</h2>
+					</div>
+				<div class="pb-20">
+					<table class="data-table table stripe hover nowrap">
+						<thead>
+							<tr>
+								<th>NO#</th>
+								<th class="table-plus datatable-nosort">Customer Name</th>
+								<th>Company Name</th>						
+								<th>DATE Ordered</th>
+								<th>Reg Date Ordered</th>
+								<th> Status</th>							
+								<th class="datatable-nosort">ACTION</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<?php 
+								$i =1;
+								$sql = "SELECT user.Name, user.Com_name, user.Picture, tbl_order.id, tbl_order.RegDate, tbl_order.Date,tbl_order.File,tbl_order.Status FROM tbl_order INNER JOIN user ON   tbl_order.Cid=user.id where tbl_order.Status='Pending' ORDER BY tbl_order.id desc  ";
+									$query = mysqli_query($conn, $sql) or die(mysqli_error());
+									while ($row = mysqli_fetch_array($query)) {
+
+								 ?>  
+								<td ><?php echo $i++; ?></td>
+								<td class="table-plus">
+									<div class="name-avatar d-flex align-items-center">
+										<div class="avatar mr-2 flex-shrink-0">
+											<img src="<?php echo (!empty($row['Picture'])) ? '../uploads/'.$row['Picture'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt="">
+										</div>
+										<div class="txt">
+											<div class="weight-600"><?php echo $row['Name'];?></div>
+										</div>
+									</div>
+								</td>
+								
+								<td><?php echo $row['Com_name']; ?></td>
+	                            <td><?php echo $row['Date']; ?></td>
+								<td><?php echo $row['RegDate']; ?></td>
+
+								<td><?php $stats=$row['Status'];
+	                             if($stats=="Pending"){
+	                              ?>
+								 	 <span class="badge badge-primary">Pending</span>		                                 
+	                                  <?php } if($stats=="Preparing")  { ?>
+										<span class="badge badge-secondary">Preparing</span>	
+	                                  <?php } if($stats=="Approved")  { ?>
+								 <span class="badge badge-success">Approved</span>	
+									 <?php } if($stats=="Reject")  { ?>
+										<span class="badge badge-danger">Rejected</span>	
+	                             <?php } ?>
+								</td>				
+		
+								<td>
+									<div class="dropdown">
+										<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+											<i class="dw dw-more"></i>
+										</a>
+										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
+											
+											<a class="dropdown-item" href="All_order.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
+											
+											
+											
+										</div>
+									</div>
+								</td>
+							</tr>
+							<?php }?>
+						</tbody>
+					</table>
+					<script>
+						function checkdelete(){
+							return confirm('Do you Want to Delete this Record ? ');
+						}
+					</script>
+					
+			   </div>
+			</div>
+			<?php }?>
+			<!-- Customer Else Part Display All Order END -->
+
+
+
+				<?php
+				}
+			?>
+
+
+
+
+
+
+
+
+
+
+
+
+			
 
 
 			<?php include('includes/footer.php'); ?>
 		</div>
 	</div>
 	<!-- js -->
-
-	<script src="../vendors/scripts/core.js"></script>
-	<script src="../vendors/scripts/script.min.js"></script>
-	<script src="../vendors/scripts/process.js"></script>
-	<script src="../vendors/scripts/layout-settings.js"></script>
-	<script src="../src/plugins/apexcharts/apexcharts.min.js"></script>
-	<script src="../src/plugins/datatables/js/jquery.dataTables.min.js"></script>
-	<script src="../src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-	<script src="../src/plugins/datatables/js/dataTables.responsive.min.js"></script>
-	<script src="../src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-
-	<!-- buttons for Export datatable -->
-	<script src="../src/plugins/datatables/js/dataTables.buttons.min.js"></script>
-	<script src="../src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
-	<script src="../src/plugins/datatables/js/buttons.print.min.js"></script>
-	<script src="../src/plugins/datatables/js/buttons.html5.min.js"></script>
-	<script src="../src/plugins/datatables/js/buttons.flash.min.js"></script>
-	<script src="../src/plugins/datatables/js/vfs_fonts.js"></script>
+	<?php include('includes/scripts2.php'); ?>
 	
-	<script src="../vendors/scripts/datatable-setting.js"></script></body>
-	<!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
 </body>
 </html>

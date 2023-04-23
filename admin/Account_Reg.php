@@ -98,6 +98,13 @@
                             </section>
                         </div>
                     </div>
+
+                    <?php
+                        $RV = $conn->query("SELECT sum(Amount) as total FROM `cash_receipt`   ")->fetch_assoc()['total'];
+                        $PV = $conn->query("SELECT sum(Amount) as total FROM `cash_payment`   ")->fetch_assoc()['total'];
+                        $Bal = $RV - $PV;
+                        $format =number_format((float)$Bal, '2','.',',');
+					?> 
                     
                     <div class="col-lg-8 col-md-6 col-sm-12 mb-30">
                         <div class="card-box pd-30 pt-10 height-100-p">
@@ -109,6 +116,7 @@
                                         <th>SR NO.</th>
                                         <th class="table-plus">Accoutn Name</th>
                                         <th>Account Number</th>
+                                        <th>Account Balance</th>
                                         <th class="datatable-nosort">ACTION</th>
                                     </tr>
                                     </thead>
@@ -121,13 +129,21 @@
                                         $cnt=1;
                                         if($query->rowCount() > 0)
                                         {
-                                        foreach($results as $result)
-                                        {               ?>  
+                                         foreach($results as $result)  {  
+                                        // while($row = mysqli_fetch_array($query)){
+                                            $test= ($result->id);
+                                            $total_income = $conn->query("SELECT sum(Amount) as total from `cash_receipt` where Acc_id=$test   ")->fetch_assoc()['total'];
+                                            $total_expense = $conn->query("SELECT sum(Amount) as total from `cash_payment` where Acc_id=$test ")->fetch_assoc()['total'];
+                                            $Ba_Inc_exp = $total_income - $total_expense;
+                                            $bal_format =number_format((float)$Ba_Inc_exp, '2','.',',');
+                                                  
+                                             ?>  
 
                                         <tr>
                                             <td> <?php echo htmlentities($cnt);?></td>
                                             <td><?php echo htmlentities($result->Acc_name);?></td>
                                             <td><?php echo htmlentities($result->Acc_no);?></td>
+                                            <td><?php echo $bal_format;?></td>
                                             <td>
                                                 <div class="table-actions">
                                                     <!-- data-color="#265ed7"            data-color="#e95959"-->

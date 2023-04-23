@@ -1,6 +1,8 @@
-<?php include('includes/header.php')?>
-<?php include('../database/session.php')?>
-<?php include('../database/db.php')?>
+<?php include('includes/header.php');?>
+<?php include('../database/session.php');?>
+<?php include('../database/db.php');?>
+<?php include('includes/Administrator_only.php');?>
+
 
 <?php
 	if(isset($_POST['add_user']))
@@ -8,7 +10,7 @@
 	
 	$name=$_POST['name'];	   
 	$email=$_POST['email']; 
-	$password=$_POST['password']; 
+	// $password=$_POST['password']; 
 	$com_name=$_POST['com_name']; 
 	$address=$_POST['address']; 	 
 	$role=$_POST['role']; 
@@ -23,7 +25,8 @@
 
 	move_uploaded_file($image_tem_loc,$image_store);
 
-	
+	$admin_id = $conn->query("SELECT ID as id from `user` where ID='$session_id' ")->fetch_assoc()['id'];
+
 	$query1 = mysqli_query($conn,"select * from user where Com_name = '$com_name' ")or die(mysqli_error());
 	$count1 = mysqli_num_rows($query1);     
 
@@ -62,7 +65,7 @@
 	   </script>
 	   <?php
       }else{
-        mysqli_query($conn,"INSERT INTO user(Name,Email,password,Com_name,Address,Role,Phone,Status,Picture) VALUES('$name','$email','$password','$com_name','$address','$role','$phonenumber','$Status','$image')         
+        mysqli_query($conn,"INSERT INTO user(Admin_id,Name,Email,Com_name,Address,Role,Phone,Status,Picture) VALUES('$admin_id','$name','$email','$com_name','$address','$role','$phonenumber','$Status','$image')         
 		") or die(mysqli_error()); ?>
 		<script>alert('User Records Successfully Added');</script>;
 		<script>
@@ -115,55 +118,57 @@
 						<form method="post" action=""  enctype="multipart/form-data">
 							<section>
 								<div class="row">
-									<div class="col-md-4 col-sm-12">
+									<div class="col-md-6 col-sm-12">
 										<div class="form-group">
 											<label >Name :</label>
 											<input name="name" type="text" placeholder="Enter personal Name" class="form-control wizard-required" required="true" autocomplete="off" onkeyup="letterOnly(this)">
 										</div>
 									</div>
-									<div class="col-md-4 col-sm-12">
+									<div class="col-md-6 col-sm-12">
 										<div class="form-group">
 											<label>Company Name :</label>
 											<input name="com_name" type="text" placeholder="Enter Company Name" class="form-control" required="true" autocomplete="off">
 										</div>
 									</div>									
-									<div class="col-md-4 col-sm-12">
-										<div class="form-group">
-											<label>Email Address :</label>
-											<input name="email" type="email" placeholder="Enter Email"class="form-control" required="true" autocomplete="off">
-										</div>
-									</div>						
+													
 								</div>
 								
 								<div class="row">
-									<div class="col-md-4 col-sm-12">
+									<!-- <div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label>Password :</label>
 											<input name="password" id="password" type="password" required placeholder="**********" class="form-control" autocomplete="off">
 										</div>
-									</div>														
-									<div class="col-md-4 col-sm-12">
+									</div>														 -->
+									<!-- <div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label>Confirm Password :</label>
 											<input name="con_pass" id="con_pass" type="password" required placeholder="**********" class="form-control" autocomplete="off">
 											<span id="confrmpass" class="text-danger font-weight-bol"> </span>
 										</div>
-									</div>	
-									<div class="col-md-4 col-sm-12">
+									</div>	 -->
+									<div class="col-md-6 col-sm-12">
 										<div class="form-group">
-											<label>Address :</label>
-											<input name="address" type="text" placeholder="Enter Address" class="form-control" required="true" autocomplete="off">
+											<label>Email Address :</label>
+											<input name="email" type="email" placeholder="Enter Email"class="form-control" required="true" autocomplete="off">
 										</div>
-									</div>									
+									</div>	
+									<div class="col-md-6 col-sm-12">
+										<div class="form-group">
+											<label>Phone Number :</label>
+											<input name="phonenumber" type="number" placeholder="Enter Phone Number"class="form-control" required="true" autocomplete="off">
+										</div>
+									</div>				
 								</div>
 
 								<div class="row">
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
-											<label>Phone Number :</label>
-											<input name="phonenumber" type="number" placeholder="Enter Phone Number"class="form-control" required="true" autocomplete="off">
+											<label>Address :</label>
+											<input name="address" type="text" placeholder="Enter Address" class="form-control" required="true" autocomplete="off">
 										</div>
-									</div>			
+									</div>	
+											
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label>User Role :</label>

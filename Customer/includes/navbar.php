@@ -1,11 +1,18 @@
 <?php	
 $sts = $conn->query("SELECT Status as sts from `user` where ID='$session_id'  ")->fetch_assoc()['sts'];
+$role = $conn->query("SELECT Role as rol from `user` where ID='$session_id' ")->fetch_assoc()['rol'];
 
 if($sts != 'Active'){
 	unset($_SESSION['alogin']);
 	session_destroy(); // destroy session
 	header("location: ../index.php"); 
 }
+if($role != 'Customer'){
+	unset($_SESSION['alogin']);
+	session_destroy(); // destroy session
+	header("location: ../index.php"); 
+}
+
 ?>
 
 <!-- Nav Bar Start -->

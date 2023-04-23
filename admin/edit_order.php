@@ -9,11 +9,11 @@
 	$Status=$_POST['Status'];	
 
 
-	$result = mysqli_query($conn,"update tbl_order set Status='$Status' where id='$get_id'         
+	$result = mysqli_query($conn,"update tbl_order set Status='$Status', Admin_id='$session_id'  where id='$get_id'         
 		"); 		
 	if ($result) {
      	echo "<script>alert('Record Successfully Updated');</script>";
-     	echo "<script type='text/javascript'> document.location = 'Testing.php'; </script>";
+     	echo "<script type='text/javascript'> document.location = 'All_order.php'; </script>";
 	} else{
 	  die(mysqli_error());
    }		
@@ -37,7 +37,7 @@
 							</div>
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="Testing.php">Back</a></li>
+									<li class="breadcrumb-item"><a href="All_order.php">Back</a></li>
 									<li class="breadcrumb-item active" aria-current="page">All Orders</li>
 								</ol>
 							</nav>

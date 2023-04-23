@@ -11,16 +11,136 @@
 		</div>
 		<div class="menu-block customscroll">
 			<div class="sidebar-menu">
+				<?php
+					$admin_role = $conn->query("SELECT Role as rol from `user` where ID='$session_id' ")->fetch_assoc()['rol'];
+				if($admin_role == 'Admin'){
+				?>
 				<ul id="accordion-menu">
-
                     <li class="dropdown">
 						<a href="index.php" class="dropdown-toggle no-arrow">
 							<span class="micon dw dw-house-1"></span><span class="mtext">Dashboard</span>
 						</a>
 						
                     </li>
-                    <!-- <i class="icon-copy fa fa-user" aria-hidden="true"></i> -->
-                    <i class="icon-copy iclipboardon-"></i>
+                    
+                    <!-- <li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-user"></span><span class="mtext">User</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="user.php">Register User</a></li>
+							<li><a href="mng_user.php">Manage User</a></li>
+						</ul>
+					</li> -->
+
+                    
+                    <li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-user-2"></span><span class="mtext">Customer</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="Invoice.php">Invoice</a></li>
+							<li><a href="Receipt.php">Recipts</a></li>
+							<li><a href="test.php">Test Sms send</a></li>
+
+							<li><a href="test2.php"> Hormud Sms send</a></li>
+						</ul>
+					</li>
+
+                    
+                    <li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-user-2"></span><span class="mtext">Suppliers</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="vendor_invoice.php">Vendor Invoice</a></li>
+							<li><a href="vendor_payment.php">Vendor Payment</a></li>
+						</ul>
+					</li>
+
+                    
+                    <li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-money-2"></span><span class="mtext">Financial</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="Account_Reg.php">Account Registration</a></li>
+							<li><a href="cash_receipt.php">Cash Receipt</a></li>
+							<li><a href="cash_payment.php">Cash Payment</a></li>
+						</ul>
+					</li>
+
+                    
+                    <li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-library"></span><span class="mtext">Report </span>
+						</a>
+						<ul class="submenu">
+							<li><a href="financial_report.php">Financial Report</a></li>
+							<li><a href="Cust_Report.php">Customer Report</a></li>
+                            <li><a href="Supplier_report.php">Suppliers Report</a></li>
+						</ul>
+					</li>
+
+					<li>
+						<div class="sidebar-small-cap">Extra</div>
+					</li>
+
+				
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-user-2"></span><span class="mtext">Customer Info</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="All_order.php">Orders</a></li>
+							<li><a href="All_Support.php">Support</a></li>												
+						</ul>
+					</li>
+					
+					<!-- <li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-user-2"></span><span class="mtext">Debt Reminder</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="mng_debt_reminder.php">Manage debt reminder</a></li>
+						</ul>
+					</li> -->
+					<!-- <li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-user-2"></span><span class="mtext">Support</span>
+						</a>
+						<ul class="submenu">
+							
+							<li><a href="All_Support.php">All Support</a></li>
+						</ul>
+					</li> -->
+                    <!-- <li class="dropdown">
+						<a href="video.php" class="dropdown-toggle no-arrow">
+							<span class="micon dw dw-eye"></span><span class="mtext">Video</span>
+						</a>						
+                    </li> -->
+			
+				</ul>
+				<?php } 
+
+
+
+
+
+
+
+
+					//  ADMINISTRATOR 
+				elseif($admin_role == 'Administrator'){
+				?>
+					<ul id="accordion-menu">
+                    <li class="dropdown">
+						<a href="index.php" class="dropdown-toggle no-arrow">
+							<span class="micon dw dw-house-1"></span><span class="mtext">Dashboard</span>
+						</a>
+						
+                    </li>
+                    
                     <li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
 							<span class="micon dw dw-user"></span><span class="mtext">User</span>
@@ -28,6 +148,8 @@
 						<ul class="submenu">
 							<li><a href="user.php">Register User</a></li>
 							<li><a href="mng_user.php">Manage User</a></li>
+							<li><a href="user_send_email.php">Send Email</a></li>
+							<li><a href="user_info_individual.php"> User info</a></li>
 						</ul>
 					</li>
 
@@ -86,12 +208,32 @@
 
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-user-2"></span><span class="mtext">Order Info</span>
+							<span class="micon dw dw-user-2"></span><span class="mtext">Requested </span>
 						</a>
 						<ul class="submenu">
-							<li><a href="All_order.php">All Order</a></li>
+							<li><a href="Requested.php"> Customers</a></li>
+							<li><a href="feedback_req.php"> Feedback</a></li>						
+						</ul>
+					</li>
+
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-user-2"></span><span class="mtext">Customer Info</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="All_order.php">Orders</a></li>
+							<li><a href="All_Support.php">Support</a></li>
 							<li><a href="Testing.php">Testing</a></li>
 						
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-user-2"></span><span class="mtext">Invoice & Receipt</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="invoice_detail.php">Invoice Details</a></li>
+							<li><a href="Receipt_detail.php">Receipt Details</a></li>
 						</ul>
 					</li>
 					
@@ -100,12 +242,10 @@
 							<span class="micon dw dw-user-2"></span><span class="mtext">Debt Reminder</span>
 						</a>
 						<ul class="submenu">
-							<!-- <li><a href="All_order.php">All Order</a></li>
-							<li><a href="Testing.php">Testing</a></li> -->
 							<li><a href="mng_debt_reminder.php">Manage debt reminder</a></li>
 						</ul>
 					</li>
-					<li class="dropdown">
+					<!-- <li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
 							<span class="micon dw dw-user-2"></span><span class="mtext">Support</span>
 						</a>
@@ -113,37 +253,18 @@
 							
 							<li><a href="All_Support.php">All Support</a></li>
 						</ul>
-					</li>
-					
-
-                
-					
-
+					</li> -->
                     <li class="dropdown">
 						<a href="video.php" class="dropdown-toggle no-arrow">
 							<span class="micon dw dw-eye"></span><span class="mtext">Video</span>
-						</a>
-						
+						</a>						
                     </li>
-					<!-- 
-					<li>
-						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-edit-2"></span><span class="mtext">Documentation</span>
-						</a>
-						<ul class="submenu">
-							<li><a href="introduction.html">Introduction</a></li>
-							<li><a href="getting-started.html">Getting Started</a></li>
-							<li><a href="color-settings.html">Color Settings</a></li>
-							<li><a href="third-party-plugins.html">Third Party Plugins</a></li>
-						</ul>
-					</li> -->
-					<!-- <li>
-						<a href="#" target="_blank" class="dropdown-toggle no-arrow">
-							<span class="micon dw dw-paper-plane1"></span>
-							<span class="mtext">Landing Page <img src="../vendors/images/coming-soon.png" alt="" width="25"></span>
-						</a>
-					</li> -->
+			
 				</ul>
+				<?php } ?>	
+
+
+				
 			</div>
 		</div>
 	</div>
