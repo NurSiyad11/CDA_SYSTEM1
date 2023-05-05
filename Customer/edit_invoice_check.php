@@ -147,7 +147,7 @@
 												<?php
 												//}
 												?>
-											<a href="download.php?file=<?php echo $row['File'] ?>">Download</a><br>
+											<!-- <a href="download.php?file=<?php echo $row['File'] ?>">Download</a><br> -->
               
 												<!-- <button class="btn btn-primary" name="Order_check" id="Order_check" data-toggle="modal">Update&nbsp;Invoice_Check</button> -->
 												<a  href="#" class="btn btn-primary" data-toggle="modal" data-target="#Medium-modal"><i class="dw dw-edit-2"></i> Take Action</a>
@@ -167,12 +167,12 @@
 										$query=mysqli_query($conn,$sql);
 										while ($info=mysqli_fetch_array($query)) {
 											?>
-											<a href="download.php?file=<?php echo $row['File'] ?>">Download</a><br>
+											<!-- <a href="download.php?file=<?php echo $row['File'] ?>">Download</a><br> -->
 
 											<?php
 											if($info !=''){
 											?>        
-												<a href="download.php?file=<?php echo $row['File'] ?>">Download</a><br>                               
+												<!-- <a href="download.php?file=<?php echo $row['File'] ?>">Download</a><br>                                -->
 												<embed type="application/pdf" src="../admin/pdf/<?php echo $info['File'] ; ?>" width="900" height="600">
 											<?php
 											}else{
@@ -207,7 +207,7 @@
                                 </div>                                    
                                 <div class="modal-body">
 								<?php
-									$query = mysqli_query($conn,"SELECT * FROM invoice_receipt  where id='$get_id'")or die(mysqli_error());
+									$query = mysqli_query($conn,"SELECT * FROM invoice  where id='$get_id'")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 									?>
 

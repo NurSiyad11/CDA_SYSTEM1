@@ -1,0 +1,4 @@
+RewriteEngine On
+RewriteRule ^Dashboard?$ index.php
+RewriteRule ^edit?$ edit_order.php
+

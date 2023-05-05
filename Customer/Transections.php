@@ -92,7 +92,7 @@
 
 			<div class="card-box mb-30">
 				<div class="pd-20">
-						<h2 class="text-blue h4">All Transection</h2>
+						<h2 class="text-blue h4">All 10 Transection</h2>
 					</div>
 				<div class="pb-20">
 					<table class="data-table table table-bordered stripe hover nowrap">
@@ -115,11 +115,15 @@
 						<tbody>
 
 							<?php
-							//$bal= 0;
+							$total = 0;
 							$sql = "SELECT id,D_INV,invoice,File,Date,Memo,Amount,empty FROM invoice where Cid='$session_id' UNION All SELECT id,D_RV,RV,File,Date,Memo,empty,Amount FROM receipt    where Cid='$session_id'   order by Date desc ";
 							$query = $dbh -> prepare($sql);
 							$query->execute();
 							$results=$query->fetchAll(PDO::FETCH_OBJ);
+							
+							
+
+
 							$cnt=1;
 							if($query->rowCount() > 0)
 							{
@@ -138,10 +142,25 @@
 									<?php
 									$in= $result->Amount;
 									$out= $result->empty;
-									$bal= $in + $out;
+									$bal = $in + $out;
+									//$Total = 
 									
-									// echo "$ ". number_format((float)htmlentities($bal), '2','.',',');
-									$total= $bal + $in - $out;
+									// if($out = 0){
+									// 	$Bal = $in;
+									// }elseif($in = 0){
+									// 	$Bal = $out;
+									// }
+
+									// if($in = 0){
+									// 	$bal -= $out;
+									// }elseif($out = 0){
+									// 	$bal += $in ;
+									// }
+									
+
+									 echo "$ ". number_format((float)htmlentities($bal), '2','.',',');
+									// $total= $bal + $in - $out;
+									 echo "$ ". number_format((float)htmlentities($total), '2','.',',');
 									//echo "$ ". number_format((float)htmlentities($result->balance), '2','.',',');
 
 									?>
@@ -156,7 +175,7 @@
 												<i class="dw dw-more"></i>
 											</a>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-												<a class="dropdown-item" href="view_inv_rec.php?edit=<?php echo  htmlentities($result->id); ?>"><i class="dw dw-eye"></i> RV View</a>
+												<a class="dropdown-item" name="update-receipt" href="../admin/A5pdf2.php?edit=<?php echo  htmlentities($result->id); ?>"><i class="dw dw-eye"></i> RV View</a>
 											</div>
 										</div>
 								
@@ -178,7 +197,10 @@
 									}		?>
 								</td>								
 							</tr>
-							<?php $cnt++; } } ?>  
+							<?php $cnt++;  
+								
+									 $total = $bal + $in - $out;
+							 } } ?>  
 
 						</tbody>
 

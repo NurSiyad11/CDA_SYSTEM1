@@ -153,13 +153,14 @@ if (isset($_GET['delete'])) {
 							<thead>
 								<tr>
 									<th>NO#</th>
+									<th class="table-plus">Company Name</th>	
 									<th class="table-plus">Customer Name</th>								
 									<th>Receipt No#</th>
 									<th>Date </th>
 									<th>Memo</th>
 									<th>Amount</th>
 									<th>Status</th>
-									<th>File</th>						
+									<!-- <th>File</th>						 -->
 									<th class="datatable-nosort">ACTION</th>
 								</tr>
 							</thead>
@@ -167,16 +168,17 @@ if (isset($_GET['delete'])) {
 								<tr>
 									<?php
 									$i =1;
-									$Role = $conn->query("SELECT Role as role from `user` where ID='$session_id'  ")->fetch_assoc()['role'];
+									// $Role = $conn->query("SELECT Role as role from `user` where ID='$session_id'  ")->fetch_assoc()['role'];
 									
-									if($Role =='Administrator'){
-										$teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name,  receipt.id, receipt.Cid,receipt.RV ,receipt.Amount,receipt.Date,receipt.Memo,receipt.Status,receipt.File FROM receipt INNER JOIN user ON   receipt.Cid=user.ID order by receipt.Date Desc") or die(mysqli_error());
+									// if($Role =='Administrator'){
+									// 	$teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name,  receipt.id, receipt.Cid,receipt.RV ,receipt.Amount,receipt.Date,receipt.Memo,receipt.Status,receipt.File FROM receipt INNER JOIN user ON   receipt.Cid=user.ID order by receipt.Date Desc") or die(mysqli_error());
 										
-									}
-									else{
-										$teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name,  receipt.id, receipt.Cid,receipt.RV ,receipt.Amount,receipt.Date,receipt.Memo,receipt.Status,receipt.File FROM receipt INNER JOIN user ON   receipt.Cid=user.ID where receipt.admin_id='$session_id' order by receipt.Date Desc") or die(mysqli_error());
+									// }
+									// else{
+									// 	$teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name,  receipt.id, receipt.Cid,receipt.RV ,receipt.Amount,receipt.Date,receipt.Memo,receipt.Status,receipt.File FROM receipt INNER JOIN user ON   receipt.Cid=user.ID where receipt.admin_id='$session_id' order by receipt.Date Desc") or die(mysqli_error());
 									
-									}
+									// }
+									$teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name,  receipt.id, receipt.Cid,receipt.RV ,receipt.Amount,receipt.Date,receipt.Memo,receipt.Status,receipt.File FROM receipt INNER JOIN user ON   receipt.Cid=user.ID where receipt.admin_id='$session_id' order by receipt.Date Desc") or die(mysqli_error());
 									while ($row = mysqli_fetch_array($teacher_query)) {
 									$id = $row['id'];
 										?>
@@ -193,7 +195,7 @@ if (isset($_GET['delete'])) {
 											</div>
 										</div>
 									</td>						
-									
+									<td><?php echo  $row['Name']; ?></td>
 									<td><?php echo "RV# ". $row['RV']; ?></td>
 									<td><?php echo $row['Date']; ?></td>
 									<td><?php echo $row['Memo']; ?></td>
@@ -211,15 +213,17 @@ if (isset($_GET['delete'])) {
 										<?php } 
 									?>
 									</td>
-									<td><?php echo $row['File']; ?></td>							
+									<!-- <td><?php //echo $row['File']; ?></td>							 -->
 									<td>
 										<div class="dropdown">
 											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
 												<i class="dw dw-more"></i>
 											</a>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-												<a class="dropdown-item" href="edit_receipt.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> View</a>
-												<a class="dropdown-item" href="Receipt.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
+												<a class="dropdown-item" href="edit_receipt.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> Edit</a>
+												<a class="dropdown-item" name="update-receipt" href="../admin/A5pdf2.php?edit=<?php echo $row['id'];?>"><i class="dw dw-eye"></i> View PDF</a>
+
+												<!-- <a class="dropdown-item" href="Receipt.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a> -->
 											</div>
 										</div>
 									</td>

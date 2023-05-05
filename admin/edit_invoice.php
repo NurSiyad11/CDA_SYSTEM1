@@ -7,21 +7,43 @@
 <?php
 	if(isset($_POST['update_file']))
 	{
-	$pdf=$_FILES['pdf']['name'];
-	$pdf_type=$_FILES['pdf']['type'];
-	$pdf_size=$_FILES['pdf']['size'];
-	$pdf_tem_loc=$_FILES['pdf']['tmp_name'];
-	$pdf_store="pdf/".$pdf;
-	move_uploaded_file($pdf_tem_loc,$pdf_store);
+		$st = $conn->query("SELECT Status as st from `invoice` where id='$get_id'  ")->fetch_assoc()['st'];
 
-		$result = mysqli_query($conn,"update invoice set  File='$pdf'  where id='$get_id'         
-			"); 		
-		if ($result) {
-			echo "<script>alert('File  Successfully Updated');</script>";
-			echo "<script type='text/javascript'> document.location = 'Invoice.php'; </script>";
-		} else{
-		die(mysqli_error());
-		}		
+		if($st =='Approved')
+		{
+			?>
+			<Script>
+				window.addEventListener('load',function(){
+					swal({
+						title: "Warning",
+						text: "This invoice is not updated, b/c the customer Approved this invoice ",
+						icon: "warning",
+						button: "Ok Done!",
+					})
+					.then(function() {
+								window.location = "Invoice.php";
+							});
+				});			
+			</Script>
+			<?php			
+		}else 
+		{
+			$pdf=$_FILES['pdf']['name'];
+			$pdf_type=$_FILES['pdf']['type'];
+			$pdf_size=$_FILES['pdf']['size'];
+			$pdf_tem_loc=$_FILES['pdf']['tmp_name'];
+			$pdf_store="pdf/".$pdf;
+			move_uploaded_file($pdf_tem_loc,$pdf_store);
+
+			$result = mysqli_query($conn,"update invoice set  File='$pdf'  where id='$get_id'         
+				"); 		
+			if ($result) {
+				echo "<script>alert('File  Successfully Updated');</script>";
+				echo "<script type='text/javascript'> document.location = 'Invoice.php'; </script>";
+			} else{
+			die(mysqli_error());
+			}	
+		}	
 		
 	}
 ?>
@@ -32,26 +54,44 @@
 <?php
 	if(isset($_POST['update-invoice']))
 	{
-    $name=$_POST['name'];	
-	$Date=$_POST['Date'];  
-	$invoice=$_POST['invoice']; 
-	$Amount=$_POST['Amount']; 
-	$memo=$_POST['memo']; 
+		$st = $conn->query("SELECT Status as st from `invoice` where id='$get_id'  ")->fetch_assoc()['st'];
 
+		if($st =='Approved')
+		{
+			?>
+			<Script>
+				window.addEventListener('load',function(){
+					swal({
+						title: "Warning",
+						text: "This invoice is not updated, b/c the customer Approved this invoice ",
+						icon: "warning",
+						button: "Ok Done!",
+					})
+					.then(function() {
+								window.location = "Invoice.php";
+							});
+				});			
+			</Script>
+			<?php			
+		}else 
+		{
+			$name=$_POST['name'];	
+			$Date=$_POST['Date'];  
+			$invoice=$_POST['invoice']; 
+			$Amount=$_POST['Amount']; 
+			$memo=$_POST['memo']; 
 
-
-
-	$cid = $conn->query("SELECT id as cid from `user` where Com_name='$name'  ")->fetch_assoc()['cid'];
-
-	$result = mysqli_query($conn,"update invoice set Cid='$cid',   Date='$Date', Invoice='$invoice',  Amount='$Amount', Memo='$memo' where id='$get_id'         
-		"); 		
-	if ($result) {
-     	echo "<script>alert('Record Successfully Updated');</script>";
-     	echo "<script type='text/javascript'> document.location = 'Invoice.php'; </script>";
-	} else{
-	  die(mysqli_error());
-   }		
-}
+			$cid = $conn->query("SELECT id as cid from `user` where Com_name='$name'  ")->fetch_assoc()['cid'];
+			$result = mysqli_query($conn,"update invoice set Cid='$cid',   Date='$Date', Invoice='$invoice',  Amount='$Amount', Memo='$memo' where id='$get_id'         
+				"); 		
+			if ($result) {
+				echo "<script>alert('Record Successfully Updated');</script>";
+				echo "<script type='text/javascript'> document.location = 'Invoice.php'; </script>";
+			} else{
+			die(mysqli_error());
+			}	
+		}	
+	}
 ?>
 <body>
 	<?php include('includes/navbar.php')?>

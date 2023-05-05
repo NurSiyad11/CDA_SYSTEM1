@@ -175,6 +175,7 @@
                                 </div>
                             </form>
                         </div>
+
                         
                         <div class="pb-20">
                             <table class="data-table table stripe hover nowrap">
@@ -218,7 +219,7 @@
                                          <?php
                                            }else {
                                             ?>
-                                            <td><a href="A5pdf.php?edit=<?php echo $row['id']?>" name="update-receipt" class="btn btn-danger"> <i class="icon-copy dw dw-"></i>Rv PDF</a></td>
+                                            <td><a href="A5pdf2.php?edit=<?php echo $row['id']?>" name="receipt" id="receipt" class="btn btn-danger"> <i class="icon-copy dw dw-"></i>Rv PDF</a></td>
                                             <?php
                                            } 
                                         ?> 

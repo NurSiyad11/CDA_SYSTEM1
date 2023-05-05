@@ -18,7 +18,7 @@
 	   </script>
 	   <?php
 		 }else{
-			mysqli_query($conn,"INSERT INTO account(Acc_name,Acc_no) VALUES('$Acc_name','$Acc_no')         
+			mysqli_query($conn,"INSERT INTO account(Admin_id,Acc_name,Acc_no) VALUES('$session_id','$Acc_name','$Acc_no')         
 			") or die(mysqli_error()); ?>
 			<script>alert('Account Records Successfully  Added');</script>;
 			<script>
@@ -57,7 +57,7 @@ if (isset($_GET['delete'])) {
 	 $query = mysqli_query($conn,"select * from cash_receipt ")or die(mysqli_error());
 	 $count = mysqli_num_rows($query);     
      
-        mysqli_query($conn,"INSERT INTO cash_receipt(name,Date,RV,Amount,Memo,Acc_id) VALUES('$name','$date','$RV','$amount','$memo','$Ac_id')         
+        mysqli_query($conn,"INSERT INTO cash_receipt(Admin_id,name,Date,RV,Amount,Memo,Acc_id) VALUES('$session_id','$name','$date','$RV','$amount','$memo','$Ac_id')         
 		") or die(mysqli_error()); ?>
 		<script>alert('Receipt Records Successfully  Added');</script>;
 		<script>
@@ -241,7 +241,7 @@ if (isset($_GET['delete'])) {
 
 									<?php
 									$i =1;
-									$query = mysqli_query($conn,"SELECT account.Acc_name, cash_receipt.id, cash_receipt.name, cash_receipt.RV ,cash_receipt.Amount,cash_receipt.Date,cash_receipt.Memo FROM cash_receipt INNER JOIN account ON   cash_receipt.Acc_id=account.id order by cash_receipt.Date Desc") or die(mysqli_error());	
+									$query = mysqli_query($conn,"SELECT account.Acc_name, cash_receipt.id, cash_receipt.name, cash_receipt.RV ,cash_receipt.Amount,cash_receipt.Date,cash_receipt.Memo FROM cash_receipt INNER JOIN account ON   cash_receipt.Acc_id=account.id where cash_receipt.Admin_id='$session_id' order by cash_receipt.Date Desc") or die(mysqli_error());	
 									while ($row = mysqli_fetch_array($query)) {
 									$id = $row['id'];
 										?>										

@@ -39,7 +39,7 @@ if (isset($_GET['delete'])) {
 		<?php
 	} else{
      
-        mysqli_query($conn,"INSERT INTO cash_payment(name,Date,PV,Amount,Memo,Acc_id) VALUES('$name','$date','$PV','$amount','$memo','$Ac_id')         
+        mysqli_query($conn,"INSERT INTO cash_payment(Admin_id,name,Date,PV,Amount,Memo,Acc_id) VALUES('$session_id','$name','$date','$PV','$amount','$memo','$Ac_id')         
 		") or die(mysqli_error()); ?>
 		<script>alert('Payment Records Successfully  Added');</script>;
 		<script>
@@ -179,9 +179,9 @@ if (isset($_GET['delete'])) {
 								<tr>
 									<?php
 									$i =1;
-									// $teacher_query = mysqli_query($conn,"select * from cash_payment order by Date Desc") or die(mysqli_error());
+									
 
-									$query = mysqli_query($conn,"SELECT account.Acc_name, cash_payment.id, cash_payment.name, cash_payment.PV , cash_payment.Amount, cash_payment.Date, cash_payment.Memo FROM cash_payment INNER JOIN account ON   cash_payment.Acc_id=account.id order by cash_payment.Date Desc") or die(mysqli_error());	
+									$query = mysqli_query($conn,"SELECT account.Acc_name, cash_payment.id, cash_payment.name, cash_payment.PV , cash_payment.Amount, cash_payment.Date, cash_payment.Memo FROM cash_payment INNER JOIN account ON   cash_payment.Acc_id=account.id where cash_payment.Admin_id='$session_id' order by cash_payment.Date Desc") or die(mysqli_error());	
 									while ($row = mysqli_fetch_array($query)) {
 									$id = $row['id'];
 										?>

@@ -6,7 +6,7 @@
 <?php 
 	 if (isset($_GET['delete'])) {
 		$get_id = $_GET['delete'];
-		$sql = "DELETE FROM accoun where id = ".$get_id;
+		$sql = "DELETE FROM account where id = ".$get_id;
 		$result = mysqli_query($conn, $sql);
 		if ($result) {
 			echo "<script>alert('Account deleted Successfully');</script>";
@@ -40,7 +40,7 @@
 
 	<div class="main-container">
 		<div class="pd-ltr-20 xs-pd-20-10">
-        <div class="min-height-200px">
+            <div class="min-height-200px">
                 <div class="page-header">
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
@@ -109,7 +109,7 @@
                                     </thead >
                                     <tbody>
 
-                                        <?php $sql = "SELECT * from account order by Acc_name ";
+                                        <?php $sql = "SELECT * from account where Admin_id='$session_id'and id='$get_id' order by Acc_name ";
                                         $query = $dbh -> prepare($sql);
                                         $query->execute();
                                         $results=$query->fetchAll(PDO::FETCH_OBJ);

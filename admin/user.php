@@ -214,6 +214,7 @@
 				</div>
 			</div>
 
+
 			<script type="text/javascript">
 				function validation(){			
 					var pass = document.getElementById('password').value;

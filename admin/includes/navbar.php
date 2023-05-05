@@ -55,6 +55,7 @@
 				</div>
 			</div> -->
 
+			<!-- Orders Notification -->
 			<div class="user-notification">
 				<?php
 					$query_count = mysqli_query($conn,"select * from tbl_order where Status = 'Pending' ")or die(mysqli_error());
@@ -93,7 +94,7 @@
 
 								 ?> 
 								<li>
-									<a href="#">
+									<a href="All_order.php">
 										
 										<!-- <img src="../vendors/images/img.jpg" alt=""> -->
 										<img src="<?php echo (!empty($row['Picture'])) ? '../uploads/'.$row['Picture'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt="">
@@ -104,44 +105,6 @@
 									</a>
 								</li>
 								<?php }?>
-
-
-
-								<!-- <li>
-									<a href="#">
-										<img src="../vendors/images/photo1.jpg" alt="">
-										<h3>Lea R. Frith</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img src="../vendors/images/photo2.jpg" alt="">
-										<h3>Erik L. Richards</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img src="../vendors/images/photo3.jpg" alt="">
-										<h3>John Doe</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img src="../vendors/images/photo4.jpg" alt="">
-										<h3>Renee I. Hansen</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img src="../vendors/images/img.jpg" alt="">
-										<h3>Vicki M. Coleman</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li> -->
 							</ul>
 						</div>
 					</div>
@@ -150,32 +113,32 @@
 
 			<!-- Sceripts Online User Update  -->
 			<script>
-						function updateUserStatus(){
-							jQuery.ajax({
-								url:'../update_user_status.php',
-								success:function(){
-									
-								}
-							});
+				function updateUserStatus(){
+					jQuery.ajax({
+						url:'../update_user_status.php',
+						success:function(){
+							
 						}
-						
-						function getUserStatus(){
-							jQuery.ajax({
-								url:'../get_user_status.php',
-								success:function(result){
-									jQuery('#user_grid').html(result);
-								}
-							});
+					});
+				}
+				
+				function getUserStatus(){
+					jQuery.ajax({
+						url:'../get_user_status.php',
+						success:function(result){
+							jQuery('#user_grid').html(result);
 						}
-						
-						setInterval(function(){
-							updateUserStatus();
-						},1000);
-						
-						setInterval(function(){
-							getUserStatus();
-						},3000);
-					</script>
+					});
+				}
+				
+				setInterval(function(){
+					updateUserStatus();
+				},1000);
+				
+				setInterval(function(){
+					getUserStatus();
+				},3000);
+			</script>
 
 
 
@@ -183,28 +146,35 @@
 			<!-- <button type="button" class="btn btn-primary position-relative">
 			Mails <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+99 <span class="visually-hidden">unread messages</span></span>
 			</button> -->
+
+			<!-- Support Notification -->
 			<div class="user-notification">
+				<?php 							
+				$query_count = mysqli_query($conn,"select * from support where Status = 'Pending' ")or die(mysqli_error());
+				$count = mysqli_num_rows($query_count);						
+					?>
 				<div class="dropdown">
 					<a class="dropdown-toggle no-arrow" href="#" role="button" data-toggle="dropdown">
 						<i class="icon-copy dw dw-message"></i>
+						<?php 
+						if($count > 0){
+							?>
+							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger " ><p class="ml-2 text-light"> <?php echo ($count);?></p> <span class="visually-hidden"></span></span>
+							<?php } ?>
 						<!-- <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+99 <span class="visually-hidden">unread messages</span></span> -->
 						
 						<!-- <span class="badge notification-active"></span> -->
 					</a>
 					<div class="dropdown-menu dropdown-menu-right">
+						<h5><?php echo "Supported: ". ($count); ?></h5>
+
 						<div class="notification-list mx-h-350 customscroll">
-						<?php 
-							//$count = $conn->query("SELECT sum(Amount) as total FROM `cash_receipt`   ")->fetch_assoc()['total'];
 							
-							$query_count = mysqli_query($conn,"select * from support where Status = '' ")or die(mysqli_error());
-							$count = mysqli_num_rows($query_count);						
-							 ?>
-							<h5><?php echo "Supported: ". ($count); ?></h5>
 
 							<ul>
 								<?php 
 								
-								$sql = "SELECT user.Name, user.Com_name, user.Picture, support.id, support.Message FROM support INNER JOIN user ON   support.Cid=user.ID where support.Status ='' order by support.RegDate desc";
+								$sql = "SELECT user.Name, user.Com_name, user.Picture, support.id, support.Message FROM support INNER JOIN user ON   support.Cid=user.ID where support.Status ='Pending' order by support.RegDate desc";
 									$query = mysqli_query($conn, $sql) or die(mysqli_error());
 									while ($row = mysqli_fetch_array($query)) {
 

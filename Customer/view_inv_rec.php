@@ -40,9 +40,11 @@
 						<form method="post" action="">
 							<section>
 								<?php
-									$inv = $conn->query("SELECT invoice as invoice from `invoice` where id='$get_id'  ")->fetch_assoc()['invoice'];
-									$Rv = $conn->query("SELECT RV as Rv from `receipt` where id='$get_id'  ")->fetch_assoc()['Rv'];
-									$query = mysqli_query($conn,"SELECT user.Name as Name,  invoice.invoice, invoice.Amount as Amount, invoice.Date as Date, invoice.Memo as Memo, invoice.Status as Status, invoice.File as File  FROM invoice INNER JOIN user ON   invoice.Cid=user.ID where invoice.id='$get_id' and invoice.Cid='$session_id' and invoice.invoice='$inv' UNION All SELECT  user.Name as Name, receipt.RV, receipt.Amount as Amount, receipt.Date as Date, receipt.Memo as Memo, receipt.Status as Status, receipt.File as File From receipt INNER JOIN user ON receipt.Cid=user.ID  where receipt.id='$get_id' and receipt.Cid='$session_id' and receipt.RV='$Rv' ")or die(mysqli_error());
+									// $inv = $conn->query("SELECT invoice as invoice from `invoice` where id='$get_id'  ")->fetch_assoc()['invoice'];
+									// $Rv = $conn->query("SELECT RV as Rv from `receipt` where id='$get_id'  ")->fetch_assoc()['Rv'];
+									// $query = mysqli_query($conn,"SELECT user.Name as Name,  invoice.invoice, invoice.Amount as Amount, invoice.Date as Date, invoice.Memo as Memo, invoice.Status as Status, invoice.File as File  FROM invoice INNER JOIN user ON   invoice.Cid=user.ID where invoice.id='$get_id' and invoice.Cid='$session_id' and invoice.invoice='$inv' UNION All SELECT  user.Name as Name, receipt.RV, receipt.Amount as Amount, receipt.Date as Date, receipt.Memo as Memo, receipt.Status as Status, receipt.File as File From receipt INNER JOIN user ON receipt.Cid=user.ID  where receipt.id='$get_id' and receipt.Cid='$session_id' and receipt.RV='$Rv' ")or die(mysqli_error());
+									
+									$query = mysqli_query($conn,"SELECT user.Name ,  invoice.invoice ,invoice.Amount,invoice.Date,invoice.Memo,invoice.Status, invoice.File  FROM invoice INNER JOIN user ON   invoice.Cid=user.ID where invoice.id='$get_id'")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 									?>
 
@@ -111,10 +113,11 @@
 												<?php
 												//}
 												?>
-											<a href="download.php?file=<?php echo $row['File'] ?>">Download</a><br>
+											<!-- <a href="download.php?file=<?php //echo $row['File'] ?>">Download</a><br> -->
               
 												<!-- <button class="btn btn-primary" name="Order_check" id="Order_check" data-toggle="modal">Update&nbsp;Invoice_Check</button> -->
-												<a  href="#" class="btn btn-primary" data-toggle="modal" data-target="#Medium-modal"><i class="dw dw-edit-2"></i> Take Action</a>
+											
+												<!-- <a  href="#" class="btn btn-primary" data-toggle="modal" data-target="#Medium-modal"><i class="dw dw-edit-2"></i> Take Action</a> -->
 
 											</div>
 										</div>
@@ -127,16 +130,18 @@
 									<div class="col-12">
 										<?php
 										
-										$sql="SELECT File from invoice where id='$get_id'  and Cid='$session_id' and invoice='$inv' Union All select File From receipt Where id='$get_id'  and Cid='$session_id' and RV='$Rv' ";
+										// $sql="SELECT File from invoice where id='$get_id'  and Cid='$session_id' and invoice='$inv' Union All select File From receipt Where id='$get_id'  and Cid='$session_id' and RV='$Rv' ";
+										
+										$sql="SELECT File from invoice where id='$get_id' ";
 										$query=mysqli_query($conn,$sql);
 										while ($info=mysqli_fetch_array($query)) {
 											?>
-											<a href="download.php?file=<?php echo $row['File'] ?>">Download</a><br>
+											<!-- <a href="download.php?file=<?php// echo $row['File'] ?>">Download</a><br> -->
 
 											<?php
 											if($info !=''){
 											?>        
-												<a href="download.php?file=<?php echo $row['File'] ?>">Download</a><br>                               
+												<!-- <a href="download.php?file=<?php //echo $row['File'] ?>">Download</a><br>                                -->
 												<embed type="application/pdf" src="../admin/pdf/<?php echo $info['File'] ; ?>" width="900" height="600">
 											<?php
 											}else{
@@ -161,7 +166,7 @@
 
 				
                 <!-- Take Action Medium modal -->
-                <div class="col-md-4 col-sm-12 mb-30">				
+                <!-- <div class="col-md-4 col-sm-12 mb-30">				
                     <div class="modal fade" id="Medium-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
@@ -171,13 +176,13 @@
                                 </div>                                    
                                 <div class="modal-body">
 								<?php
-									$query = mysqli_query($conn,"SELECT * FROM invoice_receipt  where id='$get_id'")or die(mysqli_error());
+									$query = mysqli_query($conn,"SELECT * FROM invoice where id='$get_id'")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 									?>
 
                                     <form id="add-event" method=post>
                                         <div class="modal-body">
-                                            <!-- <h4 class="text-blue h4 mb-10">Add Event Detai</h4> -->
+                                         
                                          
 											<div class="col-md-12 col-sm-12">
                                                 <div class="form-group">
@@ -211,7 +216,7 @@
                             </div>
                         </div>
                     </div>					
-                </div>
+                </div> -->
 
 
 

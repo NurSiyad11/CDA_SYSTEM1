@@ -65,7 +65,7 @@
 						<form method="post" action="">
 							<section>
 								<?php
-									$query = mysqli_query($conn,"SELECT user.Name,user.Email,user.Phone, user.Picture, support.id, support.Message ,support.Time_user,support.Reply,support.Time_admin,support.Status FROM support INNER JOIN user ON   support.Cid=user.id where support.id='$get_id'")or die(mysqli_error());
+									$query = mysqli_query($conn,"SELECT user.Name,user.Email,user.Phone, user.Picture, support.id, support.Message , support.Title , support.Time_user,support.Reply,support.Time_admin,support.Status FROM support INNER JOIN user ON   support.Cid=user.id where support.id='$get_id'")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 									?>
 
@@ -91,13 +91,24 @@
 									</div>
 								</div>
 
+								<div class="row">
+									<div class="col-md-12 col-sm-12">
+										<div class="form-group">
+											<label >Title :</label>
+											<input name="name" type="text" class="form-control wizard-required" required="true" autocomplete="off"  readonly value="<?php echo $row['Title']; ?>">
+										</div>
+									</div>	
+								</div>
 
 								
 								<div class="row">
-									<div class="col-md-12">
+									<div class="col-md-1">
+									<label>Message </label>
+									</div>
+									<div class="col-md-11">
 										<div class="form-group">
-											<label>Message </label>
-											<textarea name="memo" style="height: 5em;" placeholder="Description" readonly class="form-control text_area" type="text" ><?php echo $row['Message']; ?></textarea>
+											<!-- <label>Message </label> -->
+											<textarea name="memo" style="height: 10em;" placeholder="Description" readonly class="form-control text_area" type="text" ><?php echo $row['Message']; ?></textarea>
 										</div>
 									</div>
 								</div>

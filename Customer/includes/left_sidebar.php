@@ -55,18 +55,21 @@
 
 					
                     <li class="dropdown">
-						<a href="chat.php" class="dropdown-toggle no-arrow">
+						<!-- <a href="chat.php" class="dropdown-toggle no-arrow">
 							<span class="micon dw dw-help"></span><span class="mtext">Contact US</span>
+						</a> -->
+						<a href="Support.php" class="dropdown-toggle no-arrow">
+							<span class="micon dw dw-help"></span><span class="mtext">Support</span>
 						</a>
 						
                     </li>
 					
-                    <li class="dropdown">
+                    <!-- <li class="dropdown">
 						<a href="video.php" class="dropdown-toggle no-arrow">
 							<span class="micon dw dw-eye"></span><span class="mtext">Video</span>
 						</a>
 						
-                    </li>
+                    </li> -->
 
 				</ul>
 			</div>

@@ -5,25 +5,25 @@
 <!-- UPDATE CODE FAQ  -->
 
 <?php
-	if(isset($_POST['update']))
-	{	
-        $Question=$_POST['Question'];	   
-        $Description=$_POST['Description']; 
-        $Video=$_POST['Video']; 
-        $Order_no=$_POST['Order_no']; 
+// 	if(isset($_POST['update']))
+// 	{	
+//         $Question=$_POST['Question'];	   
+//         $Description=$_POST['Description']; 
+//         $Video=$_POST['Video']; 
 
 
 
 
-	$result = mysqli_query($conn,"update debt_reminder set Date='$Date', Update_date='$date1', Message='$Message', Memo='$Memo', Status='$Status' where id='$get_id'         
-		"); 		
-	if ($result) {
-     	echo "<script>alert('Record Successfully Updated');</script>";
-     	echo "<script type='text/javascript'> document.location = 'mng_debt_reminder.php'; </script>";
-	} else{
-	  die(mysqli_error());
-   }		
-}
+
+// 	$result = mysqli_query($conn,"update debt_reminder set Date='$Date', Update_date='$date1', Message='$Message', Memo='$Memo', Status='$Status' where id='$get_id'         
+// 		"); 		
+// 	if ($result) {
+//      	echo "<script>alert('Record Successfully Updated');</script>";
+//      	echo "<script type='text/javascript'> document.location = 'mng_debt_reminder.php'; </script>";
+// 	} else{
+// 	  die(mysqli_error());
+//    }		
+// }
 ?>
 
 <!-- DELETE CODE FAQ -->
@@ -31,11 +31,11 @@
 if (isset($_GET['delete'])) {	
 	
 	$delete = $_GET['delete'];
-	$sql = "DELETE FROM debt_reminder where id = ".$delete;
+	$sql = "DELETE FROM faq where id = ".$delete;
 	$result = mysqli_query($conn, $sql);
 	if ($result) {
 		echo "<script>alert('Record deleted Successfully');</script>";
-     	echo "<script type='text/javascript'> document.location = 'mng_debt_reminder.php'; </script>";
+     	echo "<script type='text/javascript'> document.location = 'faq.php'; </script>";
 		
 	}
 }
@@ -50,7 +50,7 @@ if (isset($_GET['delete'])) {
         $Question=$_POST['Question'];	   
         $Description=$_POST['Description']; 
         $Video=$_POST['Video']; 
-        $Order_no=$_POST['Order_no']; 
+        // $Order_no=$_POST['Order_no']; 
 
 
 
@@ -58,34 +58,18 @@ if (isset($_GET['delete'])) {
         // $query1 = mysqli_query($conn,"select * from user where Com_name = '$com_name' ")or die(mysqli_error());
         // $count1 = mysqli_num_rows($query1);     
 
-        $query = mysqli_query($conn,"select Order_no from faq where Order_no = '$Order_no' ")or die(mysqli_error());
-        $count = mysqli_num_rows($query);     
+        // $query = mysqli_query($conn,"select Order_no from faq where Order_no = '$Order_no' ")or die(mysqli_error());
+        // $count = mysqli_num_rows($query);     
         
 
-        if ($count > 0){ ?>
-        <script>
-            window.addEventListener('load',function(){
-                swal({
-                    //title: "Warning",
-                    text: "Please Check Order No  ",
-                    icon: "warning",
-                    button: "Ok Done!",			
-                })
-                .then(function() {
-                        window.location = "faq.php";
-                    });
-            });
-        </script>
-        <?php
-        }else{
-            mysqli_query($conn,"INSERT INTO faq(Question,Description,Video,Order_no) VALUES('$Question','$Description','$Video','$Order_no')         
+            mysqli_query($conn,"INSERT INTO faq(Aid,Question,Description,Video) VALUES('$session_id','$Question','$Description','$Video')         
             ") or die(mysqli_error()); ?>
             <script>alert('FAQ Records Successfully Added');</script>;
             <script>
             window.location = "faq.php"; 
             </script>
             <?php   
-        }
+        
     }
 
 ?>
@@ -97,8 +81,6 @@ if (isset($_GET['delete'])) {
 	<?php include('includes/right_sidebar.php')?>
 	<?php include('includes/left_sidebar.php')?>
 	<div class="mobile-menu-overlay"></div>
-
-    <?php include 'Update_Faq.php'; ?>
 
 	<div class="main-container">
 		<div class="pd-ltr-20">
@@ -123,52 +105,12 @@ if (isset($_GET['delete'])) {
                         </div>
                     </div>
                 </div>
-                <!-- <div class="col-xl-4 mb-30">
-                    <?php							
-                    $query = mysqli_query($conn,"select  Status from debt_reminder where  Status = 'Show'  ")or die(mysqli_error());
-                    $count = mysqli_num_rows($query);				
-                    ?> 
-                    <div class="card-box height-100-p widget-style1 bg-white">
-                        <div class="d-flex flex-wrap align-items-center ">	
-                            <div class="progress-data">
-                                <div id="">
-                                <img src="../vendors/images/img/show.png" class="border-radius-100 shadow" width="50" height="50" alt="">
-                                </div>
-                            </div>						
-                            <div class="widget-data">
-                                <div class="h4 mb-0"><?php echo ($count); ?></div>
-                                <div class="weight-300 font-18">Total Shows</div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
-                <!-- <div class="col-xl-4 mb-30">
-                    <?php						
-                        $query= mysqli_query($conn,"select  Status from debt_reminder where Status = 'Hide'  ")or die(mysqli_error());
-                        $count = mysqli_num_rows($query);				 
-                    ?> 
-                    <div class="card-box height-100-p widget-style1 bg-white">
-                        <div class="d-flex flex-wrap align-items-center">	
-                            <div class="progress-data">
-                                <div id="">
-                                <img src="../vendors/images/img/hide.png" class="border-radius-100 shadow" width="50" height="50" alt="">
-                                </div>
-                            </div>						
-                            <div class="widget-data">
-                                <div class="h4 mb-0"><?php echo ($count); ?></div>
-                                <div class="weight-300 font-17">Total Hide</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>			 -->
                 <div class="row">
                     <div class="col-12">     
                         <a  href="#" class="btn btn-primary" data-toggle="modal" data-target="#Medium-modal"> <i class="icon-copy ion-plus "></i> Add FAQ</a>
 
                     </div>
                 </div>
-
             </div>
 
 
@@ -218,17 +160,17 @@ if (isset($_GET['delete'])) {
                                                 <input name="Video" placeholder="Enter The Video Link" class="form-control" type="text">
                                             </div>
                                         </div>	
-                                        <?php 
-                                        $query2 = mysqli_query($conn,"select * from faq ")or die(mysqli_error());
-                                        $count_no = mysqli_num_rows($query2);  
-                                        $count_no_1 = $count_no +1;
+                                        <!-- <?php 
+                                        // $query2 = mysqli_query($conn,"select * from faq ")or die(mysqli_error());
+                                        // $count_no = mysqli_num_rows($query2);  
+                                        // $count_no_1 = $count_no +1;
                                         ?>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Ordered No#</label>
-                                                <input name="Order_no" placeholder="Enter The Order No#" class="form-control" type="text"  value="<?php echo ($count_no_1)?>" >
+                                                <input name="Order_no" placeholder="Enter The Order No#" class="form-control" type="text"  value="<?php //echo ($count_no_1)?>" >
                                             </div>
-                                        </div>	
+                                        </div>	 -->
                                     
                                     </div>
                                     <div class="modal-footer">
@@ -257,7 +199,7 @@ if (isset($_GET['delete'])) {
 							<tr>
 								<th>NO#</th>
 								<th class="table-plus datatable-nosort">Question</th>	
-                                <th> Order No#</th>						
+                                <th> Video</th>						
 								<!-- <th> Status</th>							 -->
 								<th class="datatable-nosort">ACTION</th>
 							</tr>
@@ -267,7 +209,7 @@ if (isset($_GET['delete'])) {
 
 								<?php 
 								$i =1;
-								$sql = "SELECT * FROM faq  ORDER BY Order_no ASC ";
+								$sql = "SELECT * FROM faq  ORDER BY id desc ";
 									$query = mysqli_query($conn, $sql) or die(mysqli_error());
 									while ($row = mysqli_fetch_array($query)) {
 
@@ -276,38 +218,24 @@ if (isset($_GET['delete'])) {
 								<td class="table-plus">
 									<div class="name-avatar d-flex align-items-center">
 										<!-- <div class="avatar mr-2 flex-shrink-0">
-											<img src="<?php echo (!empty($row['Picture'])) ? '../uploads/'.$row['Picture'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt="">
+											<img src="<?php //echo (!empty($row['Picture'])) ? '../uploads/'.$row['Picture'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt="">
 										</div> -->
 										<div class="txt">
 											<div class="weight-600"><?php echo $row['Question'];?></div>
 										</div>
 									</div>
 								</td>						
-	                            <td><?php echo "FAQ ". $row['Order_no']; ?></td>
+	                            <td><?php echo  $row['Video']; ?></td>
 							
 
-								<!-- <td><?php $stats=$row['Status'];
-	                             if($stats=="Show"){
-	                              ?>
-								 	 <span class="badge badge-primary">Show</span>		                                 
-	                                  <?php } if($stats=="Hide")  { ?>
-										<span class="badge badge-danger">Hide</span>	
-	                             <?php } ?>
-								</td> -->
+							
 											
 								<td>
 									<div class="dropdown">
-										<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-											<i class="dw dw-more"></i>
-										</a>
-										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-											<a class="dropdown-item" href="Update_Faq.php?edit=<?php echo $row['id']; ?>" data-toggle="modal" data-target="#Update-faq-modal">   <i class="dw dw-eye"></i> Edit</a>
-											<a class="dropdown-item" href="mng_debt_reminder.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
-                                            <a  href="?edit=<?php echo $row['id']; ?>" class="btn btn-primary" data-toggle="modal" data-target="#Update-faq-modal"> <i class="icon-copy ion-plus "></i> Add FAQ</a>
+                                    <a href="edit_faq.php?edit=<?php echo $row['id'];?>"  class="btn btn-primary"> <i class="icon-copy dw dw-edit2"></i> Edit</a>
+                                    <a class="btn btn-danger" href="faq.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
 
-											
-											
-										</div>
+							
 									</div>
 								</td>
 							</tr>

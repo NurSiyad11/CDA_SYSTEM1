@@ -18,8 +18,8 @@
       </div>
    </div>
    <!--  contact -->
-   <div class="contact bg-primary">
-      <div class="container">
+   <div class="contact ">
+      <div class="container bg-primary">
          <div class="row p-5">
             <div class="col-md-6">
                <form id="request" class="main_form">

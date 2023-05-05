@@ -189,7 +189,7 @@ if (isset($_POST["setting"])) {
 														</div>
 														<div class="row">
 															<div class="col-md-12">
-																<button type="submit" name="Update" class="btn btn-primary"> Submit </button>
+																<button type="submit" name="Update" class="btn btn-primary"> Update  </button>
 
 															</div>
 														</div>

@@ -31,25 +31,46 @@
 <?php
 	if(isset($_POST['update-receipt']))
 	{
-    $name=$_POST['name'];
-	$Date=$_POST['Date'];  
-	$RV=$_POST['RV']; 
-	$Amount=$_POST['Amount']; 
-	$memo=$_POST['memo']; 
+		$st = $conn->query("SELECT Status as st from `receipt` where id='$get_id'  ")->fetch_assoc()['st'];
 
-	
+		if($st =='Approved')
+		{
+			?>
+			<Script>
+				window.addEventListener('load',function(){
+					swal({
+						title: "Warning",
+						text: "This invoice is not updated, b/c the customer Approved this invoice ",
+						icon: "warning",
+						button: "Ok Done!",
+					})
+					.then(function() {
+								window.location = "Receipt.php";
+							});
+				});			
+			</Script>
+			<?php			
+		}else 
+		{
+			$name=$_POST['name'];
+			$Date=$_POST['Date'];  
+			$RV=$_POST['RV']; 
+			$Amount=$_POST['Amount']; 
+			$memo=$_POST['memo']; 
+			
 
-	$Cid = $conn->query("SELECT id as cid from `user` where Com_name='$name'  ")->fetch_assoc()['cid'];
+			$Cid = $conn->query("SELECT id as cid from `user` where Com_name='$name'  ")->fetch_assoc()['cid'];
 
-	$result = mysqli_query($conn,"update receipt set Cid='$Cid',   Date='$Date', RV='$RV',  Amount='$Amount', Memo='$memo' where id='$get_id'         
-		"); 		
-	if ($result) {
-     	echo "<script>alert('Record Successfully Updated');</script>";
-     	echo "<script type='text/javascript'> document.location = 'Receipt.php'; </script>";
-	} else{
-	  die(mysqli_error());
-   }		
-}
+			$result = mysqli_query($conn,"update receipt set Cid='$Cid',   Date='$Date', RV='$RV',  Amount='$Amount', Memo='$memo' where id='$get_id'         
+				"); 		
+			if ($result) {
+				echo "<script>alert('Record Successfully Updated');</script>";
+				echo "<script type='text/javascript'> document.location = 'Receipt.php'; </script>";
+			} else{
+			die(mysqli_error());
+			}		
+		}
+	}
 ?>
 <body>
 	<?php include('includes/navbar.php')?>
@@ -118,7 +139,7 @@
 
 
 						<!-- Form Update Others receipts  -->
-						<form method="post" action="A5pdf.php" enctype="multipart/form-data">
+						<form method="post" action="" enctype="multipart/form-data">
 							<section>
 								<div class="row">
 									<?php
@@ -189,7 +210,7 @@
 								</div>
 							</section>
 
-							<section>
+							<!-- <section>
                                 <div class="row">
                                     <?php                                    
                                     $sql="SELECT File from receipt where id='$get_id' ";
@@ -204,7 +225,6 @@
                                         }else{
                                            echo "No file found";   
 										?>
-										   <!-- <embed type="application/pdf" src="Rvpdf/Caawiye Design Company.pdf" width="900" height="500">                                   -->
                                         
                                         <?php
                                         }
@@ -213,7 +233,8 @@
                                     }
                                     ?>
                                 </div>                                
-                            </section>
+                            </section> -->
+							
 						</form>
 					</div>
 				</div>                                         

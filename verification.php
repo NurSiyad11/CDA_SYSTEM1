@@ -12,6 +12,7 @@ require('UserInfo.php');
 
     $query = mysqli_query($conn,"select * from user where ID = '$session_id' ")or die(mysqli_error());
     $row = mysqli_fetch_assoc($query); 
+
     if($row['otp'] != $otp){
         ?>
         <Script>
@@ -157,15 +158,18 @@ require('UserInfo.php');
         <div class="row">
             <div class="col-12">
                 <div class="card border-primary mb-3" >
+                    <?php
+                    	$Verify_email = $conn->query("SELECT Email as email from `user` where ID='$session_id' ")->fetch_assoc()['email'];
+                    ?>
                     <div class="card-header bg-dark text-white">Please Verify Your login Account</div>
                     <div class="card-body p-5 ">
-                  <center> <h3>We have sent an OPT in your Email [faraxcali1289@gmail.com].</h3></center> 
+                  <center> <h3>We have sent an OPT in your Email ( <?php echo $Verify_email?> ).</h3></center> 
                         <form action="" method="POST">
                            
                             <div class="mb-3 row ">
                                 <label  class="col-sm-2 col-form-label">Enetr The OTP Code</label>
                                 <div class="col-sm-10 ">
-                                <input type="text" name="otp"  class="form-control"  placeholder="Please Enter The OTP Here " required autocomplete="off">
+                                <input type="number" name="otp"  class="form-control"  placeholder="Please Enter The OTP Here " required autocomplete="off">
                                 </div>
                             </div>                       
                                 <!-- <div class="mb-3 row ">
@@ -194,7 +198,7 @@ require('UserInfo.php');
                                 </div> -->
                                 <div class="row">
                                     <div class="col-12">
-                                    <button class="btn btn-primary" name="verify" type="submit">Send </button>
+                                    <button class="btn btn-primary" name="verify" type="submit">Login </button>
                                     </div>
                                 </div>
                         </form>
@@ -214,7 +218,7 @@ require('UserInfo.php');
       </div>
       <!-- end Apply System Form  -->
       <!--  footer -->
-      <?php include('includes/footer.php')?>
+      <?php //include('includes/footer.php')?>
       <!-- end footer -->     
    </body>
    <?php include('includes/scripts.php')?>

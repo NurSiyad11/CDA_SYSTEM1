@@ -30,7 +30,7 @@ if(isset($_POST['signin']))
 							button: "Ok!",
 						})
 						.then(function() {
-									window.location = "index.php";
+									window.location = "Home";
 								});
 					});			
 				</Script>

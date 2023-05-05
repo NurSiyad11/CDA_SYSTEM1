@@ -4,6 +4,13 @@
 
 if(isset($_POST['update-receipt']))
 	{ 
+// $name="name";
+// $Date= "Date";  
+// $RV="RV"; 
+// $Amount="Amount"; 
+// $memo= "memo" ;
+
+
 $name=$_POST['name'];
 $Date=$_POST['Date'];  
 $RV=$_POST['RV']; 

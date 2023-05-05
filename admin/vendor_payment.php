@@ -2,15 +2,15 @@
 <?php include('../database/session.php')?>
 <?php include('../database/db.php')?>
 <?php
-if (isset($_GET['delete'])) {
-	$delete = $_GET['delete'];
-	$sql = "DELETE FROM ven_payment where id = ".$delete;
-	$result = mysqli_query($conn, $sql);
-	if ($result) {
-		echo "<script>alert('Vendor Payment deleted Successfully');</script>";															 
-     	echo "<script type='text/javascript'> document.location = 'vendor_payment.php'; </script>";		
-	}
-}
+// if (isset($_GET['delete'])) {
+// 	$delete = $_GET['delete'];
+// 	$sql = "DELETE FROM ven_payment where id = ".$delete;
+// 	$result = mysqli_query($conn, $sql);
+// 	if ($result) {
+// 		echo "<script>alert('Vendor Payment deleted Successfully');</script>";															 
+//      	echo "<script type='text/javascript'> document.location = 'vendor_payment.php'; </script>";		
+// 	}
+// }
 ?>
 <?php
 	if(isset($_POST['payment']))
@@ -22,8 +22,9 @@ if (isset($_GET['delete'])) {
 	$memo=$_POST['memo']; 	 	
 
 	$Vid = $conn->query("SELECT id as Vid from `user` where Com_name='$name'  ")->fetch_assoc()['Vid'];
-     
-        mysqli_query($conn,"INSERT INTO ven_payment(Vid,Date,V_payment,Amount,Memo) VALUES('$Vid','$date','$PV','$amount','$memo')         
+	$Admin_id = $conn->query("SELECT id as Aid from `user` where ID='$session_id'  ")->fetch_assoc()['Aid'];
+
+        mysqli_query($conn,"INSERT INTO ven_payment(Admin_id,Vid,Date,V_payment,Amount,Memo) VALUES('$Admin_id','$Vid','$date','$PV','$amount','$memo')         
 		") or die(mysqli_error()); ?>
 		<script>alert('Vendor Payment Records Successfully  Added');</script>;
 		<script>
@@ -138,6 +139,7 @@ if (isset($_GET['delete'])) {
 							<thead>
 								<tr>
 									<th>NO#</th>
+									<th class="table-plus">Vendor Company Name</th>
 									<th class="table-plus">Vendor Name</th>
 									<th>Payment No#</th>
 									<th>Date </th>
@@ -150,7 +152,7 @@ if (isset($_GET['delete'])) {
 								<tr>
 									<?php
 									$i =1;
-									$teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name,  ven_payment.id, ven_payment.Vid,ven_payment.V_payment, ven_payment.Amount,ven_payment.Date,ven_payment.Memo FROM ven_payment INNER JOIN user ON   ven_payment.Vid=user.ID order by ven_payment.Date Desc") or die(mysqli_error());
+									$teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name,  ven_payment.id, ven_payment.Vid,ven_payment.V_payment, ven_payment.Amount,ven_payment.Date,ven_payment.Memo FROM ven_payment INNER JOIN user ON   ven_payment.Vid=user.ID  where ven_payment.Admin_id='$session_id' order by ven_payment.Date Desc") or die(mysqli_error());
 									while ($row = mysqli_fetch_array($teacher_query)) {
 									$id = $row['id'];
 										?>
@@ -167,7 +169,7 @@ if (isset($_GET['delete'])) {
 											</div>
 										</div>
 									</td>							
-									
+									<td><?php echo  $row['Name']; ?></td>
 									<td><?php echo "RV# ". $row['V_payment']; ?></td>
 									<td><?php echo $row['Date']; ?></td>
 									<td><?php echo $row['Memo']; ?></td>

@@ -4,7 +4,7 @@
 
 
 <?php 
-	 if (isset($_GET['delete'])) {
+	if (isset($_GET['delete'])) {
 		$get_id = $_GET['delete'];
 		$sql = "DELETE FROM account where id = ".$get_id;
 		$result = mysqli_query($conn, $sql);
@@ -31,7 +31,7 @@
 	   </script>
 	   <?php
 		 }else{
-			mysqli_query($conn,"INSERT INTO account(Acc_name,Acc_no) VALUES('$Acc_name','$Acc_no')         
+			mysqli_query($conn,"INSERT INTO account(Admin_id,Acc_name,Acc_no) VALUES('$session_id','$Acc_name','$Acc_no')         
 			") or die(mysqli_error()); ?>
 			<script>alert('Account Records Successfully  Added');</script>;
 			<script>
@@ -146,9 +146,20 @@
                                             <td><?php echo $bal_format;?></td>
                                             <td>
                                                 <div class="table-actions">
-                                                    <!-- data-color="#265ed7"            data-color="#e95959"-->
-                                                    <a href="edit_Account_Reg.php?edit=<?php echo htmlentities($result->id);?>"  class="btn btn-primary"> <i class="icon-copy dw dw-edit2"></i> </a>
-                                                    <a href="Account_Reg.php?delete=<?php echo htmlentities($result->id);?>" class="btn btn-danger" onclick= ' return checkdelete()' ><i class="icon-copy dw dw-delete-3"></i> </a>
+                                                   <?php
+                                                   if($result->Admin_id != $session_id){
+                                                    ?>
+                                                        <p  class="text_primary"> Unavailabbe</p>
+                                                    <?php
+                                                   }else{
+                                                    ?>
+                                                        <a href="edit_Account_Reg.php?edit=<?php echo htmlentities($result->id);?>"  class="btn btn-primary"> <i class="icon-copy dw dw-edit2"></i> Edit</a>
+
+                                                    <?php
+                                                   }
+                                                   ?>
+                                                    <!-- <a href="edit_Account_Reg.php?edit=<?php echo htmlentities($result->id);?>"  class="btn btn-primary"> <i class="icon-copy dw dw-edit2"></i> </a> -->
+                                                    <!-- <a href="Account_Reg.php?delete=<?php //echo htmlentities($result->id);?>" class="btn btn-danger" onclick= ' return checkdelete()' ><i class="icon-copy dw dw-delete-3"></i> </a> -->
                                                 </div>
                                             </td>
                                         </tr>

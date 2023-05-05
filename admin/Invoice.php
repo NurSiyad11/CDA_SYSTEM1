@@ -161,13 +161,14 @@ if (isset($_GET['delete'])) {
 							<thead>
 								<tr>
 									<th>NO#</th>
+									<th class="table-plus">Company Name</th>	
 									<th class="table-plus">Customer Name</th>								
 									<th>Invoice No#</th>
 									<th>Date </th>
 									<th>Memo</th>
 									<th>Amount</th>								
 									<th>Status</th>
-									<th>File</th>
+									<!-- <th>File</th> -->
 									<th class="datatable-nosort">ACTION</th>
 								</tr>
 							</thead>
@@ -176,18 +177,19 @@ if (isset($_GET['delete'])) {
 								<tr>
 									<?php
 									$i =1;
-									$Role = $conn->query("SELECT Role as role from `user` where ID='$session_id'  ")->fetch_assoc()['role'];
+									// $Role = $conn->query("SELECT Role as role from `user` where ID='$session_id'  ")->fetch_assoc()['role'];
 									
-									if($Role =='Administrator'){
-										$teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name, invoice.id, invoice.Cid,invoice.invoice ,invoice.Amount,invoice.Date,invoice.Memo,invoice.File,invoice.Status FROM invoice INNER JOIN user ON   invoice.Cid=user.ID order by invoice.Date Desc") or die(mysqli_error());
+									// if($Role =='Administrator'){
+									// 	$teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name, invoice.id, invoice.Cid,invoice.invoice ,invoice.Amount,invoice.Date,invoice.Memo,invoice.File,invoice.Status FROM invoice INNER JOIN user ON   invoice.Cid=user.ID order by invoice.Date Desc") or die(mysqli_error());
 										
-									}
-									else{
-										$teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name, invoice.id, invoice.Cid,invoice.invoice ,invoice.Amount,invoice.Date,invoice.Memo,invoice.File,invoice.Status FROM invoice INNER JOIN user ON   invoice.Cid=user.ID  where invoice.admin_id='$session_id' order by invoice.Date Desc") or die(mysqli_error());
+									// }
+									// else{
+									// 	$teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name, invoice.id, invoice.Cid,invoice.invoice ,invoice.Amount,invoice.Date,invoice.Memo,invoice.File,invoice.Status FROM invoice INNER JOIN user ON   invoice.Cid=user.ID  where invoice.admin_id='$session_id' order by invoice.Date Desc") or die(mysqli_error());
 									
-									}
+									// }
+									$teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name, invoice.id, invoice.Cid,invoice.invoice ,invoice.Amount,invoice.Date,invoice.Memo,invoice.File,invoice.Status FROM invoice INNER JOIN user ON   invoice.Cid=user.ID  where invoice.admin_id='$session_id' order by invoice.Date Desc") or die(mysqli_error());
 									while ($row = mysqli_fetch_array($teacher_query)) {
-									//$id = $row['id'];
+								
 										?>
 
 									<td><?php echo $i++; ?></td>
@@ -203,7 +205,7 @@ if (isset($_GET['delete'])) {
 											</div>
 										</div>
 									</td>								
-									
+									<td><?php echo $row['Name']; ?></td>
 									<td><?php echo "INV# ". $row['invoice']; ?></td>
 									<td><?php echo $row['Date']; ?></td>
 									<td><?php echo $row['Memo']; ?></td>
@@ -222,7 +224,7 @@ if (isset($_GET['delete'])) {
 									?>
 									</td>
 
-									<td><?php echo $row['File']; ?></td>
+									<!-- <td><?php //echo $row['File']; ?></td> -->
 								
 									<td>
 										<div class="dropdown">
@@ -234,7 +236,7 @@ if (isset($_GET['delete'])) {
 											?>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 												<a class="dropdown-item" href="edit_invoice.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> Edit</a>
-												<a class="dropdown-item" href="Invoice.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
+												<!-- <a class="dropdown-item" href="Invoice.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a> -->
 											</div>
 										</div>
 									</td>

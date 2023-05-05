@@ -2,15 +2,15 @@
 <?php include('../database/session.php')?>
 <?php include('../database/db.php')?>
 <?php
-if (isset($_GET['delete'])) {
-	$delete = $_GET['delete'];
-	$sql = "DELETE FROM ven_invoice where id = ".$delete;
-	$result = mysqli_query($conn, $sql);
-	if ($result) {
-		echo "<script>alert('Record deleted Successfully');</script>";															 
-     	echo "<script type='text/javascript'> document.location = 'vendor_Invoice.php'; </script>";		
-	}
-}
+// if (isset($_GET['delete'])) {
+// 	$delete = $_GET['delete'];
+// 	$sql = "DELETE FROM ven_invoice where id = ".$delete;
+// 	$result = mysqli_query($conn, $sql);
+// 	if ($result) {
+// 		echo "<script>alert('Record deleted Successfully');</script>";															 
+//      	echo "<script type='text/javascript'> document.location = 'vendor_Invoice.php'; </script>";		
+// 	}
+// }
 ?>
 <?php
 	if(isset($_POST['V_Invoice']))
@@ -22,9 +22,10 @@ if (isset($_GET['delete'])) {
 	$memo=$_POST['memo']; 	
 		     
      $Vid = $conn->query("SELECT id as Vid from `user` where Com_name='$name'  ")->fetch_assoc()['Vid'];
+	 $Admin_id = $conn->query("SELECT id as Aid from `user` where ID='$session_id'  ")->fetch_assoc()['Aid'];
 
-        mysqli_query($conn,"INSERT INTO ven_invoice(Vid,Date,V_invoice,Amount,Memo) 
-		VALUES('$Vid','$date','$invoice','$amount','$memo')         
+        mysqli_query($conn,"INSERT INTO ven_invoice(Admin_id,Vid,Date,V_invoice,Amount,Memo) 
+		VALUES('$Admin_id','$Vid','$date','$invoice','$amount','$memo')         
 		") or die(mysqli_error()); ?>
 		<script>alert('Vendor Invoice Record Successfully  Added');</script>;
 		<script>
@@ -138,6 +139,7 @@ if (isset($_GET['delete'])) {
 								<tr>
 									<th>NO#</th>
 									<th class="table-plus">Vendor Company Name</th>
+									<th class="table-plus">Vendor  Name</th>
 								
 									<th>Ven Invoice No#</th>
 									<th>Date </th>
@@ -153,7 +155,7 @@ if (isset($_GET['delete'])) {
 
 									<?php
 									$i =1;
-									$teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name, ven_invoice.id, ven_invoice.Vid,ven_invoice.V_invoice ,ven_invoice.Amount,ven_invoice.Date,ven_invoice.Memo FROM ven_invoice INNER JOIN user ON   ven_invoice.Vid=user.ID order by ven_invoice.Date Desc") or die(mysqli_error());
+									$teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name, ven_invoice.id, ven_invoice.Vid,ven_invoice.V_invoice ,ven_invoice.Amount,ven_invoice.Date,ven_invoice.Memo FROM ven_invoice INNER JOIN user ON   ven_invoice.Vid=user.ID  where ven_invoice.admin_id='$session_id'  order by ven_invoice.Date Desc") or die(mysqli_error());
 									while ($row = mysqli_fetch_array($teacher_query)) {
 									$id = $row['id'];
 										?>
@@ -172,6 +174,7 @@ if (isset($_GET['delete'])) {
 											</div>
 										</div>
 									</td>
+									<td><?php echo $row['Name']; ?></td>
 									<td><?php echo "INV# ". $row['V_invoice']; ?></td>
 									<td><?php echo $row['Date']; ?></td>
 									<td><?php echo $row['Memo']; ?></td>
@@ -187,7 +190,7 @@ if (isset($_GET['delete'])) {
 											?>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 												<a class="dropdown-item" href="edit_Ven_invoice.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> Edit</a>
-												<a class="dropdown-item" href="vendor_invoice.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
+												<!-- <a class="dropdown-item" href="vendor_invoice.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a> -->
 											</div>
 										</div>
 									</td>

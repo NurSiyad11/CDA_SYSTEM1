@@ -81,10 +81,15 @@
 								</div>				
 																
 								<div class="row">
+									<?php
+										$date = new DateTime();
+										$date->modify('+1 hour');
+										$date3 = $date->format("D-d-m-Y h:i:s a");
+									?>
 									<div class="col-md-6 col-sm-12">
 										<div class="form-group">
 											<label>order Date :</label>
-											<input name="date" type="date" class="form-control " required="true" autocomplete="off" >
+											<input name="date" type="text"  class="form-control " readonly required="true" autocomplete="off" value="<?php echo $date3?>" >
 										</div>
 									</div>
 					

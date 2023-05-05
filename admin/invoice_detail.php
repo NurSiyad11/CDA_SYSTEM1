@@ -364,7 +364,7 @@ if (isset($_GET['delete'])) {
                 </div>			      
             </div>
 			<?php } elseif(isset($_GET['Rejected'])){?>
-			<!-- Customer Pending OrInvoiceder END -->
+			<!-- Customer Pending Invoice END -->
 
 			
 

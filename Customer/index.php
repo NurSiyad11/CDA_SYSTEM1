@@ -141,7 +141,7 @@ function showPass()
 
 			<div class="card-box mb-30">
 				<div class="pd-20">
-						<h2 class="text-blue h4">All Transection</h2>
+						<h2 class="text-blue h4">Last 10 Transection</h2>
 					</div>
 				<div class="pb-20">
 					<table class="data-table table table-bordere stripe hover nowrap">
@@ -163,8 +163,9 @@ function showPass()
 						<tbody>
 
 							<?php
-							$Cname = $conn->query("SELECT id as eid from `user` where id='$session_id'  ")->fetch_assoc()['eid'];
-							$sql = "SELECT * FROM Invoice_Receipt where Cid='$Cname' order by Date desc ";						
+							// $Cname = $conn->query("SELECT id as eid from `user` where id='$session_id'  ")->fetch_assoc()['eid'];
+							// $sql = "SELECT * FROM Invoice_Receipt where Cid='$Cname' order by Date desc ";						
+							$sql = "SELECT id,D_INV,invoice,File,Date,Memo,Amount,empty FROM invoice where Cid='$session_id' UNION All SELECT id,D_RV,RV,File,Date,Memo,empty,Amount FROM receipt    where Cid='$session_id'   order by Date desc  Limit 10 ";
 							$query = $dbh -> prepare($sql);
 							$query->execute();
 							$results=$query->fetchAll(PDO::FETCH_OBJ);

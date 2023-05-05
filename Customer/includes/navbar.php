@@ -20,7 +20,7 @@ if($role != 'Customer'){
 		<div class="header-left">
 			<div class="menu-icon dw dw-menu"></div>
 			<div class="search-toggle-icon dw dw-search2" data-toggle="header_search"></div>
-			<div class="header-search">
+			<!-- <div class="header-search">
 				<form>
 					<div class="form-group mb-0">
 						<i class="dw dw-search2 search-icon"></i>
@@ -55,7 +55,7 @@ if($role != 'Customer'){
 						</div>
 					</div>
 				</form>
-			</div>
+			</div> -->
 		</div>
 		<div class="header-right">
 			<div class="dashboard-setting user-notification">
@@ -356,7 +356,7 @@ if($role != 'Customer'){
 					</a>
 					<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 						<a class="dropdown-item" href="Profile.php"><i class="dw dw-user1"></i> Profile</a>
-						<a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
+						<!-- <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a> -->
 						<a class="dropdown-item" href="faq.php"><i class="icon-copy ion-help-circled"></i> Help</a>
 						<a class="dropdown-item" href="../logout.php"><i class="dw dw-logout"></i> Log Out</a>
 					</div>

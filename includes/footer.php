@@ -21,7 +21,7 @@
                      <h3>Menu Link</h3>
                      <ul class="link_menu">
                         <li class=""><a href="index.php">Home</a></li>
-                        <!-- <li><a href="about.php"> about</a></li> -->
+                        <li><a href="Apply_System.php"> Apply System</a></li>
                         <!-- <li><a href="room.html">Our Room</a></li>
                         <li><a href="gallery.html">Gallery</a></li> -->
                         <!-- <li><a href="member.php">Member</a></li> -->
