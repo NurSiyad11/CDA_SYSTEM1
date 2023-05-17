@@ -20,10 +20,24 @@
 
         mysqli_query($conn,"INSERT INTO support(Cid,Title,Message,Admin_id, Time_user, Status) VALUES('$Cid','$title','$message','$Admin_id' ,'$date1', 'Pending')         
 		") or die(mysqli_error()); ?>
-		<script>alert('your Complaint Successfully  Submited');</script>;
+        <script>
+            window.addEventListener('load',function(){
+            Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'your Complaint Successfully  Submited',
+            showConfirmButton: false,
+            timer: 3000
+            })
+            .then(function() {
+                window.location = "Support.php";
+            });	
+        });
+                    </script>
+		<!-- <script>alert('your Complaint Successfully  Submited');</script>;
 		<script>
 		window.location = "Support.php"; 
-		</script>
+		</script> -->
 		<?php   
 }
 

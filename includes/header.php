@@ -18,7 +18,7 @@
                      <div class="full">
                         <div class="center-desk">
                            <div class="logo">
-                              <a href="index.php"><img src="assets/images/img/logo1.png" alt="#" /></a>
+                              <a href="index.php"><img src="assets/images/img/logo2.png" alt="#" /></a>
                               <!-- <a href="index.html"><h1>CDA</h1></a> -->
                            </div>
                         </div>

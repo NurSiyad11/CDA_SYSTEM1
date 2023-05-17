@@ -50,7 +50,7 @@ use PHPMailer\PHPMailer\Exception;
     if ($count > 0){ ?>
     <script>
        window.addEventListener('load',function(){
-           swal({
+           swal.fire({
                //title: "Warning",
                text: "Email Already exist ",
                icon: "warning",
@@ -162,17 +162,29 @@ use PHPMailer\PHPMailer\Exception;
        //Finally send email
            if ( $mail->send() ) {
             ?>
-            <script>alert('Your request has been submitted and will be answered as soon as possible. ');</script>;
-            
-                <?php
-            //   echo "<script type='text/javascript'> document.location = 'verification.php'; </script>"; 
+                <Script>
+                  window.addEventListener('load',function(){
+                      swal.fire({
+                      title: "Success",
+                      text: "Your request has been submitted and will be answered as soon as possible. ",
+                      icon: "success",
+                      button: "Ok Done!",				
+                      
+                    })
+                    .then(function() {
+                          window.location = "index4.php";
+                        });	
+                  });			
+                </Script>
+            <!-- <script>alert('Your request has been submitted and will be answered as soon as possible. ');</script>; -->
+             <?php       
 
             mysqli_query($conn,"INSERT INTO apply_form (Name,Email,Company_name,Address,Phone,Tell,Status) VALUES('$Full_name','$Email','$Com_name','$Address','$Tell','$Phone','0')         
             ") or die(mysqli_error());
             ?>
-                <script>       
+                <!-- <script>       
                window.location = "index4.php"; 
-               </script>
+               </script> -->
                 <?php	
            }else{
             ?>

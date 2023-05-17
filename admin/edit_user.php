@@ -21,22 +21,23 @@
 // }
 ?>
 
-
 <?php
-if(isset($_GTE['View']))
-	{
-		
-	?>
-		<a href="task-add" data-toggle="modal" data-target="#task-add" class="bg-light-blue btn text-blue weight-500"><i class="ion-password-round"></i>Change Password</a>
-	<?php
-	}
-?>
+	// if(isset($_GET['update']))
+	// {
+	// 	$get_id=$_GET['edit'];
 
-<!-- Update users -->
+
+
+	// }
+ ?>
+
+<!-- Update users   && $_POST['edit'] == 'GET'-->
 <?php
 
-	if(isset($_POST['update']))
+	if(isset($_POST['update']) ) 
 	{
+		// urldecode($_GET['id'])
+	$get_id=$_GET['edit'];
 	$name=$_POST['name'];
 	$email=$_POST['email'];  
 	$com_name=$_POST['com_name']; 
@@ -49,8 +50,26 @@ if(isset($_GTE['View']))
 	$result = mysqli_query($conn,"update user set Name='$name',  Email='$email',Com_name='$com_name',  Address='$address',  Role='$user_role', Phone='$phonenumber', Status='$Status' where id='$get_id'         
 		"); 		
 	if ($result) {
-     	echo "<script>alert('Record Successfully Updated');</script>";
-     	echo "<script type='text/javascript'> document.location = 'mng_user.php'; </script>";
+		?>
+		<Script>
+			window.addEventListener('load',function(){
+				swal({
+					title: "Success",
+					text: "Record Successfully Updated",
+					icon: "success",
+					button: "Ok Done!",
+				})
+				.then(function() {
+							window.location = "edit_user.php?edit=" + <?php echo ($get_id); ?>;
+						});
+			});			
+		</Script>
+		<?php
+
+     	// echo "<script>alert('Record Successfully Updated');</script>";
+     	// echo "<script type='text/javascript'> document.location = 'edit_user.php?edit=' $get_id; </script>";
+		//  $get_id=$_GET['edit'];
+		//header("Location: edit_user.php?edit=" . $get_id);
 	} else{
 	  die(mysqli_error());
    }		
@@ -108,12 +127,13 @@ if(isset($_GTE['View']))
 										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 									</div>    
 										<!-- Change Password Modal Button  -->
-									<div class="col-md-12 col-sm-12 text-right">
+									<!-- <div class="col-md-12 col-sm-12 text-right">
 										<a href="task-add" data-toggle="modal" data-target="#task-add" class="bg-light-blue btn text-blue weight-500"><i class="ion-password-round"></i>Change Password</a>
-									</div>    
+									</div>     -->
 
 									<div class="modal-body">
 										<?php
+											$err_pass ="welck";
 											$query = mysqli_query($conn,"select * from user where ID='$session_id' ") or die(mysqli_error());
 											$row = mysqli_fetch_array($query);
 											?>
@@ -128,20 +148,28 @@ if(isset($_GTE['View']))
 												</div>
 												<div class="form-group">
 													<label>Password</label>
-													<input name="Password" class="form-control" type="text" placeholder="Enter your Password" autocomplete="off" required  value="<?php if(isset($_GET['Password'])){ echo $_GET['Password']; } ?>" >
-												</div>                                      
-												<!-- <div class="form-group">
-													<label>Phone Number</label>
-													<input name="Phone" class="form-control" type="number" placeholder="Enter The Phone NO" autocomplete="off" required  value="<?php echo $row ['Phone'];?>">
-												</div> -->
-												<!-- <div class="form-group">
-													<label>Address</label>
-													<input name="Address" class="form-control" type="text" placeholder="Enter The Address" autocomplete="off" required  value="<?php echo $row ['Address'];?>">
-												</div> -->
-											
+													<input name="Password" class="form-control" type="password" placeholder="Enter your Password" autocomplete="off" required  value="<?php if(isset($_GET['Password'])){ echo $_GET['Password']; } ?>" >
+													<label for=""><?php echo $err_pass ;?></label>
+												</div> 
+												<input type="hidden" name="edit" class="form-control" value="<?php if(isset($_GET['edit'])){ echo $_GET['edit']; }else{ echo "$get_id";} ?>" >
+                                     
 											</div>
 											<div class="modal-footer">
-												<a href="task-add" data-toggle="modal" data-target="#task-add" class="bg-light-blue btn text-blue weight-500"><i class="ion-password-round"></i>Change Password</a>
+												<?php
+													if(isset($_GET['View']))
+													{
+														$Password=$_GET['Password'];
+														$Pass_Admiministrator = $conn->query("SELECT Password as pass from `user` where id='$session_id'  ")->fetch_assoc()['pass'];
+														if($Password == $Pass_Admiministrator){
+														?>
+															<a href="task-add" data-toggle="modal" data-target="#task-add" class="bg-light-blue btn text-blue weight-500"><i class="ion-password-round"></i>View User Password</a>
+														<?php
+														}else{
+															$err_pass= "the password Is incorect";
+														}		
+													}
+												?>
+												<!-- <a href="task-add" data-toggle="modal" data-target="#task-add" class="bg-light-blue btn text-blue weight-500"><i class="ion-password-round"></i>Change Password</a> -->
 
 												<button type="submit" name="View" class="btn btn-primary" >View </button>
 												<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -157,12 +185,12 @@ if(isset($_GTE['View']))
 					<!-- Administration Info Update.  Only See Administrator  -->
 
 
-					<!-- Change Password Modal  popup start -->
+					<!-- View user Password Modal  popup start -->
 					<div class="modal fade customscroll" id="task-add" tabindex="-1" role="dialog">
 						<div class="modal-dialog modal-dialog-centered" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLongTitle">Change Passord</h5>
+									<h5 class="modal-title" id="exampleModalLongTitle">User Password</h5>
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Close Modal">
 										<span aria-hidden="true">&times;</span>
 									</button>
@@ -200,7 +228,7 @@ if(isset($_GTE['View']))
 															<input type="text" name="password" class="form-control" required="true" autocomplete="off" value="<?php echo $row['password']; ?>"> 
 														</div>
 													</div>
-													<button type="submit" name="pass_change" id="pass_change"  class="btn btn-primary">Change</button>
+													<!-- <button type="submit" name="pass_change" id="pass_change"  class="btn btn-primary">Change</button> -->
 													<button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
 												
 												</form>
@@ -221,12 +249,14 @@ if(isset($_GTE['View']))
 
 
 					<div class="wizard-content">
-						<form method="post" action="">
+						<form method="post"  action="">
 							<section>
 								<?php
 									$query = mysqli_query($conn,"select * from user where id = '$get_id' ")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 								?>
+								<input type="hidden" name="edit" class="form-control" value="<?php if(isset($_GET['edit'])){ echo $_GET['edit']; }else{ echo "$get_id";} ?>" >
+
 								<div class="row">
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
@@ -294,6 +324,9 @@ if(isset($_GTE['View']))
 										</div>
 									</div>					
 								</div>
+							
+
+
 
 								<div class="row">
 									<div class="col-md-12 col-sm-12">
@@ -320,113 +353,7 @@ if(isset($_GTE['View']))
 
 
 
-
-					<div class="card mt-5">
-						<div class="card-header text-center">
-							<h4>Send Email User Info</h4>
-						</div>
-						<div class="card-body">
-
-							<form action="" method="GET">
-								<div class="row">
-									<div class="col-md-8">
-										<input type="text" name="A_pass" value="<?php if (isset($_GET['A_pass'])) { echo $_GET['A_pass']; } ?>" class="form-control">
-									</div>
-									<div class="col-md-4">
-										<button type="submit" class="btn btn-primary">Search</button>
-									</div>
-								</div>
-							</form>
-
-							<div class="row">
-								<div class="col-md-12">
-									<hr>
-									<?php
-									if (isset($_GET['A_pass'])) {
-										$A_pass = $_GET['A_pass'];
-
-										$administrator_Pass = $conn->query("SELECT Password as pass from `user` where ID='$session_id' and Role='Administrator'  ")->fetch_assoc()['pass'];
-
-
-										if($administrator_Pass == $A_pass ){
-
-									
-										$query = "SELECT * FROM user WHERE ID='$get_id' ";
-										$query_run = mysqli_query($conn, $query);
-
-										if (mysqli_num_rows($query_run) > 0) {
-											foreach ($query_run as $row) {
-												?>
-												<div class="row">
-													<div class="col-6">
-														<div class="form-group mb-3">
-															<label for="">Name</label>
-															<input type="text" readonly class="form-control" value="<?= $row['Name']; ?>" >
-														</div>
-													</div>
-													<div class="col-6">
-														<div class="form-group mb-3">
-															<label for="">Company Name</label>
-															<input type="text" readonly class="form-control" value="<?= $row['Com_name']; ?>" >
-														</div>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-6">
-														<div class="form-group mb-3">
-															<label for="">Emmail Address</label>
-															<input type="text" readonly class="form-control" value="<?= $row['Email']; ?>" >
-														</div>
-													</div>
-													<div class="col-6">
-														<div class="form-group mb-3">
-															<label for="">Phone Number</label>
-															<input type="text" readonly class="form-control" value="<?= $row['Phone']; ?>" >
-														</div>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-6">
-														<div class="form-group mb-3">
-															<label for="">Address</label>
-															<input type="text" readonly class="form-control" value="<?= $row['password']; ?>" >
-														</div>
-													</div>
-													<div class="col-3">
-														<div class="form-group mb-3">
-															<label for="">User Role</label>
-															<input type="text" readonly class="form-control" value="<?= $row['Role']; ?>" >
-														</div>
-													</div>
-													<div class="col-3">
-														<div class="form-group mb-3">
-															<label for="">User Status</label>
-															<input type="text" readonly class="form-control" value="<?= $row['Status']; ?>" >
-														</div>
-													</div>
-												</div>    
-												<div class="row">
-													<div class="col-12">
-														<div class="form-group">
-															<label style="font-size:16px;"><b></b></label>
-															<div class="modal-footer justify-content-center">
-																<a  href="#" class="btn btn-primary" data-toggle="modal" data-target="#Medium-modal"><i class="dw dw-email-1"></i> Send Email</a>
-															</div>
-														</div>
-													</div>
-												</div>                               
-												<?php
-											}
-										} else {
-											echo "No Record Found";
-										} }
-									} 	
-									?>
-								</div>
-							</div>
-
-						</div>
-					</div>        
+ 
 
 
 

@@ -55,11 +55,12 @@ if(isset($_POST['signin']))
            $time=time()+1800; // 30 daqiiqo 
          //   $F_time = $time->format("h:i:s a");
 
-            // mysqli_query($conn,"INSERT INTO user_info(UID,Device,OS,Browser,Login_time,Login_status) VALUES('$session','$get_device','$get_os','$get_browser', '$date3' ,'$time' )         
-            // ") or die(mysqli_error()); 
+            mysqli_query($conn,"INSERT INTO user_info(UID,Device,OS,Browser,Login_time,Login_status) VALUES('$session','$get_device','$get_os','$get_browser', '$date3' ,'$time' )         
+            ") or die(mysqli_error()); 
 
 
 			 	echo "<script type='text/javascript'> document.location = 'admin/index.php'; </script>";
+            // print_r($query);
 		    }
           // Administrator
           elseif($row['Role'] == 'Administrator') {

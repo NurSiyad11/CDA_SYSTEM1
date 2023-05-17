@@ -17,13 +17,24 @@
 	move_uploaded_file($pdf_tem_loc,$pdf_store);
 
 		$Cid = $conn->query("SELECT id as cid from `user` where id='$session_id'  ")->fetch_assoc()['cid'];
+		$Administrator_id = $conn->query("SELECT ID as id from `user` where Role='Administrator' ")->fetch_assoc()['id'];
 
-        mysqli_query($conn,"INSERT INTO tbl_order(Cid,Date,File,Reason,Status) VALUES('$Cid','$date','$pdf','$description','Pending')         
-		") or die(mysqli_error()); ?>
-		<script>alert('Apply order Successfully  Added');</script>;
-		<script>
-		window.location = "order_history.php"; 
-		</script>
+        mysqli_query($conn,"INSERT INTO tbl_order(Admin_id,Cid,Date,File,Reason,Status) VALUES('$Administrator_id','$Cid','$date','$pdf','$description','Pending')         
+		") or die(mysqli_error()); 
+		?>
+		<Script>
+			window.addEventListener('load',function(){
+				swal({
+					title: "Success",
+					text: "Apply order Successfully  Added",
+					icon: "success",
+					button: "Ok Done!",
+				})
+				.then(function() {
+							window.location = "apply_order.php";
+						});
+			});			
+		</Script>	
 		<?php   
 }
 ?>

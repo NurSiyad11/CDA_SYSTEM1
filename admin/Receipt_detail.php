@@ -563,6 +563,8 @@ if (isset($_GET['delete'])) {
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                             <a class="dropdown-item" href="edit_receipt.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> View</a>
+                                            <a class="dropdown-item" name="update-receipt" href="../admin/A5pdf2.php?edit=<?php echo $row['id'];?>"><i class="dw dw-eye"></i> View PDF</a>
+
                                             <a class="dropdown-item" href="Receipt.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
                                         </div>
                                     </div>

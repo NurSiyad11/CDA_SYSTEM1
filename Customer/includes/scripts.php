@@ -12,4 +12,5 @@
 	<script src="../vendors/scripts/dashboard.js"></script>
 
 
-	<script src="../src/scripts/sweetalert.min.js"></script>
+	<!-- <script src="../src/scripts/sweetalert.min.js"></script> -->
+	<script src="../src/scripts/sweetalert2.min.js"></script>

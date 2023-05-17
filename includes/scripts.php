@@ -6,4 +6,4 @@
     <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="assets/js/custom.js"></script>
     <!-- Sweet alert -->
-    <script src="src/scripts/sweetalert.min.js"></script>
+    <script src="src/scripts/sweetalert2.min.js"></script>

@@ -20,6 +20,7 @@ $Cid = $row_rv['Cid'];
 $query_cust = mysqli_query($conn,"SELECT * FROM user where ID='$Cid' ")or die(mysqli_error());
 $row_cust = mysqli_fetch_array($query_cust);
 $name= $row_cust['Name'];
+$Company_name= $row_cust['Com_name'];
 
 
 
@@ -69,7 +70,7 @@ $html='
 
     }
     line{color: #1D058D;
-        margin: 20px 10px 20px 10px;
+        margin: 20px 10px 0px 0px;
 
     }
     h2{ text-align:center; 
@@ -90,8 +91,8 @@ $html='
 
 	</style>
 </head>
-<body>	
-	<h1>'. $Com_name .'</h1><br><br>
+<body style="border: 2px solid #1D058D; margin: 25px 10px 20px 10px; padding: 5px 5px 5px 5px; ">	
+	<h1 style="text-align:center; color: #1D058D; font-size: 200%; margin: 0px 0px 0px 0px;  padding: 15px 5px 15px 5px;">'. $Com_name .'</h1><br><br>
 
     <table  cellpadding="10" cellspacing="0" width="100%">
     <tr>
@@ -109,7 +110,7 @@ $html='
     </tr>    
 </table>	
 
-  <line>___________________________________________________________________________________________</line>
+  <line>_____________________________________________________________________________________________</line>
   <h2> Payment Receipt </h2> <br><br>
 
 
@@ -129,8 +130,12 @@ $html='
 </table>	<br>	
 <table border="1" cellpadding="10" cellspacing="0" width="100%">
 <tr> 	
-    <td> <strong> Name :</strong></td>
+    <td> <strong> Customer Name :</strong></td>
     <td>'.$name.' </td>
+</tr> 
+<tr> 	
+    <td> <strong>Company  Name :</strong></td>
+    <td>'.$Company_name.' </td>
 </tr>  
 <tr> 	
     <td><strong>Payment Amount :</strong></td>

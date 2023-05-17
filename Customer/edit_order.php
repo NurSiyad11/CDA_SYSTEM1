@@ -13,7 +13,7 @@
 			?>
 			<Script>
 				window.addEventListener('load',function(){
-				swal({
+					swal.fire({
 					title: "Warning",
 					text: "This order was not updated, b/c the Administrator received the order ",
 					icon: "warning",
@@ -34,14 +34,149 @@
 			$pdf_store="pdf/".$pdf;
 			move_uploaded_file($pdf_tem_loc,$pdf_store);
 
-			$result = mysqli_query($conn,"update tbl_order set  File='$pdf'  where id='$get_id'         
-				"); 		
-			if ($result) {
-				echo "<script>alert('File  Successfully Updated');</script>";
-				echo "<script type='text/javascript'> document.location = 'order_history.php'; </script>";
-			} else{
-			die(mysqli_error());
-			}		
+			// $result = mysqli_query($conn,"update tbl_order set  File='$pdf'  where id='$get_id'         
+			// 	"); 		
+			// if ($result) {
+
+		
+				// Your PHP code here
+
+				// Output the SweetAlert2 code after the PHP code
+				?>
+				<script>
+			// 	window.addEventListener('load',function(){
+			// 		Swal.fire({
+			// 		title: 'Success',
+			// 		text: 'Apply order Successfully Added',
+			// 		icon: 'success',
+			// 		confirmButtonColor: '#3085d6',
+			// 		confirmButtonText: 'Ok Done!'
+			// 		}).then((result) => {
+			// 		if (result.isConfirmed) {
+			// 			window.location = 'order_history.php';
+			// 		}
+			// 	});
+			// });
+
+
+
+
+
+
+			// window.addEventListener('load',function(){
+			// 	const swalWithBootstrapButtons = Swal.mixin({
+			// 	customClass: {
+			// 		confirmButton: 'btn btn-success',
+			// 		cancelButton: 'btn btn-danger'
+			// 	},
+			// 	buttonsStyling: false
+			// 	})
+
+			// 	swalWithBootstrapButtons.fire({
+			// 	title: 'Are you sure?',
+			// 	text: "You won't be able to revert this!",
+			// 	icon: 'warning',
+			// 	showCancelButton: true,
+			// 	confirmButtonText: 'Yes, delete it!',
+			// 	cancelButtonText: 'No, cancel!',
+			// 	reverseButtons: true
+			// 	}).then((result) => {
+			// 	if (result.isConfirmed) {
+			// 		const xhr = new XMLHttpRequest();
+			// 		xhr.onreadystatechange = function() {
+			// 		if (this.readyState === 4 && this.status === 200) {
+			// 			swalWithBootstrapButtons.fire(
+			// 			'Deleted!',
+			// 			'Your file has been deleted.',
+			// 			'success'
+			// 			);
+			// 		}
+			// 		};
+			// 		xhr.open('POST', 'update_order_pdf.php', true);
+			// 		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			// 		xhr.send('edit=' + get_id);
+			// 		// xhr.send('file_id=' + file_id);
+			// 	} else if (result.dismiss === Swal.DismissReason.cancel) {
+			// 		swalWithBootstrapButtons.fire(
+			// 		'Cancelled',
+			// 		'Your imaginary file is safe :)',
+			// 		'error'
+			// 		);
+			// 	}
+			// 	});
+			// });
+
+
+			window.addEventListener('load',function(){
+				const swalWithBootstrapButtons = Swal.mixin({
+					customClass: {
+						confirmButton: 'btn btn-success',
+						cancelButton: 'btn btn-danger'
+					},
+					buttonsStyling: false
+				})
+
+				swalWithBootstrapButtons.fire({
+					title: 'Are you sure?',
+					text: "To Update This File !!!",
+					icon: 'question',
+					showCancelButton: true,
+					confirmButtonText: 'Yes, update it!',
+					cancelButtonText: 'No, cancel!',
+					reverseButtons: true
+				}).then((result) => {
+					if (result.isConfirmed) {
+					<?php
+						$query = "UPDATE tbl_order SET File='$pdf' WHERE id='$get_id'";
+						$result = mysqli_query($conn, $query);
+						
+						if ($result === true) {
+							?>
+							swalWithBootstrapButtons.fire(
+								'Updated!',
+								'Your file has been updated.',
+								'success'
+							).then(function() {
+								window.location = "order_history.php";
+								});
+							
+							<?php	
+						} else {
+							?>
+							swalWithBootstrapButtons.fire(
+								'Error',
+								'There was an error updating your file.',
+								'error'
+							);
+							<?php
+						}
+						?>
+					 }
+					 	else if (result.dismiss === Swal.DismissReason.cancel) {
+						swalWithBootstrapButtons.fire(
+							'Cancelled',
+							'Your file is safe :)',
+							'error'
+						).then(function() {
+							window.location = "order_history.php";
+						});
+					}
+				});
+			});
+
+			
+
+
+
+				</script>
+				<?php
+				
+			
+								// echo "<script>alert('File  Successfully Updated');</script>";
+				// echo "<script type='text/javascript'> document.location = 'order_history.php'; </script>";
+			// } else{
+			// die(mysqli_error());
+			// }		
 		}
 	}
 ?>
@@ -57,7 +192,7 @@
 			?>
 		<Script>
 				window.addEventListener('load',function(){
-				swal({
+				swal.fire({
 					title: "Warning",
 					text: "This order was not updated, b/c the Administrator received the order ",
 					icon: "warning",
@@ -72,14 +207,31 @@
 			<?php			
 		}else {
 			//$order=$_POST['order']; 	
-			$date=$_POST['date']; 
+			// $date=$_POST['date']; 
 			$Reason=$_POST['Reason']; 
 
-			$result = mysqli_query($conn,"update tbl_order set  Date='$date', Reason='$Reason' where id='$get_id'         
+			$result = mysqli_query($conn,"update tbl_order set   Reason='$Reason' where id='$get_id'         
 				"); 		
 			if ($result) {
-				echo "<script>alert('Record Successfully Updated');</script>";
-				echo "<script type='text/javascript'> document.location = 'order_history.php'; </script>";
+				?>
+				<script>
+					window.addEventListener('load',function(){
+						Swal.fire({
+						title: 'Success',
+						text: 'Record Successfully Updated',
+						icon: 'success',
+						confirmButtonColor: '#3085d6',
+						confirmButtonText: 'Ok Done!'
+						}).then((result) => {
+						if (result.isConfirmed) {
+							window.location = 'order_history.php';
+						}
+						});
+					});
+				</script>
+				<?php
+				// echo "<script>alert('Record Successfully Updated');</script>";
+				// echo "<script type='text/javascript'> document.location = 'order_history.php'; </script>";
 			} else{
 			die(mysqli_error());
 			}		
@@ -177,16 +329,17 @@
 									$row = mysqli_fetch_array($query);
 								?>
 								<div class="row">
-									<div class="col-md-4 col-sm-12">
+								
+									<!-- <div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label>order Date :</label>
-											<input name="date" type="date" class="form-control" required="true" autocomplete="off" value="<?php echo $row['Date']; ?>">
+											<input name="date" type="text" class="form-control" required="true" autocomplete="off" value="<?php echo $row['Date']; ?>">
 										</div>
-									</div>
+									</div> -->
 								<!-- 
 								</div>
 								<div class="row"> -->
-									<div class="col-md-8 col-sm-12">
+									<div class="col-md-12 col-sm-12">
 										<div class="form-group">
 											<label>Description :</label>
 											<textarea id="textarea1" name="Reason" class="form-control" required length="150" maxlength="150" required="true" autocomplete="off"><?php echo $row['Reason']; ?></textarea>

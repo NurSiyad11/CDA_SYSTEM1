@@ -115,7 +115,7 @@
 						<tbody>
 
 							<?php
-							$total = 0;
+							$bal = 0;
 							$sql = "SELECT id,D_INV,invoice,File,Date,Memo,Amount,empty FROM invoice where Cid='$session_id' UNION All SELECT id,D_RV,RV,File,Date,Memo,empty,Amount FROM receipt    where Cid='$session_id'   order by Date desc ";
 							$query = $dbh -> prepare($sql);
 							$query->execute();
@@ -140,10 +140,12 @@
 								<td><?php echo "$ ". number_format((float)htmlentities($result->empty), '2','.',','); ?></td>
 								<td>
 									<?php
-									$in= $result->Amount;
+									//$bal = $bal;
+									$in = $bal + $result->Amount;
 									$out= $result->empty;
-									$bal = $in + $out;
-									//$Total = 
+									$bal = $in - $out;
+
+									//$Total = $bal 
 									
 									// if($out = 0){
 									// 	$Bal = $in;
@@ -160,7 +162,7 @@
 
 									 echo "$ ". number_format((float)htmlentities($bal), '2','.',',');
 									// $total= $bal + $in - $out;
-									 echo "$ ". number_format((float)htmlentities($total), '2','.',',');
+									 //echo "$ ". number_format((float)htmlentities($total), '2','.',',');
 									//echo "$ ". number_format((float)htmlentities($result->balance), '2','.',',');
 
 									?>
@@ -199,7 +201,7 @@
 							</tr>
 							<?php $cnt++;  
 								
-									 $total = $bal + $in - $out;
+									// $total = $bal + $in - $out;
 							 } } ?>  
 
 						</tbody>

@@ -189,6 +189,7 @@
                                         <th>Description</th>
                                         <th>Invoice</th>
                                         <th>Receipt</th>
+                                        <th>Balance</th>
                                      
                                                                        
                                     
@@ -205,8 +206,9 @@
 
                                         <?php 						
                                         $i =1;
+                                        $bal=0;
                                         $Cname = $conn->query("SELECT id as cid from `user` where id='$get_id'  ")->fetch_assoc()['cid'];
-                                        $sql = "SELECT id,D_INV,invoice,File,Date,Memo,Amount,empty FROM invoice where Cid='$Cname' UNION All SELECT id,D_RV,RV,File,Date,Memo,empty,Amount FROM receipt where Cid='$Cname'  order by Date desc ";
+                                        $sql = "SELECT id,D_INV,invoice,File,Date,Memo,Amount,empty FROM invoice where Cid='$Cname' UNION All SELECT id,D_RV,RV,File,Date,Memo,empty,Amount FROM receipt where Cid='$Cname'  order by Date asc ";
                                             $query = mysqli_query($conn, $sql) or die(mysqli_error());
                                             while ($row = mysqli_fetch_array($query)) {
                                     
@@ -227,10 +229,22 @@
                                         <td><?php echo  $row['invoice']; ?></td>
                                         <td><?php echo  $row['Date']; ?></td>								
                                         <td><?php echo $row['Memo']; ?></td>
-                                        <td><?php echo $row['Amount']; ?></td>
-                                        <td><?php echo $row['empty']; ?></td>
+                                        <td><?php echo "$ ". number_format((float)htmlentities($row['Amount']),'2','.',','); ?></td>
+								        <td><?php echo "$ ". number_format((float)htmlentities($row['empty']), '2','.',','); ?></td>
+                                        <!-- <td><?php //echo $row['Amount']; ?></td>
+                                        <td><?php //echo $row['empty']; ?></td> -->
+
+
                                         <!-- <td><?php //echo $row['File']; ?></td> -->
                                             
+                                        <?php 
+                                        $in = $bal + $row['Amount'];;
+                                        $out= $row['empty'];
+                                        $bal = $in - $out;
+                                        ?>
+                                        <td><?php echo "$ ". number_format((float)htmlentities($bal),'2','.',','); ?></td>
+
+                                        <!-- <td><?php echo $bal; ?></td> -->
 
                                         
                                         

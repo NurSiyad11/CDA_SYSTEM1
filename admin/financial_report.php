@@ -119,21 +119,25 @@
 
                 <div class="container pd-5">
                     <?php 
-                    $d= date('m');
+                    // $d= date('m');
+                    $F_date=date('Y-m-01');
+                    $T_date=date('Y-m-d');
+                    
+
                     ?>
                     <form action="" method="GET">
                         <div class="row">
                             <div class="col-4">
                                 <div class="from-group">
                                     <label > From Date  </label>
-                                    <input type="date" name="from_date" class="form-control" value="<?php if(isset($_GET['from_date'])){ echo $_GET['from_date']; }else{ echo "2023-$d-01";}; ?>">
+                                    <input type="date" name="from_date" class="form-control" value="<?php if(isset($_GET['from_date'])){ echo $_GET['from_date']; }else{ echo "$F_date";}; ?>">
                                 </div>
                             </div>
                             
                             <div class="col-4">
                                 <div class="from-group">
                                     <label > To Date  </label>
-                                    <input type="date" name="to_date" class="form-control" value="<?php if(isset($_GET['to_date'])){ echo $_GET['to_date']; }else{ echo "2023-$d-30";} ?>" >
+                                    <input type="date" name="to_date" class="form-control" value="<?php if(isset($_GET['to_date'])){ echo $_GET['to_date']; }else{ echo "$T_date";} ?>" >
                                 </div>
                             </div>
 
@@ -141,6 +145,7 @@
                                 <div class="from-group">
                                     <label > Click to Filter  </label> <br>
                                     <button type="submit" class="btn btn-primary">Filter</button>
+                                    <button type="submit" name="refresh" class="btn btn-primary">All</button>
                                     <!-- <input type="date" name="to_date" class="form-control"> -->
                                 </div>
                             </div>
@@ -151,7 +156,7 @@
 
 
                 <div class="pb-20">
-                    <table class="data-table table stripe hover nowrap">
+                    <table class=" table data-table-export stripe hover nowrap">
                         <thead>
                             <tr>
                                 <th>NO#</th>
@@ -176,9 +181,14 @@
 
 									$from_date= $_GET['from_date'];
 									$to_date= $_GET['to_date'];
+                                    $query = mysqli_query($conn,"SELECT id,name,D_RV,RV,Date,Memo,Amount,empty   FROM cash_receipt  where Date BETWEEN '$from_date' AND '$to_date'  UNION All SELECT id,name,D_PV,PV,Date,Memo,empty,Amount FROM cash_payment  where Date BETWEEN '$from_date' AND '$to_date'   ORDER BY Date desc") or die(mysqli_error());
 
-                                        // where Date BETWEEN '$from_date' and '$to_date'
-                                $query = mysqli_query($conn,"SELECT id,name,D_RV,RV,Date,Memo,Amount,empty   FROM cash_receipt   UNION All SELECT id,name,D_PV,PV,Date,Memo,empty,Amount FROM cash_payment  where Date BETWEEN '$from_date' AND '$to_date'   ORDER BY Date desc") or die(mysqli_error());
+                                }if(isset($_GET['refresh'])){
+                                    $query = mysqli_query($conn,"SELECT id,name,D_RV,RV,Date,Memo,Amount,empty   FROM cash_receipt    UNION All SELECT id,name,D_PV,PV,Date,Memo,empty,Amount FROM cash_payment    ORDER BY Date desc") or die(mysqli_error());
+
+                                }
+
+                              //  $query = mysqli_query($conn,"SELECT id,name,D_RV,RV,Date,Memo,Amount,empty   FROM cash_receipt  where Date BETWEEN '$from_date' AND '$to_date'  UNION All SELECT id,name,D_PV,PV,Date,Memo,empty,Amount FROM cash_payment  where Date BETWEEN '$from_date' AND '$to_date'   ORDER BY Date desc") or die(mysqli_error());
                                 while ($row = mysqli_fetch_array($query)) {
                                 $id = $row['id'];
                                     ?>
@@ -220,7 +230,7 @@
 							$expense += $total_exp;
 
                             ?>
-                            <?php } }?>  
+                            <?php } ?>  
                         </tbody>
                         <tfoot class="table-info">
                             <th></th>

@@ -99,14 +99,15 @@
                         </div>
                     </div>
 
-                    <?php
+                
+                    
+                    <div class="col-lg-8 col-md-6 col-sm-12 mb-30">
+                        <?php
                         $RV = $conn->query("SELECT sum(Amount) as total FROM `cash_receipt`   ")->fetch_assoc()['total'];
                         $PV = $conn->query("SELECT sum(Amount) as total FROM `cash_payment`   ")->fetch_assoc()['total'];
                         $Bal = $RV - $PV;
                         $format =number_format((float)$Bal, '2','.',',');
-					?> 
-                    
-                    <div class="col-lg-8 col-md-6 col-sm-12 mb-30">
+					    ?> 
                         <div class="card-box pd-30 pt-10 height-100-p">
                             <h2 class="mb-30 h4">Account List</h2>
                             <div class="pb-20">

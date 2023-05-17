@@ -21,7 +21,7 @@
 						button: "Ok Done!",
 					})
 					.then(function() {
-								window.location = "Invoice.php";
+								window.location = "invoice.php";
 							});
 				});			
 			</Script>
@@ -236,22 +236,51 @@
 								</div>
 							</section>
 
+
+
+								<section>
+									<div class="row">
+
+										<?php
+										$sql="SELECT File from invoice where id='$get_id'  ";
+										$query = $dbh -> prepare($sql);
+										$query->execute();
+										$results=$query->fetchAll(PDO::FETCH_OBJ);
+										// $cnt=1;
+										if($query->rowCount() > 0)
+										{
+											foreach($results as $result){  
+								
+										
+												?>  
+                                            <embed type="application/pdf" src="pdf/<?php echo $results['File'] ; ?>" width="900" height="500">
+
+
+										<?php } }?>  
+									</div>
+							
+								</section>
+
+
 							<section>
                                 <div class="row">
                                     <?php
                                     
-                                    $sql="SELECT File from invoice where id='$get_id' ";
+                                    $sql="SELECT File from invoice where id='$get_id'  ";
                                     $query=mysqli_query($conn,$sql);
                                     while ($info=mysqli_fetch_array($query)) {
                                         ?>
                                         <?php
-                                        if($info !=''){
+                                        if($info != '' ){
+											//echo "No file found";  
                                            ?>                                       
                                             <embed type="application/pdf" src="pdf/<?php echo $info['File'] ; ?>" width="900" height="500">
                                         <?php
                                         }else{
                                             echo "No file found";                                     
                                         ?>
+										  <!-- <embed type="application/pdf" src="pdf/test.pdf"  width="900" height="500"> -->
+
                                         <?php
                                         }
                                         ?>
