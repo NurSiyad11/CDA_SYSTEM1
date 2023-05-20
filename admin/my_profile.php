@@ -55,9 +55,9 @@ if (isset($_POST["update_image"])) {
 <?php
 	if(isset($_POST['pass_change']))
 	{
-	$Old_pass=$_POST['Old_pass'];
+	$Old_pass=md5($_POST['Old_pass']);
 	$Email=$_POST['Email'];  
-	$Confirm_pass=$_POST['Confirm_pass'];
+	$Confirm_pass=md5($_POST['Confirm_pass']);
 
 	$administrator_Pass = $conn->query("SELECT Password as pass from `user` where ID='$session_id' ")->fetch_assoc()['pass'];
 

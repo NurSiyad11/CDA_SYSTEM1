@@ -21,15 +21,90 @@
 // }
 ?>
 
+
 <?php
-	// if(isset($_GET['update']))
+if (isset($_POST['View_password'])) {
+?>
+<script>
+  window.addEventListener('load', async function() {
+    const { value:password } = await Swal.fire({
+      title: 'Enter your password',
+      input: 'password',
+      inputLabel: 'Password',
+      inputPlaceholder: 'Enter your password',
+    //   inputAttributes: {
+    //     maxlength: 10,
+    //     autocapitalize: 'off',
+    //     autocorrect: 'off'
+    //   }
+    })
+	// <?php //$pass  ?>= ${password};
+	<?php
+	 $pass = '${password}';
+	 
+	$pass1 = $pass;
+	//$pass2 = $pass;
+	$Pass_Admiministrator = $conn->query("SELECT Password as pass from `user` where id='$session_id'  ")->fetch_assoc()['pass'];
+	if($pass1 != $Pass_Admiministrator){
+		$Pass_user = $conn->query("SELECT Password as pass from `user` where id='$get_id'  ")->fetch_assoc()['pass'];
+
+
+	?>		
+      Swal.fire(`Entered password: <?php echo  $pass .' qalad '.  $Pass_Admiministrator ?>  if part`)
+	  .then(function() {
+		window.location = "edit_user.php?edit=" + <?php echo ($get_id); ?>;
+		});
+	<?php
+	}else{
+		?>
+		Swal.fire(`Please check Your Password  <?php echo $pass .' sax '.  $Pass_Admiministrator?>  else part `)
+		.then(function() {
+		  window.location = "edit_user.php?edit=" + <?php echo ($get_id); ?>;
+		  });
+		  <?php
+	}
+	?>
+   
+  });
+</script>
+<?php
+}
+?>
+
+
+
+
+
+
+
+
+<?php
+
+	// if(isset($_POST['View_passwor'])) 
 	// {
-	// 	$get_id=$_GET['edit'];
-
-
-
-	// }
- ?>
+		?>
+		<script>
+			// window.addEventListener('load', async function(){
+			// 	const { value: password } = await Swal.fire({
+			// 		title: 'Enter your password',
+			// 		input: 'password',
+			// 		inputLabel: 'Password',
+			// 		inputPlaceholder: 'Enter your password',
+			// 		inputAttributes: {
+			// 		maxlength: 10,
+			// 		autocapitalize: 'off',
+			// 		autocorrect: 'off'
+			// 		}
+			// 	})
+				
+			// 	if (password) {
+			// 		Swal.fire(`Entered password: ${password}`)
+			// 	}
+			// });
+		</script>
+		<?php
+	//}
+?>
 
 <!-- Update users   && $_POST['edit'] == 'GET'-->
 <?php
@@ -53,7 +128,7 @@
 		?>
 		<Script>
 			window.addEventListener('load',function(){
-				swal({
+				swal.fire({
 					title: "Success",
 					text: "Record Successfully Updated",
 					icon: "success",
@@ -108,6 +183,9 @@
 						</div>
 						<div class="col-md-4 col-sm-12 text-right">
 							<a href="task-add" data-toggle="modal" data-target="#Medium-modal" class="bg-light-blue btn text-blue weight-500"><i class="ion-password-round"></i>View Password</a>
+							<form action="" method="POST">
+							<button type="submit" name="View_password" class="btn btn-primary" >View password </button>
+							</form>
 							<!-- <div class="col-12">     
 								<a  href="#" class="btn btn-primary" data-toggle="modal" data-target="#Medium-modal"> <i class="dw dw-edit-2 "></i> Edit </a>
 
@@ -158,7 +236,7 @@
 												<?php
 													if(isset($_GET['View']))
 													{
-														$Password=$_GET['Password'];
+														$Password=md5($_GET['Password']);
 														$Pass_Admiministrator = $conn->query("SELECT Password as pass from `user` where id='$session_id'  ")->fetch_assoc()['pass'];
 														if($Password == $Pass_Admiministrator){
 														?>
@@ -225,7 +303,8 @@
 													<div class="form-group row">
 														<label class="col-md-4">Password :</label>
 														<div class="col-md-8">
-															<input type="text" name="password" class="form-control" required="true" autocomplete="off" value="<?php echo $row['password']; ?>"> 
+															<?php $Pass_user = $row['password'];?>
+															<input type="text" name="password" class="form-control" required="true" autocomplete="off" value="<?php echo $Pass_user; ?>"> 
 														</div>
 													</div>
 													<!-- <button type="submit" name="pass_change" id="pass_change"  class="btn btn-primary">Change</button> -->
@@ -338,6 +417,8 @@
 											<label style="font-size:16px;"><b></b></label>
 											<div class="modal-footer justify-content-center">
 												<button  href="createfile.php?edit=<?php echo $row['ID'];?>" class="btn btn-primary" name="update" id="update" data-toggle="modal">Update&nbsp;User</button>
+												<button type="submit" name="View_password" class="btn btn-primary" >View password </button>
+
 												<!-- <a class="dropdown-item" href="user_view_pass.php?edit=<?php echo $get_id;?>"><i class="dw dw-edit2"></i> Edit</a> -->
 
 												<!-- <button class="btn btn-primary" name="A4pdf" id="A4pdf" data-toggle="modal">Generate&nbsp; A4 Pdf</button>

@@ -84,13 +84,14 @@ if (isset($_POST["update_image"])) {
 								</form>
 							</div>
 							<h5 class="text-center h5 mb-0"><?php echo $row['Name']; ?></h5>
-							<p class="text-center text-muted font-14"><?php echo $row['Com_name']; ?></p>
+								<p class="text-center text-muted  font-16"><span class="badge badge-success"><i class="icon-copy fa fa-circle" aria-hidden="true"></i > Online</span></p>
+
 							<div class="profile-info">
 								<h5 class="mb-20 h5 text-blue">Contact Information</h5>
 								<ul>
 									<li>
-										<span>Email Address:</span>
-										<?php echo $row['Email']; ?>
+										<span>Company Name:</span>
+										<?php echo $row['Com_name']; ?>
 									</li>
 									<li>
 										<span>Phone Number:</span>
@@ -117,7 +118,7 @@ if (isset($_POST["update_image"])) {
 								<div class="tab height-100-p">
 									<ul class="nav nav-tabs customtab" role="tablist">
 										<li class="nav-item">
-											<a class="nav-link active" data-toggle="tab" href="#timeline" role="tab">Administrator</a>
+											<a class="nav-link active" data-toggle="tab" href="#timeline" role="tab">Manager</a>
 										</li>
 									
 									</ul>

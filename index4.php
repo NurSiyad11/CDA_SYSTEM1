@@ -33,7 +33,7 @@ if(isset($_POST['signin']))
 				?>
 				<Script>
 					window.addEventListener('load',function(){
-						swal({
+						swal.fire({
 							title: "Warning",
 							text: "Your Acount Is Inactive !!! ",							
 							icon: "warning",
@@ -102,7 +102,7 @@ if(isset($_POST['signin']))
                            ?>
                            <Script>
                               window.addEventListener('load',function(){
-                                 swal({
+                                 swal.fire({
                                     title: "Error",
                                     text: "Message could not be sent. Mailer Error: ",
                                     icon: "error",
@@ -134,7 +134,7 @@ if(isset($_POST['signin']))
 		?>
 		<Script>
 			window.addEventListener('load',function(){
-				swal({
+				swal.fire({
 					title: "Error",
 					text: "Please Check Your Email or Password .... ",
 					icon: "error",

@@ -17,76 +17,116 @@ function showPass()
 }
 
 </script>
+
+
+
+<?php
+
+	if(isset($_POST['Balance'])) 
+	{
+		$INV = $conn->query("SELECT sum(Amount) as total FROM `invoice` where Cid='$session_id'  ")->fetch_assoc()['total'];
+		$RV = $conn->query("SELECT sum(Amount) as total FROM `receipt` where Cid='$session_id'  ")->fetch_assoc()['total'];
+		$Bal = $INV - $RV;
+		$format =number_format((float)$Bal, '2','.',',');
+	
+		?>
+		<script>
+			window.addEventListener('load',function(){
+				swal.fire({
+					title: "Your Balance is  <?Php echo "$ ". $format?>",
+					// text: "<?Php //echo "$ ". $format?>",
+					
+					//iconHtml: ' <i class="icon-copy ion-social-usd-outline"></i>',
+					iconHtml: ' <i class="icon-copy ion-social-usd"></i>',
+					//icon: "money",
+					// button: "Ok Done!",
+				})
+				.then(function() {
+							window.location = "index.php";
+						});
+			});	
+		</script>
+		<?php
+	}
+?>
+
 <body>
 	<?php include('includes/navbar.php') ?>
 	<?php include('includes/right_sidebar.php') ?>
 	<?php include('includes/left_sidebar.php') ?>	
 	<div class="mobile-menu-overlay"></div>
 
-	<div class="main-container">
-		<div class="pd-ltr-20">	
-			
-			<div class="card-box pd-20 height-100-p mb-30">
-				<div class="row align-items-center ">
-					<?php 
-					$query = mysqli_query($conn,"select * from user where id = '$session_id' ")or die(mysqli_error());
-					$row = mysqli_fetch_assoc($query);
-					?>
-					<div class="col-md-4">
-						<img src="../vendors/images/banner-img2.png" alt="">
-					</div>
-					<div class="col-md-8">
-						<h4 class="font-17 weight-500 mb-10 text-muted text-capitalize">
-						<div class="weight-600 font-20 text-blue">Welcome Back!</div>	
-							<!-- Test General Trading Company -->
-							<?php echo $row['Com_name']?>
-						
-						</h4>
-						<div class="col-xl-6 mb-30">
-							<?php						
-														
-								$customer_id = $conn->query("SELECT id as cid from `user` where id='$session_id'  ")->fetch_assoc()['cid'];
-								$INV = $conn->query("SELECT sum(Amount) as total FROM `invoice` where Cid='$customer_id'  ")->fetch_assoc()['total'];
-								$RV = $conn->query("SELECT sum(Amount) as total FROM `receipt` where Cid='$customer_id'  ")->fetch_assoc()['total'];
-								$Bal = $INV - $RV;
-								$format =number_format((float)$Bal, '2','.',',');
+	<!-- <div class="main-container">
+		<div class="pd-ltr-1">	
+			<div class="row">
+				<div class="col-12 mb-">
+					<div class="card text-bg-primary mb-3">
+						<div class="card-header text-center bg-blue" style="color:white">Cash On Hand</div>
+						<div class="card-body">
+							<?php
+							// $RV = $conn->query("SELECT sum(Amount) as total FROM `cash_receipt`   ")->fetch_assoc()['total'];
+							// $PV = $conn->query("SELECT sum(Amount) as total FROM `cash_payment`   ")->fetch_assoc()['total'];
+							// $Bal = $RV - $PV;
+							// $format =number_format((float)$Bal, '2','.',',');
 							?> 
-							<!-- <div class="card-box height-100-p widget-style1"> -->
-								<div class="d-flex flex-wrap align-items-center">
-									<div class="progress-data">
-										<div id="">
-										<!-- <img src="../uploads/cash3.png" class="border-radius-100 shadow" width="80" height="80" alt=""> -->
-										<!-- <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="10" height="10" alt=""> -->
-			
-										</div>
-									</div>
-									
-									<div class="widget-data ml-2">
-										<div class="h4 mb-0  ">
-											<div class="row bg-inf">
-												<div class="col-3 d-flex flex-wrap align-items-center" >
-													<img src="../vendors/images/img/dollar5.png" class="border-radius-100 shadow" width="40" height="40" alt="">
-												</div>
-
-											
-												<div class="col-7 ">
-													<input  type="password" readonly id="pass" class="form-control-plaintext weight-800 font-20  " id="staticEmail"  value="<?php echo "$ ". ($format); ?> "/>
-												</div>
-												<div class="col-1">
-													<input type="checkbox" id="check" onclick="showPass();"/>
-												</div>
-											</div>
-											<div class="weight-600 font-20 ml-5">Balance</div>
-										</div> 										
-									</div>
-								
+							<div class="row">
+								<div id="" class=" ml-5">
+									<img src="../vendors/images/img/cash.png" class="border-radius-100 shadow" width="40" height="40" alt="">
 								</div>
-							<!-- </div> -->
+								<h4 class=" ml-3 text-center" style="color:bl"><?php// echo  "$ " .($format) ?> </h4>
+							</div>							
 						</div>
-						<!-- <p class="font-18 max-width-600">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde hic non repellendus debitis iure, doloremque assumenda. Autem modi, corrupti, nobis ea iure fugiat, veniam non quaerat mollitia animi error corporis.</p> -->
 					</div>
 				</div>
 			</div>
+		</div>
+	</div> -->
+
+	<div class="main-container">
+		<div class="pd-ltr-20">	
+			
+			<div class="row">
+				<div class="col-xl-12 mb-30">
+					<div class="card text-bg-primary mb-3">
+						<div class="row">
+							<div class="col-12">
+								<div class="card-header text-center bg-blue" style="color:white">
+									<form action="" method="POST">	
+										<!-- <div id="" class=" ml-5"> -->													
+											<button class="btn btn-light" type="submit" name="Balance"> <i class="icon-copy dw dw-eye "></i> </button><span class="border-0"></span>
+											
+											Balance
+										<!-- </div> -->
+									</form>									
+								</div>
+							</div>
+						</div>
+						<div class="card-body">
+							<?php
+							$RV = $conn->query("SELECT sum(Amount) as total FROM `cash_receipt`   ")->fetch_assoc()['total'];
+							$PV = $conn->query("SELECT sum(Amount) as total FROM `cash_payment`   ")->fetch_assoc()['total'];
+							$Bal = $RV - $PV;
+							$format =number_format((float)$Bal, '2','.',',');
+							?> 
+							<div class="row">
+								<div class="col-12">
+								<p class=" ml-3 text-cente" style="color:bl">Welcome to our system! Once you log in, you'll be directed to your personalized dashboard where you can easily manage your account, view your recent activity. Your dashboard will display your current account balance, as well as any new or pending invoices. You can also review your recent transactions to keep track of your financial activity. If you have any questions or require assistance, please don't hesitate to contact our support team. We're here to assist you every step of the way.</p>
+
+
+									<!-- <form action="" method="POST">	
+										<div id="" class=" ml-5">
+											<button class="btn btn-primary" type="submit" name="Balance"> <i class="icon-copy dw dw-eye"></i> </button><span class="border-0"></span>
+										</div>
+									</form> -->
+									<!-- <p class=" ml-3 text-center" style="color:bl">Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add. You can also type a keyword to search online for the video that best fits your document.</p> -->
+									<!-- <h4 class=" ml-3 text-center" style="color:bl"><?php echo  "$ " .($format) ?> </h4> -->
+								</div>
+							</div>							
+						</div>
+					</div>
+				</div>
+			</div>
+
 		
 		
 			<!-- 
@@ -301,6 +341,7 @@ function showPass()
 	<?php include('includes/footer.php') ?>
 	
 	<?php include('includes/scripts1.php') ?>
+
 	
 
 </body>

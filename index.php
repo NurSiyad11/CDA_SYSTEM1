@@ -5,7 +5,7 @@ require('UserInfo.php');
 if(isset($_POST['signin']))
 {
 	$username=$_POST['username'];
-	$password=$_POST['password'];
+	$password= md5($_POST['password']);
 
 
 
@@ -23,7 +23,7 @@ if(isset($_POST['signin']))
 				?>
 				<Script>
 					window.addEventListener('load',function(){
-						swal({
+						swal.fire({
 							title: "Warning",
 							text: "Your Acount Is Inactive !!! ",							
 							icon: "warning",
@@ -128,14 +128,31 @@ if(isset($_POST['signin']))
  
  
             echo "<script type='text/javascript'> document.location = 'heads/index.php'; </script>";
-		    }		    
+		    }	
+          else{
+            ?>
+               <Script>
+                  window.addEventListener('load',function(){
+                     swal.fire({
+                        title: "Error",
+                        text: "You are unable to access this system. .... ",
+                        icon: "error",
+                       // button: "Ok !",
+                     })
+                     .then(function() {
+                              window.location = "index.php";
+                           });
+                  });			
+               </Script>
+		<?php	
+          }	    
 		}
 	} 
 	else{ 	  
 		?>
 		<Script>
 			window.addEventListener('load',function(){
-				swal({
+				swal.fire({
 					title: "Error",
 					text: "Please Check Your Email or Password .... ",
 					icon: "error",

@@ -255,7 +255,7 @@ use PHPMailer\PHPMailer\Exception;
         <label for=""> Middle Name</label>
         <input type = "text" name="M_name" placeholder="Middle Name" onkeyup="letterOnly(this)">
         <label for=""> Last Name</label>
-        <input type ="text"id="result" name="L_name" placeholder="Last Name" >
+        <input type ="text"id="result" name="L_name" placeholder="Last Name" onkeyup="letterOnly(this)" >
         <!-- <button id="btn-get">GET</button> -->
        
         <div class="index-btn-wrapper">

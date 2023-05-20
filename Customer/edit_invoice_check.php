@@ -5,20 +5,21 @@
 <?php
 	if(isset($_POST['Update']))
 	{	
+		$get_id=$_GET['edit'];
 		$st = $conn->query("SELECT Status as st from `invoice` where id='$get_id'  ")->fetch_assoc()['st'];
 
 		if($st =='Approved'){
 			?>
 			<Script>
 				window.addEventListener('load',function(){
-					swal({
+					swal.fire({
 						title: "Warning",
-						text: "This invoice is not updated, b/c your Approved this invoice ",
+						text: "This invoice is not updated, b/c your Already Approved this invoice ",
 						icon: "warning",
 						button: "Ok Done!",
 					})
 					.then(function() {
-								window.location = "invoice_check.php";
+								window.location = "edit_invoice_check.php?edit=" + <?php echo ($get_id); ?>;
 							});
 				});			
 			</Script>
@@ -29,9 +30,25 @@
 
 			$result = mysqli_query($conn,"update invoice set Memo='$Memo', Status='$Status' where id='$get_id'         
 				"); 		
-			if ($result) {			
-				echo "<script>alert('Record Successfully Updated');</script>";
-				echo "<script type='text/javascript'> document.location = 'invoice_check.php'; </script>";
+			if ($result) {		
+				?>
+			<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+						title: "Success",
+						text: "Your <?php echo $Status ?>  This Invoice ",
+						icon: "success",
+						button: "Ok Done!",
+					})
+					.then(function() {
+						window.location = "edit_invoice_check.php?edit=" + <?php echo ($get_id); ?>;
+					});
+				});			
+			</Script>
+			<?php	
+				
+				// echo "<script>alert('Record Successfully Updated');</script>";
+				// echo "<script type='text/javascript'> document.location = 'invoice_check.php'; </script>";
 				// header('location: edit_invoice_check.php');
 			} else{
 			die(mysqli_error());
@@ -81,6 +98,7 @@
 									$query = mysqli_query($conn,"SELECT user.Name ,  invoice.invoice ,invoice.Amount,invoice.Date,invoice.Memo,invoice.Status, invoice.File  FROM invoice INNER JOIN user ON   invoice.Cid=user.ID where invoice.id='$get_id'")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 									?>
+								<input type="hidden" name="edit" class="form-control" value="<?php if(isset($_GET['edit'])){ echo $_GET['edit']; }else{ echo "$get_id";} ?>" >
 
 								<div class="row">
 									<div class="col-md-4 col-sm-12">
@@ -136,18 +154,7 @@
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label style="font-size:16px;"><b></b></label>
-											<div class="modal-footer justify-content-center">
-											<?php
-												// $query2 = "SELECT * FROM invoice_receipt where id='$get_id' ";
-												// $run2 = mysqli_query($conn,$query2);
-												
-												// $row = mysqli_fetch_assoc($run2);
-													?>
-												<!-- <a href="download.php?file=<?php// echo $rows['filename'] ?>">Download</a><br> -->
-												<?php
-												//}
-												?>
-											<!-- <a href="download.php?file=<?php echo $row['File'] ?>">Download</a><br> -->
+											<div class="modal-footer justify-content-center">								
               
 												<!-- <button class="btn btn-primary" name="Order_check" id="Order_check" data-toggle="modal">Update&nbsp;Invoice_Check</button> -->
 												<a  href="#" class="btn btn-primary" data-toggle="modal" data-target="#Medium-modal"><i class="dw dw-edit-2"></i> Take Action</a>
@@ -248,16 +255,6 @@
                         </div>
                     </div>					
                 </div>
-
-
-
-
-
-
-
-
-
-
 
 
 

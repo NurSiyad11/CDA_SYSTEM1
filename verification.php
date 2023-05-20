@@ -17,7 +17,7 @@ require('UserInfo.php');
         ?>
         <Script>
             window.addEventListener('load',function(){
-                swal({
+                swal.fire({
                     title: "Error",
                     text: "Invailed OTP, Please Check Your OTP !!! ",							
                     icon: "error",

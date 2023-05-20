@@ -17,7 +17,7 @@ if($role != 'HOD'){
 ?>
 
 
-<div class="header">
+	<div class="header">
 		<div class="header-left">
 			<div class="menu-icon dw dw-menu"></div>
 			<div class="search-toggle-icon dw dw-search2" data-toggle="header_search"></div>
@@ -69,7 +69,7 @@ if($role != 'HOD'){
 
 			<div class="user-notification">
 				<?php
-					$query_count = mysqli_query($conn,"select * from tbl_order where Status = 'Pending' ")or die(mysqli_error());
+					$query_count = mysqli_query($conn,"select * from receipt where Status = 'Pending' ")or die(mysqli_error());
 					$count = mysqli_num_rows($query_count);						
 					
 				?>
@@ -86,32 +86,27 @@ if($role != 'HOD'){
 						</i>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right">
-						<div class="notification-list mx-h-350 customscroll">
-							<?php 
-							//$count = $conn->query("SELECT sum(Amount) as total FROM `cash_receipt`   ")->fetch_assoc()['total'];
-							
-							// $query_count = mysqli_query($conn,"select * from tbl_order where Status = 'Pending' ")or die(mysqli_error());
-							// $count = mysqli_num_rows($query_count);						
-							 ?>
 						<h5><?php echo "Orders: ". ($count); ?></h5>
-						 
+						<div class="notification-list mx-h-350 customscroll">				
+			
 							<ul>
 							<?php 
 								//$status="Pending Order";
-								$sql = "SELECT user.Name, user.Com_name, user.Picture, tbl_order.id, tbl_order.Date,tbl_order.Reason, tbl_order.File,tbl_order.Status FROM tbl_order INNER JOIN user ON   tbl_order.Cid=user.id where tbl_order.Status ='Pending' order by tbl_order.Date desc";
+								$sql = "SELECT user.Name, user.Com_name, user.Picture, receipt.id, receipt.RV, receipt.Date,receipt.Memo, receipt.Amount, receipt.Status FROM receipt INNER JOIN user ON   receipt.Cid=user.id where receipt.Status ='Pending' order by receipt.Date desc";
 									$query = mysqli_query($conn, $sql) or die(mysqli_error());
 									while ($row = mysqli_fetch_array($query)) {
 
 								 ?> 
 								<li>
-									<a href="#">
+									<a href="New_Receipt.php">
 										
 										<!-- <img src="../vendors/images/img.jpg" alt=""> -->
 										<img src="<?php echo (!empty($row['Picture'])) ? '../uploads/'.$row['Picture'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt="">
-										<h3><?php echo $row['Name'];?></h3>
-										<p><?php echo $row['Com_name'];?></p>
+										<h3><?php echo $row['Com_name'];?></h3>
+										<p ><?php echo $row['Name'];?></p>										
+										<p><?php echo "RV# " . $row['RV'];?></p>
+										<td ><?php echo "Amount: $ ". number_format((float)htmlentities($row['Amount']), '2','.',','); ?></td>
 										<p><?php echo $row['Date'];?></p>
-										<p><?php echo $row['Reason'];?></p>
 									</a>
 								</li>
 								<?php }?>
@@ -124,53 +119,8 @@ if($role != 'HOD'){
 				</div>
 			</div>
 
-			<!-- <button type="button" class="btn btn-primary position-relative">
-			Mails <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+99 <span class="visually-hidden">unread messages</span></span>
-			</button> -->
-			<div class="user-notification">
-				<div class="dropdown">
-					<a class="dropdown-toggle no-arrow" href="#" role="button" data-toggle="dropdown">
-						<i class="icon-copy dw dw-message"></i>
-						<!-- <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+99 <span class="visually-hidden">unread messages</span></span> -->
-						
-						<!-- <span class="badge notification-active"></span> -->
-					</a>
-					<div class="dropdown-menu dropdown-menu-right">
-						<div class="notification-list mx-h-350 customscroll">
-						<?php 
-							//$count = $conn->query("SELECT sum(Amount) as total FROM `cash_receipt`   ")->fetch_assoc()['total'];
-							
-							$query_count = mysqli_query($conn,"select * from support where Status = '' ")or die(mysqli_error());
-							$count = mysqli_num_rows($query_count);						
-							 ?>
-							<h5><?php echo "Supported: ". ($count); ?></h5>
-
-							<ul>
-								<?php 
-								
-								$sql = "SELECT user.Name, user.Com_name, user.Picture, support.id, support.Message FROM support INNER JOIN user ON   support.Cid=user.ID where support.Status ='' order by support.RegDate desc";
-									$query = mysqli_query($conn, $sql) or die(mysqli_error());
-									while ($row = mysqli_fetch_array($query)) {
-
-								 ?> 
-								<li>
-									<a href="#">
-									<img src="<?php echo (!empty($row['Picture'])) ? '../uploads/'.$row['Picture'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt="">
-										<!-- <img src="../vendors/images/img.jpg" alt=""> -->
-										<h3><?php echo $row['Name'];?></h3>
-										
-										<p><?php echo $row['Com_name'];?></p>
-										<p><?php echo $row['Message'];?></p>
-										<!-- <p><?php //echo $row['Memo'];?></p> -->
-										<!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p> -->
-									</a>
-								</li>
-								<?php }?>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
+			
+		
 
 			
 			<?php $query= mysqli_query($conn,"select * from user where ID = '$session_id'")or die(mysqli_error());

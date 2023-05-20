@@ -7,6 +7,7 @@
 <?php
 	if(isset($_POST['update_file']))
 	{
+		$get_id=$_GET['edit'];
 		$st = $conn->query("SELECT Status as st from `tbl_order` where id='$get_id'  ")->fetch_assoc()['st'];
 
 		if($st !='Pending'){
@@ -21,8 +22,8 @@
 					
 				})
 				.then(function() {
-							window.location = "order_history.php";
-						});	
+					window.location = "edit_order.php?edit=" + <?php echo ($get_id); ?>;
+				});	
 			});			
 			  </Script>
 			<?php		
@@ -137,7 +138,7 @@
 								'Your file has been updated.',
 								'success'
 							).then(function() {
-								window.location = "order_history.php";
+								window.location = "edit_order.php?edit=" + <?php echo ($get_id); ?>;
 								});
 							
 							<?php	
@@ -158,7 +159,7 @@
 							'Your file is safe :)',
 							'error'
 						).then(function() {
-							window.location = "order_history.php";
+							window.location = "edit_order.php?edit=" + <?php echo ($get_id); ?>;
 						});
 					}
 				});
@@ -200,7 +201,7 @@
 					
 				})
 				.then(function() {
-							window.location = "order_history.php";
+					window.location = "edit_order.php?edit=" + <?php echo ($get_id); ?>;
 						});			
 			});			
 		</Script>
@@ -224,7 +225,7 @@
 						confirmButtonText: 'Ok Done!'
 						}).then((result) => {
 						if (result.isConfirmed) {
-							window.location = 'order_history.php';
+							window.location = "edit_order.php?edit=" + <?php echo ($get_id); ?>;
 						}
 						});
 					});
@@ -306,7 +307,9 @@
 								<?php if ($role_id = 'Customer'): ?>
 								<?php $query= mysqli_query($conn,"select * from user where id = '$session_id'")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
-								?>						
+								?>	
+								<input type="hidden" name="edit" class="form-control" value="<?php if(isset($_GET['edit'])){ echo $_GET['edit']; }else{ echo "$get_id";} ?>" >
+					
 								<div class="row">
 									<div class="col-md-6 col-sm-12">
 										<div class="form-group">

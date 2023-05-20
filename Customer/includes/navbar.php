@@ -65,99 +65,7 @@ if($role != 'Customer'){
 					</a>
 				</div>
 			</div>
-			<div class="user-notification">
-				<div class="dropdown">
-					<a class="dropdown-toggle no-arrow" href="#" role="button" data-toggle="dropdown">
-						<i class="icon-copy dw dw-notification"></i>
-						<span class="badge notification-active"></span>
-					</a>
-					<div class="dropdown-menu dropdown-menu-right">
-						<div class="notification-list mx-h-350 customscroll">
-							<?php 
-							//$count = $conn->query("SELECT sum(Amount) as total FROM `cash_receipt`   ")->fetch_assoc()['total'];
-							
-							$query_count = mysqli_query($conn,"select * from tbl_order where Status = '' ")or die(mysqli_error());
-							$count = mysqli_num_rows($query_count);
-
-
-							 ?>
-						<h5><?php echo "Orders: ". ($count); ?></h5>
-						 
-							<ul>
-							<?php 
-								//$status="Pending Order";
-								//$sql = "SELECT reg_customer.Name, reg_customer.Email, reg_customer.Location, tbl_order.id,tbl_order.Date,tbl_order.Reason, tbl_order.File,tbl_order.Status FROM tbl_order INNER JOIN reg_customer ON   tbl_order.Cid=reg_customer.id where tbl_order.Status ='' order by tbl_order.Date desc";
-								$time=time();
-								$sql = "SELECT * from user where ID='$session_id' ";
-									$query = mysqli_query($conn, $sql) or die(mysqli_error());
-									while ($row = mysqli_fetch_array($query)) {
-										
-							$status='Offline';
-							$class="btn-danger";
-							if($row['Login_status']>$time){
-									$status='Online';
-									$class="btn-success";
-							}
-
-								 ?> 
-								<li>
-									<a href="#">
-										
-										<!-- <img src="../vendors/images/img.jpg" alt=""> -->
-										<!-- <img src="<?php //echo (!empty($row['Location'])) ? '../uploads/'.$row['Location'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt=""> -->
-										<!-- <h3><?php //echo $row['Name'];?></h3> -->
-										<!-- <p><?php //echo $row['Email'];?></p>
-										<p><?php //echo $row['Date'];?></p> -->
-
-										<td><button type="button" class="btn <?php echo $class?>"><?php echo $status?></button></td>
-
-										
-									</a>
-								</li>
-								<?php }?>
-
-
-
-								<!-- <li>
-									<a href="#">
-										<img src="../vendors/images/photo1.jpg" alt="">
-										<h3>Lea R. Frith</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img src="../vendors/images/photo2.jpg" alt="">
-										<h3>Erik L. Richards</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img src="../vendors/images/photo3.jpg" alt="">
-										<h3>John Doe</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img src="../vendors/images/photo4.jpg" alt="">
-										<h3>Renee I. Hansen</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img src="../vendors/images/img.jpg" alt="">
-										<h3>Vicki M. Coleman</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li> -->
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
+			
 			<!-- Sceripts Online User Update  -->
 					<script>
 						function updateUserStatus(){
@@ -207,15 +115,15 @@ if($role != 'Customer'){
 						</i>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right">
+						<?php 					
+						if($count > 0){
+							?>
+							<h5><?php echo "Xasuusin: ". ($count); ?></h5>
+							<?php }else{
+								echo "Wax Xusuusin Ah Majiraan Mahadsanid.";
+							} ?>
 						<div class="notification-list mx-h-350 customscroll">
-							<?php 
-							//$count = $conn->query("SELECT sum(Amount) as total FROM `cash_receipt`   ")->fetch_assoc()['total'];
 							
-							// $query_count = mysqli_query($conn,"select * from tbl_order where Status = 'Pending' ")or die(mysqli_error());
-							// $count = mysqli_num_rows($query_count);						
-							 ?>
-						<h5><?php echo "Xasuusin: ". ($count); ?></h5>
-						 
 							<ul>
 							<?php 
 								//$status="Pending Order";
@@ -236,45 +144,7 @@ if($role != 'Customer'){
 										
 									</a>
 								</li>
-								<?php }?>
-
-
-
-								<!-- <li>
-									<a href="#">
-										<img src="../vendors/images/photo1.jpg" alt="">
-										<h3>Lea R. Frith</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img src="../vendors/images/photo2.jpg" alt="">
-										<h3>Erik L. Richards</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img src="../vendors/images/photo3.jpg" alt="">
-										<h3>John Doe</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img src="../vendors/images/photo4.jpg" alt="">
-										<h3>Renee I. Hansen</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img src="../vendors/images/img.jpg" alt="">
-										<h3>Vicki M. Coleman</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li> -->
+								<?php }?>								
 							</ul>
 						</div>
 					</div>
@@ -284,62 +154,7 @@ if($role != 'Customer'){
 
 
 
-			<!-- <div class="user-notification">
-				<div class="dropdown">
-					<a class="dropdown-toggle no-arrow" href="#" role="button" data-toggle="dropdown">
-						<i class="icon-copy dw dw-help"></i>
-						<span class="badge notification-active"></span>
-					</a>
-					<div class="dropdown-menu dropdown-menu-right">
-						<div class="notification-list mx-h-350 customscroll">
-							<ul>
-								<li>
-									<a href="#">
-										<img src="../vendors/images/img.jpg" alt="">
-										<h3>John Doe</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img src="../vendors/images/photo1.jpg" alt="">
-										<h3>Lea R. Frith</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img src="../vendors/images/photo2.jpg" alt="">
-										<h3>Erik L. Richards</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img src="../vendors/images/photo3.jpg" alt="">
-										<h3>John Doe</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img src="../vendors/images/photo4.jpg" alt="">
-										<h3>Renee I. Hansen</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img src="../vendors/images/img.jpg" alt="">
-										<h3>Vicki M. Coleman</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div> -->
+			
 
 			
 			<?php $query= mysqli_query($conn,"select * from user where ID = '$session_id'")or die(mysqli_error());

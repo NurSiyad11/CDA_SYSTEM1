@@ -488,6 +488,7 @@
 			</div>	
 			<?php } ?>
 			<!-- Customer else Part Display All Invoice Start -->
+			
 		</div>
 	</div>
 	<!-- js -->

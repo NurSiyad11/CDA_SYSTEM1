@@ -28,3 +28,4 @@
 		});
 	</script>
 
+	<script src="../src/scripts/sweetalert2.min.js"></script>

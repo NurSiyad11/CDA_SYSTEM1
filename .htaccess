@@ -1,2 +1,7 @@
 RewriteEngine On
 RewriteRule ^Home?$ index.php
+
+
+#No Delete This Code
+Options -Indexes
+

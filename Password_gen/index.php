@@ -8,15 +8,15 @@ if(isset($_POST['Create']))
 	$Pass_sts = $conn->query("SELECT Pass_status as st from `user` where ID='$get_id'  ")->fetch_assoc()['st'];
 
 
-	$New_pass=$_POST['New_pass'];
+	$New_pass= md5($_POST['New_pass']);
 	// $Con_pass=$_POST['Con_pass'];
-	if(strlen($New_pass) < 4){		
-		$pass_error='your password need to have minimum 4 Character';
-	}
-	elseif(strlen($New_pass) > 15){
-		$pass_error='your password need to have maximum 15 Character';
-	}
-	elseif($Pass_sts == '0'){
+	// if(strlen($New_pass) < 4){		
+	// 	$pass_error='your password need to have minimum 4 Character';
+	// }
+	// elseif(strlen($New_pass) > 15){
+	// 	$pass_error='your password need to have maximum 15 Character';
+	// }
+	if($Pass_sts == '0'){
 
 
 

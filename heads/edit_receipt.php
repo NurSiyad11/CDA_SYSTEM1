@@ -6,33 +6,49 @@
 <?php
 	if(isset($_POST['Update']))
 	{	
+		$get_id=$_GET['edit'];
 		$st = $conn->query("SELECT Status as st from `receipt` where id='$get_id'  ")->fetch_assoc()['st'];
-
+		$Status=$_POST['Status'];	
 		if($st =='Approved'){
 			?>
 			<Script>
 				window.addEventListener('load',function(){
-					swal({
+					swal.fire({
 						title: "Warning",
-						text: "This Receipt is not updated, b/c you alredy Approved this Receipt ",
+						text: "This Receipt is not <?php echo $Status ?> , b/c you already Approved this Receipt ",
 						icon: "warning",
 						button: "Ok Done!",
 					})
 					.then(function() {
-							window.location = "All_Receipt.php";
-						});
+						window.location = "edit_receipt.php?edit=" + <?php echo ($get_id); ?>;
+					});
 				});			
 			</Script>
 			<?php			
 		}else {
-			$Status=$_POST['Status'];	
+			
 			// $Memo=$_POST['Memo'];	
 
 			$result = mysqli_query($conn,"update receipt set Status='$Status' where id='$get_id'         
 				"); 		
 			if ($result) {			
-				echo "<script>alert('Record Successfully Updated');</script>";
-				echo "<script type='text/javascript'> document.location = 'All_Receipt.php'; </script>";
+				?>
+			<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+						title: "Success",
+						text: "Your  <?php echo $Status ?> This Receipt ",
+						icon: "success",
+						// button: "Ok Done!",
+					})
+					.then(function() {
+						window.location = "edit_receipt.php?edit=" + <?php echo ($get_id); ?>;
+					});
+				});			
+			</Script>
+			<?php	
+				// echo "<script>alert('Record Successfully Updated');</script>";
+				// echo "<script type='text/javascript'> document.location = 'All_Receipt.php'; </script>";
 				
 			} else{
 			die(mysqli_error());
@@ -82,6 +98,8 @@
 									$query = mysqli_query($conn,"SELECT user.Name, user.Com_name, receipt.id, receipt.Cid,receipt.RV ,receipt.Amount,receipt.Date,receipt.Memo,receipt.File,receipt.Status FROM receipt INNER JOIN user ON   receipt.Cid=user.ID  where receipt.id = '$get_id' ")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 									?>
+									<input type="hidden" name="edit" class="form-control" value="<?php if(isset($_GET['edit'])){ echo $_GET['edit']; }else{ echo "$get_id";} ?>" >
+
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label>Company Name :</label>
@@ -144,32 +162,6 @@
 									
 								</div>
 							</section>
-
-							<section>
-                                <div class="row">
-                                    <?php                                    
-                                    $sql="SELECT File from receipt where id='$get_id' ";
-                                    $query=mysqli_query($conn,$sql);
-                                    while ($info=mysqli_fetch_array($query)) {
-                                        ?>
-                                        <?php
-                                        if($info !=''){
-                                           ?>                                       
-                                            <embed type="application/pdf" src="../admin/pdf/<?php echo $info['File'] ; ?>" width="900" height="500">
-                                        <?php
-                                        }else{
-                                           echo "No file found";   
-										?>
-										   <!-- <embed type="application/pdf" src="Rvpdf/Caawiye Design Company.pdf" width="900" height="500">                                   -->
-                                        
-                                        <?php
-                                        }
-                                        ?>
-                                    <?php
-                                    }
-                                    ?>
-                                </div>                                
-                            </section>
 						</form>
 					</div>
 				</div>     
@@ -213,7 +205,7 @@
                                                          
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="submit" name="Update" class="btn btn-primary" >Update</button>
+                                            <button type="submit" name="Update" class="btn btn-primary" >Done</button>
                                             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                                         </div>
                                     </form>

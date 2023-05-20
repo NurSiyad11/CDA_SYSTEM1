@@ -238,28 +238,14 @@
 
 
 
-								<section>
-									<div class="row">
-
-										<?php
-										$sql="SELECT File from invoice where id='$get_id'  ";
-										$query = $dbh -> prepare($sql);
-										$query->execute();
-										$results=$query->fetchAll(PDO::FETCH_OBJ);
-										// $cnt=1;
-										if($query->rowCount() > 0)
-										{
-											foreach($results as $result){  
-								
-										
-												?>  
-                                            <embed type="application/pdf" src="pdf/<?php echo $results['File'] ; ?>" width="900" height="500">
-
-
-										<?php } }?>  
-									</div>
 							
-								</section>
+
+
+
+
+
+
+
 
 
 							<section>
