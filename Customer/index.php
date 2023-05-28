@@ -95,7 +95,7 @@ function showPass()
 										<!-- <div id="" class=" ml-5"> -->													
 											<button class="btn btn-light" type="submit" name="Balance"> <i class="icon-copy dw dw-eye "></i> </button><span class="border-0"></span>
 											
-											Balance
+											Current Account Balance
 										<!-- </div> -->
 									</form>									
 								</div>

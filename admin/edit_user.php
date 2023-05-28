@@ -32,25 +32,28 @@ if (isset($_POST['View_password'])) {
       input: 'password',
       inputLabel: 'Password',
       inputPlaceholder: 'Enter your password',
-    //   inputAttributes: {
-    //     maxlength: 10,
-    //     autocapitalize: 'off',
-    //     autocorrect: 'off'
-    //   }
+      inputAttributes: {
+        maxlength: 10,
+        autocapitalize: 'off',
+        autocorrect: 'off'
+      }
     })
 	// <?php //$pass  ?>= ${password};
 	<?php
-	 $pass = '${password}';
+	//  $pass = '${password}';
+	$pass = htmlentities('${password}');
+	
+	//  $pass = '12345';
 	 
-	$pass1 = $pass;
+	$pass1 = md5("$pass");
 	//$pass2 = $pass;
 	$Pass_Admiministrator = $conn->query("SELECT Password as pass from `user` where id='$session_id'  ")->fetch_assoc()['pass'];
-	if($pass1 != $Pass_Admiministrator){
+	if($pass1 == $Pass_Admiministrator){
 		$Pass_user = $conn->query("SELECT Password as pass from `user` where id='$get_id'  ")->fetch_assoc()['pass'];
 
 
 	?>		
-      Swal.fire(`Entered password: <?php echo  $pass .' qalad '.  $Pass_Admiministrator ?>  if part`)
+      Swal.fire(`Entered password: <?php echo  $pass1 .' qalad '.  $Pass_Admiministrator ?>  if part`)
 	  .then(function() {
 		window.location = "edit_user.php?edit=" + <?php echo ($get_id); ?>;
 		});
@@ -402,10 +405,7 @@ if (isset($_POST['View_password'])) {
 											</select>
 										</div>
 									</div>					
-								</div>
-							
-
-
+								</div>	
 
 								<div class="row">
 									<div class="col-md-12 col-sm-12">
