@@ -20,8 +20,23 @@
 	$result = mysqli_query($conn,"update debt_reminder set Date='$Date', Update_date='$date1', Message='$Message', Memo='$Memo', Status='$Status' where id='$get_id'         
 		"); 		
 	if ($result) {
-     	echo "<script>alert('Record Successfully Updated');</script>";
-     	echo "<script type='text/javascript'> document.location = 'mng_debt_reminder.php'; </script>";
+		?>
+		<Script>
+			window.addEventListener('load',function(){
+				swal.fire({
+					title: "Success",
+					text: "Record Successfully Updated",
+					icon: "success",
+					button: "Ok Done!",
+				})
+				.then(function() {
+							window.location = "edit_debt_reminder.php?edit=" + <?php echo ($get_id); ?>;
+						});
+			});			
+		</Script>
+		<?php
+     	// echo "<script>alert('Record Successfully Updated');</script>";
+     	// echo "<script type='text/javascript'> document.location = 'mng_debt_reminder.php'; </script>";
 	} else{
 	  die(mysqli_error());
    }		
@@ -67,6 +82,8 @@
 									$query = mysqli_query($conn,"SELECT user.Name, user.Com_name, user.Picture, user.Phone, user.Address, debt_reminder.id, debt_reminder.Date, debt_reminder.RegDate, debt_reminder.Update_date, debt_reminder.Message, debt_reminder.Memo, debt_reminder.Status FROM debt_reminder INNER JOIN user ON   debt_reminder.Cid=user.id where debt_reminder.id='$get_id'")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 									?>
+									<input type="hidden" name="edit" class="form-control" value="<?php if(isset($_GET['edit'])){ echo $_GET['edit']; }else{ echo "$get_id";} ?>" >
+
 
 								<div class="row">
 									<div class="col-md-4 col-sm-12">
@@ -225,7 +242,7 @@
                                        
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="submit" name="update" class="btn btn-primary" >Update</button>
+                                            <button type="submit" name="update" class="btn btn-primary" >Done</button>
                                             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                                         </div>
                                     </form>

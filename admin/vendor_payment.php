@@ -2,35 +2,68 @@
 <?php include('../database/session.php')?>
 <?php include('../database/db.php')?>
 <?php
-// if (isset($_GET['delete'])) {
-// 	$delete = $_GET['delete'];
-// 	$sql = "DELETE FROM ven_payment where id = ".$delete;
-// 	$result = mysqli_query($conn, $sql);
-// 	if ($result) {
-// 		echo "<script>alert('Vendor Payment deleted Successfully');</script>";															 
-//      	echo "<script type='text/javascript'> document.location = 'vendor_payment.php'; </script>";		
-// 	}
-// }
+if (isset($_GET['delete'])) {
+	$delete = $_GET['delete'];
+	$sql = "DELETE FROM ven_payment where id = ".$delete;
+	$result = mysqli_query($conn, $sql);
+	if ($result) {
+		echo "<script>alert('Vendor Payment deleted Successfully');</script>";															 
+     	echo "<script type='text/javascript'> document.location = 'vendor_payment.php'; </script>";		
+	}
+}
 ?>
 <?php
 	if(isset($_POST['payment']))
 	{		
-	$name=$_POST['name'];	   
-	$date=$_POST['date']; 	
-	$PV=$_POST['PV'];	
-	$amount=$_POST['amount']; 
-	$memo=$_POST['memo']; 	 	
+		$name=$_POST['name'];	   
+		$date=$_POST['date']; 	
+		$PV=$_POST['PV'];	
+		$amount=$_POST['amount']; 
+		$memo=$_POST['memo']; 	 	
 
-	$Vid = $conn->query("SELECT id as Vid from `user` where Com_name='$name'  ")->fetch_assoc()['Vid'];
-	$Admin_id = $conn->query("SELECT id as Aid from `user` where ID='$session_id'  ")->fetch_assoc()['Aid'];
+		$Vid = $conn->query("SELECT id as Vid from `user` where Com_name='$name'  ")->fetch_assoc()['Vid'];
+		$Admin_id = $conn->query("SELECT id as Aid from `user` where ID='$session_id'  ")->fetch_assoc()['Aid'];
 
-        mysqli_query($conn,"INSERT INTO ven_payment(Admin_id,Vid,Date,V_payment,Amount,Memo) VALUES('$Admin_id','$Vid','$date','$PV','$amount','$memo')         
-		") or die(mysqli_error()); ?>
-		<script>alert('Vendor Payment Records Successfully  Added');</script>;
-		<script>
-		window.location = "vendor_payment.php"; 
-		</script>
-		<?php   }
+		$INV = $conn->query("SELECT sum(Amount) as total FROM `ven_invoice` where Vid='$Vid'  ")->fetch_assoc()['total'];
+		$RV = $conn->query("SELECT sum(Amount) as total FROM `ven_payment` where Vid='$Vid'  ")->fetch_assoc()['total'];
+		$Bal = $INV - $RV;
+		$Ven_Bal_format =number_format((float)$Bal, '2','.',',');
+
+		if($Ven_Bal_format > $amount ){
+			mysqli_query($conn,"INSERT INTO ven_payment(Admin_id,Vid,Date,V_payment,Amount,Memo) VALUES('$Admin_id','$Vid','$date','$PV','$amount','$memo')         
+			") or die(mysqli_error()); ?>
+			<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+						title: "Success",
+						text: "Vendor Payment Records Successfully  Added ",
+						icon: "success",
+						
+					})
+					.then(function() {
+						window.location = "vendor_payment.php";
+					});
+				});			
+			</Script>
+			<?php   
+		}else{
+			?>
+			<Script>
+			window.addEventListener('load',function(){
+				swal.fire({
+					title: "Warning",
+					text: "Your Balance is <?php echo $Ven_Bal_format?>, please make vendor invoice   ",
+					icon: "warning",					
+				})
+				.then(function() {
+					window.location = "vendor_payment.php" ;
+				});
+			});			
+		</Script>
+		<?php
+		}
+	
+	}
 ?>
 
 <body>

@@ -300,6 +300,7 @@
 								<th class="table-plus">Company Name</th>								
 								<th>Time  </th>
 								<th>Status</th> 
+								<th> Recorded By</th>
 								<th class="datatable-nosort">ACTION</th>
 							</tr>
 						</thead>
@@ -308,7 +309,7 @@
 
 								 <?php
 								 $i =1;
-		                         $teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name, user.Picture, support.id, support.Message, support.Time_user, support.Reply, support.Status  FROM support INNER JOIN user ON   support.Cid=user.id  where support.Reply !='' order by support.Time_user Desc") or die(mysqli_error());
+		                         $teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name, user.Picture, support.id, support.Admin_id, support.Message, support.Time_user, support.Reply, support.Status  FROM support INNER JOIN user ON   support.Cid=user.id  where support.Reply !='' order by support.Time_user Desc") or die(mysqli_error());
 		                         while ($row = mysqli_fetch_array($teacher_query)) {
 		                         $id = $row['id'];
 		                             ?>
@@ -323,8 +324,7 @@
 											<div class="weight-600"><?php echo $row['Name']; ?></div>
 										</div>
 									</div>
-								</td>						
-								
+								</td>									
 	                            <td><?php echo $row['Com_name']; ?></td>							
 								<td><?php echo $row['Time_user']; ?></td>                              
 
@@ -339,7 +339,13 @@
 									<span class="badge badge-primary">Pending</span>
 	                                  <?php } 
 	                             ?>    
-								</td>                  
+								</td>   
+								<?php
+                                $admins = $row['Admin_id'];
+                                $query_admin_record = mysqli_query($conn,"SELECT user.Name, support.id FROM support INNER JOIN user ON   support.Admin_id=user.ID  where support.Admin_id='$admins' ") or die(mysqli_error());
+                                $row_admin = mysqli_fetch_array($query_admin_record);
+                                ?>
+								<td><?php echo $row_admin['Name']; ?></td>	               
 									
 								<td>
 									<div class="dropdown">
@@ -375,6 +381,7 @@
 								<th class="table-plus">Company Name</th>								
 								<th>Time  </th>
 								<th>Status</th> 
+								<th> Recorded By</th>
 								<th class="datatable-nosort">ACTION</th>
 							</tr>
 						</thead>
@@ -383,7 +390,7 @@
 
 								 <?php
 								 $i =1;
-		                         $teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name, user.Picture, support.id, support.Message, support.Time_user, support.Reply, support.Status  FROM support INNER JOIN user ON   support.Cid=user.id where support.Status ='Show' order by support.Time_user Desc") or die(mysqli_error());
+		                         $teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name, user.Picture,  support.id, support.Admin_id, support.Message, support.Time_user, support.Reply, support.Status  FROM support INNER JOIN user ON   support.Cid=user.id where support.Status ='Show' order by support.Time_user Desc") or die(mysqli_error());
 		                         while ($row = mysqli_fetch_array($teacher_query)) {
 		                         $id = $row['id'];
 		                             ?>
@@ -414,7 +421,13 @@
 									<span class="badge badge-primary">Pending</span>
 	                                  <?php } 
 	                             ?>    
-								</td>                  
+								</td>  
+								<?php
+                                $admins = $row['Admin_id'];
+                                $query_admin_record = mysqli_query($conn,"SELECT user.Name, support.id FROM support INNER JOIN user ON   support.Admin_id=user.ID  where support.Admin_id='$admins' ") or die(mysqli_error());
+                                $row_admin = mysqli_fetch_array($query_admin_record);
+                                ?>
+								<td><?php echo $row_admin['Name']; ?></td>	             
 									
 								<td>
 									<div class="dropdown">
@@ -451,6 +464,7 @@
 								<th class="table-plus">Company Name</th>								
 								<th>Time  </th>
 								<th>Status</th> 
+								<th> Recorded By</th>
 								<th class="datatable-nosort">ACTION</th>
 							</tr>
 						</thead>
@@ -459,7 +473,7 @@
 
 								 <?php
 								 $i =1;
-		                         $teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name, user.Picture, support.id, support.Message, support.Time_user, support.Reply, support.Status  FROM support INNER JOIN user ON   support.Cid=user.id where support.Status ='Hide' order by support.Time_user Desc") or die(mysqli_error());
+		                         $teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name, user.Picture, support.id, support.Admin_id, support.Message, support.Time_user, support.Reply, support.Status  FROM support INNER JOIN user ON   support.Cid=user.id where support.Status ='Hide' order by support.Time_user Desc") or die(mysqli_error());
 		                         while ($row = mysqli_fetch_array($teacher_query)) {
 		                         $id = $row['id'];
 		                             ?>
@@ -490,8 +504,15 @@
 									<span class="badge badge-primary">Pending</span>
 	                                  <?php } 
 	                             ?>    
-								</td>                  
-									
+								</td>     
+
+								<?php
+                                $admins = $row['Admin_id'];
+                                $query_admin_record = mysqli_query($conn,"SELECT user.Name, support.id FROM support INNER JOIN user ON   support.Admin_id=user.ID  where support.Admin_id='$admins' ") or die(mysqli_error());
+                                $row_admin = mysqli_fetch_array($query_admin_record);
+                                ?>
+								<td><?php echo $row_admin['Name']; ?></td>	
+
 								<td>
 									<div class="dropdown">
 										<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">

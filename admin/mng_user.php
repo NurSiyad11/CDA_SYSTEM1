@@ -17,7 +17,7 @@ if (isset($_GET['delete'])) {
 	if ($result) {
 		echo "<script>alert('User deleted Successfully');</script>";
 															 
-     	echo "<script type='text/javascript'> document.location = 'Mng_user.php'; </script>";
+     	echo "<script type='text/javascript'> document.location = 'mng_user.php'; </script>";
 		
 	}
 }
@@ -148,8 +148,9 @@ if (isset($_GET['delete'])) {
 								<th>Login Status</th>
 								<th>Last Login Time</th>
 								<th>POSITION</th>
-								<th>Status</th>						
+								<th>Status</th>														
 								<th>Created By</th>
+								<th>Gmail</th>
 								<th class="datatable-nosort">ACTION</th>
 							</tr>
 						</thead>
@@ -204,6 +205,16 @@ if (isset($_GET['delete'])) {
 									$admin_Name = $conn->query("SELECT Name as name from `user` where ID='$admin_ID' ")->fetch_assoc()['name'];
 								?>
 								<td> <?php echo ($admin_Name);?></td>
+
+								<td><?php $Gmail_sent=$row['Gmail_sent'];
+	                             if($Gmail_sent=="0"){
+	                              ?>
+                                    <span class="badge badge-danger">Waiting</span>	                                
+	                                  <?php } if($Gmail_sent=="1")  { ?>
+                                       <span class="badge badge-success">Sent</span>
+	                                  <?php } ?>	
+								</td>	
+
 								<td>
 									<div class="dropdown">
 										<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">

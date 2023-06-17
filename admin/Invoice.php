@@ -31,18 +31,34 @@ if (isset($_GET['delete'])) {
 		move_uploaded_file($pdf_tem_loc,$pdf_store);
 	     
      	$cid = $conn->query("SELECT id as cid from `user` where Com_name='$name'  ")->fetch_assoc()['cid'];
-
      	$Admin_id = $conn->query("SELECT id as Aid from `user` where ID='$session_id'  ")->fetch_assoc()['Aid'];
 
-        mysqli_query($conn,"INSERT INTO invoice(Admin_id,Cid,Date,invoice,Amount,Memo,File,Status) 
-		VALUES('$Admin_id','$cid','$date','$invoice','$amount','$memo','$pdf','Pending')         
-		") or die(mysqli_error());?>
-		<script>alert('Invoice Records Successfully  Added');</script>
-		<script>
-		window.location = "Invoice.php"; 
-		</script>
-		<?php  
-	 }
+	
+			mysqli_query($conn,"INSERT INTO invoice(Admin_id,Cid,Date,invoice,Amount,Memo,File,Status) 
+			VALUES('$Admin_id','$cid','$date','$invoice','$amount','$memo','$pdf','Pending')         
+			") or die(mysqli_error());?>
+			<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+						title: "Success",
+						text: "Invoice Records Successfully  Added ",
+						icon: "success",
+						
+					})
+					.then(function() {
+						window.location = "Invoice.php";
+					});
+				});			
+			</Script>
+			<!-- <script>alert('Invoice Records Successfully  Added');</script>
+			<script>
+			window.location = "Invoice.php"; 
+			</script> -->
+			<?php  
+	
+	}
+
+      
 ?>
 
 <body>	

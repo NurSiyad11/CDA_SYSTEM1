@@ -18,6 +18,10 @@
 	<script src="../src/plugins/datatables/js/vfs_fonts.js"></script>
 	<!-- Datatable Setting js -->
 	<script src="../vendors/scripts/datatable-setting.js"></script></body>
+
+	<!-- Script js sweet alert  -->
+	<script src="../src/scripts/sweetalert2.min.js"></script>
+	
 	<!-- js -->
 	<!-- <script src="vendors/scripts/core.js"></script>
 	<script src="vendors/scripts/script.min.js"></script>

@@ -128,7 +128,7 @@
 				}).then((result) => {
 					if (result.isConfirmed) {
 					<?php
-						$query = "UPDATE tbl_order SET File='$pdf' WHERE id='$get_id'";
+						 $query = "UPDATE tbl_order SET File='$pdf' WHERE id='$get_id'";
 						$result = mysqli_query($conn, $query);
 						
 						if ($result === true) {

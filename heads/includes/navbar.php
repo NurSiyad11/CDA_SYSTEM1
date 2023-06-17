@@ -85,8 +85,16 @@ if($role != 'HOD'){
 
 						</i>
 					</a>
-					<div class="dropdown-menu dropdown-menu-right">
-						<h5><?php echo "Orders: ". ($count); ?></h5>
+					<div class="dropdown-menu dropdown-menu-right">						
+						<?php 
+						if($count > 0){
+							?>
+							<h5><?php echo "New Receipts: ". ($count); ?></h5>								
+							<?php }
+						else{							
+							echo "Lacag Qabasho cusub Ma jiraan Mahadsanid !!! ";	
+						}
+						?>							
 						<div class="notification-list mx-h-350 customscroll">				
 			
 							<ul>
@@ -96,7 +104,7 @@ if($role != 'HOD'){
 									$query = mysqli_query($conn, $sql) or die(mysqli_error());
 									while ($row = mysqli_fetch_array($query)) {
 
-								 ?> 
+								?> 
 								<li>
 									<a href="New_Receipt.php">
 										
@@ -137,7 +145,7 @@ if($role != 'HOD'){
 					</a>
 					<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 						<a class="dropdown-item" href="Profile.php"><i class="dw dw-user1"></i> Profile</a>
-						<a class="dropdown-item" href="setting.php"><i class="dw dw-settings2"></i> Setting</a>
+						<!-- <a class="dropdown-item" href="setting.php"><i class="dw dw-settings2"></i> Setting</a> -->
 						<a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>
 						<a class="dropdown-item" href="../logout.php"><i class="dw dw-logout"></i> Log Out</a>
 					</div>

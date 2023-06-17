@@ -20,6 +20,7 @@ use PHPMailer\PHPMailer\Exception;
         $Message = $_POST['Message'];
         $Email = $_POST['To'];
 
+
 			$query_user = mysqli_query($conn,"select * from user where Email = '$Email' ")or die(mysqli_error());
             $row_user = mysqli_fetch_assoc($query_user);
 
@@ -100,7 +101,7 @@ use PHPMailer\PHPMailer\Exception;
 					<table  border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"\" >
 						<tr>
 							<th>
-							<Strong>Customer Information : </strong>
+							<Strong>User Information : </strong>
 							</th>		
 							<th></th>
 						
@@ -157,7 +158,7 @@ use PHPMailer\PHPMailer\Exception;
             ?>
             <script>alert('Email Sent Successfully . ');</script>;            
             <?php
-            // mysqli_query($conn,"update apply_form set Send_email='1' where id='$get_id' ") or die(mysqli_error());
+            mysqli_query($conn,"update user set Gmail_sent='1' where ID='$ID_gmail' ") or die(mysqli_error());
             ?>
                 <script>       
                window.location = "user_send_email.php"; 
@@ -212,7 +213,7 @@ use PHPMailer\PHPMailer\Exception;
 
                 <div class="card mt-5">
                     <div class="card-header text-center">
-                        <h4>Send Email User Info</h4>
+                        <h4> Email sending section for the user to create a New password</h4>
                     </div>
                     <div class="card-body">
 
@@ -360,8 +361,8 @@ use PHPMailer\PHPMailer\Exception;
 									
 										
 										<div class="form-group">
-											<label>Message</label>
-											<textarea class="form-control" name="Message" required autocomplete="off" ></textarea>
+											<label>Signatur of Sender  </label>
+											<textarea class="form-control" name="Message" placeholder="Enter The Signature Or Sender Name " required autocomplete="off" ></textarea>
 										</div>
 
 									</div>

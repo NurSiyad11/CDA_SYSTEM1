@@ -680,20 +680,20 @@ button {
 /** end blog section **/
 
 
-/** contact section **/
+/** contact section    #bebcbc        #d8d6d6        #fff solid 1px;**/
 
 .contact {
-     background: #bebcbc;
+     background: #ffffff;
      margin-top: 90px;
 }
 
 .main_form .contactus {
-     border: #fff solid 1px;
+     border: #130303 solid 1px;
      padding: 0 15px;
      margin-bottom: 25px;
      width: 100%;
      height: 58px;
-     background: #d8d6d6;
+     background: #ffffff;
      color: #000000;
      font-size: 18px;
      font-weight: normal;
@@ -701,10 +701,10 @@ button {
 }
 
 .main_form .textarea {
-     border: #fff solid 1px;
+     border: #130303 solid 1px;
      margin-bottom: 25px;
      width: 100%;
-     background: #cacaca;
+     background: #ffffff;
      color: #000000;
      font-size: 18px;
      font-weight: normal;

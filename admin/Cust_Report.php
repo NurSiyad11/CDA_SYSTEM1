@@ -53,14 +53,14 @@
 							<div class="col-4">
 								<div class="from-group">
 									<label > From Date  </label>
-									<input type="date" name="from_date" class="form-control" value="<?php if(isset($_GET['from_date'])){ echo $_GET['from_date']; } ?>">
+									<input type="date" name="from_date" class="form-control" value="<?php //if(isset($_GET['from_date'])){ echo $_GET['from_date']; } ?>">
 								</div>
 							</div>
 							
 							<div class="col-4">
 								<div class="from-group">
 									<label > To Date  </label>
-									<input type="date" name="to_date" class="form-control" value="<?php if(isset($_GET['to_date'])){ echo $_GET['to_date']; } ?>" >
+									<input type="date" name="to_date" class="form-control" value="<?php //if(isset($_GET['to_date'])){ echo $_GET['to_date']; } ?>" >
 								</div>
 							</div>
 

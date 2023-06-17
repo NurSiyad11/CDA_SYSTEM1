@@ -19,7 +19,8 @@
 	<!-- Datatable Setting js -->
 	<script src="../vendors/scripts/datatable-setting.js"></script></body>
 	<!-- Script js sweet alert  -->
-	<script src="../src/scripts/sweetalert.min.js"></script>
+	<!-- <script src="../src/scripts/sweetalert.min.js"></script> -->
+	<script src="../src/scripts/sweetalert2.min.js"></script>
 
 
 	<!-- js table2excel -->

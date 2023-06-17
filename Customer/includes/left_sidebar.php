@@ -62,6 +62,12 @@
 							<span class="micon dw dw-help"></span><span class="mtext">Support</span>
 						</a>
 						
+						<!-- <a href="live-chat/index.php" class="dropdown-toggle no-arrow">
+							<span class="micon dw dw-help"></span><span class="mtext">Chating</span>
+						</a>
+						<a href="chat.php" class="dropdown-toggle no-arrow">
+							<span class="micon dw dw-help"></span><span class="mtext">Contact</span>
+						</a> -->
                     </li>
 					
                     <!-- <li class="dropdown">

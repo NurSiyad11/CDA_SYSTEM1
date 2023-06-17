@@ -1236,9 +1236,6 @@ if (isset($_GET['delete'])) {
 			</div>
 			<?php }?>
 			<!-- Customer Else Part Display All Order END -->
-
-
-
 				<?php
 				}
 			?>

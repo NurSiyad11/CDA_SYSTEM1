@@ -43,8 +43,21 @@ if (isset($_POST["update_image"])) {
 	$result = mysqli_query($conn,"update user set Name='$name', Com_name='$com_name',  Address='$address',  Phone='$phone' where id='$session_id'         
 		"); 		
 	if ($result) {
-     	echo "<script>alert('Record Successfully Updated');</script>";
-     	echo "<script type='text/javascript'> document.location = 'my_profile.php'; </script>";
+		?>
+			<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+						title: "Success",
+						text: "Record Successfully Updated  ",
+						icon: "success",
+						
+					})
+					.then(function() {
+								window.location = "my_profile.php";
+							});
+				});			
+			</Script>
+		<?php	
 	} else{
 	  die(mysqli_error());
    }		
@@ -66,15 +79,28 @@ if (isset($_POST["update_image"])) {
 		$result = mysqli_query($conn,"update user set Email='$Email', password='$Confirm_pass' where id='$session_id'         
 			"); 		
 		if ($result) {
-			echo "<script>alert('Password Changed Successfully ');</script>";
-			echo "<script type='text/javascript'> document.location = 'my_profile.php'; </script>";
+			?>
+			<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+						title: "Success",
+						text: "Password Changed Successfully   ",
+						icon: "success",
+						
+					})
+					.then(function() {
+								window.location = "my_profile.php";
+							});
+				});			
+			</Script>
+			<?php	
 		} else{
 		die(mysqli_error());
 		}
 	}	else{ ?>
 		<script>
 		window.addEventListener('load',function(){
-			swal({
+			swal.fire({
 				//title: "Warning",
 				text: "Your Old Password is incorrect Please Enter The Coorect Password ",
 				icon: "warning",

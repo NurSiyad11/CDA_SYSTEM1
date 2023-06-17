@@ -26,9 +26,9 @@
 			<?php			
 		}else {
 			$Status=$_POST['Status'];	
-			$Memo=$_POST['Memo'];	
+			$Reason=$_POST['Reason'];	
 
-			$result = mysqli_query($conn,"update invoice set Memo='$Memo', Status='$Status' where id='$get_id'         
+			$result = mysqli_query($conn,"update invoice set Reason='$Reason', Status='$Status' where id='$get_id'         
 				"); 		
 			if ($result) {		
 				?>
@@ -95,7 +95,7 @@
 								<?php
 									//$query = mysqli_query($conn,"SELECT user.Name ,  invoice_receipt.invoice ,invoice_receipt.Amount,invoice_receipt.Date,invoice_receipt.Memo,invoice_receipt.Status, invoice_receipt.File  FROM invoice_receipt INNER JOIN user ON   invoice_receipt.Cid=user.ID where invoice_receipt.id='$get_id'")or die(mysqli_error());
 									
-									$query = mysqli_query($conn,"SELECT user.Name ,  invoice.invoice ,invoice.Amount,invoice.Date,invoice.Memo,invoice.Status, invoice.File  FROM invoice INNER JOIN user ON   invoice.Cid=user.ID where invoice.id='$get_id'")or die(mysqli_error());
+									$query = mysqli_query($conn,"SELECT user.Name ,  invoice.invoice ,invoice.Amount,invoice.Date,invoice.Memo,invoice.Reason,invoice.Status, invoice.File  FROM invoice INNER JOIN user ON   invoice.Cid=user.ID where invoice.id='$get_id'")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 									?>
 								<input type="hidden" name="edit" class="form-control" value="<?php if(isset($_GET['edit'])){ echo $_GET['edit']; }else{ echo "$get_id";} ?>" >
@@ -120,8 +120,7 @@
 											<input name="order" type="text" class="form-control wizard-required" required="true" autocomplete="off"  readonly value="<?php echo "$ ".$row['Amount']; ?>">
 										</div>
 									</div>
-								</div>
-
+								</div>						
 
 								<div class="row">
 									<div class="col-md-2 col-sm-12">
@@ -136,6 +135,17 @@
 										</div>
 									</div>								
 								</div>
+								<?php 
+									$sts = $conn->query("SELECT Status as st from `invoice` where id='$get_id'  ")->fetch_assoc()['st'];
+									if($sts == 'Rejected'){										
+								?>
+								<div class="col-md-12">
+									<div class="form-group">
+										<label>Reason To Rejected</label>
+										<textarea name="Reason" style="height: 3em;" readonly placeholder="Reason" class="form-control text_area" type="text" ><?php echo $row['Reason']; ?></textarea>
+									</div>
+								</div>								
+								<?php } ?>
 
 								<div class="row">
 									<div class="col-md-4 col-sm-12">
@@ -223,34 +233,44 @@
                                             <!-- <h4 class="text-blue h4 mb-10">Add Event Detai</h4> -->
                                          
 											<div class="col-md-12 col-sm-12">
-                                                <div class="form-group">
-                                                    <label>Status :</label>
-                                                    <select name="Status" class="custom-select form-control" required="true" autocomplete="off">
-                                                        <option value="<?php echo $row['Status']; ?>"><?php echo $row['Status']; ?></option>
-                                                    
-                                                        <option value="Approved">Approved</option>
-                                                        <option value="Rejected">Rejected</option>
-                                                    </select>
-                                                </div>
-                                            </div>	   
+												<div class="form-group">
+												<label>Status :</label>
+												<select name="Status" id="status" class="custom-select form-control" required="true" autocomplete="off">
+													<option value="<?php echo $row['Status']; ?>"><?php echo $row['Status']; ?></option>
+
+													<option value="Approved">Approved</option>
+													<option value="Rejected">Rejected</option>
+												</select>
+												</div>
+											</div>	   
                                           
-                                            <div class="form-group">
-                                                <label>Message</label>
-                                                <textarea class="form-control" name="Memo" required autocomplete="off" ><?php echo $row['Memo']; ?> 
-                                                </textarea>
-                                            </div>
-                                                                                 
-                                         
-                                       
+                                            <div class="form-group" id="memo-div" style="display: none;">
+												<label>Reason To Reject</label>
+												<textarea class="form-control"  name="Reason"  autocomplete="off"><?php echo $row['Reason']; ?></textarea>
+											</div>	                                                                           
+                                                                                
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="submit" name="Update" class="btn btn-primary" >Update</button>
+                                            <button type="submit" name="Update" class="btn btn-primary" >Done</button>
                                             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                                         </div>
-                                    </form>
-									
+                                    </form>									
                                 </div>
-                               
+								<script>
+									// Get the select element and the memo-div element
+									const statusSelect = document.getElementById('status');
+									const memoDiv = document.getElementById('memo-div');
+
+									// Add a change event listener to the select element
+									statusSelect.addEventListener('change', function() {
+										// If the selected value is "Rejected", show the memo-div element, otherwise hide it
+										if (statusSelect.value === 'Rejected') {
+										memoDiv.style.display = 'block';
+										} else {
+										memoDiv.style.display = 'none';
+										}
+									});
+								</script>  
                             </div>
                         </div>
                     </div>					

@@ -30,7 +30,23 @@ require('UserInfo.php');
         </Script>
         <?php	
     }
-    
+    elseif($row['otp_expiration'] == 0 ){
+        ?>
+        <Script>
+            window.addEventListener('load',function(){
+                swal.fire({
+                    title: "Warning",
+                    text: "OTP Expired, Please Check Your OTP !!! ",							
+                    icon: "warning",
+                    button: "Ok!",
+                })
+                .then(function() {
+                            window.location = "verification.php";
+                        });
+            });			
+        </Script>
+        <?php	
+    }
       //  Admin 
     elseif($row['Role'] == 'Admin') {
         $_SESSION['alogin']=$row['ID'];	  
@@ -39,15 +55,16 @@ require('UserInfo.php');
         $date->modify('+2 hour');
         $date3 = $date->format("D-d-m-Y h:i:s a");
 
+        $time=time()+1800; // 30 daqiiqo 
     
-        // $query=mysqli_query($conn,"update user set Login_status='$time', Login_time='$date3' where ID=".$_SESSION['alogin']);
+        $query=mysqli_query($conn,"update user set Login_status='$time', Login_time='$date3', otp_expiration= '0' where ID=".$_SESSION['alogin']);
             
         $session = $row['ID'];
         $get_device= UserInfo::get_device();
         $get_os= UserInfo::get_os();
         $get_browser= UserInfo::get_browser();
 
-        $time=time()+1800; // 30 daqiiqo 
+        
         //   $F_time = $time->format("h:i:s a");
 
             // mysqli_query($conn,"INSERT INTO user_info(UID,Device,OS,Browser,Login_time,Login_status) VALUES('$session','$get_device','$get_os','$get_browser', '$date3' ,'$time' )         
@@ -72,6 +89,9 @@ require('UserInfo.php');
 
    $time=time()+1800; // 30 daqiiqo 
 
+   $query=mysqli_query($conn,"update user set Login_status='$time', Login_time='$date3', otp_expiration= '0' where ID=".$_SESSION['alogin']);
+
+
     // mysqli_query($conn,"INSERT INTO user_info(UID,Device,OS,Browser,Login_time,Login_status) VALUES('$session','$get_device','$get_os','$get_browser', '$date3' ,'$time' )         
     // ") or die(mysqli_error()); 
 
@@ -94,6 +114,7 @@ require('UserInfo.php');
 
         $time=time()+1800; // 30 daqiiqo 
 
+        $query=mysqli_query($conn,"update user set Login_status='$time', Login_time='$date3', otp_expiration= '0' where ID=".$_SESSION['alogin']);
 
     
 
@@ -116,6 +137,9 @@ require('UserInfo.php');
         $get_browser= UserInfo::get_browser();
 
         $time=time()+1800; // 30 daqiiqo 
+
+        $query=mysqli_query($conn,"update user set Login_status='$time', Login_time='$date3', otp_expiration= '0' where ID=".$_SESSION['alogin']);
+
 
     //  mysqli_query($conn,"INSERT INTO user_info(UID,Device,OS,Browser,Login_time,Login_status) VALUES('$session','$get_device','$get_os','$get_browser', '$date3' ,'$time' )         
     //  ") or die(mysqli_error()); 

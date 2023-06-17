@@ -11,14 +11,14 @@
 			?>
 			<Script>
 				window.addEventListener('load',function(){
-					swal({
+					swal.fire({
 						title: "Warning",
 						text: "This  is not updated, b/c your Approved this  ",
 						icon: "warning",
 						button: "Ok Done!",
 					})
 					.then(function() {
-								window.location = "Requested.php";
+								window.location = "edit_requested.php";
 							});
 				});			
 			</Script>
@@ -29,10 +29,25 @@
 
 			$result = mysqli_query($conn,"update apply_form set Memo='$Memo', Status='$Status' where id='$get_id'         
 				"); 		
-			if ($result) {			
-				echo "<script>alert('Record Successfully Updated');</script>";
-				echo "<script type='text/javascript'> document.location = 'Requested.php'; </script>";
-				// header('location: edit_invoice_check.php');
+			if ($result) {		
+				?>
+				<Script>
+					window.addEventListener('load',function(){
+						swal.fire({
+							title: "Success",
+							text: "Record Successfully <?php echo $Status?>",
+							icon: "success",
+							button: "Ok Done!",
+						})
+						.then(function() {
+									window.location = "edit_requested.php?edit=" + <?php echo ($get_id); ?>;
+								});
+					});			
+				</Script>
+			<?php	
+				// echo "<script>alert('Record Successfully Updated');</script>";
+				// echo "<script type='text/javascript'> document.location = 'Requested.php'; </script>";
+				
 			} else{
 			die(mysqli_error());
 		}	
@@ -81,6 +96,7 @@
 									$query = mysqli_query($conn,"SELECT * FROM apply_form where id='$get_id'")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 									?>
+									<input type="hidden" name="edit" class="form-control" value="<?php if(isset($_GET['edit'])){ echo $_GET['edit']; }else{ echo "$get_id";} ?>" >
 
 								<div class="row">
 									<div class="col-md-6 col-sm-12">
@@ -213,7 +229,7 @@
                                        
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="submit" name="Update" class="btn btn-primary" >Update</button>
+                                            <button type="submit" name="Update" class="btn btn-primary" >Done</button>
                                             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                                         </div>
                                     </form>

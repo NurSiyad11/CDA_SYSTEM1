@@ -41,9 +41,9 @@
 						<ul class="submenu">
 							<li><a href="Invoice.php">Invoice</a></li>
 							<li><a href="Receipt.php">Recipts</a></li>
-							<li><a href="test.php">Test Sms send</a></li>
+							<!-- <li><a href="test.php">Test Sms send</a></li>
 
-							<li><a href="test2.php"> Hormud Sms send</a></li>
+							<li><a href="test2.php"> Hormud Sms send</a></li> -->
 						</ul>
 					</li>
 
@@ -81,6 +81,10 @@
 							<li><a href="Cust_Report.php">Customer Report</a></li>
                             <li><a href="Supplier_report.php">Suppliers Report</a></li>
 						</ul>
+					</li>
+
+					<li>
+						<div class="dropdown-divider"></div>
 					</li>
 
 					<li>
@@ -150,6 +154,7 @@
 							<li><a href="user.php">Register User</a></li>
 							<li><a href="mng_user.php">Manage User</a></li>
 							<li><a href="user_send_email.php">Send Email</a></li>
+							<li><a href="user_send_reset_password.php">Send Reset Password</a></li>
 							<li><a href="user_info_individual.php"> User info</a></li>
 						</ul>
 					</li>
@@ -162,9 +167,9 @@
 						<ul class="submenu">
 							<li><a href="Invoice.php">Invoice</a></li>
 							<li><a href="Receipt.php">Recipts</a></li>
-							<li><a href="test.php">Test Sms send</a></li>
+							<!-- <li><a href="test.php">Test Sms send</a></li>
 
-							<li><a href="test2.php"> Hormud Sms send</a></li>
+							<li><a href="test2.php"> Hormud Sms send</a></li> -->
 						</ul>
 					</li>
 
@@ -205,6 +210,10 @@
 					</li>
 
 					<li>
+						<div class="dropdown-divider"></div>
+					</li>
+
+					<li>
 						<div class="sidebar-small-cap">Extra</div>
 					</li>
 
@@ -225,7 +234,7 @@
 						<ul class="submenu">
 							<li><a href="All_order.php">Orders</a></li>
 							<li><a href="All_Support.php">Support</a></li>
-							<li><a href="Testing.php">Testing</a></li>
+							<li><a href="Web_contact.php">Web Contact</a></li>
 						
 						</ul>
 					</li>
@@ -259,6 +268,11 @@
                     <li class="dropdown">
 						<a href="video.php" class="dropdown-toggle no-arrow">
 							<span class="micon dw dw-eye"></span><span class="mtext">Video</span>
+						</a>						
+                    </li>
+					<li class="dropdown">
+						<a href="chat.php" class="dropdown-toggle no-arrow">
+							<span class="micon dw dw-eye"></span><span class="mtext">Chating</span>
 						</a>						
                     </li>
 			

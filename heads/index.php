@@ -24,9 +24,9 @@
 								?> 
 								<div class="row">
 									<div id="" class=" ml-5">
-										<img src="../vendors/images/img/cash.png" class="border-radius-100 shadow" width="40" height="40" alt="">
+										<img src="../vendors/images/img/dollar7.png" class="border-radius-100 shadow" width="30" height="30" alt="">
 									</div>
-									<h4 class=" ml-3 text-center" style="color:bl"><?php echo  "$ " .($format) ?> </h4>
+									<h5 class=" ml-3 text-center" style="color:bl"><?php echo  "USD " .($format) ?> </h5>
 								</div>							
 							</div>
 						</div>
@@ -44,9 +44,9 @@
 								?>
 								<div class="row">
 									<div id="" class=" ml-5">
-										<img src="../vendors/images/img/cash.png" class="border-radius-100 shadow" width="40" height="40" alt="">
+										<img src="../vendors/images/img/dollar7.png" class="border-radius-100 shadow" width="30" height="30" alt="">
 									</div>
-									<h4 class=" ml-3 text-center"><?php echo "$ " . ($format) ?> </h4>
+									<h5 class=" ml-3 text-center"><?php echo "USD " . ($format) ?> </h5>
 								</div>
 								<!-- <h5 class="card-title ml-2 text-cente"> Cash On Hand</h5> -->
 								<!-- <p class="card-text"></p> -->
@@ -66,9 +66,9 @@
 								?>
 								<div class="row">
 									<div id="" class=" ml-5">
-										<img src="../vendors/images/img/cash.png" class="border-radius-100 shadow" width="40" height="40" alt="">
+										<img src="../vendors/images/img/dollar7.png" class="border-radius-100 shadow" width="30" height="30" alt="">
 									</div>
-									<h4 class=" ml-3 text-center  "><?php echo "$ " . ($format) ?> </h4>
+									<h5 class=" ml-3 text-center  "><?php echo "USD " . ($format) ?> </h5>
 								</div>								
 							</div>
 						</div>

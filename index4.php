@@ -15,7 +15,7 @@ include('database/db.php');
 if(isset($_POST['signin']))
 {
 	$username=$_POST['username'];
-	$password=$_POST['password'];
+	$password=md5($_POST['password']);
 
 
 
@@ -40,20 +40,37 @@ if(isset($_POST['signin']))
 							button: "Ok!",
 						})
 						.then(function() {
-									window.location = "index.php";
+									window.location = "index4.php";
 								});
 					});			
 				</Script>
 				<?php	
-			}	
-            else{
+			}
+         elseif($row['Role'] == 'Vendor'){
+            ?>
+               <Script>
+                  window.addEventListener('load',function(){
+                     swal.fire({
+                        title: "Warning",
+                        text: "You are unable to access this system. .... ",
+                        icon: "warning",
+                       // button: "Ok !",
+                     })
+                     .then(function() {
+                              window.location = "index4.php";
+                           });
+                  });			
+               </Script>
+		      <?php	
+          }	
+         else{
                 $_SESSION['alogin']=$row['ID'];      
             
                 $session = $row['ID'];
                 $otp = sprintf("%'.06d",mt_rand(0,999999));
-                $expiration = date("Y-m-d H:i" ,strtotime(date('Y-m-d H:i')." +1 mins"));
+               // $expiration = date("Y-m-d H:i" ,strtotime(date('Y-m-d H:i')." +1 mins"));
           
-                $query=mysqli_query($conn,"update user set otp='$otp', otp_expiration='$expiration' where ID=".$_SESSION['alogin']);
+                $query=mysqli_query($conn,"update user set otp='$otp', otp_expiration='1' where ID=".$_SESSION['alogin']);
                   $name=$row['Name'];       
                 // $email_address=$row['Email'];
 

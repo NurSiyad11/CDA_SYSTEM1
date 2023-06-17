@@ -2,16 +2,18 @@
 <?php include('../database/session.php')?>
 <?php include('../database/db.php')?>
 <?php
-// if (isset($_GET['delete'])) {
-// 	$delete = $_GET['delete'];
-// 	$sql = "DELETE FROM ven_invoice where id = ".$delete;
-// 	$result = mysqli_query($conn, $sql);
-// 	if ($result) {
-// 		echo "<script>alert('Record deleted Successfully');</script>";															 
-//      	echo "<script type='text/javascript'> document.location = 'vendor_Invoice.php'; </script>";		
-// 	}
-// }
+if (isset($_GET['delete'])) {
+	$delete = $_GET['delete'];
+	$sql = "DELETE FROM ven_invoice where id = ".$delete;
+	$result = mysqli_query($conn, $sql);
+	if ($result) {
+		echo "<script>alert('Record deleted Successfully');</script>";															 
+     	echo "<script type='text/javascript'> document.location = 'vendor_Invoice.php'; </script>";		
+	}
+}
 ?>
+
+
 <?php
 	if(isset($_POST['V_Invoice']))
 	{
@@ -21,17 +23,31 @@
 	$amount=$_POST['amount']; 
 	$memo=$_POST['memo']; 	
 		     
-     $Vid = $conn->query("SELECT id as Vid from `user` where Com_name='$name'  ")->fetch_assoc()['Vid'];
-	 $Admin_id = $conn->query("SELECT id as Aid from `user` where ID='$session_id'  ")->fetch_assoc()['Aid'];
+    $Vid = $conn->query("SELECT id as Vid from `user` where Com_name='$name'  ")->fetch_assoc()['Vid'];
+	$Admin_id = $conn->query("SELECT id as Aid from `user` where ID='$session_id'  ")->fetch_assoc()['Aid'];
 
         mysqli_query($conn,"INSERT INTO ven_invoice(Admin_id,Vid,Date,V_invoice,Amount,Memo) 
 		VALUES('$Admin_id','$Vid','$date','$invoice','$amount','$memo')         
 		") or die(mysqli_error()); ?>
-		<script>alert('Vendor Invoice Record Successfully  Added');</script>;
+		<Script>
+			window.addEventListener('load',function(){
+				swal.fire({
+					title: "Success",
+					text: "Vendor Invoice Records Successfully  Added ",
+					icon: "success",
+					
+				})
+				.then(function() {
+					window.location = "vendor_invoice.php";
+				});
+			});			
+		</Script>
+		<!-- <script>alert('Vendor Invoice Record Successfully  Added');</script>;
 		<script>
 		window.location = "vendor_Invoice.php"; 
-		</script>
-		<?php   }
+		</script> -->
+		<?php   
+	}
 ?>
 <body>	
 	<?php include('includes/navbar.php')?>
@@ -190,7 +206,7 @@
 											?>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 												<a class="dropdown-item" href="edit_Ven_invoice.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> Edit</a>
-												<!-- <a class="dropdown-item" href="vendor_invoice.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a> -->
+												<a class="dropdown-item" href="vendor_invoice.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
 											</div>
 										</div>
 									</td>

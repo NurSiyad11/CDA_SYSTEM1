@@ -56,31 +56,7 @@ function showPass()
 	<?php include('includes/left_sidebar.php') ?>	
 	<div class="mobile-menu-overlay"></div>
 
-	<!-- <div class="main-container">
-		<div class="pd-ltr-1">	
-			<div class="row">
-				<div class="col-12 mb-">
-					<div class="card text-bg-primary mb-3">
-						<div class="card-header text-center bg-blue" style="color:white">Cash On Hand</div>
-						<div class="card-body">
-							<?php
-							// $RV = $conn->query("SELECT sum(Amount) as total FROM `cash_receipt`   ")->fetch_assoc()['total'];
-							// $PV = $conn->query("SELECT sum(Amount) as total FROM `cash_payment`   ")->fetch_assoc()['total'];
-							// $Bal = $RV - $PV;
-							// $format =number_format((float)$Bal, '2','.',',');
-							?> 
-							<div class="row">
-								<div id="" class=" ml-5">
-									<img src="../vendors/images/img/cash.png" class="border-radius-100 shadow" width="40" height="40" alt="">
-								</div>
-								<h4 class=" ml-3 text-center" style="color:bl"><?php// echo  "$ " .($format) ?> </h4>
-							</div>							
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div> -->
+
 
 	<div class="main-container">
 		<div class="pd-ltr-20">	
@@ -91,12 +67,8 @@ function showPass()
 						<div class="row">
 							<div class="col-12">
 								<div class="card-header text-center bg-blue" style="color:white">
-									<form action="" method="POST">	
-										<!-- <div id="" class=" ml-5"> -->													
-											<button class="btn btn-light" type="submit" name="Balance"> <i class="icon-copy dw dw-eye "></i> </button><span class="border-0"></span>
-											
-											Current Account Balance
-										<!-- </div> -->
+									<form action="" method="POST">																							
+										<button class="btn btn-light" type="submit" name="Balance"> <i class="icon-copy dw dw-eye "></i> </button><span class="border-0 ml-3"> Current Account Balance</span>
 									</form>									
 								</div>
 							</div>
@@ -119,7 +91,7 @@ function showPass()
 										</div>
 									</form> -->
 									<!-- <p class=" ml-3 text-center" style="color:bl">Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add. You can also type a keyword to search online for the video that best fits your document.</p> -->
-									<!-- <h4 class=" ml-3 text-center" style="color:bl"><?php echo  "$ " .($format) ?> </h4> -->
+									<!-- <h4 class=" ml-3 text-center" style="color:bl"><?php //echo  "$ " .($format) ?> </h4> -->
 								</div>
 							</div>							
 						</div>
@@ -276,16 +248,16 @@ function showPass()
 					</div>
 				<div class="pb-20">
 					<table class="data-table table stripe hover nowrap">
-						<thead class="table-primary">
+						<thead class="table-dark">
 							<tr>		
 								<th>NO#</th>								
-								<th> Invoice No#</th>
-								<th>Date</th>
-								<th>Amount</th>
-								<th>Description</th>	
-								<th>Status  </th>			
+								<th class="datatable-nosort"> Invoice No#</th>
+								<th class="datatable-nosort">Date</th>
+								<th class="datatable-nosort">Amount</th>
+								<th class="datatable-nosort">Description</th>	
+								<th class="datatable-nosort">Status  </th>			
 								<!-- <th>File  </th>		 -->
-								<th>ACTION</th>	
+								<th class="datatable-nosort">ACTION</th>	
 							</tr>
 						</thead>
 

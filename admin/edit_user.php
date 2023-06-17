@@ -5,109 +5,8 @@
 
 
 <?php $get_id = $_GET['edit']; ?>
-<!-- Change Password -->
-<?php
-// 	if(isset($_POST['pass_change']))
-// 	{
-// 	$password=$_POST['password'];
-// 	$result = mysqli_query($conn,"update user set password='$password' where id='$get_id'         
-// 		"); 		
-// 	if ($result) {
-//      	echo "<script>alert('Password Changed Successfully ');</script>";
-//      	echo "<script type='text/javascript'> document.location = 'mng_user.php'; </script>";
-// 	} else{
-// 	  die(mysqli_error());
-//    }		
-// }
-?>
 
 
-<?php
-if (isset($_POST['View_password'])) {
-?>
-<script>
-  window.addEventListener('load', async function() {
-    const { value:password } = await Swal.fire({
-      title: 'Enter your password',
-      input: 'password',
-      inputLabel: 'Password',
-      inputPlaceholder: 'Enter your password',
-      inputAttributes: {
-        maxlength: 10,
-        autocapitalize: 'off',
-        autocorrect: 'off'
-      }
-    })
-	// <?php //$pass  ?>= ${password};
-	<?php
-	//  $pass = '${password}';
-	$pass = htmlentities('${password}');
-	
-	//  $pass = '12345';
-	 
-	$pass1 = md5("$pass");
-	//$pass2 = $pass;
-	$Pass_Admiministrator = $conn->query("SELECT Password as pass from `user` where id='$session_id'  ")->fetch_assoc()['pass'];
-	if($pass1 == $Pass_Admiministrator){
-		$Pass_user = $conn->query("SELECT Password as pass from `user` where id='$get_id'  ")->fetch_assoc()['pass'];
-
-
-	?>		
-      Swal.fire(`Entered password: <?php echo  $pass1 .' qalad '.  $Pass_Admiministrator ?>  if part`)
-	  .then(function() {
-		window.location = "edit_user.php?edit=" + <?php echo ($get_id); ?>;
-		});
-	<?php
-	}else{
-		?>
-		Swal.fire(`Please check Your Password  <?php echo $pass .' sax '.  $Pass_Admiministrator?>  else part `)
-		.then(function() {
-		  window.location = "edit_user.php?edit=" + <?php echo ($get_id); ?>;
-		  });
-		  <?php
-	}
-	?>
-   
-  });
-</script>
-<?php
-}
-?>
-
-
-
-
-
-
-
-
-<?php
-
-	// if(isset($_POST['View_passwor'])) 
-	// {
-		?>
-		<script>
-			// window.addEventListener('load', async function(){
-			// 	const { value: password } = await Swal.fire({
-			// 		title: 'Enter your password',
-			// 		input: 'password',
-			// 		inputLabel: 'Password',
-			// 		inputPlaceholder: 'Enter your password',
-			// 		inputAttributes: {
-			// 		maxlength: 10,
-			// 		autocapitalize: 'off',
-			// 		autocorrect: 'off'
-			// 		}
-			// 	})
-				
-			// 	if (password) {
-			// 		Swal.fire(`Entered password: ${password}`)
-			// 	}
-			// });
-		</script>
-		<?php
-	//}
-?>
 
 <!-- Update users   && $_POST['edit'] == 'GET'-->
 <?php
@@ -143,11 +42,6 @@ if (isset($_POST['View_password'])) {
 			});			
 		</Script>
 		<?php
-
-     	// echo "<script>alert('Record Successfully Updated');</script>";
-     	// echo "<script type='text/javascript'> document.location = 'edit_user.php?edit=' $get_id; </script>";
-		//  $get_id=$_GET['edit'];
-		//header("Location: edit_user.php?edit=" . $get_id);
 	} else{
 	  die(mysqli_error());
    }		
@@ -186,35 +80,24 @@ if (isset($_POST['View_password'])) {
 						</div>
 						<div class="col-md-4 col-sm-12 text-right">
 							<a href="task-add" data-toggle="modal" data-target="#Medium-modal" class="bg-light-blue btn text-blue weight-500"><i class="ion-password-round"></i>View Password</a>
-							<form action="" method="POST">
-							<button type="submit" name="View_password" class="btn btn-primary" >View password </button>
-							</form>
-							<!-- <div class="col-12">     
-								<a  href="#" class="btn btn-primary" data-toggle="modal" data-target="#Medium-modal"> <i class="dw dw-edit-2 "></i> Edit </a>
-
-							</div> -->
+							
+				
 						</div>
 					</div>
 
 
-					<!-- Administration Info Update.  Only See Administrator  -->
+					<!-- Administration Password Checking.  Only See Administrator  -->
 					<div class="col-md-4 col-sm-12 mb-30">				
 						<div class="modal fade" id="Medium-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 							<div class="modal-dialog modal-dialog-centered">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h6 class="modal-title" id="myLargeModalLabel">checking whether you are an administrator or not</h6>
-										
+										<h6 class="modal-title" id="myLargeModalLabel">checking whether you are an administrator or not</h6>										
 										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-									</div>    
-										<!-- Change Password Modal Button  -->
-									<!-- <div class="col-md-12 col-sm-12 text-right">
-										<a href="task-add" data-toggle="modal" data-target="#task-add" class="bg-light-blue btn text-blue weight-500"><i class="ion-password-round"></i>Change Password</a>
-									</div>     -->
-
+									</div>    								
 									<div class="modal-body">
 										<?php
-											$err_pass ="welck";
+											
 											$query = mysqli_query($conn,"select * from user where ID='$session_id' ") or die(mysqli_error());
 											$row = mysqli_fetch_array($query);
 											?>
@@ -230,7 +113,7 @@ if (isset($_POST['View_password'])) {
 												<div class="form-group">
 													<label>Password</label>
 													<input name="Password" class="form-control" type="password" placeholder="Enter your Password" autocomplete="off" required  value="<?php if(isset($_GET['Password'])){ echo $_GET['Password']; } ?>" >
-													<label for=""><?php echo $err_pass ;?></label>
+													
 												</div> 
 												<input type="hidden" name="edit" class="form-control" value="<?php if(isset($_GET['edit'])){ echo $_GET['edit']; }else{ echo "$get_id";} ?>" >
                                      
@@ -242,15 +125,52 @@ if (isset($_POST['View_password'])) {
 														$Password=md5($_GET['Password']);
 														$Pass_Admiministrator = $conn->query("SELECT Password as pass from `user` where id='$session_id'  ")->fetch_assoc()['pass'];
 														if($Password == $Pass_Admiministrator){
+
+															
+														$query = mysqli_query($conn,"select * from user where id = '$get_id' ")or die(mysqli_error());
+														$row = mysqli_fetch_array($query);
+
+														$pass = $row['password'];
+														$Name = $row['Name'];
+														$Com_name = $row['Com_name'];														
 														?>
-															<a href="task-add" data-toggle="modal" data-target="#task-add" class="bg-light-blue btn text-blue weight-500"><i class="ion-password-round"></i>View User Password</a>
+														
+															<Script>
+																window.addEventListener('load',function(){
+																	swal.fire({
+																		title: "<?php echo " $Com_name "  ?>",
+																				
+																		text: "The password is encrypted: <?php echo $pass ?>",																		
+																		iconHtml: '<i class="icon-copy fi-lock"></i>',
+																	})
+																	.then(function() {
+																				window.location = "edit_user.php?edit=" + <?php echo ($get_id); ?>;
+																			});
+																});			
+															</Script>
+															
+															<!-- <a href="task-add" data-toggle="modal" data-target="#task-add" class="bg-light-blue btn text-blue weight-500"><i class="ion-password-round"></i>View User Password</a> -->
 														<?php
 														}else{
-															$err_pass= "the password Is incorect";
+															
+															?>														
+															<Script>
+																window.addEventListener('load',function(){
+																	swal.fire({
+																		title: "Warning",
+																		text: "Incorrect The Administrator Password ",
+																		icon: "warning",
+																		button: "Ok Done!",
+																	})
+																	.then(function() {
+																				window.location = "edit_user.php?edit=" + <?php echo ($get_id); ?>;
+																			});
+																});			
+															</Script>															
+														<?php
 														}		
 													}
 												?>
-												<!-- <a href="task-add" data-toggle="modal" data-target="#task-add" class="bg-light-blue btn text-blue weight-500"><i class="ion-password-round"></i>Change Password</a> -->
 
 												<button type="submit" name="View" class="btn btn-primary" >View </button>
 												<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -266,62 +186,6 @@ if (isset($_POST['View_password'])) {
 					<!-- Administration Info Update.  Only See Administrator  -->
 
 
-					<!-- View user Password Modal  popup start -->
-					<div class="modal fade customscroll" id="task-add" tabindex="-1" role="dialog">
-						<div class="modal-dialog modal-dialog-centered" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLongTitle">User Password</h5>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Close Modal">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body pd-0">
-									<div class="task-list-form">
-										<?php
-										$query = mysqli_query($conn,"select * from user where id = '$get_id' ")or die(mysqli_error());
-										$row = mysqli_fetch_array($query);
-										?>
-										<ul>
-											<li>
-												<form method="post" action="">
-													<div class="form-group row">
-														<label class="col-md-4">Name :</label>
-														<div class="col-md-8">
-															<input type="text" name="name" class="form-control" readonly autocomplete="off" value="<?php echo $row['Name']; ?>" >
-														</div>
-													</div>
-													<div class="form-group row">
-														<label class="col-md-4">Company Name :</label>
-														<div class="col-md-8">
-															<input type="text" name="com_name" class="form-control"  readonly autocomplete="off" value="<?php echo $row['Com_name']; ?>"> 
-														</div>
-													</div>
-													<div class="form-group row">
-														<label class="col-md-4">Email :</label>
-														<div class="col-md-8">
-															<input type="email" name="email" class="form-control" readonly autocomplete="off" value="<?php echo $row['Email']; ?>"> 
-														</div>
-													</div>
-													<div class="form-group row">
-														<label class="col-md-4">Password :</label>
-														<div class="col-md-8">
-															<?php $Pass_user = $row['password'];?>
-															<input type="text" name="password" class="form-control" required="true" autocomplete="off" value="<?php echo $Pass_user; ?>"> 
-														</div>
-													</div>
-													<!-- <button type="submit" name="pass_change" id="pass_change"  class="btn btn-primary">Change</button> -->
-													<button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
-												
-												</form>
-											</li>											
-										</ul>
-									</div>									
-								</div>								
-							</div>
-						</div>
-					</div>
-					<!-- add task popup End -->
 
 
 
@@ -417,9 +281,9 @@ if (isset($_POST['View_password'])) {
 											<label style="font-size:16px;"><b></b></label>
 											<div class="modal-footer justify-content-center">
 												<button  href="createfile.php?edit=<?php echo $row['ID'];?>" class="btn btn-primary" name="update" id="update" data-toggle="modal">Update&nbsp;User</button>
-												<button type="submit" name="View_password" class="btn btn-primary" >View password </button>
+												<!-- <button type="submit" name="View_password" class="btn btn-primary" >View password </button> -->
 
-												<!-- <a class="dropdown-item" href="user_view_pass.php?edit=<?php echo $get_id;?>"><i class="dw dw-edit2"></i> Edit</a> -->
+												<!-- <a class="dropdown-item" href="user_view_pass.php?edit=<?php// echo $get_id;?>"><i class="dw dw-edit2"></i> Edit</a> -->
 
 												<!-- <button class="btn btn-primary" name="A4pdf" id="A4pdf" data-toggle="modal">Generate&nbsp; A4 Pdf</button>
 												<button class="btn btn-primary" name="A5pdf" id="A5pdf" data-toggle="modal">Generate&nbsp;A5 Pdf</button> -->

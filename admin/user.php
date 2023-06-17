@@ -37,7 +37,7 @@
      if ($count > 0){ ?>
 	 <script>
 		window.addEventListener('load',function(){
-			swal({
+			swal.fire({
 				//title: "Warning",
 				text: "User Already exist ",
 				icon: "warning",
@@ -52,7 +52,7 @@
 	}elseif ($count1 > 0){ ?>
 		<script>    
 		   window.addEventListener('load',function(){
-			   swal({
+			   swal.fire({
 				   //title: "Warning",
 				   text: "Comapany Already exist ",
 				   icon: "warning",
@@ -67,10 +67,24 @@
       }else{
         mysqli_query($conn,"INSERT INTO user(Admin_id,Name,Email,Com_name,Address,Role,Phone,Status,Picture) VALUES('$admin_id','$name','$email','$com_name','$address','$role','$phonenumber','$Status','$image')         
 		") or die(mysqli_error()); ?>
-		<script>alert('User Records Successfully Added');</script>;
+
+		<script>    
+		   window.addEventListener('load',function(){
+			   swal.fire({
+				   title: "Succcess",
+				   text: "User Records Successfully Added ",
+				   icon: "success",
+				   button: "Ok Done!",		   
+			   })
+			   .then(function() {
+						   window.location = "user.php";
+					   });  
+		   });   
+	   </script>
+		<!-- <script>alert('User Records Successfully Added');</script>;
 		<script>
 		window.location = "user.php"; 
-		</script>
+		</script> -->
 		<?php   }
 
 }

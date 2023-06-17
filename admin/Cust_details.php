@@ -17,10 +17,23 @@
         mysqli_query($conn,"INSERT INTO debt_reminder(Cid,Date,Message,Status,Memo) 
 		VALUES('$cid','$Date','$Message','$Status','$Memo')         
 		") or die(mysqli_error()); ?>
-		<script>alert('Record Successfully  Submited');</script>;
+        <Script>
+			window.addEventListener('load',function(){
+				swal.fire({
+					title: "Success",
+					text: "Record Successfully Updated",
+					icon: "success",
+					button: "Ok Done!",
+				})
+				.then(function() {
+							window.location = "Cust_details.php?edit=" + <?php echo ($get_id); ?>;
+						});
+			});			
+		</Script>
+		<!-- <script>alert('Record Successfully  Submited');</script>;
 		<script>
 		window.location = "Cust_Report.php"; 
-		</script>
+		</script> -->
 		<?php   }
 ?>
 
@@ -47,8 +60,13 @@
 							</nav>
 						</div>
                         <div class="row">
-                            <div class="col-12">     
-                                <a  href="#" class="btn btn-primary" data-toggle="modal" data-target="#Medium-modal"> <i class="icon-copy ion-plus "></i> Add FAQ</a>
+                            <div class="col-12"> 
+                                <?php     
+                                    $admin_rol = $conn->query("SELECT Role as rol from `user` where ID='$session_id' ")->fetch_assoc()['rol'];
+                                    if($admin_rol == 'Administrator'){                                   
+                                ?>
+                                <a  href="#" class="btn btn-primary" data-toggle="modal" data-target="#Medium-modal"> <i class="icon-copy ion-plus "></i> Dept Reminder</a>
+                           <?php  }?>
                             </div>
                         </div>
 					</div>
@@ -144,8 +162,7 @@
                             <!-- <div class="row"> -->
                             <h2 class="text-blue h4"><?php echo "Company Name:  $com_name"?></h2>
                             <p class="text-blue "><?php echo "Customer Name:  $cust_name"?></p>
-                            <!-- </div>                                -->
-                         
+                            <!-- </div>                                -->                         
                         </div>
                             
                         <div class="container pd-5">
@@ -176,7 +193,7 @@
                             </form>
                         </div>
 
-                        
+                        <!-- Table Display data -->
                         <div class="pb-20">
                             <table class="data-table table stripe hover nowrap">
                                 <thead>
@@ -189,11 +206,8 @@
                                         <th>Description</th>
                                         <th>Invoice</th>
                                         <th>Receipt</th>
-                                        <th>Balance</th>
-                                     
-                                                                       
-                                    
-                                                                        
+                                        <th>Balance</th>                               
+                    
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -254,115 +268,12 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+                    </div>                 
+				     
 
 
 
-
-
-
-
-
-                     
-					<!-- add task popup start PDF FILE Display Modal-->
-					<div class="modal fade customscroll" id="task-add" tabindex="-1" role="dialog">
-						<div class="modal-dialog modal-dialog-centered" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLongTitle">File Pdf</h5>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Close Modal">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body pd-0">
-									<div class="task-list-form">
-										<?php
-
-                                        
-
-
-										//$query = mysqli_query($conn,"select * from user where id = '$id' ")or die(mysqli_error());
-										//$row = mysqli_fetch_array($query);
-										?>
-										<ul>
-											<li>
-
-                                                <section>
-                                                    <div class="row">
-                                                        <?php
-
-                                                        //  $teacher_query = mysqli_query($conn,"select * from invoice where Cid='$get_id' ") or die(mysqli_error());
-                                                        //  $row = mysqli_fetch_array($teacher_query);
-
-                                                         // while ($row = mysqli_fetch_array($teacher_query)) {
-                                                        //$id = $row['id'];
-                                                      //   $today= $conn->query("SELECT id as eid from `invoice` ")->fetch_assoc()['eid'];
-
-
-
-                                                        $sql="SELECT File from invoice where id='$get_id_pdf' ";
-                                                        $query=mysqli_query($conn,$sql);
-                                                        while ($info=mysqli_fetch_array($query)) {
-                                                            ?>
-                                                            <?php
-                                                            if($info !=''){
-                                                            ?>                                       
-                                                                <embed type="application/pdf" src="pdf/<?php echo $info['File'] ; ?>" width="900" height="500">
-                                                            <?php
-                                                            }else{
-                                                                echo "No file found";                                     
-                                                            ?>
-                                                            <?php
-                                                            }
-                                                            ?>
-                                                        <?php
-                                                        }// }
-                                                        ?>
-                                                    </div>                                
-                                                </section>
-                                                                    <!-- <form method="post" action="">
-													<div class="form-group row">
-														<label class="col-md-4">Name :</label>
-														<div class="col-md-8">
-															<input type="text" name="name" class="form-control" readonly autocomplete="off" value="<?php echo $row['Name']; ?>" >
-														</div>
-													</div>
-													<div class="form-group row">
-														<label class="col-md-4">Company Name :</label>
-														<div class="col-md-8">
-															<input type="text" name="com_name" class="form-control"  readonly autocomplete="off" value="<?php echo $row['Com_name']; ?>"> 
-														</div>
-													</div>
-													<div class="form-group row">
-														<label class="col-md-4">Email :</label>
-														<div class="col-md-8">
-															<input type="email" name="email" class="form-control" readonly autocomplete="off" value="<?php echo $row['Email']; ?>"> 
-														</div>
-													</div>
-													<div class="form-group row">
-														<label class="col-md-4">Password :</label>
-														<div class="col-md-8">
-															<input type="text" name="password" class="form-control" required="true" autocomplete="off" value="<?php echo $row['password']; ?>"> 
-														</div>
-													</div>
-													<button type="submit" name="pass_change" id="pass_change"  class="btn btn-primary">Change</button>
-													<button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
-												
-												</form> -->
-											</li>											
-										</ul>
-									</div>									
-								</div>								
-							</div>
-						</div>
-					</div>
-					<!-- add task popup End -->             
-
-
-
-
-                    
-					<!-- Medium modal -->
+					<!-- Dept reminder popup  Medium modal -->
                     <div class="col-md-4 col-sm-12 mb-30">				
                         <div class="modal fade" id="Medium-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
@@ -400,7 +311,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Message</label>
-                                                    <textarea class="form-control" name="Message" required autocomplete="off" >Xasuusin. Asc <?php echo $row['Name']; ?>  , Haraaga xisaabta deynta laguugu leeyahay waa <?php echo "$ " .($format_balance); ?> Wixii faahfaahin ah kala xiriir 2323232</textarea>
+                                                    <textarea class="form-control" name="Message" required autocomplete="off" >Xasuusin. Asc <?php echo $row['Name']; ?>  , Haraaga xisaabta deynta laguugu leeyahay waa <?php echo "$ " .($format_balance); ?>  Wixii faahfaahin ah kala xiriir +252613231772</textarea>
                                                 </div>
                                              
                                                 <div class="form-group">
@@ -441,8 +352,7 @@
                                 </div>
                             </div>
                         </div>					
-                    </div>                   
-
+                    </div>                  
 				</div>
 
 

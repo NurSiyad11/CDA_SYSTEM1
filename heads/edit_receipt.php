@@ -9,6 +9,11 @@
 		$get_id=$_GET['edit'];
 		$st = $conn->query("SELECT Status as st from `receipt` where id='$get_id'  ")->fetch_assoc()['st'];
 		$Status=$_POST['Status'];	
+		$Reason=$_POST['Reason'];
+		// $RV_Memo = $conn->query("SELECT Memo as memo from `receipt` where id='$get_id'  ")->fetch_assoc()['memo'];
+		// $Memo_Rv = "$RV_Memo  ( $Memo ) ";
+		
+
 		if($st =='Approved'){
 			?>
 			<Script>
@@ -25,11 +30,8 @@
 				});			
 			</Script>
 			<?php			
-		}else {
-			
-			// $Memo=$_POST['Memo'];	
-
-			$result = mysqli_query($conn,"update receipt set Status='$Status' where id='$get_id'         
+		}else {	
+			$result = mysqli_query($conn,"update receipt set Status='$Status', Reason='$Reason' where id='$get_id'         
 				"); 		
 			if ($result) {			
 				?>
@@ -52,7 +54,8 @@
 				
 			} else{
 			die(mysqli_error());
-		}	
+		}
+			
 	}	
 }
 ?>
@@ -95,7 +98,7 @@
 							<section>
 								<div class="row">
 									<?php
-									$query = mysqli_query($conn,"SELECT user.Name, user.Com_name, receipt.id, receipt.Cid,receipt.RV ,receipt.Amount,receipt.Date,receipt.Memo,receipt.File,receipt.Status FROM receipt INNER JOIN user ON   receipt.Cid=user.ID  where receipt.id = '$get_id' ")or die(mysqli_error());
+									$query = mysqli_query($conn,"SELECT user.Name, user.Com_name, receipt.id, receipt.Cid,receipt.RV ,receipt.Amount,receipt.Date,receipt.Memo,receipt.Reason,receipt.File,receipt.Status FROM receipt INNER JOIN user ON   receipt.Cid=user.ID  where receipt.id = '$get_id' ")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 									?>
 									<input type="hidden" name="edit" class="form-control" value="<?php if(isset($_GET['edit'])){ echo $_GET['edit']; }else{ echo "$get_id";} ?>" >
@@ -140,6 +143,18 @@
 										</div>
 									</div>																
 								</div>
+								<?php 
+									$sts = $conn->query("SELECT Status as st from `receipt` where id='$get_id'  ")->fetch_assoc()['st'];
+									if($sts == 'Rejected'){										
+								?>
+								<div class="col-md-12">
+									<div class="form-group">
+										<label>Reason To Rejected</label>
+										<textarea name="Reason" style="height: 3em;" readonly placeholder="Reason" class="form-control text_area" type="text" ><?php echo $row['Reason']; ?></textarea>
+									</div>
+								</div>								
+								<?php } ?>
+							
 								<div class="row">
 									<div class="col-md-9">
 										<div class="form-group">
@@ -176,41 +191,56 @@
                                     <h4 class="modal-title" id="myLargeModalLabel">Receipt Status Update</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                 </div>                                    
-                                <div class="modal-body">
-								<?php
-									$query = mysqli_query($conn,"SELECT * FROM receipt  where id='$get_id'")or die(mysqli_error());
+                               
+
+
+								<div class="modal-body">
+									<?php
+									$query = mysqli_query($conn, "SELECT * FROM receipt where id='$get_id'") or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 									?>
 
-                                    <form id="add-event" method=post>
-                                        <div class="modal-body">
-                                            <!-- <h4 class="text-blue h4 mb-10">Add Event Detai</h4> -->
-                                         
+									<form id="add-event" method=post>
+										<div class="modal-body">
+										<!-- <h4 class="text-blue h4 mb-10">Add Event Detai</h4> -->
 											<div class="col-md-12 col-sm-12">
-                                                <div class="form-group">
-                                                    <label>Status :</label>
-                                                    <select name="Status" class="custom-select form-control" required="true" autocomplete="off">
-                                                        <option value="<?php echo $row['Status']; ?>"><?php echo $row['Status']; ?></option>
-                                                    
-                                                        <option value="Approved">Approved</option>
-                                                        <option value="Rejected">Rejected</option>
-                                                    </select>
-                                                </div>
-                                            </div>	                                             
-                                            <!-- <div class="form-group">
-                                                <label>Message</label>
-                                                <textarea class="form-control" name="Memo" required autocomplete="off" ><?php// echo $row['Memo']; ?> 
-                                                </textarea>
-                                            </div> -->                                                                           
-                                                         
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" name="Update" class="btn btn-primary" >Done</button>
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </form>
-                                </div>
-                               
+												<div class="form-group">
+												<label>Status :</label>
+												<select name="Status" id="status" class="custom-select form-control" required="true" autocomplete="off">
+													<option value="<?php echo $row['Status']; ?>"><?php echo $row['Status']; ?></option>
+
+													<option value="Approved">Approved</option>
+													<option value="Rejected">Rejected</option>
+												</select>
+												</div>
+											</div>												
+											<div class="form-group" id="memo-div" style="display: none;">
+												<label>Reason To Reject</label>
+												<textarea class="form-control"  name="Reason"  autocomplete="off"><?php echo $row['Reason']; ?></textarea>
+											</div>								
+										</div>
+										<div class="modal-footer">
+											<button type="submit" name="Update" class="btn btn-primary">Done</button>
+											<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+										</div>
+									</form>
+								</div>
+
+									<script>
+									// Get the select element and the memo-div element
+									const statusSelect = document.getElementById('status');
+									const memoDiv = document.getElementById('memo-div');
+
+									// Add a change event listener to the select element
+									statusSelect.addEventListener('change', function() {
+										// If the selected value is "Rejected", show the memo-div element, otherwise hide it
+										if (statusSelect.value === 'Rejected') {
+										memoDiv.style.display = 'block';
+										} else {
+										memoDiv.style.display = 'none';
+										}
+									});
+									</script>                               
                             </div>
                         </div>
                     </div>					

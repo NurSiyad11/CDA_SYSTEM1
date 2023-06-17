@@ -58,7 +58,7 @@
 			<!-- Orders Notification -->
 			<div class="user-notification">
 				<?php
-					$query_count = mysqli_query($conn,"select * from tbl_order where Status = 'Pending' ")or die(mysqli_error());
+					$query_count = mysqli_query($conn,"select * from tbl_order where Status = 'Pending'  ")or die(mysqli_error());
 					$count = mysqli_num_rows($query_count);						
 					
 				?>
@@ -94,7 +94,7 @@
 
 								 ?> 
 								<li>
-									<a href="All_order.php">
+									<a href="All_order.php?Pending_order=">
 										
 										<!-- <img src="../vendors/images/img.jpg" alt=""> -->
 										<img src="<?php echo (!empty($row['Picture'])) ? '../uploads/'.$row['Picture'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt="">
@@ -174,13 +174,13 @@
 							<ul>
 								<?php 
 								
-								$sql = "SELECT user.Name, user.Com_name, user.Picture, support.id, support.Message FROM support INNER JOIN user ON   support.Cid=user.ID where support.Status ='Pending' order by support.RegDate desc";
+								$sql = "SELECT user.Name, user.Com_name, user.Picture, support.id, support.Message FROM support INNER JOIN user ON   support.Cid=user.ID where support.Status ='Pending' order by support.Time_user desc";
 									$query = mysqli_query($conn, $sql) or die(mysqli_error());
 									while ($row = mysqli_fetch_array($query)) {
 
 								 ?> 
 								<li>
-									<a href="#">
+									<a href="All_Support.php?Pending=">
 									<img src="<?php echo (!empty($row['Picture'])) ? '../uploads/'.$row['Picture'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt="">
 										<!-- <img src="../vendors/images/img.jpg" alt=""> -->
 										<h3><?php echo $row['Name'];?></h3>

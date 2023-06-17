@@ -79,11 +79,11 @@
                 
 					
 
-                    <li class="dropdown">
+                    <!-- <li class="dropdown">
 						<a href="video.php" class="dropdown-toggle no-arrow">
 							<span class="micon dw dw-eye"></span><span class="mtext">Video</span>
 						</a>						
-                    </li>
+                    </li> -->
 					<!-- 
 					<li>
 						<a href="javascript:;" class="dropdown-toggle">

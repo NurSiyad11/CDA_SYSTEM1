@@ -1,4 +1,48 @@
 <?php include('includes/head.php')?>  
+<?php include('database/db.php');?>
+
+<?php
+	if(isset($_POST['Send']))
+	{
+	$Name=$_POST['Name'];	   
+	$Email=$_POST['Email']; 
+	$Message=$_POST['Message']; 
+	$Phone=$_POST['Phone']; 
+
+        mysqli_query($conn,"INSERT INTO web_contact(Name,Email,Phone,Message) VALUES('$Name','$Email','$Phone','$Message')         
+		") or die(mysqli_error()); ?>
+      <script>    
+		   window.addEventListener('load',function(){
+			   swal.fire({
+				   title: "Succcess",
+				   text: "User Records Successfully Added ",
+				   icon: "success",
+				   button: "Ok Done!",		   
+			   })
+			   .then(function() {
+						   window.location = "contact.php";
+					   });  
+		   });   
+	   </script>
+		
+		<?php   
+
+}
+
+?>
+	<script type="text/javascript">
+		function letterOnly(input){
+			var regex = /[^a-z ]/gi;
+			input.value =input.value.replace(regex, "");
+		}
+		
+	</script>
+
+
+
+
+
+
    <!-- body -->
 <body class="main-layout">
    <!-- header -->
@@ -19,25 +63,25 @@
    </div>
    <!--  contact -->
    <div class="contact ">
-      <div class="container bg-primary">
+      <div class="container bg-prima">
          <div class="row p-5">
             <div class="col-md-6">
-               <form id="request" class="main_form">
+               <form id="request" class="main_form" method="POST">
                   <div class="row">
                      <div class="col-md-12 ">
-                        <input class="contactus" placeholder="Name" type="type" name="Name"> 
+                        <input class="contactus" name="Name" placeholder="Name" required type="text" name="Name"> 
                      </div>
                      <div class="col-md-12">
-                        <input class="contactus" placeholder="Email" type="type" name="Email"> 
+                        <input class="contactus" name="Email" placeholder="Email" required type="email" name="Email"> 
                      </div>
                      <div class="col-md-12">
-                        <input class="contactus" placeholder="Phone Number" type="type" name="Phone Number">                          
+                        <input class="contactus" name="Phone" placeholder="Phone Number" required type="number" name="Phone Number">                          
                      </div>
                      <div class="col-md-12">
-                        <textarea class="textarea" placeholder="Message" type="type" Message="Name">Message</textarea>
+                        <textarea class="textarea" name="Message" placeholder="Message" required type="text" Message="Name"></textarea>
                      </div>
                      <div class="col-md-12">
-                        <button class="send_btn">Send</button>
+                        <button  name="Send" class="send_btn">Send</button>
                      </div>
                   </div>
                </form>
