@@ -49,12 +49,12 @@ $get_id = $_GET['edit'];
 				</div>
 
 
-<!-- 
+                    <!-- 
                 <div class="row">
                     <div class="col-xl-4 mb-30">
                         <?php 		                    
-                            $Total_in = $conn->query("SELECT sum(Amount) as total FROM `cash_receipt` where Acc_id='$get_id'  ")->fetch_assoc()['total'];
-                            $format =number_format((float)$Total_in, '2','.',',');                                               									
+                            // $Total_in = $conn->query("SELECT sum(Amount) as total FROM `cash_receipt` where Acc_id='$get_id'  ")->fetch_assoc()['total'];
+                            // $format =number_format((float)$Total_in, '2','.',',');                                               									
                         ?>  
                         <div class="card-box height-100-p widget-style1 bg-white">
                             <div class="d-flex flex-wrap align-items-center">
@@ -64,7 +64,7 @@ $get_id = $_GET['edit'];
                                     </div>
                                 </div>
                                 <div class="widget-data">
-                                    <div class="h5 mb-0"><?php echo "$ ". ($format); ?></div>
+                                    <div class="h5 mb-0"><?php //echo "$ ". ($format); ?></div>
                                     <div class="weight-300 font-18">Total In </div>
                                 </div>
                             </div>
@@ -74,8 +74,8 @@ $get_id = $_GET['edit'];
                     
                         <div class="card-box height-100-p widget-style1 bg-white">
                          <?php                                 
-                            $Total_out = $conn->query("SELECT sum(Amount) as total FROM `cash_payment` where Acc_id='$get_id'  ")->fetch_assoc()['total'];
-                            $format2 =number_format((float)$Total_out, '2','.',',');                        										
+                            // $Total_out = $conn->query("SELECT sum(Amount) as total FROM `cash_payment` where Acc_id='$get_id'  ")->fetch_assoc()['total'];
+                            // $format2 =number_format((float)$Total_out, '2','.',',');                        										
                         ?>   
                             <div class="d-flex flex-wrap align-items-center ">	
                                 <div class="progress-data">
@@ -84,7 +84,7 @@ $get_id = $_GET['edit'];
                                     </div>
                                 </div>						
                                 <div class="widget-data">
-                                    <div class="h5 mb-0"><?php echo "$ ". ($format2); ?></div>
+                                    <div class="h5 mb-0"><?php// echo "$ ". ($format2); ?></div>
                                     <div class="weight-300 font-18">Total Out</div>
                                 </div>
                             </div>
@@ -94,11 +94,11 @@ $get_id = $_GET['edit'];
                     <div class="col-xl-4 mb-30">
                         <div class="card-box height-100-p widget-style1 bg-white">
                             <?php 
-                                // $today = $conn->query("SELECT id as cid from `user` where id='$get_id'  ")->fetch_assoc()['cid'];
-                                $RV = $conn->query("SELECT sum(Amount) as total FROM `cash_receipt` where Acc_id='$get_id'  ")->fetch_assoc()['total'];
-                                $PV = $conn->query("SELECT sum(Amount) as total FROM `cash_payment` where Acc_id='$get_id'  ")->fetch_assoc()['total'];
-                                $Bal = $RV - $PV;
-                                $format_balance =number_format((float)$Bal, '2','.',',');										
+                               
+                                // $RV = $conn->query("SELECT sum(Amount) as total FROM `cash_receipt` where Acc_id='$get_id'  ")->fetch_assoc()['total'];
+                                // $PV = $conn->query("SELECT sum(Amount) as total FROM `cash_payment` where Acc_id='$get_id'  ")->fetch_assoc()['total'];
+                                // $Bal = $RV - $PV;
+                                // $format_balance =number_format((float)$Bal, '2','.',',');										
                             ?>	
                             <div class="d-flex flex-wrap align-items-center">	
                                 <div class="progress-data">
@@ -107,7 +107,7 @@ $get_id = $_GET['edit'];
                                     </div>
                                 </div>						
                                 <div class="widget-data">
-                                    <div class="h5 mb-0"><?php echo "$ ". ($format_balance); ?></div>
+                                    <div class="h5 mb-0"><?php// echo "$ ". ($format_balance); ?></div>
                                     <div class="weight-300 font-17">Balance </div>
                                 </div>
                             </div>

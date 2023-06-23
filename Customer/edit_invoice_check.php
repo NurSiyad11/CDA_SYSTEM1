@@ -1,11 +1,24 @@
 <?php include('includes/header.php')?>
 <?php include('../database/session.php')?>
 <?php include('../database/db.php')?>
-<?php $get_id = $_GET['edit']; ?>
+<?php
+
+
+$get_id = $_GET['edit'];
+$Cid = $conn->query("SELECT Cid as cid from `invoice` where id='$get_id'  ")->fetch_assoc()['cid'];
+if($Cid != $session_id){
+	
+	echo "<script>alert('Un able to view thsi invoice');</script>";
+	echo "<script type='text/javascript'> document.location = 'invoice_check.php'; </script>";
+}
+
+?>
+
+
 <?php
 	if(isset($_POST['Update']))
 	{	
-		$get_id=$_GET['edit'];
+		//$get_id=$_GET['edit'];
 		$st = $conn->query("SELECT Status as st from `invoice` where id='$get_id'  ")->fetch_assoc()['st'];
 
 		if($st =='Approved'){
@@ -95,7 +108,7 @@
 								<?php
 									//$query = mysqli_query($conn,"SELECT user.Name ,  invoice_receipt.invoice ,invoice_receipt.Amount,invoice_receipt.Date,invoice_receipt.Memo,invoice_receipt.Status, invoice_receipt.File  FROM invoice_receipt INNER JOIN user ON   invoice_receipt.Cid=user.ID where invoice_receipt.id='$get_id'")or die(mysqli_error());
 									
-									$query = mysqli_query($conn,"SELECT user.Name ,  invoice.invoice ,invoice.Amount,invoice.Date,invoice.Memo,invoice.Reason,invoice.Status, invoice.File  FROM invoice INNER JOIN user ON   invoice.Cid=user.ID where invoice.id='$get_id'")or die(mysqli_error());
+									$query = mysqli_query($conn,"SELECT user.Name ,  invoice.invoice ,invoice.Amount,invoice.Date,invoice.Memo,invoice.Reason,invoice.Status, invoice.File  FROM invoice INNER JOIN user ON   invoice.Cid=user.ID where invoice.id='$get_id' and invoice.Cid='$session_id'  ")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 									?>
 								<input type="hidden" name="edit" class="form-control" value="<?php if(isset($_GET['edit'])){ echo $_GET['edit']; }else{ echo "$get_id";} ?>" >

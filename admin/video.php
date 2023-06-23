@@ -84,12 +84,12 @@
 							<p class="font-14 ml-0">A simple, accessible HTML5 media player <a href="#" target="_blank" class="weight-700 text-blue">Click Here</a></p>
 						</div>
 					</div>
+				
+				</div>
+
 					<div class="container">
 						<div data-type="youtube" data-video-id="43wBH8YwaYM"></div>
 					</div>
-				</div>
-
-
 <!-- 
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix mb-20">
@@ -109,7 +109,7 @@
 
 		</div>
 	</div>
-	<?php include('includes/scripts.php')?>
+	<?php //include('includes/scripts.php')?>
 	<!-- js -->
 	<script src="../vendors/scripts/core.js"></script>
 	<script src="../vendors/scripts/script.min.js"></script>

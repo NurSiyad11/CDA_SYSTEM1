@@ -46,6 +46,7 @@
 				</form>
 			</div> -->
 		</div>
+
 		<div class="header-right">
 			<div class="dashboard-setting user-notification">
 				<div class="dropdown">
@@ -169,10 +170,14 @@
 						<h5><?php echo "Supported: ". ($count); ?></h5>
 
 						<div class="notification-list mx-h-350 customscroll">
-							
+							<!-- onclick="document.getElementById('notification-sound').play()"> -->
 
 							<ul>
+								<!-- <audio id="notification-sound">
+									<source src="../uploads/audio/notifaction_audio.wav" type="audio/wav">
+								</audio> -->
 								<?php 
+								
 								
 								$sql = "SELECT user.Name, user.Com_name, user.Picture, support.id, support.Message FROM support INNER JOIN user ON   support.Cid=user.ID where support.Status ='Pending' order by support.Time_user desc";
 									$query = mysqli_query($conn, $sql) or die(mysqli_error());
@@ -180,19 +185,20 @@
 
 								 ?> 
 								<li>
-									<a href="All_Support.php?Pending=">
+								<a href="All_Support.php?Pending=">
 									<img src="<?php echo (!empty($row['Picture'])) ? '../uploads/'.$row['Picture'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt="">
-										<!-- <img src="../vendors/images/img.jpg" alt=""> -->
-										<h3><?php echo $row['Name'];?></h3>
-										
+									
+									
+										<h3><?php echo $row['Name'];?></h3>										
 										<p><?php echo $row['Com_name'];?></p>
 										<p><?php echo $row['Message'];?></p>
-										<!-- <p><?php //echo $row['Memo'];?></p> -->
-										<!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p> -->
+								
 									</a>
 								</li>
 								<?php }?>
+
 							</ul>
+
 						</div>
 					</div>
 				</div>

@@ -9,18 +9,61 @@
 $time=time();
 $query=mysqli_query($conn,"select * from user");
 ?>
+
+
 <?php
+// assume $userId contains the ID of the user to be deleted
 if (isset($_GET['delete'])) {
-	$delete = $_GET['delete'];
-	$sql = "DELETE FROM user where id = ".$delete;
-	$result = mysqli_query($conn, $sql);
-	if ($result) {
-		echo "<script>alert('User deleted Successfully');</script>";
-															 
-     	echo "<script type='text/javascript'> document.location = 'mng_user.php'; </script>";
-		
-	}
+	try {
+		// delete the user record
+		//$sql = "DELETE FROM user WHERE ID = $userId";
+		$delete = $_GET['delete'];
+		$sql = "DELETE FROM user where ID = ".$delete;
+		mysqli_query($conn, $sql);
+
+		// display a success message
+		echo '<script>
+				window.addEventListener("load", function() {
+					swal.fire({
+						title: "Success",
+						text: "User deleted successfully.",
+						icon: "success",
+					}).then(function() {
+						window.location = "mng_user.php";
+					});
+				});
+			</script>';
+	} catch (mysqli_sql_exception $e) {
+		// display an error message
+		echo '<script>
+				window.addEventListener("load", function() {
+					swal.fire({
+						title: "Error",
+						text: "This user cannot be deleted because he has made a transection .",
+						icon: "error",
+					}).then(function() {
+						window.location = "mng_user.php";
+					});
+				});
+			</script>';
+		}
 }
+?>
+
+
+
+<?php
+// if (isset($_GET['delete'])) {
+// 	$delete = $_GET['delete'];
+// 	$sql = "DELETE FROM user where id = ".$delete;
+// 	$result = mysqli_query($conn, $sql);
+// 	if ($result) {
+// 		echo "<script>alert('User deleted Successfully');</script>";
+															 
+//      	echo "<script type='text/javascript'> document.location = 'mng_user.php'; </script>";
+		
+// 	}
+// }
 ?>
 <body>	
 	<?php include('includes/navbar.php')?>

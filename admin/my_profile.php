@@ -6,25 +6,114 @@
 <?php
 if (isset($_POST["update_image"])) {
 
+
+// 	$image = $_FILES['image']['name'];
+
+// if(!empty($image)){
+//     $temp_path = $_FILES['image']['tmp_name'];
+//     $new_path = '../uploads/'.$image;
+//     $Picture = $image;
+//     list($width, $height) = getimagesize($temp_path);
+//     $new_width = 600;
+//     $new_height = 600;
+//     $new_img = imagecreatetruecolor($new_width, $new_height);
+//     $source_img = imagecreatefromjpeg($temp_path);
+//     imagecopyresampled($new_img, $source_img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+//     imagejpeg($new_img, $new_path);
+// }
+// else {
+//     echo "<script>alert('Please Select Picture to Update');</script>";
+// }
+
+// $result = mysqli_query($conn,"update user set Picture='$Picture' where id='$session_id'") or die(mysqli_error());
+// if ($result) {
+//     echo "<script>alert('Profile Picture Updated');</script>";
+//     echo "<script type='text/javascript'> document.location = 'my_profile.php'; </script>";
+// } else{
+//     die(mysqli_error());
+// }
+
+
+
+
+// 	// get the uploaded file path and name
+// $image_path = $_FILES['image']['tmp_name'];
+// $image_name = $_FILES['image']['name'];
+
+// // create a new image object
+// $img = imagecreatefromjpeg($image_path);
+
+// // create a new canvas with the desired dimensions
+// $canvas = imagecreatetruecolor(600, 600);
+
+// // resize the image and copy it to the canvas
+// imagecopyresampled($canvas, $img, 0, 0, 0, 0, 600, 600, imagesx($img), imagesy($img));
+
+// // save the resized image
+// $save_path = '../uploads/resized_' . $image_name;
+// imagejpeg($canvas, $save_path);
+
+// // set the resized image path as the new Picture value
+// $Picture = 'resized_' . $image_name;
+
+
+
+
+
+
+
+
 	$image = $_FILES['image']['name'];
 
 	if(!empty($image)){
 		move_uploaded_file($_FILES['image']['tmp_name'], '../uploads/'.$image);
 		$Picture = $image;	
+
+			$result = mysqli_query($conn,"update user set Picture='$Picture' where id='$session_id'         
+			")or die(mysqli_error());
+			if ($result) {
+				?>
+					<Script>
+						window.addEventListener('load',function(){
+							swal.fire({
+								title: "Success",
+								text: "Profile Picture Updated  ",
+								icon: "success",
+								
+							})
+							.then(function() {
+										window.location = "my_profile.php";
+									});
+						});			
+					</Script>
+				<?php	
+				// echo "<script>alert('Profile Picture Updated');</script>";
+				// echo "<script type='text/javascript'> document.location = 'my_profile.php'; </script>";
+			} else{
+			die(mysqli_error());
+			}	
 	}
 	else {
-		echo "<script>alert('Please Select Picture to Update');</script>";
+		// echo "<script>alert('Please Select Picture to Update');</script>";
+		?>
+			<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+						title: "warning",
+						text: "Please Select Picture to Update ",
+						icon: "warning",
+						
+					})
+					.then(function() {
+								window.location = "my_profile.php";
+							});
+				});			
+			</Script>
+			<?php
 
 	}
 
-    $result = mysqli_query($conn,"update user set Picture='$Picture' where id='$session_id'         
-		")or die(mysqli_error());
-    if ($result) {
-     	echo "<script>alert('Profile Picture Updated');</script>";
-     	echo "<script type='text/javascript'> document.location = 'my_profile.php'; </script>";
-	} else{
-	  die(mysqli_error());
-   }
+ 
 }
 
 ?>
@@ -102,7 +191,7 @@ if (isset($_POST["update_image"])) {
 		window.addEventListener('load',function(){
 			swal.fire({
 				//title: "Warning",
-				text: "Your Old Password is incorrect Please Enter The Coorect Password ",
+				text: "Your Current Password is incorrect Please Enter The Correct Password ",
 				icon: "warning",
 				button: "Ok Done!",			
 			})
@@ -158,7 +247,7 @@ if (isset($_POST["update_image"])) {
 												<div class="weight-500 col-md-12 pd-5">
 													<div class="form-group">
 														<div class="custom-file">
-															<input name="image" id="file" type="file" class="custom-file-input" accept="image/*" onchange="validateImage('file')">
+															<input name="image" id="file" type="file" required class="custom-file-input" accept="image/*" onchange="validateImage('file')">
 															<label class="custom-file-label" for="file" id="selector">Choose file</label>		
 														</div>
 													</div>
@@ -443,7 +532,14 @@ if (isset($_POST["update_image"])) {
 		let fileInput = document.getElementById("file");
 		fileInput.addEventListener("change", loader);
 	</script> -->
-	<script type="text/javascript">
+
+
+
+
+
+
+
+	<!-- <script type="text/javascript">
 		 function validateImage(id) {
 		    var formData = new FormData();
 		    var file = document.getElementById(id).files[0];
@@ -462,6 +558,45 @@ if (isset($_POST["update_image"])) {
 
 		    return true;
 		}
-	</script>
+	</script> -->
+
+
+
+
+
+<script>
+	function validateImage(id) {
+    var formData = new FormData();
+    var file = document.getElementById(id).files[0];
+    formData.append("Filedata", file);
+    var t = file.type.split('/').pop().toLowerCase();
+    if (t != "jpeg" && t != "jpg" && t != "png") {
+        alert('Please select a valid image file');
+        document.getElementById(id).value = '';
+        return false;
+    }
+    if (file.size > 1050000) {
+        alert('Max Upload size is 1MB only');
+        document.getElementById(id).value = '';
+        return false;
+    }
+    var img = new Image();
+    img.onload = function() {
+        var width = this.width;
+        var height = this.height;
+        if (width < 500 || height < 500) {
+            alert('Image dimensions should be at least 500x500');
+            document.getElementById(id).value = '';
+            return false;
+        } else if (width > 600 || height > 600) {
+            alert('Image dimensions is greter than 600 x 600');
+            document.getElementById(id).value = '';
+            return false;
+        }
+    };
+    img.src = window.URL.createObjectURL(file);
+    return true;
+}
+</script>
 </body>
 </html>

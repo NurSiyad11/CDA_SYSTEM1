@@ -95,19 +95,20 @@
 						<h2 class="text-blue h4">All 10 Transection</h2>
 					</div>
 				<div class="pb-20">
-					<table class="data-table table table-bordered stripe hover nowrap">
-						<thead >
+					<!-- table-bordered -->
+					<table class="data-table table  stripe hover nowrap">
+						<thead class="bg-dark text-white">
 							<tr>				
 								<th> No#</th>	
-								<th> ##</th>							
-								<th> Invoice No#</th>
-								<th>Date</th>
-								<th>Description</th>
-								<th>Invoice</th>
-								<th>Receipt</th>
-								<th>Balance</th>
+								<th class="datatable-nosort"> ##</th>							
+								<th class="datatable-nosort"> Invoice No#</th>
+								<th class="datatable-nosort">Date</th>
+								<th class="datatable-nosort">Description</th>
+								<th class="datatable-nosort">Invoice</th>
+								<th class="datatable-nosort">Receipt</th>
+								<th class="datatable-nosort">Balance</th>
 								<!-- <th>File</th> -->
-								<th>Action</th>												
+								<th class="datatable-nosort" >Action</th>												
 																
 							</tr>
 						</thead>

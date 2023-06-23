@@ -49,51 +49,7 @@ if (isset($_GET['delete'])) {
                         </div>
                     </div>
                 </div>
-                <!-- <div class="col-xl-2 mb-30">
-                    <?php							
-                    $query = mysqli_query($conn,"select  Status from Support where  Status = 'Pending'  ")or die(mysqli_error());
-                    $count = mysqli_num_rows($query);				
-                    ?> 
-                    <div class="card-box height-100-p widget-style1 bg-white">
-                        <div class="d-flex flex-wrap align-items-center ">	
-                            <div class="progress-dat">
-								<form action="" method="GET">
-									<div id="">									
-										<button class="btn btn-primary" type="submit" name="Pending"><i class="icon-copy dw dw-balance"></i></i></button>
-									</div>
-								</form>
-                            </div>						
-                            <div class="widget-data">
-                                <div class="h4 mb-0"><?php echo ($count); ?></div>
-                                <div class="weight-300 font-18">Pending</div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
-                <!-- <div class="col-xl-2 mb-30">
-                    <?php						
-                        $query= mysqli_query($conn,"select  id from Support where Reply != ''  ")or die(mysqli_error());
-                        $count = mysqli_num_rows($query);				 
-                    ?> 
-                    <div class="card-box height-100-p widget-style1 bg-white">
-                        <div class="d-flex flex-wrap align-items-center">	
-                            <div class="progress-dat">
-								<form action="" method="GET">
-									<div id="">									
-										<button class="btn btn-primary" type="submit" name="Replied"> <i class="icon-copy dw dw-file-134"></i></button>
-									</div>
-								</form>
-                             
-                            </div>						
-                            <div class="widget-data">
-                                <div class="h4 mb-0"><?php echo ($count); ?></div>
-                                <div class="weight-300 font-17">Replied </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
+            
                 <div class="col-xl-4 mb-30">
                     <?php						
                         $query= mysqli_query($conn,"select  Status from debt_reminder where Status = 'Show'  ")or die(mysqli_error());
@@ -158,7 +114,8 @@ if (isset($_GET['delete'])) {
 						<thead>
 							<tr>
 								<th>NO#</th>
-								<th class="table-plus datatable-nosort">Customer Name</th>						
+								<th class="table-plus datatable-nosort">Customer Name</th>
+								<th>Company Name </th>						
 								<th>DATE </th>
 								<th>Registration Date</th>
 								<th> Status</th>							
@@ -170,7 +127,7 @@ if (isset($_GET['delete'])) {
 
 								<?php 
 								$i =1;
-								$sql = "SELECT user.Name, user.Picture, debt_reminder.id, debt_reminder.RegDate, debt_reminder.Date,debt_reminder.Status FROM debt_reminder INNER JOIN user ON   debt_reminder.Cid=user.id ORDER BY debt_reminder.id desc  ";
+								$sql = "SELECT user.Name, user.Com_name, user.Picture, debt_reminder.id, debt_reminder.RegDate, debt_reminder.Date,debt_reminder.Status FROM debt_reminder INNER JOIN user ON   debt_reminder.Cid=user.id ORDER BY debt_reminder.id desc  ";
 									$query = mysqli_query($conn, $sql) or die(mysqli_error());
 									while ($row = mysqli_fetch_array($query)) {
 
@@ -185,7 +142,8 @@ if (isset($_GET['delete'])) {
 											<div class="weight-600"><?php echo $row['Name'];?></div>
 										</div>
 									</div>
-								</td>						
+								</td>	
+								<td><?php echo $row['Com_name']; ?></td>					
 	                            <td><?php echo $row['Date']; ?></td>
 								<td><?php echo $row['RegDate']; ?></td>
 
@@ -238,7 +196,8 @@ if (isset($_GET['delete'])) {
 						<thead>
 							<tr>
 								<th>NO#</th>
-								<th class="table-plus datatable-nosort">Customer Name</th>						
+								<th class="table-plus datatable-nosort">Customer Name</th>	
+								<th>Company Name </th>						
 								<th>DATE </th>
 								<th>Registration Date</th>
 								<th> Status</th>							
@@ -250,7 +209,7 @@ if (isset($_GET['delete'])) {
 
 								<?php 
 								$i =1;
-								$sql = "SELECT user.Name, user.Picture, debt_reminder.id, debt_reminder.RegDate, debt_reminder.Date,debt_reminder.Status FROM debt_reminder INNER JOIN user ON   debt_reminder.Cid=user.id  where debt_reminder.Status = 'Show' ORDER BY debt_reminder.id desc  ";
+								$sql = "SELECT user.Name, user.Com_name, user.Picture, debt_reminder.id, debt_reminder.RegDate, debt_reminder.Date,debt_reminder.Status FROM debt_reminder INNER JOIN user ON   debt_reminder.Cid=user.id  where debt_reminder.Status = 'Show' ORDER BY debt_reminder.id desc  ";
 									$query = mysqli_query($conn, $sql) or die(mysqli_error());
 									while ($row = mysqli_fetch_array($query)) {
 
@@ -265,7 +224,8 @@ if (isset($_GET['delete'])) {
 											<div class="weight-600"><?php echo $row['Name'];?></div>
 										</div>
 									</div>
-								</td>						
+								</td>	
+								<td><?php echo $row['Com_name']; ?></td>					
 	                            <td><?php echo $row['Date']; ?></td>
 								<td><?php echo $row['RegDate']; ?></td>
 
@@ -317,7 +277,8 @@ if (isset($_GET['delete'])) {
 						<thead>
 							<tr>
 								<th>NO#</th>
-								<th class="table-plus datatable-nosort">Customer Name</th>						
+								<th class="table-plus datatable-nosort">Customer Name</th>	
+								<th>Company Name</th>					
 								<th>DATE </th>
 								<th>Registration Date</th>
 								<th> Status</th>							
@@ -329,7 +290,7 @@ if (isset($_GET['delete'])) {
 
 								<?php 
 								$i =1;
-								$sql = "SELECT user.Name, user.Picture, debt_reminder.id, debt_reminder.RegDate, debt_reminder.Date,debt_reminder.Status FROM debt_reminder INNER JOIN user ON   debt_reminder.Cid=user.id  where debt_reminder.Status = 'Hide' ORDER BY debt_reminder.id desc  ";
+								$sql = "SELECT user.Name,user.Com_name, user.Picture, debt_reminder.id, debt_reminder.RegDate, debt_reminder.Date,debt_reminder.Status FROM debt_reminder INNER JOIN user ON   debt_reminder.Cid=user.id  where debt_reminder.Status = 'Hide' ORDER BY debt_reminder.id desc  ";
 									$query = mysqli_query($conn, $sql) or die(mysqli_error());
 									while ($row = mysqli_fetch_array($query)) {
 
@@ -344,7 +305,8 @@ if (isset($_GET['delete'])) {
 											<div class="weight-600"><?php echo $row['Name'];?></div>
 										</div>
 									</div>
-								</td>						
+								</td>		
+								<td><?php echo $row['Com_name']; ?></td>				
 	                            <td><?php echo $row['Date']; ?></td>
 								<td><?php echo $row['RegDate']; ?></td>
 
@@ -397,7 +359,8 @@ if (isset($_GET['delete'])) {
 						<thead>
 							<tr>
 								<th>NO#</th>
-								<th class="table-plus datatable-nosort">Customer Name</th>						
+								<th class="table-plus datatable-nosort">Customer Name</th>
+								<th>Company Name </th>						
 								<th>DATE </th>
 								<th>Registration Date</th>
 								<th> Status</th>							
@@ -409,7 +372,7 @@ if (isset($_GET['delete'])) {
 
 								<?php 
 								$i =1;
-								$sql = "SELECT user.Name, user.Picture, debt_reminder.id, debt_reminder.RegDate, debt_reminder.Date,debt_reminder.Status FROM debt_reminder INNER JOIN user ON   debt_reminder.Cid=user.id ORDER BY debt_reminder.id desc  ";
+								$sql = "SELECT user.Name, user.Com_name, user.Picture, debt_reminder.id, debt_reminder.RegDate, debt_reminder.Date,debt_reminder.Status FROM debt_reminder INNER JOIN user ON   debt_reminder.Cid=user.id ORDER BY debt_reminder.id desc  ";
 									$query = mysqli_query($conn, $sql) or die(mysqli_error());
 									while ($row = mysqli_fetch_array($query)) {
 
@@ -424,7 +387,8 @@ if (isset($_GET['delete'])) {
 											<div class="weight-600"><?php echo $row['Name'];?></div>
 										</div>
 									</div>
-								</td>						
+								</td>		
+								<td><?php echo $row['Com_name']; ?></td>				
 	                            <td><?php echo $row['Date']; ?></td>
 								<td><?php echo $row['RegDate']; ?></td>
 

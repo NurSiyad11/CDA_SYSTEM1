@@ -64,8 +64,8 @@
    <!--  contact -->
    <div class="contact ">
       <div class="container bg-prima">
-         <div class="row p-5">
-            <div class="col-md-6">
+         <div class="row">
+            <div class="col-md-4">
                <form id="request" class="main_form" method="POST">
                   <div class="row">
                      <div class="col-md-12 ">
@@ -86,21 +86,54 @@
                   </div>
                </form>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-8">
                <div class="map_main">
                   <div class="map-responsive">
                      <!-- <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&amp;q=Eiffel+Tower+Paris+France" width="600" height="400" frameborder="0" style="border:0; width: 100%;" allowfullscreen=""></iframe> -->
-                        <img class="first-slide" src="assets/images/img/map3.png" alt="" >
+                        <!-- <img class="first-slide" src="assets/images/img/map3.png" alt="" > -->
+                        <div class="container">
+                           <div data-type="youtube" data-video-id="A-Hy9Fm8rQQ/edit"></div>
+                        </div>
                      </div>
+                     
                </div>
             </div>
          </div>
       </div>
    </div>
    <!-- end contact -->
+
+
+   <!-- about -->
+   <!-- <div class="about">
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-md-5">
+               <div class="titlepage">
+                  
+                  <p class="margin_0">The passage experienced a surge in popularity during the 1960s when Letraset used it on their dry-transfer sheets, and again during the 90s as desktop publishers bundled the text with their software. Today it's seen all around the web; on templates, websites, and stock designs. Use our generator to get your own, or read on for the authoritative history of lorem ipsum. </p>
+                  <a class="read_more" href="Javascript:void(0)"> Read More</a>
+               </div>
+            </div>
+            <div class="col-md-7">
+               <div class="about_img">              
+               
+               </div>
+               <div class="container">
+                  <div data-type="youtube" data-video-id="m38O12p1_BY"></div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div> -->
+   <!-- end about -->
+
+
+
    <!--  footer -->
    <?php include('includes/footer.php')?>
    <!-- end footer -->
    <!-- Javascript files-->
    <?php include('includes/scripts.php')?>
+   
 </body>

@@ -241,7 +241,7 @@
                                          <?php
                                            }else {
                                             ?>
-                                            <td><a href="A5pdf2.php?edit=<?php echo $row['id']?>" name="receipt" id="receipt" class="btn btn-danger"> <i class="icon-copy dw dw-"></i>Rv PDF</a></td>
+                                            <td><a href="../admin/A5pdf2.php?edit=<?php echo $row['id']?>" name="receipt" id="receipt" class="btn btn-danger"> <i class="icon-copy dw dw-"></i>Rv PDF</a></td>
                                             <?php
                                            } 
                                         ?> 
@@ -274,119 +274,8 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>                 
-				     
-
-
-
-					<!-- Dept reminder popup  Medium modal -->
-                    <div class="col-md-4 col-sm-12 mb-30">				
-                        <div class="modal fade" id="Medium-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title" id="myLargeModalLabel">Dept Reminder</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                    </div>                                    
-                                    <div class="modal-body">
-                                        <?php
-                                            // $query = mysqli_query($conn,"SELECT user.Name,user.Email, user.Picture, tbl_order.id, tbl_order.Date, tbl_order.Reason, tbl_order.Status FROM tbl_order INNER JOIN user ON   tbl_order.Cid=user.id where tbl_order.id='$get_id'")or die(mysqli_error());
-                                            $query = mysqli_query($conn,"select * from user where Role='Customer' AND ID='$get_id' ") or die(mysqli_error());
-                                            $row = mysqli_fetch_array($query);
-                                            ?>
-
-                                        <form id="add-event" method=post>
-                                            <div class="modal-body">
-                                                <!-- <h4 class="text-blue h4 mb-10">Add Event Detai</h4> -->
-                                                <div class="form-group">
-                                                    <label>Customer Name</label>
-                                                    <input type="text" class="form-control" name="name" required="true" autocomplete="off"  readonly value="<?php echo $row['Name']; ?>">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Company Name</label>
-                                                    <input type='text' class="form-control" name="Com_name" required="true" autocomplete="off"  readonly value="<?php echo $row['Com_name']; ?>">
-                                                </div>
-                                               
-                                                <div class="form-group">
-                                                    <label>Balance</label>
-                                                    <input type='text' class="form-control" name="Com_name" required="true" autocomplete="off"  readonly value=" <?php echo "$ " .($format_balance); ?>">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Date</label>
-                                                    <input type='date' class="form-control" name="Date" required="true" autocomplete="off" >
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Message</label>
-                                                    <textarea class="form-control" name="Message" required autocomplete="off" >Xasuusin. Asc <?php echo $row['Name']; ?>  , Haraaga xisaabta deynta laguugu leeyahay waa <?php echo "$ " .($format_balance); ?>  Wixii faahfaahin ah kala xiriir +252613231772</textarea>
-                                                </div>
-                                             
-                                                <div class="form-group">
-                                                    <label>Status</label>
-                                                    <select class="form-control" name="Status">
-                                                        <option value="Show">Show</option>
-                                                        <option value="Hide">Hide</option>
-                                                       
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label>Description</label>
-                                                        <textarea name="Memo" style="height: 5em;" placeholder="Description" class="form-control text_area" type="text"></textarea>
-                                                    </div>
-                                                </div>	
-                                                <!-- <div class="form-group">
-                                                    <label>Event Icon</label>
-                                                    <select class="form-control" name="eicon">
-                                                        <option value="circle">circle</option>
-                                                        <option value="cog">cog</option>
-                                                        <option value="group">group</option>
-                                                        <option value="suitcase">suitcase</option>
-                                                        <option value="calendar">calendar</option>
-                                                    </select>
-                                                </div> -->
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="submit" name="submit" class="btn btn-primary" >Submit</button>
-                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!-- <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div> -->
-                                </div>
-                            </div>
-                        </div>					
-                    </div>                  
+                    </div>        				               
 				</div>
-
-
-
-
-
-
-
-
-
-                
-                <!-- <div class="modal fade" id="empModal"  role="dialog">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">PDF</h4>
-                                      <button type="button" class="close" data-dismiss="modal">×</button>
-                                    </div>
-                                    <div class="modal-body">
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </div>
-                    </div> -->
-
-
 
 
 					<!-- add task popup start PDF FILE Display Modal-->

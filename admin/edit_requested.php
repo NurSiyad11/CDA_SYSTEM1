@@ -13,12 +13,12 @@
 				window.addEventListener('load',function(){
 					swal.fire({
 						title: "Warning",
-						text: "This  is not updated, b/c your Approved this  ",
+						text: "This  is not updated, b/c you are already Approved this Request ",
 						icon: "warning",
 						button: "Ok Done!",
 					})
 					.then(function() {
-								window.location = "edit_requested.php";
+								window.location = "edit_requested.php?edit=" + <?php echo ($get_id); ?>;
 							});
 				});			
 			</Script>

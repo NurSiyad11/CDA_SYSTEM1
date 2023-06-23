@@ -1,13 +1,21 @@
 <?php include('includes/header.php')?>
 <?php include('../database/session.php')?>
 <?php include('../database/db.php')?>
-<?php $get_id = $_GET['edit']; ?>
+<?php 
+$get_id = $_GET['edit']; 
+
+$Cid = $conn->query("SELECT Cid as cid from `tbl_order` where id='$get_id'  ")->fetch_assoc()['cid'];
+if($Cid != $session_id){
+	
+	echo "<script>alert('Un able to view thsi order');</script>";
+	echo "<script type='text/javascript'> document.location = 'order_history.php'; </script>";
+}?>
 
 <!-- Update Pdf file -->
 <?php
 	if(isset($_POST['update_file']))
 	{
-		$get_id=$_GET['edit'];
+		// $get_id=$_GET['edit'];
 		$st = $conn->query("SELECT Status as st from `tbl_order` where id='$get_id'  ")->fetch_assoc()['st'];
 
 		if($st !='Pending'){
@@ -328,7 +336,7 @@
 									<?php endif ?>				
 
 							
-								<?php $query= mysqli_query($conn,"select * from tbl_order where id = '$get_id'")or die(mysqli_error());
+								<?php $query= mysqli_query($conn,"select * from tbl_order where id = '$get_id' and Cid='$session_id' ")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 								?>
 								<div class="row">

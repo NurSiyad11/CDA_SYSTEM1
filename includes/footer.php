@@ -13,7 +13,7 @@
                      <h3>Contact US</h3>
                      <ul class="conta">
                         <li><i class="fa fa-map-marker" aria-hidden="true"></i> Deg Howlwadaag</li>
-                        <li><i class="fa fa-mobile" aria-hidden="true"></i> +25261xxxxxx</li>
+                        <li><i class="fa fa-mobile" aria-hidden="true"></i> +252613231772</li>
                         <li> <i class="fa fa-envelope" aria-hidden="true"></i><a href="#"> nursiyad2022@gmail.com</a></li>
                      </ul>
                   </div>

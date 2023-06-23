@@ -21,6 +21,25 @@
 
 	<!-- Script js sweet alert  -->
 	<script src="../src/scripts/sweetalert2.min.js"></script>
+
+	
+	<!-- Modal display info -->
+	    <script type='text/javascript'>
+         $(document).ready(function(){
+         $('.userinfo').click(function(){
+                    var userid = $(this).data('id');
+                    $.ajax({
+                        url: 'ajaxfile.php',
+                        type: 'post',
+                        data: {userid: userid},
+                        success: function(response){ 
+                            $('.modal-body').html(response); 
+                            $('#empModal').modal('show'); 
+                        }
+                    });
+                });
+            });
+        </script>
 	
 	<!-- js -->
 	<!-- <script src="vendors/scripts/core.js"></script>

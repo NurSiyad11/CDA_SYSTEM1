@@ -33,7 +33,7 @@ function showPass()
 		<script>
 			window.addEventListener('load',function(){
 				swal.fire({
-					title: "Your Balance is  <?Php echo "$ ". $format?>",
+					title: "Your Balance is  <?Php echo "USD ". $format?>",
 					// text: "<?Php //echo "$ ". $format?>",
 					
 					//iconHtml: ' <i class="icon-copy ion-social-usd-outline"></i>',
