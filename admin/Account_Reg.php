@@ -4,16 +4,16 @@
 
 
 <?php 
-	if (isset($_GET['delete'])) {
-		$get_id = $_GET['delete'];
-		$sql = "DELETE FROM account where id = ".$get_id;
-		$result = mysqli_query($conn, $sql);
-		if ($result) {
-			echo "<script>alert('Account deleted Successfully');</script>";
-     		echo "<script type='text/javascript'> document.location = 'Account_Reg.php'; </script>";
+	// if (isset($_GET['delete'])) {
+	// 	$get_id = $_GET['delete'];
+	// 	$sql = "DELETE FROM account where id = ".$get_id;
+	// 	$result = mysqli_query($conn, $sql);
+	// 	if ($result) {
+	// 		echo "<script>alert('Account deleted Successfully');</script>";
+    //  		echo "<script type='text/javascript'> document.location = 'Account_Reg.php'; </script>";
 			
-		}
-	}
+	// 	}
+	// }
 ?>
 
 <?php
@@ -26,17 +26,37 @@
 	$count = mysqli_num_rows($query);       
 	
 	if ($count > 0){ ?>
-		<script>
-		alert('Account Already Exist');
-	   </script>
+    	<Script>
+            window.addEventListener('load',function(){
+                swal.fire({
+                    title: "Warning",
+                    text: "Account Already Exist ",
+                    icon: "warning",
+                    button: "Ok Done!",
+                })
+                .then(function() {
+                    window.location = "Account_Reg.php";
+                        });
+            });			
+        </Script>
 	   <?php
 		 }else{
 			mysqli_query($conn,"INSERT INTO account(Admin_id,Acc_name,Acc_no) VALUES('$session_id','$Acc_name','$Acc_no')         
 			") or die(mysqli_error()); ?>
-			<script>alert('Account Records Successfully  Added');</script>;
-			<script>
-			window.location = "Account_Reg.php"; 
-			</script>
+    
+			<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+						title: "Success",
+						text: "Account Successfully  Added ",
+						icon: "success",
+						button: "Ok Done!",
+					})
+					.then(function() {
+						window.location = "Account_Reg.php";
+							});
+				});			
+			</Script>
 			<?php   }
 	}
 ?>

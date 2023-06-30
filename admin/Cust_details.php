@@ -158,18 +158,18 @@
                     
 				
                     <div class="card-box mb-30">                       
-                        <div class="pd-20" >
-                            <div class="row">
-                                <div class="col-8">
+                     
+                        <div class="row">
+                            <div class="col-7">
                                 <h2 class="text-blue h4"><?php echo "Company Name:  $com_name"?></h2>
 
-                                </div>
-                                <div class="col-4">
+                            </div>
+                            <div class="col-5">
                                 <p class="text-blue "><?php echo "Customer Name:  $cust_name"?></p>
 
-                                </div>
-                            </div>                                                        
-                        </div>
+                            </div>
+                        </div>                                                        
+                
                             
                         <!-- <div class="container pd-5">
                             <form action="" method="GET">
@@ -200,7 +200,7 @@
                         </div> -->
 
                         <!-- Table Display data -->
-                        <div class="pb-20">
+                        <div class="pb-10">
                             <table class="data-table table stripe hover nowrap">
                                 <thead class="bg-dark text-white">
                                     <tr>				

@@ -2,24 +2,14 @@
 <?php
 session_start();
 include('../database/db.php');
-$pass_error ="";
+// $pass_error ="";
 if(isset($_POST['Create']))
 {
 	$Pass_sts = $conn->query("SELECT Pass_status as st from `user` where ID='$get_id'  ")->fetch_assoc()['st'];
 
-
 	$New_pass=$_POST['New_pass'];
-	// $Con_pass=$_POST['Con_pass'];
-	if(strlen($New_pass) < 4){		
-		$pass_error='your password need to have minimum 4 Character';
-	}
-	elseif(strlen($New_pass) > 15){
-		$pass_error='your password need to have maximum 15 Character';
-	}
-	elseif($Pass_sts == '0'){
 
-
-
+	if($Pass_sts == '0'){
 	$result = mysqli_query($conn,"update user set Password='$New_pass' , Pass_status='1' where id='$get_id'         
 		"); 		
 	if ($result) {
@@ -38,8 +28,7 @@ if(isset($_POST['Create']))
 		   });   
 	   </script>
 		<?php
-     	// echo "<script>alert('Record Successfully Updated');</script>";
-     	// echo "<script type='text/javascript'> document.location = '../index4.php'; </script>";
+
 	} else{
 	  die(mysqli_error());
    }
@@ -93,13 +82,13 @@ if(isset($_POST['Create']))
 				<div class="col-md-6 col-lg-4">
 					<div class="login-wrap py-5">
 						<div class="img d-flex align-items-center justify-content-center" style="background-image: url(images/pass.jpg);"></div>
-						<h3 class="text-center mb-0">Welcome</h3>
-						<p class="text-center">Please Create Your Password </p>
+						<h3 class="text-center mb-0">Resset Password</h3>
+						<p class="text-center">Please Reset Your Password </p>
 						<form action="#" class="login-form" method="POST">
 							<div class="form-group">
 								<div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-lock"></span></div>
 								<input type="password" name="New_pass" id="New_pass"  class="form-control" placeholder="New Password" required autocomplete="off">
-								<span class="text-danger font-weight-bol"> <?php echo $pass_error ?> </span>
+								<span class="text-danger font-weight-bol" id="pass_error"> </span>
 							</div>
 							<div class="form-group">
 								<div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-lock"></span></div>
@@ -112,7 +101,7 @@ if(isset($_POST['Create']))
 											</div>
 							</div> -->
 							<div class="form-group">
-								<button type="submit" name="Create"  class="btn form-control btn-primary rounded submit px-3"   onclick= ' return validation()' >Create Password</button>
+								<button type="submit" name="Create"  class="btn form-control btn-primary rounded submit px-3"   onclick= ' return validation()' >Resset Password</button>
 							</div>
 						</form>
 						<!-- <div class="w-100 text-center mt-4 text">
@@ -123,17 +112,40 @@ if(isset($_POST['Create']))
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript">
-			function validation(){			
-				var pass = document.getElementById('New_pass').value;
-				var confirmpass = document.getElementById('Con_pass').value;		
 
-				if(pass!=confirmpass){
-					document.getElementById('confrmpass').innerHTML =" **  New Password does not match the confirm password";
-					return false;
-				}
+		
+		<script type="text/javascript">
+			function validation() {
+			var pass = document.getElementById('New_pass').value;
+			var confirmpass = document.getElementById('Con_pass').value;
+			var pass_error = document.getElementById('pass_error');
+
+			// Check password strength
+			if (pass.length < 6) {
+				pass_error.innerHTML = " ** Password must be at least 6 characters";
+				return false;
+			}
+			if (!pass.match(/[a-zA-Z]/)) {
+				pass_error.innerHTML = " ** Password must contain at least one letter";
+				return false;
+			}
+			if (!pass.match(/\d/)) {
+				pass_error.innerHTML = " ** Password must contain at least one number";
+				return false;
+			}
+
+			// Check confirm password
+			if (pass != confirmpass) {
+				document.getElementById('confrmpass').innerHTML = " ** New Password does not match the confirm password";
+				return false;
+			}
+
+			return true;
 			}
 		</script>
+
+
+
 	</section>
 		
 

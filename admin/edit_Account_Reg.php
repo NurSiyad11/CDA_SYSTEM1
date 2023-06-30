@@ -9,8 +9,22 @@
 		$sql = "DELETE FROM account where id = ".$get_id;
 		$result = mysqli_query($conn, $sql);
 		if ($result) {
-			echo "<script>alert('Account deleted Successfully');</script>";
-     		echo "<script type='text/javascript'> document.location = 'Account_Reg.php'; </script>";
+            ?>
+			<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+						title: "Success",
+						text: "Account deleted Successfully' ",
+						icon: "success",
+						button: "Ok Done!",
+					})
+					.then(function() {
+						window.location = "Account_Reg.php";
+							});
+				});			
+			</Script>
+			<?php
+
 			
 		}
 	}
@@ -24,8 +38,22 @@
 
     $result = mysqli_query($conn,"update account set Acc_name = '$Acc_name' , Acc_no ='$Acc_no' where id = '$get_id' ");
     if ($result) {
-     	echo "<script>alert('Record Successfully Updated');</script>";
-     	echo "<script type='text/javascript'> document.location = 'Account_Reg.php'; </script>";
+        ?>
+			<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+						title: "Success",
+						text: "Record Successfully Updated' ",
+						icon: "success",
+						button: "Ok Done!",
+					})
+					.then(function() {
+						window.location = "edit_Account_Reg.php?edit=" + <?php echo ($get_id); ?>;
+							});
+				});			
+			</Script>
+			<?php	
+
 	} else{
 	  die(mysqli_error());
    }
@@ -66,6 +94,8 @@
                                 $query = mysqli_query($conn,"SELECT * from account where id = '$get_id'")or die(mysqli_error());
                                 $row = mysqli_fetch_array($query);
                                 ?>
+  								<input type="hidden" name="edit" class="form-control" value="<?php if(isset($_GET['edit'])){ echo $_GET['edit']; }else{ echo "$get_id";} ?>" >
+
 
                                 <form name="save" method="post">
                                 <div class="row">

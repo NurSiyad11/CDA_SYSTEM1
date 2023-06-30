@@ -11,17 +11,54 @@
 	$PV=$_POST['PV']; 
 	$Amount=$_POST['Amount']; 
 	$memo=$_POST['memo']; 
+	$Amount_saved = $conn->query("SELECT Amount as amt from `ven_payment` where id='$get_id'  ")->fetch_assoc()['amt'];
+	$Check_Amount = $Amount - $Amount_saved;
 
 	$Vid = $conn->query("SELECT id as Vid from `user` where Com_name='$name'  ")->fetch_assoc()['Vid'];
 
-	$result = mysqli_query($conn,"update ven_payment set Vid='$Vid',   Date='$Date', V_payment='$PV',  Amount='$Amount', Memo='$memo' where id='$get_id'         
-		"); 		
-	if ($result) {
-     	echo "<script>alert('Record Successfully Updated');</script>";
-     	echo "<script type='text/javascript'> document.location = 'vendor_payment.php'; </script>";
-	} else{
-	  die(mysqli_error());
-   }		
+	$INV = $conn->query("SELECT sum(Amount) as total from `ven_invoice` where Vid=$Vid   ")->fetch_assoc()['total'];
+	$PV = $conn->query("SELECT sum(Amount) as total from `ven_payment` where Vid=$Vid ")->fetch_assoc()['total'];
+	$Bal_Inv_PV = $INV - $PV;
+
+	if($Check_Amount > $Bal_Inv_PV){ ?>
+		<Script>
+			window.addEventListener('load',function(){
+				swal.fire({
+					title: "Warning",
+					text: "Haraagaagu kuguma filna oo cad...  ",
+					icon: "warning",
+					button: "Ok Done!",
+				})
+				.then(function() {
+					window.location = "edit_ven_payment.php?edit=" + <?php echo ($get_id); ?>;
+				});
+			});			
+		</Script>
+		<?php
+	}else{
+
+		$result = mysqli_query($conn,"update ven_payment set Vid='$Vid',   Date='$Date', V_payment='$PV',  Amount='$Amount', Memo='$memo' where id='$get_id'         
+			"); 		
+		if ($result) {
+			?>
+		<Script>
+			window.addEventListener('load',function(){
+				swal.fire({
+					title: "Success",
+					text: "Record Successfully Updated...  ",
+					icon: "success",
+					button: "Ok Done!",
+				})
+				.then(function() {
+					window.location = "edit_ven_payment.php?edit=" + <?php echo ($get_id); ?>;
+				});
+			});			
+		</Script>
+		<?php
+		} else{
+		die(mysqli_error());
+		}	
+	}	
 }
 ?>
 <body>
@@ -64,6 +101,8 @@
 									$query = mysqli_query($conn,"SELECT user.Name, user.Com_name, ven_payment.id, ven_payment.Vid,ven_payment.V_payment ,ven_payment.Amount,ven_payment.Date,ven_payment.Memo FROM ven_payment INNER JOIN user ON   ven_payment.Vid=user.ID  where ven_payment.id = '$get_id' ")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 									?>
+                					<input type="hidden" name="edit" class="form-control" value="<?php if(isset($_GET['edit'])){ echo $_GET['edit']; }else{ echo "$get_id";} ?>" >
+
                                   
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
@@ -73,9 +112,13 @@
 													<?php
 													$query = mysqli_query($conn,"select * from user where role ='Vendor'");
 													while($row = mysqli_fetch_array($query)){
-													
+														$test=$row['ID'];
+														$INV = $conn->query("SELECT sum(Amount) as total from `ven_invoice` where Vid=$test   ")->fetch_assoc()['total'];
+														$PV = $conn->query("SELECT sum(Amount) as total from `ven_payment` where Vid=$test ")->fetch_assoc()['total'];
+														$Bal_INV_PV = $INV - $PV;
+														$bal_format =number_format((float)$Bal_INV_PV, '2','.',',');
 													?>
-												<option value="<?php echo $row['Com_name']; ?>"><?php echo $row['Com_name']; ?></option>
+												<option value="<?php echo $row['Com_name']; ?>"><?php echo $row['Com_name'] ." $bal_format"; ?></option>
 													<?php } ?>
 											</select>
 										</div>

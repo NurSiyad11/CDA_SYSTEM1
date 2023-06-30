@@ -90,15 +90,15 @@ use PHPMailer\PHPMailer\Exception;
            <html>
               <body style=\"border: 2px solid #1D058D; margin: 25px 10px 20px 10px; padding: 5px 5px 5px 5px; \" >
               
-                 <h2  style=\"text-align:center; color: White; font-size: 200%; margin: 0px 0px 0px 0px; background-color : #1D058D; padding: 15px 5px 15px 5px;\">Customer Data Activity SYSTEM .....</h2>               
+                 <h2  style=\"text-align:center; color: White; font-size: 200%; margin: 0px 0px 0px 0px; background-color : #1D058D; padding: 15px 5px 15px 5px;\"> C.D.A SYSTEM .....</h2>               
 					<p style=\"text-align:left;  margin: 25px 10px 10px 20px;\">
 						Address : Muqdisho, Banaadir <br>
 						Deg : Howl Wadaag Tell: 602203 <br>
 						Email : example@gmail.com <br>
 					</p>
-					<p>Message : ".$Message." </p>
 					
-					<h3 style=\"text-align:left;  margin: 25px 10px 10px 20px;\"> Customer Data Activity Management System </h3>
+					
+					<h3 style=\"text-align:left;  margin: 25px 10px 10px 20px;\"> C.D.A SYSTEM </h3>
 					
 					<table cellpadding=\"10\" width=\"100%\">
 						<tr>
@@ -108,11 +108,12 @@ use PHPMailer\PHPMailer\Exception;
 					</table>	
 
 
-					<p style=\"text-align:left;  margin: 10px 20px 10px 20px;\"> Soo Dhawow Macaamiil, Waxaad Ku so Dhawaataa Qaybta Dhaqdhaqaaqa  
-						Xogta Macaamiisha. C.D.A Management System, Systemkaan Waxa uu Kaa Caawinayaa In aad lasocitid Xogtaada.
+					<p style=\"text-align:left;  margin: 10px 20px 10px 20px;\"> Ku soo dhawoow foomka diiwaangelinta codsiga system_ka!  Waan ku faraxsanahay
+					inaad xiisaynayso inaad codsato si aad u isticmaasho System_kaan. Systamkaan waxaa												   
+					loo qaabeeyey inuu u ahaado mid u fudud isticmaalaha Systemka.
 					</p>
 
-					<strong>Macaamiil Si aad ula soctid xogtaada Waxaad Boqataa https://systemcda.epizy.com </strong> <br>
+					<strong>Isticmaale  Si aad Systemka u isticmaashid Waxaad Boqataa https://systemcda.epizy.com </strong> <br>
 					<strong>Qaybta EMAIL ID Waxaad Galisaa :  </strong>".$Email_user  . "<br/>
 
 					<strong>Si Aad u sameysato password kuu gaar ah fadlan riix linkigaan  :  </strong> <a  href=\"http://localhost/TestingPhp/deskapp_cda/Password_gen/index.php?edit=".$ID_gmail ."\"> Create New Password </a> <br/>
@@ -121,14 +122,14 @@ use PHPMailer\PHPMailer\Exception;
 					<table  border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"\" >
 						<tr>
 							<th>
-							<Strong>Customer Information : </strong>
+							<Strong>User Information : </strong>
 							</th>		
 							<th></th>
 						
 						</tr>
 						<tr>
 							<th></th>		
-							<td><strong>Customer Name : </strong>" .$Name. "<br/>
+							<td><strong>User Name : </strong>" .$Name. "<br/>
 							<strong>Company Name : </strong>" .$Com_name ."<br/>
 							<strong>Email: </strong>" .$Email_user."<br/>
 							<strong>Address: </strong>" .$Address ."<br/>

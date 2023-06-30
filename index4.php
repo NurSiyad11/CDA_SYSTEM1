@@ -1,3 +1,5 @@
+
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 <?php
 session_start();
 include('database/db.php');
@@ -26,9 +28,11 @@ if(isset($_POST['signin']))
 	
 	if($count > 0)
 	{
-		while ($row = mysqli_fetch_assoc($query)) {
+		while ($row = mysqli_fetch_assoc($query)) 
+      {
 
-			if($row['Status'] == 'Inactive'){
+			if($row['Status'] == 'Inactive')
+         {
 				// $name = $row['Name'];
 				?>
 				<Script>
@@ -44,9 +48,16 @@ if(isset($_POST['signin']))
 								});
 					});			
 				</Script>
+            <!-- <script type="text/javascript">
+                              window.addEventListener('load', function() {
+                                 $('#exampleModal').modal('show');
+                              });
+                           </script> -->
+            
 				<?php	
 			}
-         elseif($row['Role'] == 'Vendor'){
+         elseif($row['Role'] == 'Vendor')
+         {
             ?>
                <Script>
                   window.addEventListener('load',function(){
@@ -62,16 +73,17 @@ if(isset($_POST['signin']))
                   });			
                </Script>
 		      <?php	
-          }	
-         else{
+         }	
+         else
+         {
                 $_SESSION['alogin']=$row['ID'];      
             
                 $session = $row['ID'];
                 $otp = sprintf("%'.06d",mt_rand(0,999999));
                // $expiration = date("Y-m-d H:i" ,strtotime(date('Y-m-d H:i')." +1 mins"));
           
-                $query=mysqli_query($conn,"update user set otp='$otp', otp_expiration='1' where ID=".$_SESSION['alogin']);
-                  $name=$row['Name'];       
+               $query=mysqli_query($conn,"update user set otp='$otp', otp_expiration='1' where ID=".$_SESSION['alogin']);
+               $name=$row['Name'];       
                 // $email_address=$row['Email'];
 
                     //Create instance of PHPMailer
@@ -100,24 +112,73 @@ if(isset($_POST['signin']))
                         // $mail->addAttachment('img/attachment.png');
                     //Email body
                         $mail->Body = " 
-                        <html>
+                     <html>
                            
-                           <body  style=\"border: 2px solid #1D058D; margin: 25px 10px 20px 10px;\">
-                              <h2  style=\"text-align:center; color: White; font-size: 200%; margin: 0px 0px 0px 0px; background-color : #1D058D; padding: 15px 5px 15px 5px;\">You are Attempting to Login CDA System</h2>
-                              <p style=\"text-align:left;  margin: 25px 10px 10px 20px;\">Dear ".$name." </br></p>
-                              <p style=\"text-align:left;  margin: 0px 10px 10px 20px;\">Here is your OTP (One-Time PIN) to verify your Identity. </br></p>
-                              <h3 style=\"text-align:left;  margin: 0px 10px 10px 20px;\"> OTP : ".$otp."</br></h3>
-                              <h3 style=\"text-align:left;  margin: 0px 10px 10px 20px;\"> Expiration Time : ".$expiration."</br></h3>
-                           </body>
+                        <body  style=\"border: 2px solid #1D058D; margin: 25px 10px 20px 10px;\">
+                           <h2  style=\"text-align:center; color: White; font-size: 200%; margin: 0px 0px 0px 0px; background-color : #1D058D; padding: 15px 5px 15px 5px;\">You are Attempting to Login CDA System</h2>
+                           <p style=\"text-align:left;  margin: 25px 10px 10px 20px;\">Dear ".$name." </br></p>
+                           <p style=\"text-align:left;  margin: 0px 10px 10px 20px;\">Here is your OTP (One-Time PIN) to verify your Identity. </br></p>
+                           <h3 style=\"text-align:left;  margin: 0px 10px 10px 20px;\"> OTP : ".$otp."</br></h3>
+                           <h3 style=\"text-align:left;  margin: 0px 10px 10px 20px;\"> Expiration Time : If you use it once, you will not be able to use it again </br></h3>
+                        </body>
                     </html>";
                     //Add recipient
                         $mail->addAddress('cabdinur789@gmail.com');
+                        
                     //Finally send email
-                        if ( $mail->send() ) {
-                           echo "<script type='text/javascript'> document.location = 'verification.php'; </script>"; 
-                        }else{
+                        if ( $mail->send() ) 
+                        {
+                            echo "<script type='text/javascript'> $('#exampleModal').modal('show'); </script>";
+                        
+                        ?>
+
+                           <!-- <script type="text/javascript">
+                              window.addEventListener('load', function() {
+                                 $('#exampleModal').modal('show');
+                              });
+                           </script> -->
+                           <!-- <script>
+                              window.addEventListener('load', function() {
+                                 $('#exampleModal').modal('show');
+                              });
+                           </script> -->
+                        <!-- <script type='text/javascript'>
+                           $(document).ready(function() {
+                              $('#exampleModal').modal('show');
+                           });
+                         </script> -->
+                        <!-- <script type="text/javascript">
+                        window.addEventListener('load',function(){
+                             $('#exampleModal').modal('show');
+                           });
+                        </script> -->
+
+                        <!-- <script>
+                           $('#exampleModal').modal('show');
+                           window.location = "index4.php"; 
+                        </script> -->
+
+                        
+                        
+                        <!-- <script>alert($('#exampleModal').modal('show'););</script>;
+                          <script>
+                          window.location = "index4.php"; 
+                          </script> -->
+                        <?php
+                         
+
+
+                        //      echo "<script type='text/javascript'>
+                        //   $(document).ready(function() {
+                        //     $('#exampleModal').modal('show');
+                        //   });
+                        //    </script>";
+                     
+                        }
+                        else
+                        {
                            ?>
-                           <Script>
+                           <!-- <Script>
                               window.addEventListener('load',function(){
                                  swal.fire({
                                     title: "Error",
@@ -129,24 +190,41 @@ if(isset($_POST['signin']))
                                           window.location = "index4.php";
                                        });
                               });			
-                           </Script>
+                           </Script> -->
+
+                             <script>alert('Message could not be sent. Mailer Error: ');</script>;
+                          <script>
+                          window.location = "index4.php"; 
+                          </script>
                            <?php	
                            // echo "Message could not be sent. Mailer Error: ".$mail->ErrorInfo;
+                           
+                            //Closing smtp connection
+                            $mail->smtpClose();
                         }
-                    //Closing smtp connection
-                        $mail->smtpClose();
+                   
 
                           //echo "<script type='text/javascript'> document.location = 'index4.php'; </script>"; 
+                         
                            ?>
-                          <script>alert('Message could not be sent. Mailer Error: ');</script>;
+
+                      <!-- <script type="text/javascript">
+                              window.addEventListener('load', function() {
+                                 $('#exampleModal').modal('show');
+                              });
+                           </script> -->
+                         
+
+ 
+                          <script>alert('Unkown Error  ');</script>;
                           <script>
                           window.location = "index4.php"; 
                           </script>
                            <?php
                          
-            }
-        }
-    }
+         }
+      }
+   }
 	else{ 	  
 		?>
 		<Script>
@@ -163,8 +241,6 @@ if(isset($_POST['signin']))
 			});			
 		</Script>
 		<?php	
-	//   echo "<script>alert('Please Check Your Email or Password');</script>";
-	//   echo "<script type='text/javascript'> document.location = 'index.php'; </script>";
 
 	}
 }
@@ -178,6 +254,10 @@ if(isset($_POST['signin']))
    <body class="main-layout">
 
    <?php include('includes/header.php')?>
+
+
+
+
 
       <!-- banner -->
       <!-- <div class="container"> -->
@@ -206,9 +286,7 @@ if(isset($_POST['signin']))
                         <div class="row">
                            <div class="col-md-5">
                               <div class="book_room">
-                                 <h1>C.D.A System</h1>
-                           
-                                 
+                                 <h1>C.D.A System</h1>                    
                                  <form class="book_now" name="signin" method="post" >
                                     <div class="row">
                                        <div class="col-md-12">
@@ -233,6 +311,47 @@ if(isset($_POST['signin']))
                      </div>
                   </div>
 
+
+
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Open modal for @mdo</button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
                   
                </section>
             </div>
@@ -246,6 +365,7 @@ if(isset($_POST['signin']))
       <!-- end footer -->
       <!-- Javascript files-->
       <?php include('includes/scripts.php')?>
+      <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
    </body>
 </html>

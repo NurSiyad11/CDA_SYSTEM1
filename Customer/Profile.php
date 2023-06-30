@@ -10,39 +10,55 @@ if (isset($_POST["update_image"])) {
 	$query = mysqli_query($conn,"select * from user where Picture = '$image' ")or die(mysqli_error());
 	$count = mysqli_num_rows($query);   
 		
-	if($count > 0){ ?>
-		<script>
-		   window.addEventListener('load',function(){
-			   swal.fire({
-				   //title: "Warning",
-				   text: "please change the name of picture ",
-				   icon: "warning",
-				   button: "Ok Done!",			
-			   })
-			   .then(function() {
-					   window.location = "Profile.php";
-				   });
-		   });
-	   </script>
-	   <?php
-	}
-	elseif(!empty($image)){
+	if(!empty($image)){
 		move_uploaded_file($_FILES['image']['tmp_name'], '../uploads/'.$image);
 		$Picture = $image;	
 
 		$result = mysqli_query($conn,"update user set Picture='$Picture' where id='$session_id'         
 			")or die(mysqli_error());
 		if ($result) {
-			echo "<script>alert('Profile Picture Updated');</script>";
-			echo "<script type='text/javascript'> document.location = 'Profile.php'; </script>";
+			?>
+			<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+					title: "Success",
+					text: "Profile Picture Successfully Updated ",
+					icon: "success",
+					button: "Ok Done!",				
+					
+				})
+				.then(function() {
+					window.location = "Profile.php";
+				});	
+			});			
+				</Script>
+			<?php
+			// echo "<script>alert('Profile Picture Updated');</script>";
+			// echo "<script type='text/javascript'> document.location = 'Profile.php'; </script>";
 		} else{
 		die(mysqli_error());
 		}
 	}	
 
 	elseif(empty($image)) {
-		echo "<script>alert('Please Select Picture to Update');</script>";
-		echo "<script type='text/javascript'> document.location = 'Profile.php'; </script>";
+		?>
+			<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+					title: "Success",
+					text: "Please Select Picture to Update ",
+					icon: "success",
+					button: "Ok Done!",				
+					
+				})
+				.then(function() {
+						window.location = "Profile.php";
+					});	
+				});			
+			</Script>
+		<?php
+		// echo "<script>alert('Please Select Picture to Update');</script>";
+		// echo "<script type='text/javascript'> document.location = 'Profile.php'; </script>";
 
 	}
 
@@ -96,7 +112,7 @@ if (isset($_POST["update_image"])) {
 												<div class="weight-500 col-md-12 pd-5">
 													<div class="form-group">
 														<div class="custom-file">
-															<input name="image" id="file" type="file" class="custom-file-input" accept="image/*" onchange="validateImage('file')">
+															<input name="image" id="file" type="file" required class="custom-file-input" accept="image/*" onchange="validateImage('file')">
 															<label class="custom-file-label" for="file" id="selector">Choose file</label>		
 														</div>
 													</div>
@@ -219,7 +235,7 @@ if (isset($_POST["update_image"])) {
 	<!-- js -->
 	<?php include('includes/scripts.php')?>
 
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 		var loader = function(e) {
 			let file = e.target.files;
 
@@ -231,26 +247,46 @@ if (isset($_POST["update_image"])) {
 
 		let fileInput = document.getElementById("file");
 		fileInput.addEventListener("change", loader);
-	</script>
-	<script type="text/javascript">
-		 function validateImage(id) {
-		    var formData = new FormData();
-		    var file = document.getElementById(id).files[0];
-		    formData.append("Filedata", file);
-		    var t = file.type.split('/').pop().toLowerCase();
-		    if (t != "jpeg" && t != "jpg" && t != "png") {
-		        alert('Please select a valid image file');
-		        document.getElementById(id).value = '';
-		        return false;
-		    }
-		    if (file.size > 1050000) {
-		        alert('Max Upload size is 1MB only');
-		        document.getElementById(id).value = '';
-		        return false;
-		    }
+	</script> -->
 
-		    return true;
-		}
-	</script>
+
+	
+	<script>
+	function validateImage(id) {
+    var formData = new FormData();
+    var file = document.getElementById(id).files[0];
+    formData.append("Filedata", file);
+    var t = file.type.split('/').pop().toLowerCase();
+    if (t != "jpeg" && t != "jpg" && t != "png") {
+        alert('Please select a valid image file');
+        document.getElementById(id).value = '';
+        return false;
+    }
+    if (file.size > 1050000) {
+        alert('Max Upload size is 1MB only');
+        document.getElementById(id).value = '';
+        return false;
+    }
+    var img = new Image();
+    img.onload = function() {
+        var width = this.width;
+        var height = this.height;
+        if (width < 500 || height < 500) {
+            alert('Image dimensions are too small. Please select an image with dimensions greater than 500x500."');
+            document.getElementById(id).value = '';
+            return false;
+        } else if (width > 600 || height > 600) {
+            alert('Image dimensions are too large. Please select an image with dimensions less than 600x600');
+            document.getElementById(id).value = '';
+            return false;
+        }
+    };
+    img.src = window.URL.createObjectURL(file);
+    return true;
+}
+</script>
+
+
+
 </body>
 </html>

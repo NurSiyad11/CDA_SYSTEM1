@@ -44,10 +44,7 @@
 								});
 					});			
 				</Script>
-			<?php	
-				// echo "<script>alert('Record Successfully Updated');</script>";
-				// echo "<script type='text/javascript'> document.location = 'Requested.php'; </script>";
-				
+			<?php					
 			} else{
 			die(mysqli_error());
 		}	
@@ -121,10 +118,16 @@
 											<input name="Email" type="gmail" class="form-control wizard-required" required="true" autocomplete="off"  readonly value="<?php echo $row['Email']; ?>">
 										</div>
 									</div>
-									<div class="col-md-6 col-sm-12">
+									<div class="col-md-3 col-sm-12">
 										<div class="form-group">
 											<label >Phone Number :</label>
 											<input name="Phone" type="text" class="form-control wizard-required" required="true" autocomplete="off"  readonly value="<?php echo $row['Phone']; ?>">
+										</div>
+									</div>
+									<div class="col-md-3 col-sm-12">
+										<div class="form-group">
+											<label >Tell Number :</label>
+											<input name="Phone" type="text" class="form-control wizard-required" required="true" autocomplete="off"  readonly value="<?php echo $row['Tell']; ?>">
 										</div>
 									</div>
 								</div>

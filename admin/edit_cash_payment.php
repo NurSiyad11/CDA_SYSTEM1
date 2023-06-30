@@ -13,28 +13,52 @@
 	$Amount=$_POST['Amount']; 
 	$memo=$_POST['memo']; 
 	$Ac_name=$_POST['Ac_name']; 
+	$Amount_saved = $conn->query("SELECT Amount as amt from `cash_payment` where id='$get_id'  ")->fetch_assoc()['amt'];
+	$Check_Amount = $Amount - $Amount_saved;
 
 	$Ac_id = $conn->query("SELECT id as cid from `account` where Acc_name='$Ac_name'  ")->fetch_assoc()['cid'];
 
 	$total_in = $conn->query("SELECT sum(Amount) as total from `cash_receipt` where Acc_id=$Ac_id   ")->fetch_assoc()['total'];
 	$total_out = $conn->query("SELECT sum(Amount) as total from `cash_payment` where Acc_id=$Ac_id ")->fetch_assoc()['total'];
 	$Bal_Inc_exp = $total_in - $total_out;
-	echo "$Bal_Inc_exp";
 	
-	if($Amount > $Bal_Inc_exp){ ?>
-		<script>alert('Haraagaagu kuguma filna...  ' );</script>;
-		<script>
-		window.location = "cash_payment.php"; 
-		</script>
-
+	if($Check_Amount > $Bal_Inc_exp){ ?>
+		<Script>
+            window.addEventListener('load',function(){
+                swal.fire({
+                    title: "Warning",
+                    text: "Haraagaagu kuguma filna...",
+                    icon: "warning",
+                    button: "Ok Done!",
+                })
+                .then(function() {
+                    window.location = "edit_cash_payment.php?edit=" + <?php echo ($get_id); ?>;
+                });
+            });			
+        </Script>
 		<?php
 	} else{
 
 		$result = mysqli_query($conn,"update cash_payment set  Acc_id='$Ac_id',  name='$name',  Date='$Date', PV='$PV',  Amount='$Amount', Memo='$memo' where id='$get_id'         
 		"); 		
 		if ($result) {
-		echo "<script>alert('Record Successfully Updated');</script>";
-		echo "<script type='text/javascript'> document.location = 'cash_payment.php'; </script>";
+			?>
+			<Script>
+            window.addEventListener('load',function(){
+                swal.fire({
+                    title: "Success",
+                    text: "Record Successfully Updated..",
+                    icon: "success",
+                    button: "Ok Done!",
+                })
+                .then(function() {
+                    window.location = "edit_cash_payment.php?edit=" + <?php echo ($get_id); ?>;
+                });
+            });			
+        </Script>
+			<?php
+		// echo "<script>alert('Record Successfully Updated');</script>";
+		// echo "<script type='text/javascript'> document.location = 'cash_payment.php'; </script>";
 		} else{
 		die(mysqli_error());
 		}	
@@ -79,7 +103,9 @@
                                     <?php
 									$query = mysqli_query($conn,"SELECT account.Acc_name,   cash_payment.id, cash_payment.name, cash_payment.PV ,cash_payment.Amount,cash_payment.Date, cash_payment.Memo FROM cash_payment INNER JOIN account ON   cash_payment.Acc_id=account.id  where cash_payment.id = '$get_id'") or die(mysqli_error());	
 									$row = mysqli_fetch_array($query);
-									?>                             
+									?>   
+	  								<input type="hidden" name="edit" class="form-control" value="<?php if(isset($_GET['edit'])){ echo $_GET['edit']; }else{ echo "$get_id";} ?>" >
+                          
 								<div class="row">
                                     <div class="col-md-4 col-sm-12">
 										<div class="form-group">

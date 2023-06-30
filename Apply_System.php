@@ -179,8 +179,8 @@ use PHPMailer\PHPMailer\Exception;
             <!-- <script>alert('Your request has been submitted and will be answered as soon as possible. ');</script>; -->
              <?php       
 
-            // mysqli_query($conn,"INSERT INTO apply_form (Name,Email,Company_name,Address,Phone,Tell,Status) VALUES('$Full_name','$Email','$Com_name','$Address','$Tell','$Phone','0')         
-            // ") or die(mysqli_error());
+            mysqli_query($conn,"INSERT INTO apply_form (Name,Email,Company_name,Address,Phone,Tell,Status) VALUES('$Full_name','$Email','$Com_name','$Address','$Tell','$Phone','0')         
+            ") or die(mysqli_error());
             ?>
                 <!-- <script>       
                window.location = "index4.php"; 

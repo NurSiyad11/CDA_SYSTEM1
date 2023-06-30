@@ -1,5 +1,5 @@
 <!-- Nav Bar Start -->
-<?php //include('includes/Admin_Administrator.php') ?>
+<?php include('includes/Admin_Administrator.php') ?>
 
 
 
@@ -89,7 +89,7 @@
 							<ul>
 							<?php 
 								//$status="Pending Order";
-								$sql = "SELECT user.Name, user.Com_name, user.Picture, tbl_order.id, tbl_order.Date,tbl_order.Reason, tbl_order.File,tbl_order.Status FROM tbl_order INNER JOIN user ON   tbl_order.Cid=user.id where tbl_order.Status ='Pending' order by tbl_order.Date desc";
+								$sql = "SELECT user.Name, user.Com_name, user.Picture, tbl_order.id, tbl_order.Date,tbl_order.Reason, tbl_order.File,tbl_order.Status FROM tbl_order INNER JOIN user ON   tbl_order.Cid=user.id where tbl_order.Status ='Pending' order by tbl_order.id desc";
 									$query = mysqli_query($conn, $sql) or die(mysqli_error());
 									while ($row = mysqli_fetch_array($query)) {
 

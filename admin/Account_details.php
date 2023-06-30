@@ -40,80 +40,11 @@ $get_id = $_GET['edit'];
 								</ol>
 							</nav>
 						</div>
-                        <!-- <div class="row">
-                            <div class="col-12">     
-                                <a  href="#" class="btn btn-primary" data-toggle="modal" data-target="#Medium-modal"> <i class="icon-copy ion-plus "></i> Add FAQ</a>
-                            </div>
-                        </div> -->
 					</div>
 				</div>
 
 
-                    <!-- 
-                <div class="row">
-                    <div class="col-xl-4 mb-30">
-                        <?php 		                    
-                            // $Total_in = $conn->query("SELECT sum(Amount) as total FROM `cash_receipt` where Acc_id='$get_id'  ")->fetch_assoc()['total'];
-                            // $format =number_format((float)$Total_in, '2','.',',');                                               									
-                        ?>  
-                        <div class="card-box height-100-p widget-style1 bg-white">
-                            <div class="d-flex flex-wrap align-items-center">
-                                <div class="progress-data">
-                                    <div id="">
-                                    <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="50" height="50" alt="">
-                                    </div>
-                                </div>
-                                <div class="widget-data">
-                                    <div class="h5 mb-0"><?php //echo "$ ". ($format); ?></div>
-                                    <div class="weight-300 font-18">Total In </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 mb-30">
-                    
-                        <div class="card-box height-100-p widget-style1 bg-white">
-                         <?php                                 
-                            // $Total_out = $conn->query("SELECT sum(Amount) as total FROM `cash_payment` where Acc_id='$get_id'  ")->fetch_assoc()['total'];
-                            // $format2 =number_format((float)$Total_out, '2','.',',');                        										
-                        ?>   
-                            <div class="d-flex flex-wrap align-items-center ">	
-                                <div class="progress-data">
-                                    <div id="">
-                                    <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="50" height="50" alt="">
-                                    </div>
-                                </div>						
-                                <div class="widget-data">
-                                    <div class="h5 mb-0"><?php// echo "$ ". ($format2); ?></div>
-                                    <div class="weight-300 font-18">Total Out</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="col-xl-4 mb-30">
-                        <div class="card-box height-100-p widget-style1 bg-white">
-                            <?php 
-                               
-                                // $RV = $conn->query("SELECT sum(Amount) as total FROM `cash_receipt` where Acc_id='$get_id'  ")->fetch_assoc()['total'];
-                                // $PV = $conn->query("SELECT sum(Amount) as total FROM `cash_payment` where Acc_id='$get_id'  ")->fetch_assoc()['total'];
-                                // $Bal = $RV - $PV;
-                                // $format_balance =number_format((float)$Bal, '2','.',',');										
-                            ?>	
-                            <div class="d-flex flex-wrap align-items-center">	
-                                <div class="progress-data">
-                                    <div id="">
-                                    <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="50" height="50" alt="">
-                                    </div>
-                                </div>						
-                                <div class="widget-data">
-                                    <div class="h5 mb-0"><?php// echo "$ ". ($format_balance); ?></div>
-                                    <div class="weight-300 font-17">Balance </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>			
-                </div> -->
 
 
                 <div class="pd-20 card-box mb-30">
@@ -124,27 +55,27 @@ $get_id = $_GET['edit'];
                     <div class="pb-20">
                         <h2 class="text-blue h4"><?php echo "Account Name:  $Account_name"?></h2>
 
-                        <div class="container pd-5">
+                        <!-- <div class="container pd-5">
                             <?php                     
-                            $F_date=date('Y-m-01');
-                            $T_date=date('Y-m-d');                   
+                            // $F_date=date('Y-m-01');
+                            // $T_date=date('Y-m-d');                   
                             ?>
                             <form action="" method="GET">
                                 <div class="row">
                                     <div class="col-4">
                                         <div class="from-group">
                                             <label > From Date  </label>
-                                            <input type="date" name="from_date" class="form-control" value="<?php if(isset($_GET['from_date'])){ echo $_GET['from_date']; }else{ echo "$F_date"; }; ?>">
+                                            <input type="date" name="from_date" class="form-control" value="<?php// if(isset($_GET['from_date'])){ echo $_GET['from_date']; }else{ echo "$F_date"; }; ?>">
                                         </div>
                                     </div>
                                     
                                     <div class="col-4">
                                         <div class="from-group">
                                             <label > To Date  </label>
-                                            <input type="date" name="to_date" class="form-control" value="<?php if(isset($_GET['to_date'])){ echo $_GET['to_date']; }else{ echo "$T_date";} ?>" >
+                                            <input type="date" name="to_date" class="form-control" value="<?php// if(isset($_GET['to_date'])){ echo $_GET['to_date']; }else{ echo "$T_date";} ?>" >
                                         </div>
                                     </div>
-                                    <input type="hidden" name="edit" class="form-control" value="<?php if(isset($_GET['edit'])){ echo $_GET['edit']; }else{ echo "$get_id";} ?>" >
+                                    <input type="hidden" name="edit" class="form-control" value="<?php// if(isset($_GET['edit'])){ echo $_GET['edit']; }else{ echo "$get_id";} ?>" >
 
                                    
 
@@ -153,50 +84,31 @@ $get_id = $_GET['edit'];
                                             <label > Click to Filter  </label> <br>
                                             <button type="submit" class="btn btn-primary">Filter</button>
                                             <button type="submit" name="refresh" class="btn btn-primary">All</button>
-                                            <!-- <input type="date" name="to_date" class="form-control"> -->
+                                          
                                         </div>
                                     </div>
                                 </div>
                             </form>
-                        </div>
-
-
-
-
+                        </div> -->
 
                         
                      
-                        <table class="data-table-export table stripe hover nowrap">
+                        <table class="data-table table stripe hover nowrap">
                             <thead class="table-dark">
                                 <tr>
                                     <th>NO#</th>
-                                    <th class="table-plus">Name</th>
-                                    <th>##</th>
-                                    <th> No#</th>
-                                    <th>Date </th>
-                                    <th>Account Name</th>
-                                    <th>Debit</th>
-                                    <th>Credit</th>   
-                                    <th>Balance</th>                              
+                                    <th class="datatable-nosort">Name</th>
+                                    <th class="datatable-nosort" >##</th>
+                                    <th class="datatable-nosort" > No#</th>
+                                    <th class="datatable-nosort" >Date </th>
+                                    <th class="datatable-nosort" >Account Name</th>
+                                    <th class="datatable-nosort" >Debit</th>
+                                    <th class="datatable-nosort" >Credit</th>   
+                                    <th class="datatable-nosort" >Balance</th>                              
                 
                                 </tr>
-                            </thead>
-                                <!-- <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>$ 100.00</td>
-                                 
-                                                              
-                
-                                </tr> -->
+                            </thead>                             
                                 <tr>
-
                                     <?php
                                     $i =1;
                                     $income= 0;
@@ -204,23 +116,26 @@ $get_id = $_GET['edit'];
                                     $Total=0;
 
                                     $Bala = 0;
-                                    if(isset($_GET['from_date']) && isset($_GET['to_date']) && isset($_GET['edit'])){
-                                         $get_id= $_GET['edit'];
-                                        $from_date= $_GET['from_date'];
-                                        $to_date= $_GET['to_date'];
-                                        $query = mysqli_query($conn,"SELECT id,name,Acc_id,D_RV,RV,Date,Memo,Amount,empty FROM cash_receipt where Acc_id = '$get_id' and Date BETWEEN '$from_date' AND '$to_date'    UNION All SELECT id,name,Acc_id,D_PV,PV,Date,Memo,empty,Amount   FROM cash_payment where Acc_id = '$get_id' and Date BETWEEN '$from_date' AND '$to_date'  ORDER BY Date asc") or die(mysqli_error());
-                                        $balance_1 = $conn->query("SELECT Date,Amount,empty, (Amount - empty ) as balance FROM cash_receipt where Acc_id = '$get_id' and Date < '$from_date' AND '$to_date'    UNION All SELECT Date,empty,Amount,(Amount - empty ) as balance  FROM cash_payment where Acc_id = '$get_id' and Date < '$from_date' AND '$to_date'   ")->fetch_assoc()['balance']; 
 
 
-                                    }if(isset($_GET['refresh'])){
-                                        $query = mysqli_query($conn,"SELECT id,name,Acc_id,D_RV,RV,Date,Memo,Amount,empty   FROM cash_receipt where Acc_id = '$get_id'   UNION All SELECT id,name,Acc_id,D_PV,PV,Date,Memo,empty,Amount FROM cash_payment where Acc_id = '$get_id'   ORDER BY Date asc") or die(mysqli_error());
+
+                                   // if(isset($_GET['from_date']) && isset($_GET['to_date']) && isset($_GET['edit'])){
+                                        // $get_id= $_GET['edit'];
+                                       // $from_date= $_GET['from_date'];
+                                      //  $to_date= $_GET['to_date'];
+                                      //  $query = mysqli_query($conn,"SELECT id,name,Acc_id,D_RV,RV,Date,Memo,Amount,empty FROM cash_receipt where Acc_id = '$get_id'    UNION All SELECT id,name,Acc_id,D_PV,PV,Date,Memo,empty,Amount   FROM cash_payment where Acc_id = '$get_id'  ORDER BY Date asc") or die(mysqli_error());
+                                       // $balance_1 = $conn->query("SELECT Date,Amount,empty, (Amount - empty ) as balance FROM cash_receipt where Acc_id = '$get_id' and Date < '$from_date' AND '$to_date'    UNION All SELECT Date,empty,Amount,(Amount - empty ) as balance  FROM cash_payment where Acc_id = '$get_id' and Date < '$from_date' AND '$to_date'   ")->fetch_assoc()['balance']; 
+
+
+                                    //}if(isset($_GET['refresh'])){
+                                     //  $query = mysqli_query($conn,"SELECT id,name,Acc_id,D_RV,RV,Date,Memo,Amount,empty   FROM cash_receipt where Acc_id = '$get_id'   UNION All SELECT id,name,Acc_id,D_PV,PV,Date,Memo,empty,Amount FROM cash_payment where Acc_id = '$get_id'   ORDER BY Date asc") or die(mysqli_error());
     
-                                    }
+                                  //  }
                                    // $query_1 = mysqli_query($conn,"SELECT id,name,Acc_id,D_RV,RV,Date,Memo,Amount,empty, (Amount - empty ) as balance FROM cash_receipt where Acc_id = '$get_id' and Date < '$from_date' AND '$to_date'    UNION All SELECT id,name,Acc_id,D_PV,PV,Date,Memo,empty,Amount,(Amount - empty ) as balance  FROM cash_payment where Acc_id = '$get_id' and Date < '$from_date' AND '$to_date'  ORDER BY Date asc") or die(mysqli_error());
 
                                     ?>
                                     
-                                    <tr>
+                                    <!-- <tr>
                                         <td>1</td>
                                         <td></td>
                                         <td></td>
@@ -229,25 +144,20 @@ $get_id = $_GET['edit'];
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td><?php echo $balance_1 ?></td>
-                                    </tr>
+                                        <td><?php //echo $balance_1 ?></td>
+                                    </tr> -->
                                     <?php
                                     
                                   //  $query = mysqli_query($conn,"SELECT id,name,Acc_id,D_RV,RV,Date,Memo,Amount,empty   FROM cash_receipt where Acc_id = '$get_id'   UNION All SELECT id,name,Acc_id,D_PV,PV,Date,Memo,empty,Amount FROM cash_payment where Acc_id = '$get_id'   ORDER BY Date desc") or die(mysqli_error());
-                                    while ($row = mysqli_fetch_array($query)) {
+                                  $query = mysqli_query($conn,"SELECT id,name,Acc_id,D_RV,RV,Date,Memo,Amount,empty FROM cash_receipt where Acc_id = '$get_id'    UNION All SELECT id,name,Acc_id,D_PV,PV,Date,Memo,empty,Amount   FROM cash_payment where Acc_id = '$get_id'  ORDER BY Date asc") or die(mysqli_error());
+                                  while ($row = mysqli_fetch_array($query)) {
                                     $id = $row['id'];
                                   
                                         ?>
 
                                     <td><?php echo $i++; ?></td>
                                     <td class="table-plus">
-                                        <div class="name-avatar d-flex align-items-center">
-                                            <div class="avatar mr-2 flex-shrink-0">
-                                                <!--
-                                                <img src="<?php echo (!empty($row['Location'])) ? '../uploads/'.$row['Location'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt="">
-                                                -->
-
-                                            </div>
+                                        <div class="name-avatar d-flex align-items-center">                                            
                                             <div class="txt">
                                                 <div class="weight-600"><?php echo $row['name'] . " " ; ?></div>
                                             </div>
@@ -293,13 +203,7 @@ $get_id = $_GET['edit'];
 
                                 $Total=$income - $expense;
                                 ?>
-                                <?php  
-                               //$Bala = $row['balance'];
-                              // $Bala= $row['balance'];
-                            //    $in= $Bala + $row['Amount'];
-                            //    $out= $row['empty'];
-                            //    $total_bal= $in -$out;                                
-
+                                <?php                               
                             }  ?>  
                             </tbody>
                             <tfoot class="">

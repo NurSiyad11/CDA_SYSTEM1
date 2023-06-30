@@ -2,15 +2,15 @@
 <?php include('../database/session.php')?>
 <?php include('../database/db.php')?>
 <?php
-if (isset($_GET['delete'])) {
-	$delete = $_GET['delete'];
-	$sql = "DELETE FROM ven_payment where id = ".$delete;
-	$result = mysqli_query($conn, $sql);
-	if ($result) {
-		echo "<script>alert('Vendor Payment deleted Successfully');</script>";															 
-     	echo "<script type='text/javascript'> document.location = 'vendor_payment.php'; </script>";		
-	}
-}
+// if (isset($_GET['delete'])) {
+// 	$delete = $_GET['delete'];
+// 	$sql = "DELETE FROM ven_payment where id = ".$delete;
+// 	$result = mysqli_query($conn, $sql);
+// 	if ($result) {
+// 		echo "<script>alert('Vendor Payment deleted Successfully');</script>";															 
+//      	echo "<script type='text/javascript'> document.location = 'vendor_payment.php'; </script>";		
+// 	}
+// }
 ?>
 <?php
 	if(isset($_POST['payment']))
@@ -37,8 +37,7 @@ if (isset($_GET['delete'])) {
 					swal.fire({
 						title: "Success",
 						text: "Vendor Payment Records Successfully  Added ",
-						icon: "success",
-						
+						icon: "success",						
 					})
 					.then(function() {
 						window.location = "vendor_payment.php";
@@ -214,8 +213,8 @@ if (isset($_GET['delete'])) {
 												<i class="dw dw-more"></i>
 											</a>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-												<a class="dropdown-item" href="edit_ven_payment.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> View</a>
-												<a class="dropdown-item" href="vendor_payment.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
+												<a class="dropdown-item" href="edit_ven_payment.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> Edit</a>
+												<!-- <a class="dropdown-item" href="vendor_payment.php?delete=<?php// echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a> -->
 											</div>
 										</div>
 									</td>
@@ -223,11 +222,11 @@ if (isset($_GET['delete'])) {
 								<?php } ?>  
 							</tbody>
 						</table>
-						<script>
+						<!-- <script>
 							function checkdelete(){
 								return confirm('Do you Want to Delete this Record ? ');
 							}
-						</script>
+						</script> -->
 					</div>
 				</div>
 			</div>

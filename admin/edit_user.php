@@ -3,17 +3,67 @@
 <?php include('../database/db.php')?>
 <?php include('includes/Administrator_only.php');?>
 
-
 <?php $get_id = $_GET['edit']; ?>
 
+<!-- Profile Image Update Code  -->
+<?php
+if (isset($_POST["update_image"])) {
+
+	$image = $_FILES['image']['name'];
+
+	if(!empty($image)){
+		move_uploaded_file($_FILES['image']['tmp_name'], '../uploads/'.$image);
+		$Picture = $image;	
+
+			$result = mysqli_query($conn,"update user set Picture='$Picture' where id='$get_id'         
+			")or die(mysqli_error());
+			if ($result) {
+				?>
+					<Script>
+						window.addEventListener('load',function(){
+							swal.fire({
+								title: "Success",
+								text: "User Profile Picture Updated  ",
+								icon: "success",
+								
+							})
+							.then(function() {
+								window.location = "edit_user.php?edit=" + <?php echo ($get_id); ?>;
+							});
+						});			
+					</Script>
+				<?php	
+			} else{
+			die(mysqli_error());
+			}	
+	}
+	else {
+		?>
+			<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+						title: "warning",
+						text: "Please Select Picture to Update ",
+						icon: "warning",
+						
+					})
+					.then(function() {
+						window.location = "edit_user.php?edit=" + <?php echo ($get_id); ?>;
+							});
+				});			
+			</Script>
+			<?php
+	} 
+}
+?>
 
 
-<!-- Update users   && $_POST['edit'] == 'GET'-->
+
+<!-- Update users Info-->
 <?php
 
 	if(isset($_POST['update']) ) 
 	{
-		// urldecode($_GET['id'])
 	$get_id=$_GET['edit'];
 	$name=$_POST['name'];
 	$email=$_POST['email'];  
@@ -78,11 +128,12 @@
 							<h4 class="text-blue h4">Edit User</h4>
 							<p class="mb-20"></p>
 						</div>
-						<div class="col-md-4 col-sm-12 text-right">
-							<a href="task-add" data-toggle="modal" data-target="#Medium-modal" class="bg-light-blue btn text-blue weight-500"><i class="ion-password-round"></i>View Password</a>
-							
-				
-						</div>
+						<div class="row">				
+							<div class="col-md-12 col-sm-12 text-right">
+								<a href="task-add" data-toggle="modal" data-target="#Medium-modal" class="bg-light-blue btn text-blue weight-500"><i class="dw dw-view "></i> View Password</a>				
+								<a href="modal" class="bg-light-blue btn text-blue weight-500" data-toggle="modal" data-target="#modal" class="edit-avatar"><i class="dw dw-edit-2 "></i> Choose New Image</a>
+							</div>
+						</div>						
 					</div>
 
 
@@ -183,17 +234,38 @@
 							</div>
 						</div>					
 					</div>
-					<!-- Administration Info Update.  Only See Administrator  -->
+					<!-- Administration Pass Check.  Only See Administrator  -->
 
 
-
+					<!-- Start Model edit the User image  File -->
+					<form method="post" enctype="multipart/form-data">
+						<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="weight-500 col-md-12 pd-5">
+										<div class="form-group">
+											<div class="custom-file">
+												<input name="image" id="file" type="file" required class="custom-file-input" accept="image/*" onchange="validateImage('file')">
+												<label class="custom-file-label" for="file" id="selector">Choose New Image</label>		
+											</div>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<input type="submit" name="update_image" value="Update" class="btn btn-primary">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+					<!-- END  Model edit the User image  File -->
 
 
 				
 
 
 
-
+					<!-- Form Dispaly The user date edit -->
 					<div class="wizard-content">
 						<form method="post"  action="">
 							<section>
@@ -295,26 +367,7 @@
 							</section>
 						</form>
 					</div>
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-				
+					<!-- END Form Dispaly The user date edit -->				
 					
 				</div>
 			</div>
@@ -322,5 +375,6 @@
 	</div>
 	<!-- js -->
 	<?php include('includes/scripts.php')?>
+	<?php include('includes/script_image_dimension.php')?>
 </body>
 </html>

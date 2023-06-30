@@ -19,8 +19,23 @@
 	$result = mysqli_query($conn,"update cash_receipt set Acc_id='$Ac_id', name='$name',  Date='$Date', RV='$RV',  Amount='$Amount', Memo='$memo' where id='$get_id'         
 		"); 		
 	if ($result) {
-     	echo "<script>alert('Record Successfully Updated');</script>";
-     	echo "<script type='text/javascript'> document.location = 'cash_receipt.php'; </script>";
+		?>
+			<Script>
+            window.addEventListener('load',function(){
+                swal.fire({
+                    title: "Success",
+                    text: "Receipt Successfully  Added ",
+                    icon: "success",
+                    button: "Ok Done!",
+                })
+                .then(function() {
+                    window.location = "edit_cash_receipt.php?edit=" + <?php echo ($get_id); ?>;
+                });
+            });			
+        	</Script>
+		<?php 
+     	// echo "<script>alert('Record Successfully Updated');</script>";
+     	// echo "<script type='text/javascript'> document.location = 'cash_receipt.php'; </script>";
 	} else{
 	  die(mysqli_error());
    }		
@@ -66,6 +81,8 @@
 									$query = mysqli_query($conn,"SELECT account.Acc_name,   cash_receipt.id, cash_receipt.name, cash_receipt.RV ,cash_receipt.Amount,cash_receipt.Date, cash_receipt.Memo FROM cash_receipt INNER JOIN account ON   cash_receipt.Acc_id=account.id  where cash_receipt.id = '$get_id'") or die(mysqli_error());	
 									$row = mysqli_fetch_array($query);
 									?>
+	  								<input type="hidden" name="edit" class="form-control" value="<?php if(isset($_GET['edit'])){ echo $_GET['edit']; }else{ echo "$get_id";} ?>" >
+
                            
 								<div class="row">
                                     <div class="col-md-4 col-sm-12">

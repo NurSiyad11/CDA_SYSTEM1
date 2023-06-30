@@ -79,7 +79,7 @@
 
 				<div class="pb-20">
 					<table class="data-table table stripe hover nowrap">
-						<thead>
+						<thead class="table-dark">
 							<tr>
 								<th class="table-plus">FULL NAME</th>
 								<th>Company Name</th>

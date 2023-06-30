@@ -3,21 +3,21 @@
 <?php include('../database/db.php')?>
 
 <?php
-if (isset($_GET['delete'])) {
-	$delete = $_GET['delete'];
-	$sql = "DELETE FROM cash_payment where id = ".$delete;
-	$result = mysqli_query($conn, $sql);
-	if ($result) {
-		echo "<script>alert('Cash_payment deleted Successfully');</script>";															 
-     	echo "<script type='text/javascript'> document.location = 'cash_payment.php'; </script>";		
-	}
-}
+// if (isset($_GET['delete'])) {
+// 	$delete = $_GET['delete'];
+// 	$sql = "DELETE FROM cash_payment where id = ".$delete;
+// 	$result = mysqli_query($conn, $sql);
+// 	if ($result) {
+// 		echo "<script>alert('Cash_payment deleted Successfully');</script>";															 
+//      	echo "<script type='text/javascript'> document.location = 'cash_payment.php'; </script>";		
+// 	}
+// }
 ?>
 
 
 <?php
-	if(isset($_POST['payment']))
-	{
+if(isset($_POST['payment']))
+{
 	$name=$_POST['name'];	   
 	$date=$_POST['date']; 	
 	$PV=$_POST['PV'];	
@@ -28,24 +28,47 @@ if (isset($_GET['delete'])) {
 	$total_in = $conn->query("SELECT sum(Amount) as total from `cash_receipt` where Acc_id=$Ac_id   ")->fetch_assoc()['total'];
 	$total_out = $conn->query("SELECT sum(Amount) as total from `cash_payment` where Acc_id=$Ac_id ")->fetch_assoc()['total'];
 	$Bal_Inc_exp = $total_in - $total_out;
-	echo "$Bal_Inc_exp";
+
 	
 	if($amount > $Bal_Inc_exp){ ?>
-		<script>alert('Haraagaagu kuguma filna...  ' );</script>;
-		<script>
-		window.location = "cash_payment.php"; 
-		</script>
-
+		<Script>
+            window.addEventListener('load',function(){
+                swal.fire({
+                    title: "Warning",
+                    text: "Haraagaagu kuguma filna... ",
+                    icon: "warning",
+                    button: "Ok Done!",
+                })
+                .then(function() {
+                    window.location = "cash.php";
+                        });
+            });			
+        </Script>
 		<?php
 	} else{
      
         mysqli_query($conn,"INSERT INTO cash_payment(Admin_id,name,Date,PV,Amount,Memo,Acc_id) VALUES('$session_id','$name','$date','$PV','$amount','$memo','$Ac_id')         
 		") or die(mysqli_error()); ?>
-		<script>alert('Payment Records Successfully  Added');</script>;
+		<Script>
+            window.addEventListener('load',function(){
+                swal.fire({
+                    title: "Success",
+                    text: "Payment Successfully  Added ",
+                    icon: "success",
+                    button: "Ok Done!",
+                })
+                .then(function() {
+                    window.location = "cash_payment.php";
+                });
+            });			
+        	</Script>
+		<!-- <script>alert('Payment Records Successfully  Added');</script>;
 		<script>
 		window.location = "cash_payment.php"; 
-		</script>
-		<?php   } }
+		</script> -->
+		<?php   
+	} 
+}
 
 ?>
 
@@ -213,8 +236,8 @@ if (isset($_GET['delete'])) {
 												<i class="dw dw-more"></i>
 											</a>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-												<a class="dropdown-item" href="edit_cash_payment.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> View</a>
-												<a class="dropdown-item" href="cash_payment.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
+												<a class="dropdown-item" href="edit_cash_payment.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> Edit</a>
+												<!-- <a class="dropdown-item" href="cash_payment.php?delete=<?php// echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a> -->
 											</div>
 										</div>
 									</td>
@@ -222,11 +245,11 @@ if (isset($_GET['delete'])) {
 								<?php } ?>  
 							</tbody>
 						</table>
-						<script>
+						<!-- <script>
 							function checkdelete(){
 								return confirm('Do you Want to Delete this Record ? ');
 							}
-						</script>
+						</script> -->
 					</div>	
 				</div>			   
 			</div>

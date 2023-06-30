@@ -515,6 +515,7 @@ if (isset($_POST["update_image"])) {
 	</div>
 	<!-- js -->
 	<?php include('includes/scripts.php')?>
+	<?php include('includes/script_image_dimension.php')?>
 
 		
 
@@ -563,7 +564,7 @@ if (isset($_POST["update_image"])) {
 
 
 
-
+<!-- 
 <script>
 	function validateImage(id) {
     var formData = new FormData();
@@ -597,6 +598,6 @@ if (isset($_POST["update_image"])) {
     img.src = window.URL.createObjectURL(file);
     return true;
 }
-</script>
+</script> -->
 </body>
 </html>

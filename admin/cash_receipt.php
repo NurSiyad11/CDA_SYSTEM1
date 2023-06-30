@@ -13,32 +13,53 @@
 	$count = mysqli_num_rows($query);       
 	
 	if ($count > 0){ ?>
-		<script>
-		alert('Account Already Exist');
-	   </script>
+		<Script>
+            window.addEventListener('load',function(){
+                swal.fire({
+                    title: "Warning",
+                    text: "Account Already Exist ",
+                    icon: "warning",
+                    button: "Ok Done!",
+                })
+                .then(function() {
+                    window.location = "cash_receipt.php";
+                        });
+            });			
+        </Script>
+
 	   <?php
 		 }else{
 			mysqli_query($conn,"INSERT INTO account(Admin_id,Acc_name,Acc_no) VALUES('$session_id','$Acc_name','$Acc_no')         
 			") or die(mysqli_error()); ?>
-			<script>alert('Account Records Successfully  Added');</script>;
-			<script>
-			window.location = "cash_receipt.php"; 
-			</script>
-			<?php   }
+			<Script>
+            window.addEventListener('load',function(){
+                swal.fire({
+                    title: "Success",
+                    text: "Account  Successfully  Added ",
+                    icon: "success",
+                    button: "Ok Done!",
+                })
+                .then(function() {
+                    window.location = "cash_receipt.php";
+                        });
+            });			
+        	</Script>
+			<?php  
+		 }
 	}
 ?>
 
 <!-- Delete Receipts -->
 <?php
-if (isset($_GET['delete'])) {
-	$delete = $_GET['delete'];
-	$sql = "DELETE FROM cash_receipt where id = ".$delete;
-	$result = mysqli_query($conn, $sql);
-	if ($result) {
-		echo "<script>alert('Cash_Receipt deleted Successfully');</script>";															 
-     	echo "<script type='text/javascript'> document.location = 'cash_receipt.php'; </script>";		
-	}
-}
+// if (isset($_GET['delete'])) {
+// 	$delete = $_GET['delete'];
+// 	$sql = "DELETE FROM cash_receipt where id = ".$delete;
+// 	$result = mysqli_query($conn, $sql);
+// 	if ($result) {
+// 		echo "<script>alert('Cash_Receipt deleted Successfully');</script>";															 
+//      	echo "<script type='text/javascript'> document.location = 'cash_receipt.php'; </script>";		
+// 	}
+// }
 ?>
 
 
@@ -59,10 +80,19 @@ if (isset($_GET['delete'])) {
      
         mysqli_query($conn,"INSERT INTO cash_receipt(Admin_id,name,Date,RV,Amount,Memo,Acc_id) VALUES('$session_id','$name','$date','$RV','$amount','$memo','$Ac_id')         
 		") or die(mysqli_error()); ?>
-		<script>alert('Receipt Records Successfully  Added');</script>;
-		<script>
-		window.location = "cash_receipt.php"; 
-		</script>
+			<Script>
+            window.addEventListener('load',function(){
+                swal.fire({
+                    title: "Success",
+                    text: "Receipt Successfully  Added ",
+                    icon: "success",
+                    button: "Ok Done!",
+                })
+                .then(function() {
+                    window.location = "cash_receipt.php";
+                });
+            });			
+        	</Script>
 		<?php   }
 ?>
 
@@ -270,8 +300,8 @@ if (isset($_GET['delete'])) {
 												<i class="dw dw-more"></i>
 											</a>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-												<a class="dropdown-item" href="edit_cash_receipt.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> View</a>
-												<a class="dropdown-item" href="cash_receipt.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
+												<a class="dropdown-item" href="edit_cash_receipt.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> Edit</a>
+												<!-- <a class="dropdown-item" href="cash_receipt.php?delete=<?php //echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a> -->
 											</div>
 										</div>
 									</td>
@@ -279,11 +309,11 @@ if (isset($_GET['delete'])) {
 								<?php } ?>  
 							</tbody>
 						</table>
-						<script>
+						<!-- <script>
 							function checkdelete(){
 								return confirm('Do you Want to Delete this Record ? ');
 							}
-						</script>
+						</script> -->
 					</div>			   
 				</div>			
 			</div>

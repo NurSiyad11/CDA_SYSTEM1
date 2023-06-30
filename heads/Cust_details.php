@@ -46,7 +46,7 @@
 	<div class="main-container">
 		<div class="pd-ltr-20 xs-pd-20-10">
 			<div class="min-height-200px">
-				<div class="page-header">
+				<!-- <div class="page-header">
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
 							<div class="title">
@@ -59,18 +59,9 @@
 								</ol>
 							</nav>
 						</div>
-                        <div class="row">
-                            <div class="col-12"> 
-                                <?php     
-                                    $admin_rol = $conn->query("SELECT Role as rol from `user` where ID='$session_id' ")->fetch_assoc()['rol'];
-                                    if($admin_rol == 'Administrator'){                                   
-                                ?>
-                                <a  href="#" class="btn btn-primary" data-toggle="modal" data-target="#Medium-modal"> <i class="icon-copy ion-plus "></i> Dept Reminder</a>
-                           <?php  }?>
-                            </div>
-                        </div>
+                      
 					</div>
-				</div>
+				</div> -->
 
 
 
@@ -151,6 +142,8 @@
 
 
 				<div class="pd-20 card-box mb-30">
+                
+                 
                     <?php
                       $cust_name = $conn->query("SELECT name as cid from `user` where id='$get_id'  ")->fetch_assoc()['cid']; 
                       $com_name = $conn->query("SELECT Com_name as cid from `user` where id='$get_id'  ")->fetch_assoc()['cid'];  
@@ -160,11 +153,19 @@
                     <div class="card-box mb-30">                       
                         <div class="pd-20" >
                             <div class="row">
-                                <div class="col-8">
-                                <h2 class="text-blue h4"><?php echo "Company Name:  $com_name"?></h2>
+                                <div class="col-1">
+                                    <!-- <nav aria-label="breadcrumb" role="navigation"> -->
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="Cust_Report.php">Back </a></li>
+                                            <!-- <li class="breadcrumb-item active" aria-current="page"></li> -->
+                                        </ol>
+                                    <!-- </nav> -->
+                                            </div>
+                                <div class="col-6">
+                                <h3 class="text-blue h5"><?php echo "Company Name:  $com_name"?></h3>
 
                                 </div>
-                                <div class="col-4">
+                                <div class="col-5">
                                 <p class="text-blue "><?php echo "Customer Name:  $cust_name"?></p>
 
                                 </div>
@@ -251,11 +252,10 @@
                                         <td><?php echo $row['Memo']; ?></td>
                                         <td><?php echo "$ ". number_format((float)htmlentities($row['Amount']),'2','.',','); ?></td>
 								        <td><?php echo "$ ". number_format((float)htmlentities($row['empty']), '2','.',','); ?></td>
-                                        <!-- <td><?php //echo $row['Amount']; ?></td>
-                                        <td><?php //echo $row['empty']; ?></td> -->
+                                     
 
 
-                                        <!-- <td><?php //echo $row['File']; ?></td> -->
+                                       
                                             
                                         <?php 
                                         $in = $bal + $row['Amount'];;
@@ -264,7 +264,6 @@
                                         ?>
                                         <td><?php echo "$ ". number_format((float)htmlentities($bal),'2','.',','); ?></td>
 
-                                        <!-- <td><?php echo $bal; ?></td> -->
 
                                         
                                         
@@ -283,7 +282,7 @@
 						<div class="modal-dialog modal-dialog-centered" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLongTitle">File Pdf</h5>
+									<h5 class="modal-title" id="exampleModalLongTitle">File Pdf</h5>                                        
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Close Modal">
 										<span aria-hidden="true">&times;</span>
 									</button>

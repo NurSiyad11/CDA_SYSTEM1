@@ -4,68 +4,86 @@
 <?php $get_id = $_GET['edit']; ?>
 
 
-<!-- Update Pdf file -->
-<?php
-	// if(isset($_POST['update_file']))
-	// {
-	// 	$pdf=$_FILES['pdf']['name'];
-	// 	$pdf_type=$_FILES['pdf']['type'];
-	// 	$pdf_size=$_FILES['pdf']['size'];
-	// 	$pdf_tem_loc=$_FILES['pdf']['tmp_name'];
-	// 	$pdf_store="pdf/".$pdf;
-	// 	move_uploaded_file($pdf_tem_loc,$pdf_store);
-
-	// 	$result = mysqli_query($conn,"update receipt set  File='$pdf'  where id='$get_id'         
-	// 		"); 		
-	// 	if ($result) {
-	// 		echo "<script>alert('File  Successfully Updated');</script>";
-	// 		echo "<script type='text/javascript'> document.location = 'Receipt.php'; </script>";
-	// 	} else{
-	// 	die(mysqli_error());
-	// 	}			
-	// }
-?>
-
-
 
 <?php
 	if(isset($_POST['update-receipt']))
 	{
+		$name=$_POST['name'];
+		$Date=$_POST['Date'];  
+		$RV=$_POST['RV']; 
+		$Amount=$_POST['Amount']; 
+		$memo=$_POST['memo']; 
+		$Amount_saved = $conn->query("SELECT Amount as amt from `receipt` where id='$get_id'  ")->fetch_assoc()['amt'];
+		$Check_Amount = $Amount - $Amount_saved;
+
 		$st = $conn->query("SELECT Status as st from `receipt` where id='$get_id'  ")->fetch_assoc()['st'];
+
+		$Cid = $conn->query("SELECT id as cid from `user` where Com_name='$name'  ")->fetch_assoc()['cid'];
+
+		$INV = $conn->query("SELECT sum(Amount) as total from `invoice` where Cid=$Cid   ")->fetch_assoc()['total'];
+		$RV = $conn->query("SELECT sum(Amount) as total from `receipt` where Cid=$Cid ")->fetch_assoc()['total'];
+		$Bal_Inv_RV = $INV - $RV;
+		//echo "$Bal_Inc_exp";
+		
+		
 
 		if($st =='Approved')
 		{
 			?>
 			<Script>
 				window.addEventListener('load',function(){
-					swal({
+					swal.fire({
 						title: "Warning",
-						text: "This invoice is not updated, b/c the customer Approved this invoice ",
+						text: "This invoice is not updated, b/c the Manager Approved this Receipt ",
 						icon: "warning",
 						button: "Ok Done!",
 					})
 					.then(function() {
-								window.location = "Receipt.php";
-							});
+						window.location = "edit_receipt.php?edit=" + <?php echo ($get_id); ?>;
+					});
 				});			
 			</Script>
 			<?php			
-		}else 
+		}
+		elseif($Check_Amount > $Bal_Inv_RV){ ?>
+			<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+						title: "Warning",
+						text: "Haraagaagu kuguma filna oo cad...  ",
+						icon: "warning",
+						button: "Ok Done!",
+					})
+					.then(function() {
+						window.location = "edit_receipt.php?edit=" + <?php echo ($get_id); ?>;
+					});
+				});			
+			</Script>
+	
+			<?php
+		}
+		else 
 		{
-			$name=$_POST['name'];
-			$Date=$_POST['Date'];  
-			$RV=$_POST['RV']; 
-			$Amount=$_POST['Amount']; 
-			$memo=$_POST['memo']; 
-			
 
-			$Cid = $conn->query("SELECT id as cid from `user` where Com_name='$name'  ")->fetch_assoc()['cid'];
 
 			$result = mysqli_query($conn,"update receipt set Cid='$Cid',   Date='$Date', RV='$RV',  Amount='$Amount', Memo='$memo' where id='$get_id'         
 				"); 		
 			if ($result) {
-				echo "<script>alert('Record Successfully Updated');</script>";
-				echo "<script type='text/javascript'> document.location = 'Receipt.php'; </script>";
+				?>
+				<Script>
+					window.addEventListener('load',function(){
+						swal.fire({
+							title: "Success",
+							text: "Record Successfully Updated ",
+							icon: "success",
+							button: "Ok Done!",
+						})
+						.then(function() {
+							window.location = "edit_receipt.php?edit=" + <?php echo ($get_id); ?>;
+						});
+					});			
+				</Script>
+				<?php	
 			} else{
 			die(mysqli_error());
 			}		
@@ -143,30 +161,33 @@
 							<section>
 								<div class="row">
 									<?php
-									$query = mysqli_query($conn,"SELECT user.Name, user.Com_name, receipt.id, receipt.Cid,receipt.RV ,receipt.Amount,receipt.Date,receipt.Memo,receipt.File,receipt.Status FROM receipt INNER JOIN user ON   receipt.Cid=user.ID  where receipt.id = '$get_id' ")or die(mysqli_error());
+									$query = mysqli_query($conn,"SELECT user.Name, user.Com_name, receipt.id, receipt.Cid,receipt.RV ,receipt.Amount,receipt.Date,receipt.Memo,receipt.File,receipt.Reason,receipt.Status FROM receipt INNER JOIN user ON   receipt.Cid=user.ID  where receipt.id = '$get_id' ")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 									?>
-                                  
+                					<input type="hidden" name="edit" class="form-control" value="<?php if(isset($_GET['edit'])){ echo $_GET['edit']; }else{ echo "$get_id";} ?>" >
+
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label>Company Name :</label>
 											<select name="name" id="name" class="custom-select form-control" required="true" autocomplete="off">
 											<option value="<?php echo $row['Com_name']; ?>"><?php echo $row['Com_name']; ?></option>
-												<option value="">Select Customer</option>
+												<!-- <option value="">Select Customer</option> -->
 													<?php
 													$query1 = mysqli_query($conn,"select * from user where role ='Customer'");
 													while($row1 = mysqli_fetch_array($query1)){
+														$test=$row1['ID'];
+														$INV = $conn->query("SELECT sum(Amount) as total from `invoice` where Cid=$test   ")->fetch_assoc()['total'];
+														$RV = $conn->query("SELECT sum(Amount) as total from `receipt` where Cid=$test ")->fetch_assoc()['total'];
+														$Bal_INV_RV = $INV - $RV;
+														$bal_format =number_format((float)$Bal_INV_RV, '2','.',',');
 													
 													?>
-												<option value="<?php echo $row1['Com_name']; ?>"><?php echo $row1['Com_name']; ?></option>
+												<option value="<?php echo $row1['Com_name']; ?>"><?php echo $row1['Com_name']. " ". " $bal_format " ;?></option>
 													<?php } ?>
 											</select>
 										</div>
 									</div>	
-									<?php
-									// $query = mysqli_query($conn,"select * from receipt where id = '$get_id' ")or die(mysqli_error());
-									// $row = mysqli_fetch_array($query);
-									?>
+									
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label>Date</label>
@@ -196,6 +217,27 @@
 											<textarea name="memo" style="height: 7em;" placeholder="Description" class="form-control text_area" type="text" ><?php echo $row['Memo']; ?></textarea>
 										</div>
 									</div>							
+								</div>
+
+								<div class="row">
+									<div class="col-md-4 col-sm-12">
+										<div class="form-group">
+											<label>Status  :</label>
+											<input name="Status" type="text" class="form-control" required="true" autocomplete="off" readonly value="<?php echo $row['Status']; ?>">
+										</div>
+									</div>	
+								
+									<?php 
+										$sts = $conn->query("SELECT Status as st from `receipt` where id='$get_id'  ")->fetch_assoc()['st'];
+										if($sts == 'Rejected'){										
+									?>
+									<div class="col-md-8">
+										<div class="form-group">
+											<label>Reason To Rejected</label>
+											<textarea name="Reason" style="height: 3em;" readonly placeholder="Reason" class="form-control text_area" type="text" ><?php echo $row['Reason']; ?></textarea>
+										</div>
+									</div>																
+									<?php } ?>
 								</div>
 																
 								<div class="row">	

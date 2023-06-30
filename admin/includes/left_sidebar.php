@@ -286,7 +286,8 @@
 							<li><a href="All_Support.php">All Support</a></li>
 						</ul>
 					</li> -->
-                    <li class="dropdown">
+					
+                    <!-- <li class="dropdown">
 						<a href="video.php" class="dropdown-toggle no-arrow">
 							<span class="micon dw dw-eye"></span><span class="mtext">Video</span>
 						</a>						
@@ -295,7 +296,7 @@
 						<a href="chat.php" class="dropdown-toggle no-arrow">
 							<span class="micon dw dw-eye"></span><span class="mtext">Chating</span>
 						</a>						
-                    </li>
+                    </li> -->
 			
 				</ul>
 				<?php } ?>	

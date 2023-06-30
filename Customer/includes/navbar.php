@@ -96,7 +96,7 @@ if($role != 'Customer'){
 					</script>
 
 
-
+			<!-- Xussusin Notifiication  -->
 			<div class="user-notification">
 				<?php
 					$query_count = mysqli_query($conn,"select * from debt_reminder where Status = 'Show' AND Cid='$session_id' ")or die(mysqli_error());
@@ -152,6 +152,62 @@ if($role != 'Customer'){
 			</div>
 
 
+			<!-- Replied Notification  -->
+			<div class="user-notification">
+				<?php
+					$query_count = mysqli_query($conn,"select * from support where Reply != '' AND Status = 'Show' AND Cid='$session_id' ")or die(mysqli_error());
+					$count = mysqli_num_rows($query_count);						
+					
+				?>
+				<div class="dropdown">					
+					<a class="dropdown-toggle no-arrow" href="#" role="button" data-toggle="dropdown">
+						<i class="icon-copy dw dw-support-1 "> 
+						<?php 
+						if($count > 0){
+							?>
+							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger " ><p class="ml-2 text-light"> <?php echo ($count);?></p> <span class="visually-hidden"></span></span>
+							<?php } ?>
+
+						</i>
+					</a>
+					<div class="dropdown-menu dropdown-menu-right">
+						<?php 					
+						if($count > 0){
+							?>
+							<h5><?php echo "Replied: ". ($count); ?></h5>
+							<?php }else{
+								echo "Wax Reply Ah Majiraan Mahadsanid.";
+							} ?>
+						<div class="notification-list mx-h-350 customscroll">
+							
+							<ul>
+							<?php 
+								//$status="Pending Order";
+								// $sql = "SELECT user.Name, user.Com_name, user.Picture, debt_reminder.id, debt_reminder.Date, debt_reminder.Message, debt_reminder.Memo,debt_reminder.Status FROM debt_reminder INNER JOIN user ON   debt_reminder.Cid=user.id where debt_reminder.Status ='Show' AND Cid='$session_id' order by debt_reminder.Date desc";
+								$sql = "SELECT * FROM support where Reply != '' AND Status ='Show' AND Cid='$session_id' order by Time_admin desc";	
+								$query = mysqli_query($conn, $sql) or die(mysqli_error());
+									while ($row = mysqli_fetch_array($query)) {
+								 ?> 
+								<li>
+									<a href="#">		
+										<img src="../vendors/images/img/Support.png" class="border-radius-100 shadow" width="50" height="50" alt="">
+								
+										<!-- <h3>Title : Replied</h3> -->
+										
+										<h3><?php  echo "Title  : ". $row['Title'];?></h3>
+										<p><?php  echo "Time  : ". $row['Time_admin'];?></p>
+										
+										<p><?php echo "Replied : ". $row['Reply'];?></p>
+										
+										
+									</a>
+								</li>
+								<?php }?>								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
 
 
 			

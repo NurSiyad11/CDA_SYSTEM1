@@ -190,33 +190,29 @@ if($Cid != $session_id){
 
 							<section>
 								<div class="row">
-									<div class="col-12">
-										<?php
-										
-										$sql="SELECT File from invoice where id='$get_id' ";
-										$query=mysqli_query($conn,$sql);
-										while ($info=mysqli_fetch_array($query)) {
-											?>
-											<!-- <a href="download.php?file=<?php echo $row['File'] ?>">Download</a><br> -->
+									<?php
+									
+									$sql="SELECT File from invoice where id='$get_id' ";
+									$query=mysqli_query($conn,$sql);
+									while ($info=mysqli_fetch_array($query)) {
 
-											<?php
-											if($info !=''){
-											?>        
-												<!-- <a href="download.php?file=<?php echo $row['File'] ?>">Download</a><br>                                -->
-												<embed type="application/pdf" src="../admin/pdf/<?php echo $info['File'] ; ?>" width="900" height="600">
-											<?php
-											}else{
-												echo "No file found";                                     
-											?>
-											<?php
-											}
-											?>
+										if($info !=''){
+										?>        
+										<div class="col-12">										
+									   		<a href="../admin/pdf/<?php echo $info['File'] ; ?>" download class="btn btn-primary">Download PDF</a>										
+										</div>
+										<embed type="application/pdf" src="../admin/pdf/<?php echo $info['File'] ; ?>" width="900" height="600">
+										<?php
+										}else{
+											echo "No file found";                                     
+										?>
 										<?php
 										}
-
 										?>
+									<?php
+									}
 
-									</div>
+									?>
                                     
                                 </div>
 							</section>

@@ -136,8 +136,9 @@
                                         <th class="datatable-nosort"> Vendor INV No#</th>
                                         <th class="datatable-nosort">Date</th>
                                         <th class="datatable-nosort">Description</th>
-                                        <th class="datatable-nosort">Invoice</th>
                                         <th class="datatable-nosort">Payment</th>
+                                        <th class="datatable-nosort">Invoice</th>
+                                        
                                         <th class="datatable-nosort">Balance</th>
                                                                         
                                     </tr>
@@ -165,8 +166,9 @@
                                         <td><?php echo  $row['V_invoice']; ?></td>
                                         <td><?php echo  $row['Date']; ?></td>								
                                         <td><?php echo $row['Memo']; ?></td>
-                                        <td><?php echo $row['Amount']; ?></td>
                                         <td><?php echo $row['empty']; ?></td>
+                                        <td><?php echo $row['Amount']; ?></td>
+                                   
                                         <!-- <td><?php echo $row['balance']; ?></td> -->
 
                                         <?php 

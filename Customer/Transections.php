@@ -51,7 +51,7 @@
 							<div class="progress-data">
 								<div id="">
 								<!-- <img src="../uploads/cash3.png" class="border-radius-100 shadow" width="80" height="80" alt=""> -->
-								<img src="../vendors/images/img/dollar.png" class="border-radius-100 shadow" width="40" height="40" alt="">
+								<img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="40" height="40" alt="">
 	
 							</div>
 							</div>
@@ -76,7 +76,7 @@
 							<div class="progress-data">
 								<div id="">
 								<!-- <img src="../uploads/cash3.png" class="border-radius-100 shadow" width="80" height="80" alt=""> -->
-								<img src="../vendors/images/img/dollar2.png" class="border-radius-100 shadow" width="40" height="40" alt="">
+								<img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="40" height="40" alt="">
 	
 							</div>
 							</div>
@@ -92,11 +92,11 @@
 
 			<div class="card-box mb-30">
 				<div class="pd-20">
-						<h2 class="text-blue h4">All 10 Transection</h2>
+						<h2 class="text-blue h4">All Transections</h2>
 					</div>
 				<div class="pb-20">
 					<!-- table-bordered -->
-					<table class="data-table table  stripe hover nowrap">
+					<table   class="data-table table  stripe hover nowrap">
 						<thead class="bg-dark text-white">
 							<tr>				
 								<th> No#</th>	
@@ -231,6 +231,8 @@
 	<?php //include('../Script_online.php') ?>
 	
 	<?php include('includes/scripts1.php') ?>
+
+</script>
 
 </body>
 </html>

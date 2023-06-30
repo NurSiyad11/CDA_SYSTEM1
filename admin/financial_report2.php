@@ -49,21 +49,26 @@
 						<div class="pd-20">
 							<h2 class="text-blue h4">Account List</h2>
 						</div>
+						<div class="col-9">
 						<div>
-						<a href="#" class="bg-light-blue btn text-blue weight-500"  data-toggle="modal" data-target="#bd-example-modal-lg" type="button"><i class="dw dw-eye"></i> Account Summary Balance </a>
+							<a href="#" class="bg-light-blue btn text-blue weight-500"  data-toggle="modal" data-target="#bd-example-modal-lg" type="button"><i class="dw dw-eye"></i> Account Summary Balance </a>
+							<button type="button" id="downloadexcel1" class="btn btn-primary">Export to Excel</button>
+
 						</div>
+						</div>
+				
 					</div>
 					<!-- <h2 class="mb-30 h4">Account List</h2>
 					<a href="#" class="bg-light-blue btn text-blue weight-500"  data-toggle="modal" data-target="#bd-example-modal-lg" type="button"><i class="dw dw-eye"></i> Customer Summary Balance </a> -->
 
 					<div class="pb-20">
 						
-						<table class="data-table-export  table-bordered table stripe hover nowrap">
-							<thead class="table-">
+						<table  id="example-table1" class="data-table table-bordered table stripe hover nowrap">
+							<thead class="table-dark">
 							<tr>
 								<th>SR NO.</th>
-								<th class="table-plus">Account Name</th>
-								<th>Account Number</th>
+								<th class="datatable-nosort">Account Name</th>
+								<th class="datatable-nosort">Account Number</th>
 								<th class="datatable-sort Asc">Account Balance</th>
 								<th class="datatable-nosort">ACTION</th>
 							</tr>
@@ -105,6 +110,14 @@
 
 							</tbody>
 						</table>
+
+						<script>
+								document.getElementById('downloadexcel1').addEventListener('click', function(){
+									var table2excel = new Table2Excel();
+										table2excel.export(document.querySelectorAll("#example-table1"));
+								})
+							</script>
+
 						<script>
 							function checkdelete(){
 								return confirm('Do you Want to Delete this Record ? ');
@@ -199,9 +212,6 @@
 	</div>
 	<!-- js -->
     <?php  include('includes/scripts2.php'); ?>
-
-
-<!-- js -->
 
 
    

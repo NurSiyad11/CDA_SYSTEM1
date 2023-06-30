@@ -37,70 +37,7 @@
 
 
 
-			
-			<!-- <div class="row">
-                <div class="col-xl-4 mb-30">
-					<?php
-						$INV = $conn->query("SELECT sum(Amount) as total FROM `ven_invoice`  ")->fetch_assoc()['total'];
-						$format =number_format((float)$INV, '2','.',',');
-					?>
-                    <div class="card-box height-100-p widget-style1 bg-white">
-                        <div class="d-flex flex-wrap align-items-center">
-                            <div class="progress-data">
-                                <div id="">
-                                <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="50" height="50" alt="">
-                                </div>
-                            </div>
-                            <div class="widget-data">
-                                <div class="h4 mb-0"><?php echo "$ ". ($format); ?></div>
-                                <div class="weight-300 font-18">Total Vendor Invoices </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 mb-30">
-                 
-                    <div class="card-box height-100-p widget-style1 bg-white">
-						<?php 
-						$RV = $conn->query("SELECT sum(Amount) as total FROM `ven_payment`   ")->fetch_assoc()['total'];
-                        $format2 =number_format((float)$RV, '2','.',',');
-						 ?>
-                        <div class="d-flex flex-wrap align-items-center ">	
-                            <div class="progress-data">
-                                <div id="">
-                                <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="50" height="50" alt="">
-                                </div>
-                            </div>						
-                            <div class="widget-data">
-                                <div class="h4 mb-0"><?php echo "$ ". ($format2); ?></div>
-                                <div class="weight-300 font-18">Total Vendor Payment</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col-xl-4 mb-30">
-                    <div class="card-box height-100-p widget-style1 bg-white">
-						<?php 
-							$INV = $conn->query("SELECT sum(Amount) as total FROM `ven_invoice`   ")->fetch_assoc()['total'];
-							$RV = $conn->query("SELECT sum(Amount) as total FROM `ven_payment`  ")->fetch_assoc()['total'];
-							$Bal = $INV - $RV;
-							$format3 =number_format((float)$Bal, '2','.',',');
-						 ?>
-                        <div class="d-flex flex-wrap align-items-center">	
-                            <div class="progress-data">
-                                <div id="">
-                                <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="50" height="50" alt="">
-                                </div>
-                            </div>						
-                            <div class="widget-data">
-                                <div class="h4 mb-0"><?php echo "$ ". ($format3); ?></div>
-                                <div class="weight-300 font-17">Balance </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>			
-            </div> -->
 
 
 			<div class="card-box mb-30">
@@ -205,7 +142,7 @@
 				
 				<div class="pb-20">
 					<table class="data-table table stripe hover nowrap">
-						<thead>
+						<thead class="table-dark">
 							<tr>
 								<th class="table-plus">FULL NAME</th>
 								<th>Company Name</th>

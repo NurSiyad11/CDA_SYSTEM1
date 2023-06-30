@@ -14,8 +14,23 @@
 	$result = mysqli_query($conn,"update faq set Question='$Question',   Description='$Description', Video='$Video'  where id='$get_id'         
 		"); 		
 	if ($result) {
-     	echo "<script>alert('Record Successfully Updated');</script>";
-     	echo "<script type='text/javascript'> document.location = 'faq.php'; </script>";
+		?>
+		<Script>
+			window.addEventListener('load',function(){
+				swal.fire({
+					title: "Success",
+					text: "FAQ Record Successfully Updated",
+					icon: "success",
+					button: "Ok Done!",
+				})
+				.then(function() {
+							window.location = "edit_faq.php?edit=" + <?php echo ($get_id); ?>;
+						});
+			});			
+		</Script>
+		<?php
+     	// echo "<script>alert('Record Successfully Updated');</script>";
+     	// echo "<script type='text/javascript'> document.location = 'faq.php'; </script>";
 	} else{
 	  die(mysqli_error());
    }		
@@ -61,6 +76,7 @@
 									$query = mysqli_query($conn,"SELECT * FROM faq where id = '$get_id' ")or die(mysqli_error());
                                     $row = mysqli_fetch_array($query);
 									?>
+									<input type="hidden" name="edit" class="form-control" value="<?php if(isset($_GET['edit'])){ echo $_GET['edit']; }else{ echo "$get_id";} ?>" >
 
 								<div class="row">
 								    <div class="col-md-12 col-sm-12">

@@ -2,15 +2,15 @@
 <?php include('../database/session.php')?>
 <?php include('../database/db.php')?>
 <?php
-if (isset($_GET['delete'])) {
-	$delete = $_GET['delete'];
-	$sql = "DELETE FROM ven_invoice where id = ".$delete;
-	$result = mysqli_query($conn, $sql);
-	if ($result) {
-		echo "<script>alert('Record deleted Successfully');</script>";															 
-     	echo "<script type='text/javascript'> document.location = 'vendor_Invoice.php'; </script>";		
-	}
-}
+// if (isset($_GET['delete'])) {
+// 	$delete = $_GET['delete'];
+// 	$sql = "DELETE FROM ven_invoice where id = ".$delete;
+// 	$result = mysqli_query($conn, $sql);
+// 	if ($result) {
+// 		echo "<script>alert('Record deleted Successfully');</script>";															 
+//      	echo "<script type='text/javascript'> document.location = 'vendor_Invoice.php'; </script>";		
+// 	}
+// }
 ?>
 
 
@@ -34,18 +34,13 @@ if (isset($_GET['delete'])) {
 				swal.fire({
 					title: "Success",
 					text: "Vendor Invoice Records Successfully  Added ",
-					icon: "success",
-					
+					icon: "success",					
 				})
 				.then(function() {
 					window.location = "vendor_invoice.php";
 				});
 			});			
 		</Script>
-		<!-- <script>alert('Vendor Invoice Record Successfully  Added');</script>;
-		<script>
-		window.location = "vendor_Invoice.php"; 
-		</script> -->
 		<?php   
 	}
 ?>
@@ -206,7 +201,7 @@ if (isset($_GET['delete'])) {
 											?>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 												<a class="dropdown-item" href="edit_Ven_invoice.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> Edit</a>
-												<a class="dropdown-item" href="vendor_invoice.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
+												<!-- <a class="dropdown-item" href="vendor_invoice.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a> -->
 											</div>
 										</div>
 									</td>
@@ -214,11 +209,11 @@ if (isset($_GET['delete'])) {
 								<?php } ?>  
 							</tbody>
 						</table>
-						<script>
+						<!-- <script>
 							function checkdelete(){
 								return confirm('Do you Want to Delete this Record ? ');
 							}
-						</script>
+						</script> -->
 					</div>			      
 				</div>
 			</div>			

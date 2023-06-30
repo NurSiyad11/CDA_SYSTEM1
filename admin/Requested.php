@@ -6,11 +6,11 @@
 if (isset($_GET['delete'])) {	
 	
 	$delete = $_GET['delete'];
-	$sql = "DELETE FROM debt_reminder where id = ".$delete;
+	$sql = "DELETE FROM apply_form where id = ".$delete;
 	$result = mysqli_query($conn, $sql);
 	if ($result) {
 		echo "<script>alert('Record deleted Successfully');</script>";
-     	echo "<script type='text/javascript'> document.location = 'mng_debt_reminder.php'; </script>";
+     	echo "<script type='text/javascript'> document.location = 'Requested.php'; </script>";
 		
 	}
 }
@@ -211,10 +211,8 @@ if (isset($_GET['delete'])) {
 										</a>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 											<a class="dropdown-item" href="edit_requested.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
-											<a class="dropdown-item" href="mng_debt_reminder.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
-											
-											
-											
+											<a class="dropdown-item" href="Requested.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
+								
 										</div>
 									</div>
 								</td>
@@ -298,7 +296,7 @@ if (isset($_GET['delete'])) {
 										</a>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 											<a class="dropdown-item" href="edit_requested.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
-											<a class="dropdown-item" href="mng_debt_reminder.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
+											<a class="dropdown-item" href="Requested.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
 											
 											
 											
@@ -384,7 +382,7 @@ if (isset($_GET['delete'])) {
 										</a>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 											<a class="dropdown-item" href="edit_requested.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
-											<a class="dropdown-item" href="mng_debt_reminder.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
+											<a class="dropdown-item" href="Requested.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
 											
 											
 											
@@ -471,7 +469,7 @@ if (isset($_GET['delete'])) {
 										</a>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 											<a class="dropdown-item" href="edit_requested.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
-											<a class="dropdown-item" href="mng_debt_reminder.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
+											<a class="dropdown-item" href="Requested.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
 											
 											
 											
@@ -557,7 +555,7 @@ if (isset($_GET['delete'])) {
 										</a>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 											<a class="dropdown-item" href="edit_requested.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
-											<a class="dropdown-item" href="mng_debt_reminder.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
+											<a class="dropdown-item" href="Requested.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
 											
 											
 											
@@ -645,7 +643,7 @@ if (isset($_GET['delete'])) {
 										</a>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 											<a class="dropdown-item" href="edit_requested.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
-											<a class="dropdown-item" href="mng_debt_reminder.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
+											<a class="dropdown-item" href="Requested.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
 											
 											
 											

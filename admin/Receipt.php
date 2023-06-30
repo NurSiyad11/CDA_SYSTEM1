@@ -2,15 +2,15 @@
 <?php include('../database/session.php')?>
 <?php include('../database/db.php')?>
 <?php
-if (isset($_GET['delete'])) {
-	$delete = $_GET['delete'];
-	$sql = "DELETE FROM receipt where id = ".$delete;
-	$result = mysqli_query($conn, $sql);
-	if ($result) {
-		echo "<script>alert('Receipt deleted Successfully');</script>";															 
-     	echo "<script type='text/javascript'> document.location = 'Receipt.php'; </script>";		
-	}
-}
+// if (isset($_GET['delete'])) {
+// 	$delete = $_GET['delete'];
+// 	$sql = "DELETE FROM receipt where id = ".$delete;
+// 	$result = mysqli_query($conn, $sql);
+// 	if ($result) {
+// 		echo "<script>alert('Receipt deleted Successfully');</script>";															 
+//      	echo "<script type='text/javascript'> document.location = 'Receipt.php'; </script>";		
+// 	}
+// }
 ?>
 <?php
 	if(isset($_POST['Receipt']))
@@ -31,7 +31,7 @@ if (isset($_GET['delete'])) {
 	$cust_Bal_format = number_format((float)$Bal, '2','.',',');
 
 	
-	if($cust_Bal_format > $amount ){
+	if($cust_Bal_format > $amount){
         mysqli_query($conn,"INSERT INTO receipt(Admin_id,Cid,Date,RV,Amount,Memo,Status) VALUES('$Admin_id','$Cid','$date','$RV','$amount','$memo','Pending')         
 		") or die(mysqli_error()); ?>
 			<Script>
@@ -112,9 +112,14 @@ if (isset($_GET['delete'])) {
 													<?php
 													$query = mysqli_query($conn,"select * from user where role ='Customer'");
 													while($row = mysqli_fetch_array($query)){
+														$test=$row['ID'];
+														$INV = $conn->query("SELECT sum(Amount) as total from `invoice` where Cid=$test   ")->fetch_assoc()['total'];
+														$RV = $conn->query("SELECT sum(Amount) as total from `receipt` where Cid=$test ")->fetch_assoc()['total'];
+														$Bal_INV_RV = $INV - $RV;
+														$bal_format =number_format((float)$Bal_INV_RV, '2','.',',');
 													
 													?>
-												<option value="<?php echo $row['Com_name']; ?>"><?php echo $row['Com_name']; ?></option>
+												<option value="<?php echo $row['Com_name']; ?>"><?php echo $row['Com_name']. " ". " $bal_format"?></option>
 													<?php } ?>
 											</select>
 										</div>
@@ -248,7 +253,7 @@ if (isset($_GET['delete'])) {
 												<a class="dropdown-item" href="edit_receipt.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> Edit</a>
 												<a class="dropdown-item" name="update-receipt" href="../admin/A5pdf2.php?edit=<?php echo $row['id'];?>"><i class="dw dw-eye"></i> View PDF</a>
 
-												<!-- <a class="dropdown-item" href="Receipt.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a> -->
+												<!-- <a class="dropdown-item" href="Receipt.php?delete=<?php// echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a> -->
 											</div>
 										</div>
 									</td>

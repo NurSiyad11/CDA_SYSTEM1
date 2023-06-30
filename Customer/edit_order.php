@@ -15,7 +15,6 @@ if($Cid != $session_id){
 <?php
 	if(isset($_POST['update_file']))
 	{
-		// $get_id=$_GET['edit'];
 		$st = $conn->query("SELECT Status as st from `tbl_order` where id='$get_id'  ")->fetch_assoc()['st'];
 
 		if($st !='Pending'){
@@ -43,149 +42,31 @@ if($Cid != $session_id){
 			$pdf_store="pdf/".$pdf;
 			move_uploaded_file($pdf_tem_loc,$pdf_store);
 
-			// $result = mysqli_query($conn,"update tbl_order set  File='$pdf'  where id='$get_id'         
-			// 	"); 		
-			// if ($result) {
-
-		
-				// Your PHP code here
-
-				// Output the SweetAlert2 code after the PHP code
+			$result = mysqli_query($conn,"update tbl_order set  File='$pdf'  where id='$get_id'         
+				"); 		
+			if ($result) {
 				?>
-				<script>
-			// 	window.addEventListener('load',function(){
-			// 		Swal.fire({
-			// 		title: 'Success',
-			// 		text: 'Apply order Successfully Added',
-			// 		icon: 'success',
-			// 		confirmButtonColor: '#3085d6',
-			// 		confirmButtonText: 'Ok Done!'
-			// 		}).then((result) => {
-			// 		if (result.isConfirmed) {
-			// 			window.location = 'order_history.php';
-			// 		}
-			// 	});
-			// });
-
-
-
-
-
-
-			// window.addEventListener('load',function(){
-			// 	const swalWithBootstrapButtons = Swal.mixin({
-			// 	customClass: {
-			// 		confirmButton: 'btn btn-success',
-			// 		cancelButton: 'btn btn-danger'
-			// 	},
-			// 	buttonsStyling: false
-			// 	})
-
-			// 	swalWithBootstrapButtons.fire({
-			// 	title: 'Are you sure?',
-			// 	text: "You won't be able to revert this!",
-			// 	icon: 'warning',
-			// 	showCancelButton: true,
-			// 	confirmButtonText: 'Yes, delete it!',
-			// 	cancelButtonText: 'No, cancel!',
-			// 	reverseButtons: true
-			// 	}).then((result) => {
-			// 	if (result.isConfirmed) {
-			// 		const xhr = new XMLHttpRequest();
-			// 		xhr.onreadystatechange = function() {
-			// 		if (this.readyState === 4 && this.status === 200) {
-			// 			swalWithBootstrapButtons.fire(
-			// 			'Deleted!',
-			// 			'Your file has been deleted.',
-			// 			'success'
-			// 			);
-			// 		}
-			// 		};
-			// 		xhr.open('POST', 'update_order_pdf.php', true);
-			// 		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-			// 		xhr.send('edit=' + get_id);
-			// 		// xhr.send('file_id=' + file_id);
-			// 	} else if (result.dismiss === Swal.DismissReason.cancel) {
-			// 		swalWithBootstrapButtons.fire(
-			// 		'Cancelled',
-			// 		'Your imaginary file is safe :)',
-			// 		'error'
-			// 		);
-			// 	}
-			// 	});
-			// });
-
-
-			window.addEventListener('load',function(){
-				const swalWithBootstrapButtons = Swal.mixin({
-					customClass: {
-						confirmButton: 'btn btn-success',
-						cancelButton: 'btn btn-danger'
-					},
-					buttonsStyling: false
-				})
-
-				swalWithBootstrapButtons.fire({
-					title: 'Are you sure?',
-					text: "To Update This File !!!",
-					icon: 'question',
-					showCancelButton: true,
-					confirmButtonText: 'Yes, update it!',
-					cancelButtonText: 'No, cancel!',
-					reverseButtons: true
-				}).then((result) => {
-					if (result.isConfirmed) {
-					<?php
-						 $query = "UPDATE tbl_order SET File='$pdf' WHERE id='$get_id'";
-						$result = mysqli_query($conn, $query);
+				<Script>
+					window.addEventListener('load',function(){
+						swal.fire({
+						title: "Success",
+						text: "File  Successfully Updated ",
+						icon: "success",
+						button: "Ok Done!",				
 						
-						if ($result === true) {
-							?>
-							swalWithBootstrapButtons.fire(
-								'Updated!',
-								'Your file has been updated.',
-								'success'
-							).then(function() {
-								window.location = "edit_order.php?edit=" + <?php echo ($get_id); ?>;
-								});
-							
-							<?php	
-						} else {
-							?>
-							swalWithBootstrapButtons.fire(
-								'Error',
-								'There was an error updating your file.',
-								'error'
-							);
-							<?php
-						}
-						?>
-					 }
-					 	else if (result.dismiss === Swal.DismissReason.cancel) {
-						swalWithBootstrapButtons.fire(
-							'Cancelled',
-							'Your file is safe :)',
-							'error'
-						).then(function() {
-							window.location = "edit_order.php?edit=" + <?php echo ($get_id); ?>;
-						});
-					}
-				});
-			});
-
-			
-
-
-
-				</script>
+					})
+					.then(function() {
+						window.location = "edit_order.php?edit=" + <?php echo ($get_id); ?>;
+					});	
+				});			
+				  </Script>
 				<?php
-				
 			
-								// echo "<script>alert('File  Successfully Updated');</script>";
+				// echo "<script>alert('File  Successfully Updated');</script>";
 				// echo "<script type='text/javascript'> document.location = 'order_history.php'; </script>";
-			// } else{
-			// die(mysqli_error());
-			// }		
+			} else{
+			die(mysqli_error());
+			}		
 		}
 	}
 ?>
@@ -371,14 +252,17 @@ if($Cid != $session_id){
                                 <div class="row">
                                     <?php
                                    
-                                    $sql="SELECT file from tbl_order where id='$get_id' ";
+                                    $sql="SELECT File from tbl_order where id='$get_id' ";
                                     $query=mysqli_query($conn,$sql);
                                     while ($info=mysqli_fetch_array($query)) {
                                         ?>
                                         <?php
                                         if($info !=''){
-                                           ?>                                       
-                                            <embed type="application/pdf" src="pdf/<?php echo $info['file'] ; ?>" width="900" height="500">
+                                           ?>    
+										   	<div class="col-12">										
+									   			<a href="pdf/<?php echo $info['File'] ; ?>" download class="btn btn-primary">Download PDF</a>										
+											</div>                                   
+                                            <embed type="application/pdf" src="pdf/<?php echo $info['File'] ; ?>" width="900" height="500">
                                         <?php
                                         }else{
                                             echo "No file found";                                     

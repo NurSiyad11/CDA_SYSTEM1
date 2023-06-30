@@ -14,14 +14,14 @@
 			?>
 			<Script>
 				window.addEventListener('load',function(){
-					swal({
+					swal.fire({
 						title: "Warning",
 						text: "This invoice is not updated, b/c the customer Approved this invoice ",
 						icon: "warning",
 						button: "Ok Done!",
 					})
 					.then(function() {
-								window.location = "invoice.php";
+						window.location = "edit_invoice.php?edit=" + <?php echo ($get_id); ?>;
 							});
 				});			
 			</Script>
@@ -38,8 +38,21 @@
 			$result = mysqli_query($conn,"update invoice set  File='$pdf'  where id='$get_id'         
 				"); 		
 			if ($result) {
-				echo "<script>alert('File  Successfully Updated');</script>";
-				echo "<script type='text/javascript'> document.location = 'Invoice.php'; </script>";
+				?>
+				<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+						title: "Success",
+						text: "Invoice File Successfully Updated ",
+						icon: "success",
+						button: "Ok Done!",
+					})
+					.then(function() {
+						window.location = "edit_invoice.php?edit=" + <?php echo ($get_id); ?>;
+							});
+				});			
+			</Script>
+			<?php
 			} else{
 			die(mysqli_error());
 			}	
@@ -61,14 +74,14 @@
 			?>
 			<Script>
 				window.addEventListener('load',function(){
-					swal({
+					swal.fire({
 						title: "Warning",
 						text: "This invoice is not updated, b/c the customer Approved this invoice ",
 						icon: "warning",
 						button: "Ok Done!",
 					})
 					.then(function() {
-								window.location = "Invoice.php";
+						window.location = "edit_invoice.php?edit=" + <?php echo ($get_id); ?>;
 							});
 				});			
 			</Script>
@@ -85,8 +98,21 @@
 			$result = mysqli_query($conn,"update invoice set Cid='$cid',   Date='$Date', Invoice='$invoice',  Amount='$Amount', Memo='$memo' where id='$get_id'         
 				"); 		
 			if ($result) {
-				echo "<script>alert('Record Successfully Updated');</script>";
-				echo "<script type='text/javascript'> document.location = 'Invoice.php'; </script>";
+				?>
+				<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+						title: "Success",
+						text: "Record Successfully Updated ",
+						icon: "success",
+						button: "Ok Done!",
+					})
+					.then(function() {
+						window.location = "edit_invoice.php?edit=" + <?php echo ($get_id); ?>;
+							});
+				});			
+			</Script>
+			<?php
 			} else{
 			die(mysqli_error());
 			}	
@@ -120,14 +146,13 @@
 
                 <div class="pd-20 card-box mb-30">
 					<div class="clearfix">
-						<div class="row">
-							<div class="pull-left">
-								<h4 class="text-blue h4"> Update Invoice Form</h4>
-								<p class="mb-20"></p>
-							</div>
-							<div class="col-md-4 col-sm-12 text-right">
+						<div class="pull-left">
+							<h4 class="text-blue h4"> Update Invoice Form</h4>
+						</div>
+						<div class="row">						
+							<div class="col-md-12 col-sm-12 text-right">
 								<a href="modal" class="bg-light-blue btn text-blue weight-500" data-toggle="modal" data-target="#modal" class="edit-avatar"><i class="dw dw-edit-2 "></i> Choose New File</a>
-							</div>
+							</div>							
 						</div>
 					</div>
 					<div class="wizard-content">
@@ -163,9 +188,11 @@
 						<form method="post" action="" enctype="multipart/form-data">
 							<section>
                            		 <?php
-									$query = mysqli_query($conn,"SELECT user.Name,user.Com_name, invoice.id, invoice.Cid,invoice.invoice ,invoice.Amount,invoice.Date,invoice.Memo,invoice.File,invoice.Status FROM invoice INNER JOIN user ON   invoice.Cid=user.ID  where invoice.id = '$get_id' ")or die(mysqli_error());
+									$query = mysqli_query($conn,"SELECT user.Name,user.Com_name, invoice.id, invoice.Cid,invoice.invoice ,invoice.Amount,invoice.Date,invoice.Memo,invoice.File,invoice.Reason,invoice.Status FROM invoice INNER JOIN user ON   invoice.Cid=user.ID  where invoice.id = '$get_id' ")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 								?>
+								<input type="hidden" name="edit" class="form-control" value="<?php if(isset($_GET['edit'])){ echo $_GET['edit']; }else{ echo "$get_id";} ?>" >
+
 								<div class="row">
 								    <div class="col-md-4 col-sm-12">
 										<div class="form-group">
@@ -174,20 +201,16 @@
 											<option value="<?php echo $row['Com_name']; ?>"><?php echo $row['Com_name']; ?></option>
 												<option value="">Select Customer</option>
 													<?php
-													$query = mysqli_query($conn,"select * from user where role ='Customer'");
-													while($row = mysqli_fetch_array($query)){
+													$query_role = mysqli_query($conn,"select * from user where role ='Customer'");
+													while($row_role = mysqli_fetch_array($query_role)){
 													
 													?>
-												<option value="<?php echo $row['Com_name']; ?>"><?php echo $row['Com_name']; ?></option>
+												<option value="<?php echo $row_role['Com_name']; ?>"><?php echo $row_role['Com_name']; ?></option>
 													<?php } ?>
 											</select>
 										</div>
 									</div>	                                    
-                                    
-                                    <?php
-									$query = mysqli_query($conn,"select * from invoice where id = '$get_id' ")or die(mysqli_error());
-									$row = mysqli_fetch_array($query);
-									?>
+                                
 									<div class="col-md-4 col-sm-12">
 											<div class="form-group">
 												<label>Date</label>
@@ -210,18 +233,34 @@
 										</div>
 									</div>
 
-									<!-- <div class="">										
-										<label for="">Choose Your PDF File</label><br>
-										<input id="pdf" type="file" name="pdf" required value="<?php echo $row['File']; ?>" accept="pdf/*" onchange="validateImage('file')"><br><br>
-									</div> -->
-
-
 									<div class="col-md-8">
-											<div class="form-group">
-												<label>Memo / Description</label>
-												<textarea name="memo" style="height: 7em;" placeholder="Description" class="form-control text_area" type="text" ><?php echo $row['Memo']; ?></textarea>
-											</div>
-										</div>							
+										<div class="form-group">
+											<label>Memo / Description</label>
+											<textarea name="memo" style="height: 7em;" placeholder="Description" class="form-control text_area" type="text" ><?php echo $row['Memo']; ?></textarea>
+										</div>
+									</div>							
+								</div>
+
+
+								<div class="row">
+									<div class="col-md-4 col-sm-12">
+										<div class="form-group">
+											<label>Status  :</label>
+											<input name="Status" type="text" class="form-control" required="true" autocomplete="off" readonly value="<?php echo $row['Status']; ?>">
+										</div>
+									</div>	
+								
+									<?php 
+										$sts = $conn->query("SELECT Status as st from `invoice` where id='$get_id'  ")->fetch_assoc()['st'];
+										if($sts == 'Rejected'){										
+									?>
+									<div class="col-md-8">
+										<div class="form-group">
+											<label>Reason To Rejected</label>
+											<textarea name="Reason" style="height: 3em;" readonly placeholder="Reason" class="form-control text_area" type="text" ><?php echo $row['Reason']; ?></textarea>
+										</div>
+									</div>																
+									<?php } ?>
 								</div>
 																
 								<div class="row">											
@@ -260,7 +299,7 @@
                                         if($info != '' ){
 											//echo "No file found";  
                                            ?>                                       
-                                            <embed type="application/pdf" src="pdf/<?php echo $info['File'] ; ?>" width="900" height="500">
+                                            <embed type="application/pdf" src="pdf/<?php echo $info['File'] ; ?>" width="1200" height="500">
                                         <?php
                                         }else{
                                             echo "No file found";                                     

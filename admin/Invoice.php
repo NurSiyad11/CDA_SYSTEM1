@@ -2,15 +2,15 @@
 <?php include('../database/session.php')?>
 <?php include('../database/db.php')?>
 <?php
-if (isset($_GET['delete'])) {
-	$delete = $_GET['delete'];
-	$sql = "DELETE FROM invoice where id = ".$delete;
-	$result = mysqli_query($conn, $sql);
-	if ($result) {
-		echo "<script>alert('Invoice deleted Successfully');</script>";															 
-     	echo "<script type='text/javascript'> document.location = 'Invoice.php'; </script>";		
-	}
-}
+// if (isset($_GET['delete'])) {
+// 	$delete = $_GET['delete'];
+// 	$sql = "DELETE FROM invoice where id = ".$delete;
+// 	$result = mysqli_query($conn, $sql);
+// 	if ($result) {
+// 		echo "<script>alert('Invoice deleted Successfully');</script>";															 
+//      	echo "<script type='text/javascript'> document.location = 'Invoice.php'; </script>";		
+// 	}
+// }
 ?>
 
 <?php

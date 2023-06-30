@@ -11,7 +11,10 @@ $userid = $_POST['userid'];
         ?>
         <?php
         if($info !=''){
-        ?>                                       
+        ?>    
+            <div class="col-12">										
+                <a href="../admin/pdf/<?php echo $info['File'] ; ?>" download class="btn btn-primary">Download PDF</a>										
+            </div>                                   
             <embed type="application/pdf" src="../admin/pdf/<?php echo $info['File'] ; ?>" width="500" height="500">
         <?php
         }else{

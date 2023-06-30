@@ -1,10 +1,55 @@
 <?php include('includes/header.php')?>
 <?php include('../database/session.php')?>
 <?php include('../database/db.php')?>
-<?php $get_id = $_GET['edit']; ?>
+<?php 
+$get_id = $_GET['edit']; 
+$Cid = $conn->query("SELECT Cid as cid from `invoice` where id='$get_id'  ")->fetch_assoc()['cid'];
+if($Cid != $session_id){
+	
+	echo "<script>alert('Un able to view thsi invoice');</script>";
+	echo "<script type='text/javascript'> document.location = 'invoice_check.php'; </script>";
+}
+
+?>
+
+
+
+<style>
+	.pdf-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 100%; /* 1:1 aspect ratio */
+  overflow: hidden;
+}
+
+#pdf-viewer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  .pdf-container {
+    padding-top: 150%; /* 2:3 aspect ratio */
+  }
+}
+</style>
+
+
+
+
+
+
+
+
 
 
 <body>
+	
+	
 	<?php include('includes/navbar.php')?>
 	<?php include('includes/right_sidebar.php')?>
 	<?php include('includes/left_sidebar.php')?>
@@ -126,40 +171,47 @@
 							</section>
 
 							<section>
-								<div class="row">
-									<div class="col-12">
-										<?php
-										
-										// $sql="SELECT File from invoice where id='$get_id'  and Cid='$session_id' and invoice='$inv' Union All select File From receipt Where id='$get_id'  and Cid='$session_id' and RV='$Rv' ";
-										
-										$sql="SELECT File from invoice where id='$get_id' ";
-										$query=mysqli_query($conn,$sql);
-										while ($info=mysqli_fetch_array($query)) {
-											?>
-											<!-- <a href="download.php?file=<?php// echo $row['File'] ?>">Download</a><br> -->
+							
+								<div class="row">								
+									<?php
+																	
+									$sql="SELECT File from invoice where id='$get_id' ";
+									$query=mysqli_query($conn,$sql);
+									while ($info=mysqli_fetch_array($query)) {
+										if($info !=''){
+										?>   
+										<div class="col-12">
 
-											<?php
-											if($info !=''){
-											?>        
-												<!-- <a href="download.php?file=<?php //echo $row['File'] ?>">Download</a><br>                                -->
-												<embed type="application/pdf" src="../admin/pdf/<?php echo $info['File'] ; ?>" width="900" height="600">
-											<?php
-											}else{
-												echo "No file found";                                     
-											?>
-											<?php
-											}
-											?>
+										
+									    <a href="../admin/pdf/<?php echo $info['File'] ; ?>" download class="btn btn-primary">Download PDF</a>
+    
+											
+										</div>
+										<embed type="application/pdf" src="../admin/pdf/<?php echo $info['File'] ; ?>" width="900" height="600">
+										<?php
+										}else{
+											echo "No file found";                                     
+										?>
 										<?php
 										}
-
 										?>
+									<?php
+									}
 
-									</div>
+									?>							
                                     
                                 </div>
+							
 							</section>
+
+
+
+
+							
+
 						</form>
+						
+					
 					</div>
 				</div>
 
@@ -237,5 +289,10 @@
 	</div>
 	<!-- js -->
 	<?php include('includes/scripts.php')?>
+	<!-- <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script> -->
+
+
+
+
 </body>
 </html>
