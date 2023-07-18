@@ -76,12 +76,12 @@
                             <div class="d-flex flex-wrap align-items-center">
                                 <div class="progress-data">
                                     <div id="">
-                                    <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="50" height="50" alt="">
+                                    <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="40" height="40" alt="">
                                     </div>
                                 </div>
                                 <div class="widget-data">
                                     <div class="h5 mb-0"><?php echo "$ ". ($format); ?></div>
-                                    <div class="weight-300 font-18">Invoices </div>
+                                    <div class="weight-300 font-15">Invoices </div>
                                 </div>
                             </div>
                         </div>
@@ -97,12 +97,12 @@
                             <div class="d-flex flex-wrap align-items-center ">	
                                 <div class="progress-data">
                                     <div id="">
-                                    <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="50" height="50" alt="">
+                                    <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="40" height="40" alt="">
                                     </div>
                                 </div>						
                                 <div class="widget-data">
                                     <div class="h5 mb-0"><?php echo "$ ". ($format2); ?></div>
-                                    <div class="weight-300 font-18">Receipts</div>
+                                    <div class="weight-300 font-15">Receipts</div>
                                 </div>
                             </div>
                         </div>
@@ -120,12 +120,12 @@
                             <div class="d-flex flex-wrap align-items-center">	
                                 <div class="progress-data">
                                     <div id="">
-                                    <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="50" height="50" alt="">
+                                    <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="40" height="40" alt="">
                                     </div>
                                 </div>						
                                 <div class="widget-data">
                                     <div class="h5 mb-0"><?php echo "$ ". ($format_balance); ?></div>
-                                    <div class="weight-300 font-17">Balance </div>
+                                    <div class="weight-300 font-15">Balance </div>
                                 </div>
                             </div>
                         </div>
@@ -151,24 +151,29 @@
                     
 				
                     <div class="card-box mb-30">                       
-                        <div class="pd-20" >
+                        <div class="" >
                             <div class="row">
-                                <div class="col-1">
-                                    <!-- <nav aria-label="breadcrumb" role="navigation"> -->
-                                        <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="Cust_Report.php">Back </a></li>
-                                            <!-- <li class="breadcrumb-item active" aria-current="page"></li> -->
-                                        </ol>
-                                    <!-- </nav> -->
-                                            </div>
-                                <div class="col-6">
-                                <h3 class="text-blue h5"><?php echo "Company Name:  $com_name"?></h3>
+                                <div class="col-1">                       
+                                    <button  class="bg-light-blue btn text-blue weight-500"  type="button"><a href="Cust_Report.php">Back </a></button>
+                                 </div>
+                                <div class="col-4">
+                                    <div class="col-md-12 col-sm-12 text-left">
+                                        <p class="text-blue "><?php echo "  $com_name"?></p>
+
+                                    </div>
 
                                 </div>
                                 <div class="col-5">
-                                <p class="text-blue "><?php echo "Customer Name:  $cust_name"?></p>
-
+                                    <div class="col-md-12 col-sm-12 text-right">
+                                        <p class="text-blue "><?php echo "Customer Name:  $cust_name"?></p>
+                                    </div>
                                 </div>
+                                <div class="col-2">
+                                    <div class="col-md-12 col-sm-12 text-right">
+                                        <button class="bg-light-blue btn text-blue weight-500"  type="button" id="downloadexcel" class="btn btn-primary">Export</button>
+                                    </div>
+                                </div>
+                              
                             </div>                                                        
                         </div>
                             
@@ -178,14 +183,14 @@
                                     <div class="col-4">
                                         <div class="from-group">
                                             <label > From Date  </label>
-                                            <input type="date" name="from_date" class="form-control" value="<?php if(isset($_GET['from_date'])){ echo $_GET['from_date']; } ?>">
+                                            <input type="date" name="from_date" class="form-control" value="<?php //if(isset($_GET['from_date'])){ echo $_GET['from_date']; } ?>">
                                         </div>
                                     </div>
                                     
                                     <div class="col-4">
                                         <div class="from-group">
                                             <label > To Date  </label>
-                                            <input type="date" name="to_date" class="form-control" value="<?php if(isset($_GET['to_date'])){ echo $_GET['to_date']; } ?>" >
+                                            <input type="date" name="to_date" class="form-control" value="<?php // if(isset($_GET['to_date'])){ echo $_GET['to_date']; } ?>" >
                                         </div>
                                     </div>
 
@@ -201,8 +206,8 @@
                         </div> -->
 
                         <!-- Table Display data -->
-                        <div class="pb-20">
-                            <table class="data-table table stripe hover nowrap">
+                        <div class="pb-10">
+                            <table id="example-table" class="data-table table stripe hover nowrap">
                                 <thead class="bg-dark text-white">
                                     <tr>				
                                         <th> No#</th>     
@@ -271,6 +276,7 @@
                                     </tr>
                                     <?php }?>
                                 </tbody>
+                                
                             </table>
                         </div>
                     </div>        				               

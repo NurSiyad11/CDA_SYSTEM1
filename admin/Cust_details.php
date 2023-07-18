@@ -59,7 +59,25 @@
 								</ol>
 							</nav>
 						</div>
-                        <div class="row">
+                        <div class="col-md-6 col-sm-12 text-right">
+                         <?php     
+                                    $admin_rol = $conn->query("SELECT Role as rol from `user` where ID='$session_id' ")->fetch_assoc()['rol'];
+                                    if($admin_rol == 'Administrator'){                                   
+                                ?>
+                                <a  href="#" class="btn btn-primary" data-toggle="modal" data-target="#Medium-modal"> <i class="icon-copy ion-plus "></i> Dept Reminder</a>
+                           <?php  }?>
+							<!-- <div class="dropdown">
+								<a class="btn btn-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+									January 2018
+								</a>
+								<div class="dropdown-menu dropdown-menu-right">
+									<a class="dropdown-item" href="#">Export List</a>
+									<a class="dropdown-item" href="#">Policies</a>
+									<a class="dropdown-item" href="#">View Assets</a>
+								</div>
+							</div> -->
+						</div>
+                        <!-- <div class="row">
                             <div class="col-12"> 
                                 <?php     
                                     $admin_rol = $conn->query("SELECT Role as rol from `user` where ID='$session_id' ")->fetch_assoc()['rol'];
@@ -68,7 +86,7 @@
                                 <a  href="#" class="btn btn-primary" data-toggle="modal" data-target="#Medium-modal"> <i class="icon-copy ion-plus "></i> Dept Reminder</a>
                            <?php  }?>
                             </div>
-                        </div>
+                        </div> -->
 					</div>
 				</div>
 
@@ -85,12 +103,12 @@
                             <div class="d-flex flex-wrap align-items-center">
                                 <div class="progress-data">
                                     <div id="">
-                                    <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="50" height="50" alt="">
+                                    <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="40" height="40" alt="">
                                     </div>
                                 </div>
                                 <div class="widget-data">
                                     <div class="h5 mb-0"><?php echo "$ ". ($format); ?></div>
-                                    <div class="weight-300 font-18">Invoices </div>
+                                    <div class="weight-300 font-15">Invoices </div>
                                 </div>
                             </div>
                         </div>
@@ -106,12 +124,12 @@
                             <div class="d-flex flex-wrap align-items-center ">	
                                 <div class="progress-data">
                                     <div id="">
-                                    <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="50" height="50" alt="">
+                                    <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="40" height="40" alt="">
                                     </div>
                                 </div>						
                                 <div class="widget-data">
                                     <div class="h5 mb-0"><?php echo "$ ". ($format2); ?></div>
-                                    <div class="weight-300 font-18">Receipts</div>
+                                    <div class="weight-300 font-15">Receipts</div>
                                 </div>
                             </div>
                         </div>
@@ -129,12 +147,12 @@
                             <div class="d-flex flex-wrap align-items-center">	
                                 <div class="progress-data">
                                     <div id="">
-                                    <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="50" height="50" alt="">
+                                    <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="40" height="40" alt="">
                                     </div>
                                 </div>						
                                 <div class="widget-data">
                                     <div class="h5 mb-0"><?php echo "$ ". ($format_balance); ?></div>
-                                    <div class="weight-300 font-17">Balance </div>
+                                    <div class="weight-300 font-15">Balance </div>
                                 </div>
                             </div>
                         </div>

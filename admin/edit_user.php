@@ -312,7 +312,7 @@ if (isset($_POST["update_image"])) {
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label>Phone Number :</label>
-											<input name="phonenumber" type="text" class="form-control" required="true" autocomplete="off"value="<?php echo $row['Phone']; ?>">
+											<input name="phonenumber" type="text" class="form-control" required="true" autocomplete="off" value="<?php echo $row['Phone']; ?>">
 										</div>
 									</div>									
 								</div>

@@ -18,6 +18,7 @@ if (isset($_GET['delete'])) {
 
 ?>
 
+
 <body>
 	<?php include('includes/navbar.php')?>
 	<?php include('includes/right_sidebar.php')?>
@@ -27,6 +28,28 @@ if (isset($_GET['delete'])) {
 	<div class="main-container">
 		<div class="pd-ltr-20">
 			
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="title">
+                            <h4>Customer Invoice</h4>
+                        </div>
+                        <nav aria-label="breadcrumb" role="navigation">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Invoice</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-md-6 col-sm-12 text-right">
+                        <div class="dropdown">
+                            <a class="btn btn-primary " href="T_Receipt_detail.php" role="button" >
+                              View Receipt Deatils
+                            </a>                      
+                        </div>
+                    </div>
+                </div>
+            </div>
 			
 			<div class="row">
                 <?php			

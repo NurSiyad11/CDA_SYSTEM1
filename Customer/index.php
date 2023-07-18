@@ -3,6 +3,20 @@
 <?php include('../database/session.php') 
 // $time=time();
 ?>
+      <!-- <script>
+            window.addEventListener('load',function(){
+            Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'your Complaint Successfully  Submited',
+            showConfirmButton: false,
+            timer: 3000
+            })
+            .then(function() {
+                window.location = "index.php";
+            });	
+        });
+        </script> -->
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script> -->
 <script>
 function showPass()
@@ -27,13 +41,13 @@ function showPass()
 		$INV = $conn->query("SELECT sum(Amount) as total FROM `invoice` where Cid='$session_id'  ")->fetch_assoc()['total'];
 		$RV = $conn->query("SELECT sum(Amount) as total FROM `receipt` where Cid='$session_id'  ")->fetch_assoc()['total'];
 		$Bal = $INV - $RV;
-		$format =number_format((float)$Bal, '2','.',',');
+		$format_balance =number_format((float)$Bal, '2','.',',');
 	
 		?>
 		<script>
 			window.addEventListener('load',function(){
 				swal.fire({
-					title: "Your Balance is  <?Php echo "USD ". $format?>",
+					title: "Your Balance is  <?Php echo "USD ". $format_balance?>",
 					// text: "<?Php //echo "$ ". $format?>",
 					
 					//iconHtml: ' <i class="icon-copy ion-social-usd-outline"></i>',
@@ -50,6 +64,8 @@ function showPass()
 	}
 ?>
 
+
+
 <body>
 	<?php include('includes/navbar.php') ?>
 	<?php include('includes/right_sidebar.php') ?>
@@ -64,6 +80,10 @@ function showPass()
 			<div class="row">
 				<div class="col-xl-12 mb-30">
 					<div class="card text-bg-primary mb-3">
+
+						
+					
+
 						<div class="row">
 							<div class="col-12">
 								<div class="card-header text-center bg-blue" style="color:white">
@@ -78,12 +98,21 @@ function showPass()
 							$RV = $conn->query("SELECT sum(Amount) as total FROM `cash_receipt`   ")->fetch_assoc()['total'];
 							$PV = $conn->query("SELECT sum(Amount) as total FROM `cash_payment`   ")->fetch_assoc()['total'];
 							$Bal = $RV - $PV;
-							$format =number_format((float)$Bal, '2','.',',');
-							?> 
-							<div class="row">
+							$format_balance =number_format((float)$Bal, '2','.',',');
+							?> 	
+						
+							<div class="row">							
 								<div class="col-12">
-								<p class=" ml-3 text-cente" style="color:bl">Welcome to our system! Once you log in, you'll be directed to your personalized dashboard where you can easily manage your account, view your recent activity. Your dashboard will display your current account balance, as well as any new or pending invoices. You can also review your recent transactions to keep track of your financial activity. If you have any questions or require assistance, please don't hesitate to contact our support team. We're here to assist you every step of the way.</p>
-
+									<?php
+										$Limite_balance = $conn->query("SELECT Limit_bal as lmt FROM `limit_customer_bal` where Cid='$session_id'   ")->fetch_assoc()['lmt'];
+										if($format_balance > $Limite_balance){								
+											?>
+											<div class="alert alert-danger" role="alert">
+												DIgniin: Macaamiil Haraagaaga Xisaabta Daynta waxa uu Gaaray Qadarka Cayimida Daynta, Fadalan Sida ugu Dhaqsiyaha Badan iskaga Bixi Lacga daynta ah !!!
+											</div>
+											<?php }else{ ?>
+													<p class=" ml-3 text-cente" style="color:bl">Welcome to our system! Once you log in, you'll be directed to your personalized dashboard where you can easily manage your account, view your recent activity. Your dashboard will display your current account balance, as well as any new or pending invoices. You can also review your recent transactions to keep track of your financial activity. If you have any questions or require assistance, please don't hesitate to contact our support team. We're here to assist you every step of the way.</p>
+											<?php } ?>
 
 									<!-- <form action="" method="POST">	
 										<div id="" class=" ml-5">

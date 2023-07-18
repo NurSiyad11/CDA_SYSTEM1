@@ -21,8 +21,8 @@
 		$Cid = $conn->query("SELECT id as cid from `user` where Com_name='$name'  ")->fetch_assoc()['cid'];
 
 		$INV = $conn->query("SELECT sum(Amount) as total from `invoice` where Cid=$Cid   ")->fetch_assoc()['total'];
-		$RV = $conn->query("SELECT sum(Amount) as total from `receipt` where Cid=$Cid ")->fetch_assoc()['total'];
-		$Bal_Inv_RV = $INV - $RV;
+		$Rv = $conn->query("SELECT sum(Amount) as total from `receipt` where Cid=$Cid ")->fetch_assoc()['total'];
+		$Bal_Inv_RV = $INV - $Rv;
 		//echo "$Bal_Inc_exp";
 		
 		

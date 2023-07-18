@@ -8,11 +8,26 @@ if (isset($_GET['delete'])) {
 	$delete = $_GET['delete'];
 	$sql = "DELETE FROM apply_form where id = ".$delete;
 	$result = mysqli_query($conn, $sql);
-	if ($result) {
-		echo "<script>alert('Record deleted Successfully');</script>";
-     	echo "<script type='text/javascript'> document.location = 'Requested.php'; </script>";
+		?>
+	 		<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+						title: "Success",
+						text: "Request  deleted Successfully' ",
+						icon: "success",
+						button: "Ok Done!",
+					})
+					.then(function() {
+						window.location = "Requested.php";
+							});
+				});			
+			</Script>
+	 	<?php
+	// if ($result) {
+	// 	echo "<script>alert('Record deleted Successfully');</script>";
+    //  	echo "<script type='text/javascript'> document.location = 'Requested.php'; </script>";
 		
-	}
+	// }
 }
 
 ?>

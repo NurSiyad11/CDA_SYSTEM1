@@ -15,7 +15,7 @@
 		   window.addEventListener('load',function(){
 			   swal.fire({
 				   title: "Succcess",
-				   text: "User Records Successfully Added ",
+				   text: "Your Conatc Successfully Submited ",
 				   icon: "success",
 				   button: "Ok Done!",		   
 			   })

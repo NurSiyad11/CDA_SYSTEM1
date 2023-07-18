@@ -7,7 +7,28 @@ if (isset($_POST["update_image"])) {
 
 	$image = $_FILES['image']['name'];
 
-	if(!empty($image)){
+	// Check if the file name already exists in the database
+	$result1 = mysqli_query($conn, "SELECT * FROM user WHERE Picture = '$image' ");
+
+	if (mysqli_num_rows($result1) > 0) {
+		// File name already exists, generate a new file name
+		?>
+			<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+						title: "Warning",
+						text: "Picture name <?php echo $image ?> already exists, generate a new Picture name",
+						icon: "warning",
+						button: "Ok Done!",
+					})
+					.then(function() {
+								window.location = "Profile.php";
+							});
+				});			
+			</Script>	
+			<?php 
+	}
+	elseif(!empty($image)){
 		move_uploaded_file($_FILES['image']['tmp_name'], '../uploads/'.$image);
 		$Picture = $image;	
 
@@ -30,8 +51,6 @@ if (isset($_POST["update_image"])) {
 			});			
 				</Script>
 			<?php
-			// echo "<script>alert('Profile Picture Updated');</script>";
-			// echo "<script type='text/javascript'> document.location = 'Profile.php'; </script>";
 		} else{
 		die(mysqli_error());
 		}

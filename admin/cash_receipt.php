@@ -131,8 +131,7 @@
 							<div class="col-md-4 col-sm-12 text-right"> 
 								<a href="task-add" data-toggle="modal" data-target="#task-add" class="bg-light-blue btn text-blue weight-500" ><i class=" icon-copy ion-plus-circled "></i> Account Registration </a>
 							</div>
-						</div>
-						
+						</div>						
 					</div>
 
 					<!-- add task popup start -->
@@ -177,7 +176,7 @@
 					<!-- add task popup End -->
 
 
-					<!--Start code  Receipt for  -->
+					<!--Start code Form Receipt for  -->
 					<div class="wizard-content">
 						<form method="post" action="">
 							<section>                              

@@ -7,9 +7,36 @@
 <?php
 	if(isset($_POST['update_file']))
 	{
+		$pdf=$_FILES['pdf']['name'];
+		$pdf_type=$_FILES['pdf']['type'];
+		$pdf_size=$_FILES['pdf']['size'];
+		$pdf_tem_loc=$_FILES['pdf']['tmp_name'];
+		$pdf_store="pdf/".$pdf;
+		move_uploaded_file($pdf_tem_loc,$pdf_store);
+
 		$st = $conn->query("SELECT Status as st from `invoice` where id='$get_id'  ")->fetch_assoc()['st'];
 
-		if($st =='Approved')
+		// Check if the file name already exists in the database
+		$result1 = mysqli_query($conn, "SELECT * FROM invoice WHERE File = '$pdf' ");
+
+		if (mysqli_num_rows($result1) > 0) {
+			// File name already exists, generate a new file name
+			?>
+			<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+						title: "Warning",
+						text: "File name <?php echo $pdf?> already exists, generate a new file name",
+						icon: "warning",
+						button: "Ok Done!",
+					})
+					.then(function() {
+						window.location = "edit_invoice.php?edit=" + <?php echo ($get_id); ?>;
+						});
+				});			
+			</Script>	
+			<?php 
+		}elseif($st =='Approved')
 		{
 			?>
 			<Script>
@@ -26,14 +53,9 @@
 				});			
 			</Script>
 			<?php			
-		}else 
-		{
-			$pdf=$_FILES['pdf']['name'];
-			$pdf_type=$_FILES['pdf']['type'];
-			$pdf_size=$_FILES['pdf']['size'];
-			$pdf_tem_loc=$_FILES['pdf']['tmp_name'];
-			$pdf_store="pdf/".$pdf;
-			move_uploaded_file($pdf_tem_loc,$pdf_store);
+		}
+		else 
+		{	
 
 			$result = mysqli_query($conn,"update invoice set  File='$pdf'  where id='$get_id'         
 				"); 		

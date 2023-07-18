@@ -37,6 +37,13 @@ if (isset($_GET['delete'])) {
 								</ol>
 							</nav>
 						</div>
+						<div class="col-md-6 col-sm-12 text-right">
+							<div class="dropdown">
+								<a class="btn btn-primary " href="T_ven_payment_detail.php" role="button" >
+								View Vendor Payment Details
+								</a>                        
+							</div>
+						</div>
 					</div>
 				</div>
 

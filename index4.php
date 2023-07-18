@@ -19,9 +19,6 @@ if(isset($_POST['signin']))
 	$username=$_POST['username'];
 	$password=md5($_POST['password']);
 
-
-
-
 	$sql ="SELECT * FROM user where Email ='$username' AND password ='$password' ";
 	$query= mysqli_query($conn, $sql);
 	$count = mysqli_num_rows($query);
@@ -30,30 +27,22 @@ if(isset($_POST['signin']))
 	{
 		while ($row = mysqli_fetch_assoc($query)) 
       {
-
 			if($row['Status'] == 'Inactive')
          {
-				// $name = $row['Name'];
 				?>
 				<Script>
 					window.addEventListener('load',function(){
 						swal.fire({
 							title: "Warning",
-							text: "Your Acount Is Inactive !!! ",							
+							text: "Your Account Is Inactive !!! ",							
 							icon: "warning",
-							button: "Ok!",
+							button: "Ok Done!",
 						})
 						.then(function() {
 									window.location = "index4.php";
 								});
 					});			
-				</Script>
-            <!-- <script type="text/javascript">
-                              window.addEventListener('load', function() {
-                                 $('#exampleModal').modal('show');
-                              });
-                           </script> -->
-            
+				</Script>            
 				<?php	
 			}
          elseif($row['Role'] == 'Vendor')
@@ -64,8 +53,7 @@ if(isset($_POST['signin']))
                      swal.fire({
                         title: "Warning",
                         text: "You are unable to access this system. .... ",
-                        icon: "warning",
-                       // button: "Ok !",
+                        icon: "warning",                        
                      })
                      .then(function() {
                               window.location = "index4.php";
@@ -76,151 +64,72 @@ if(isset($_POST['signin']))
          }	
          else
          {
-                $_SESSION['alogin']=$row['ID'];      
-            
-                $session = $row['ID'];
-                $otp = sprintf("%'.06d",mt_rand(0,999999));
-               // $expiration = date("Y-m-d H:i" ,strtotime(date('Y-m-d H:i')." +1 mins"));
+            $_SESSION['alogin']=$row['ID'];     
+      
+            $session = $row['ID'];
+            $otp = sprintf("%'.06d",mt_rand(0,999999));
           
-               $query=mysqli_query($conn,"update user set otp='$otp', otp_expiration='1' where ID=".$_SESSION['alogin']);
-               $name=$row['Name'];       
-                // $email_address=$row['Email'];
-
-                    //Create instance of PHPMailer
-                    $mail = new PHPMailer();
-                    //Set mailer to use smtp
-                        $mail->isSMTP();
-                    //Define smtp host
-                        $mail->Host = "smtp.gmail.com";
-                    //Enable smtp authentication
-                        $mail->SMTPAuth = true;
-                    //Set smtp encryption type (ssl/tls)
-                        $mail->SMTPSecure = "tls";
-                    //Port to connect smtp
-                        $mail->Port = "587";
-                    //Set gmail username
-                        $mail->Username = "siyaadgeneralservice@gmail.com";
-                    //Set gmail password
-                        $mail->Password = "fpzpktrcwxaeshpk";
-                    //Email subject
-                        $mail->Subject = "CDA System";
-                    //Set sender email
-                        $mail->setFrom('siyaadgeneralservice@gmail.com', "CDA N ");
-                    //Enable HTML
-                        $mail->isHTML(true);
-                    //Attachment
-                        // $mail->addAttachment('img/attachment.png');
-                    //Email body
-                        $mail->Body = " 
-                     <html>
-                           
-                        <body  style=\"border: 2px solid #1D058D; margin: 25px 10px 20px 10px;\">
-                           <h2  style=\"text-align:center; color: White; font-size: 200%; margin: 0px 0px 0px 0px; background-color : #1D058D; padding: 15px 5px 15px 5px;\">You are Attempting to Login CDA System</h2>
-                           <p style=\"text-align:left;  margin: 25px 10px 10px 20px;\">Dear ".$name." </br></p>
-                           <p style=\"text-align:left;  margin: 0px 10px 10px 20px;\">Here is your OTP (One-Time PIN) to verify your Identity. </br></p>
-                           <h3 style=\"text-align:left;  margin: 0px 10px 10px 20px;\"> OTP : ".$otp."</br></h3>
-                           <h3 style=\"text-align:left;  margin: 0px 10px 10px 20px;\"> Expiration Time : If you use it once, you will not be able to use it again </br></h3>
-                        </body>
-                    </html>";
-                    //Add recipient
-                        $mail->addAddress('cabdinur789@gmail.com');
-                        
-                    //Finally send email
-                        if ( $mail->send() ) 
-                        {
-                            echo "<script type='text/javascript'> $('#exampleModal').modal('show'); </script>";
-                        
-                        ?>
-
-                           <!-- <script type="text/javascript">
-                              window.addEventListener('load', function() {
-                                 $('#exampleModal').modal('show');
-                              });
-                           </script> -->
-                           <!-- <script>
-                              window.addEventListener('load', function() {
-                                 $('#exampleModal').modal('show');
-                              });
-                           </script> -->
-                        <!-- <script type='text/javascript'>
-                           $(document).ready(function() {
-                              $('#exampleModal').modal('show');
-                           });
-                         </script> -->
-                        <!-- <script type="text/javascript">
-                        window.addEventListener('load',function(){
-                             $('#exampleModal').modal('show');
-                           });
-                        </script> -->
-
-                        <!-- <script>
-                           $('#exampleModal').modal('show');
-                           window.location = "index4.php"; 
-                        </script> -->
-
-                        
-                        
-                        <!-- <script>alert($('#exampleModal').modal('show'););</script>;
-                          <script>
-                          window.location = "index4.php"; 
-                          </script> -->
-                        <?php
-                         
-
-
-                        //      echo "<script type='text/javascript'>
-                        //   $(document).ready(function() {
-                        //     $('#exampleModal').modal('show');
-                        //   });
-                        //    </script>";
-                     
-                        }
-                        else
-                        {
-                           ?>
-                           <!-- <Script>
-                              window.addEventListener('load',function(){
-                                 swal.fire({
-                                    title: "Error",
-                                    text: "Message could not be sent. Mailer Error: ",
-                                    icon: "error",
-                                    button: "Ok!",
-                                 })
-                                 .then(function() {
-                                          window.location = "index4.php";
-                                       });
-                              });			
-                           </Script> -->
-
-                             <script>alert('Message could not be sent. Mailer Error: ');</script>;
-                          <script>
-                          window.location = "index4.php"; 
-                          </script>
-                           <?php	
-                           // echo "Message could not be sent. Mailer Error: ".$mail->ErrorInfo;
-                           
-                            //Closing smtp connection
-                            $mail->smtpClose();
-                        }
-                   
-
-                          //echo "<script type='text/javascript'> document.location = 'index4.php'; </script>"; 
-                         
-                           ?>
-
-                      <!-- <script type="text/javascript">
-                              window.addEventListener('load', function() {
-                                 $('#exampleModal').modal('show');
-                              });
-                           </script> -->
-                         
-
- 
-                          <script>alert('Unkown Error  ');</script>;
-                          <script>
-                          window.location = "index4.php"; 
-                          </script>
-                           <?php
+            $query=mysqli_query($conn,"update user set otp='$otp', otp_expiration='1' where ID=".$_SESSION['alogin']);
+            $name=$row['Name'];      
+            
+            //Create instance of PHPMailer
+               $mail = new PHPMailer();
+            //Set mailer to use smtp
+               $mail->isSMTP();
+            //Define smtp host
+               $mail->Host = "smtp.gmail.com";
+            //Enable smtp authentication
+               $mail->SMTPAuth = true;
+            //Set smtp encryption type (ssl/tls)
+               $mail->SMTPSecure = "tls";
+            //Port to connect smtp
+               $mail->Port = "587";
+            //Set gmail username
+               $mail->Username = "siyaadgeneralservice@gmail.com";
+            //Set gmail password
+               $mail->Password = "fpzpktrcwxaeshpk";
+            //Email subject
+               $mail->Subject = "CDA System";
+            //Set sender email
+               $mail->setFrom('siyaadgeneralservice@gmail.com', "CDA N ");
+            //Enable HTML
+               $mail->isHTML(true);
+            //Attachment
+               // $mail->addAttachment('img/attachment.png');
+            //Email body
+               $mail->Body = " 
+            <html>                  
+               <body  style=\"border: 2px solid #1D058D; margin: 25px 10px 20px 10px;\">
+                  <h2  style=\"text-align:center; color: White; font-size: 200%; margin: 0px 0px 0px 0px; background-color : #1D058D; padding: 15px 5px 15px 5px;\">You are Attempting to Login CDA System</h2>
+                  <p style=\"text-align:left;  margin: 25px 10px 10px 20px;\">Dear ".$name." </br></p>
+                  <p style=\"text-align:left;  margin: 0px 10px 10px 20px;\">Here is your OTP (One-Time PIN) to verify your Identity. </br></p>
+                  <h3 style=\"text-align:left;  margin: 0px 10px 10px 20px;\"> OTP : ".$otp."</br></h3>
+                  <h3 style=\"text-align:left;  margin: 0px 10px 10px 20px;\"> Expiration Time : If you use it once, you will not be able to use it again </br></h3>
+               </body>
+            </html>";
+            //Add recipient
+            $mail->addAddress('cabdinur789@gmail.com');
+               
+            //Finally send email
+            if ( $mail->send() ) 
+            {
+               // echo "<script type='text/javascript'> $('#exampleModal').modal('show'); </script>"; 
+               echo "<script type='text/javascript'> document.location = 'verification.php';</script>"; 
+         
+            }
+            else
+            {
+               ?>
+               <script>alert('Message could not be sent. Mailer Error: ');</script>;
+               <script>window.location = "index4.php";</script>
+               <?php	                      
+                  //Closing smtp connection
+                  $mail->smtpClose();
+            }                         
+            ?>              
+               <script>alert('Unkown Error  ');</script>;
+               <script>window.location = "index4.php";</script>
+            <?php
                          
          }
       }
@@ -313,36 +222,36 @@ if(isset($_POST['signin']))
 
 
 
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Open modal for @mdo</button>
+                  <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Open modal for @mdo</button> -->
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
-      </div>
-    </div>
-  </div>
-</div>
+                  <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                     <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                           <div class="modal-header">
+                           <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                           </button>
+                           </div>
+                           <div class="modal-body">
+                           <form>
+                              <div class="form-group">
+                                 <label for="recipient-name" class="col-form-label">Recipient:</label>
+                                 <input type="text" class="form-control" id="recipient-name">
+                              </div>
+                              <div class="form-group">
+                                 <label for="message-text" class="col-form-label">Message:</label>
+                                 <textarea class="form-control" id="message-text"></textarea>
+                              </div>
+                           </form>
+                           </div>
+                           <div class="modal-footer">
+                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                           <button type="button" class="btn btn-primary">Send message</button>
+                           </div>
+                        </div>
+                     </div>
+                  </div> -->
 
 
 

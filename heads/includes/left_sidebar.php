@@ -36,6 +36,7 @@
 						</a>
 						<ul class="submenu">
 							<li><a href="financial_report.php">Financial Report</a></li>
+							<li><a href="financial_report2.php">Account Reports</a></li>
 							<li><a href="Cust_Report.php">Customer Report</a></li>
                             <li><a href="Supplier_report.php">Suppliers Report</a></li>
 						</ul>

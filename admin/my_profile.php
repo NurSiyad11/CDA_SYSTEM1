@@ -7,65 +7,30 @@
 if (isset($_POST["update_image"])) {
 
 
-// 	$image = $_FILES['image']['name'];
-
-// if(!empty($image)){
-//     $temp_path = $_FILES['image']['tmp_name'];
-//     $new_path = '../uploads/'.$image;
-//     $Picture = $image;
-//     list($width, $height) = getimagesize($temp_path);
-//     $new_width = 600;
-//     $new_height = 600;
-//     $new_img = imagecreatetruecolor($new_width, $new_height);
-//     $source_img = imagecreatefromjpeg($temp_path);
-//     imagecopyresampled($new_img, $source_img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-//     imagejpeg($new_img, $new_path);
-// }
-// else {
-//     echo "<script>alert('Please Select Picture to Update');</script>";
-// }
-
-// $result = mysqli_query($conn,"update user set Picture='$Picture' where id='$session_id'") or die(mysqli_error());
-// if ($result) {
-//     echo "<script>alert('Profile Picture Updated');</script>";
-//     echo "<script type='text/javascript'> document.location = 'my_profile.php'; </script>";
-// } else{
-//     die(mysqli_error());
-// }
-
-
-
-
-// 	// get the uploaded file path and name
-// $image_path = $_FILES['image']['tmp_name'];
-// $image_name = $_FILES['image']['name'];
-
-// // create a new image object
-// $img = imagecreatefromjpeg($image_path);
-
-// // create a new canvas with the desired dimensions
-// $canvas = imagecreatetruecolor(600, 600);
-
-// // resize the image and copy it to the canvas
-// imagecopyresampled($canvas, $img, 0, 0, 0, 0, 600, 600, imagesx($img), imagesy($img));
-
-// // save the resized image
-// $save_path = '../uploads/resized_' . $image_name;
-// imagejpeg($canvas, $save_path);
-
-// // set the resized image path as the new Picture value
-// $Picture = 'resized_' . $image_name;
-
-
-
-
-
-
-
-
 	$image = $_FILES['image']['name'];
 
-	if(!empty($image)){
+	// Check if the file name already exists in the database
+	$result1 = mysqli_query($conn, "SELECT * FROM user WHERE Picture = '$image' ");
+
+	if (mysqli_num_rows($result1) > 0) {
+		// File name already exists, generate a new file name
+		?>
+			<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+						title: "Warning",
+						text: "Picture name <?php echo $image ?> already exists, generate a new Picture name",
+						icon: "warning",
+						button: "Ok Done!",
+					})
+					.then(function() {
+								window.location = "my_profile.php";
+							});
+				});			
+			</Script>	
+			<?php 
+	}
+	elseif(!empty($image)){
 		move_uploaded_file($_FILES['image']['tmp_name'], '../uploads/'.$image);
 		$Picture = $image;	
 
@@ -86,15 +51,12 @@ if (isset($_POST["update_image"])) {
 									});
 						});			
 					</Script>
-				<?php	
-				// echo "<script>alert('Profile Picture Updated');</script>";
-				// echo "<script type='text/javascript'> document.location = 'my_profile.php'; </script>";
+				<?php
 			} else{
 			die(mysqli_error());
 			}	
 	}
 	else {
-		// echo "<script>alert('Please Select Picture to Update');</script>";
 		?>
 			<Script>
 				window.addEventListener('load',function(){
@@ -110,7 +72,6 @@ if (isset($_POST["update_image"])) {
 				});			
 			</Script>
 			<?php
-
 	}
 
  
@@ -119,7 +80,7 @@ if (isset($_POST["update_image"])) {
 ?>
 
 
-<!-- Addministrator Info Update -->
+<!-- Addministrator Info Update  Only Addminstrator -->
 <?php
 
 	if(isset($_POST['update_info']))
@@ -153,7 +114,7 @@ if (isset($_POST["update_image"])) {
 }
 ?>
 
-<!-- Change Password -->
+<!-- Change Password Only Addminstrator -->
 <?php
 	if(isset($_POST['pass_change']))
 	{

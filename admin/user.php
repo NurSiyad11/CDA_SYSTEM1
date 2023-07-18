@@ -29,30 +29,30 @@
 	$query1 = mysqli_query($conn,"select * from user where Com_name = '$com_name' ")or die(mysqli_error());
 	$count1 = mysqli_num_rows($query1);     
 
-	 $query = mysqli_query($conn,"select * from user where Email = '$email' ")or die(mysqli_error());
-	 $count = mysqli_num_rows($query);     
+	$query = mysqli_query($conn,"select * from user where Email = '$email' ")or die(mysqli_error());
+	$count = mysqli_num_rows($query);     
 	 
 
-     if ($count > 0){ ?>
-	 <script>
-		window.addEventListener('load',function(){
-			swal.fire({
-				//title: "Warning",
-				text: "User Already exist ",
-				icon: "warning",
-				button: "Ok Done!",			
-			})
-			.then(function() {
-					window.location = "user.php";
-				});
-		});
-	</script>
+    if ($count > 0){ ?>
+		<script>
+			window.addEventListener('load',function(){
+				swal.fire({
+					title: "Warning",
+					text: "User Already exist ",
+					icon: "warning",
+					button: "Ok Done!",			
+				})
+				.then(function() {
+						window.location = "user.php";
+					});
+			});
+		</script>
 	<?php
 	}elseif ($count1 > 0){ ?>
 		<script>    
 		   window.addEventListener('load',function(){
 			   swal.fire({
-				   //title: "Warning",
+				  title: "Warning",
 				   text: "Comapany Already exist ",
 				   icon: "warning",
 				   button: "Ok Done!",		   
@@ -63,7 +63,7 @@
 		   });   
 	   </script>
 	   <?php
-      }else{
+    }else{
         mysqli_query($conn,"INSERT INTO user(Admin_id,Name,Email,Com_name,Address,Role,Phone,Status,Picture) VALUES('$admin_id','$name','$email','$com_name','$address','$role','$phonenumber','$Status','$image')         
 		") or die(mysqli_error()); ?>
 
@@ -79,11 +79,10 @@
 						   window.location = "user.php";
 					   });  
 		   });   
-	   </script>
-		<?php   }
-
+	   	</script>
+		<?php   
+	}
 }
-
 ?>
 	<script type="text/javascript">
 		function letterOnly(input){

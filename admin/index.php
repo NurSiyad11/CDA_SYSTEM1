@@ -96,8 +96,8 @@
 							<div class="card-header text-center bg-blue" style="color:white">Cash On Hand</div>
 							<div class="card-body">
 								<?php
-								$RV = $conn->query("SELECT sum(Amount) as total FROM `cash_receipt`   ")->fetch_assoc()['total'];
-								$PV = $conn->query("SELECT sum(Amount) as total FROM `cash_payment`   ")->fetch_assoc()['total'];
+								$RV = $conn->query("SELECT sum(Amount) as total FROM `cash_receipt` ")->fetch_assoc()['total'];
+								$PV = $conn->query("SELECT sum(Amount) as total FROM `cash_payment` ")->fetch_assoc()['total'];
 								$Bal = $RV - $PV;
 								$format =number_format((float)$Bal, '2','.',',');
 								?> 
@@ -116,8 +116,8 @@
 							<div class="card-header text-center bg-blue" style="color:white">Customer Balance</div>
 							<div class="card-body">
 								<?php 
-									$INV = $conn->query("SELECT sum(Amount) as total FROM `invoice`   ")->fetch_assoc()['total'];
-									$RV = $conn->query("SELECT sum(Amount) as total FROM `receipt`  ")->fetch_assoc()['total'];
+									$INV = $conn->query("SELECT sum(Amount) as total FROM `invoice` ")->fetch_assoc()['total'];
+									$RV = $conn->query("SELECT sum(Amount) as total FROM `receipt` ")->fetch_assoc()['total'];
 									$Bal = $INV - $RV;
 									$format =number_format((float)$Bal, '2','.',',');
 								?>
@@ -138,8 +138,8 @@
 							<div class="card-header text-center bg-blue" style="color:white">Vendor Balance</div>
 							<div class="card-body">
 								<?php 
-									$INV = $conn->query("SELECT sum(Amount) as total FROM `ven_invoice`   ")->fetch_assoc()['total'];
-									$RV = $conn->query("SELECT sum(Amount) as total FROM `ven_payment`  ")->fetch_assoc()['total'];
+									$INV = $conn->query("SELECT sum(Amount) as total FROM `ven_invoice` ")->fetch_assoc()['total'];
+									$RV = $conn->query("SELECT sum(Amount) as total FROM `ven_payment` ")->fetch_assoc()['total'];
 									$Bal = $INV - $RV;
 									$format =number_format((float)$Bal, '2','.',',');
 								?>

@@ -7,10 +7,31 @@ if (isset($_POST["update_image"])) {
 
 	$image = $_FILES['image']['name'];
 
-	$query = mysqli_query($conn,"select * from user where Picture = '$image' ")or die(mysqli_error());
-	$count = mysqli_num_rows($query);   
+	// $query = mysqli_query($conn,"select * from user where Picture = '$image' ")or die(mysqli_error());
+	// $count = mysqli_num_rows($query);   
 		
-	if(!empty($image)){
+	// Check if the file name already exists in the database
+	$result1 = mysqli_query($conn, "SELECT * FROM user WHERE Picture = '$image' ");
+
+	if (mysqli_num_rows($result1) > 0) {
+		// File name already exists, generate a new file name
+		?>
+			<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+						title: "Warning",
+						text: "Picture name <?php echo $image ?> already exists, generate a new Picture name",
+						icon: "warning",
+						button: "Ok Done!",
+					})
+					.then(function() {
+								window.location = "Profile.php";
+							});
+				});			
+			</Script>	
+			<?php 
+	}
+	elseif(!empty($image)){
 		move_uploaded_file($_FILES['image']['tmp_name'], '../uploads/'.$image);
 		$Picture = $image;	
 
@@ -33,8 +54,6 @@ if (isset($_POST["update_image"])) {
 			});			
 				</Script>
 			<?php
-			// echo "<script>alert('Profile Picture Updated');</script>";
-			// echo "<script type='text/javascript'> document.location = 'Profile.php'; </script>";
 		} else{
 		die(mysqli_error());
 		}
@@ -57,15 +76,7 @@ if (isset($_POST["update_image"])) {
 				});			
 			</Script>
 		<?php
-		// echo "<script>alert('Please Select Picture to Update');</script>";
-		// echo "<script type='text/javascript'> document.location = 'Profile.php'; </script>";
-
 	}
-
-
-
-
-
 }
 
 ?>
@@ -161,7 +172,7 @@ if (isset($_POST["update_image"])) {
 								<div class="tab height-100-p">
 									<ul class="nav nav-tabs customtab" role="tablist">
 										<li class="nav-item">
-											<a class="nav-link active" data-toggle="tab" href="#timeline" role="tab">Administrator</a>
+											<a class="nav-link active" data-toggle="tab" href="#timeline" role="tab">Customer</a>
 										</li>
 									
 									</ul>

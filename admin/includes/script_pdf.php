@@ -4,8 +4,8 @@
 		var file = document.getElementById(id).files[0];
 		formData.append("Filedata", file);
 		var t = file.type.split('/').pop().toLowerCase();
-		if (t != "pdf" ) {
-			alert('Please select a valid pdf file');
+		if (t != "pdf" && t != "jpeg" && t != "jpg" && t != "png") {
+			alert('Please select a valid pdf or Jpg or Png file');
 			document.getElementById(id).value = '';
 			return false;
 		}

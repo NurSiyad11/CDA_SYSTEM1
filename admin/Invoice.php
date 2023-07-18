@@ -32,30 +32,46 @@
 	     
      	$cid = $conn->query("SELECT id as cid from `user` where Com_name='$name'  ")->fetch_assoc()['cid'];
      	$Admin_id = $conn->query("SELECT id as Aid from `user` where ID='$session_id'  ")->fetch_assoc()['Aid'];
+			// Check if the file name already exists in the database
+			$result = mysqli_query($conn, "SELECT * FROM invoice WHERE File = '$pdf' ");
 
-	
-			mysqli_query($conn,"INSERT INTO invoice(Admin_id,Cid,Date,invoice,Amount,Memo,File,Status) 
-			VALUES('$Admin_id','$cid','$date','$invoice','$amount','$memo','$pdf','Pending')         
-			") or die(mysqli_error());?>
-			<Script>
-				window.addEventListener('load',function(){
-					swal.fire({
-						title: "Success",
-						text: "Invoice Records Successfully  Added ",
-						icon: "success",
-						
-					})
-					.then(function() {
-						window.location = "Invoice.php";
-					});
-				});			
-			</Script>
-			<!-- <script>alert('Invoice Records Successfully  Added');</script>
-			<script>
-			window.location = "Invoice.php"; 
-			</script> -->
-			<?php  
-	
+			if (mysqli_num_rows($result) > 0) {
+				// File name already exists, generate a new file name
+				?>
+				<Script>
+					window.addEventListener('load',function(){
+						swal.fire({
+							title: "Warning",
+							text: "File name <?php echo $pdf?> already exists, generate a new file name",
+							icon: "warning",
+							button: "Ok Done!",
+						})
+						.then(function() {
+									window.location = "invoice.php";
+								});
+					});			
+				</Script>	
+				<?php 
+
+			}else{	
+				mysqli_query($conn,"INSERT INTO invoice(Admin_id,Cid,Date,invoice,Amount,Memo,File,Status) 
+				VALUES('$Admin_id','$cid','$date','$invoice','$amount','$memo','$pdf','Pending')         
+				") or die(mysqli_error());?>
+				<Script>
+					window.addEventListener('load',function(){
+						swal.fire({
+							title: "Success",
+							text: "Invoice Records Successfully  Added ",
+							icon: "success",
+							
+						})
+						.then(function() {
+							window.location = "Invoice.php";
+						});
+					});			
+				</Script>
+				<?php  
+			}
 	}
 
       

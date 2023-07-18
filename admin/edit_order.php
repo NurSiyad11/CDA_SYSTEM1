@@ -147,19 +147,7 @@
 									</div>																
 									<?php } ?>
 								</div>
-								<!-- <div class="row">									
-									<div class="col-md-4 col-sm-12">
-										<div class="form-group">
-											<label>Status :</label>
-											<select name="Status" class="custom-select form-control" required="true" autocomplete="off">
-												<option value="<?php //echo $row['Status']; ?>"><?php //echo $row['Status']; ?></option>
-												<option value="Preparing">Preparing Order</option>
-												<option value="Approved">Approved Order</option>
-												<option value="Reject">Reject Order</option>
-											</select>
-										</div>
-									</div>	
-								</div>					 -->
+							
 								
 								<div class="row">							
 									<div class="col-md-4 col-sm-12">

@@ -26,36 +26,32 @@
 
 		if (mysqli_num_rows($result) > 0) {
 			// File name already exists, generate a new file name
-			$counter = 1;
-			$file_name_parts = pathinfo($pdf);
-			$new_file_name = $file_name_parts['File'] . '_' . $counter . '.' . $file_name_parts['extension'];
+			?>
+			<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+						title: "Warning",
+						text: "File name already exists, generate a new file name",
+						icon: "warning",
+						button: "Ok Done!",
+					})
+					.then(function() {
+								window.location = "apply_order.php";
+							});
+				});			
+			</Script>	
+			<?php 
 
-			while (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM tbl_order WHERE File = '$new_file_name'")) > 0) {
-				// Increment the counter until a unique file name is found
-				$counter++;
-				$new_file_name = $file_name_parts['filename'] . '_' . $counter . '.' . $file_name_parts['extension'];
-			}
-
-			
-			// $pdf=$_FILES['pdf']['name'];
-			// $pdf_type=$_FILES['pdf']['type'];
-			// $pdf_size=$_FILES['pdf']['size'];
-			// $pdf_tem_loc=$_FILES['pdf']['tmp_name'];
-			// $pdf_store="pdf/".$new_file_name;
-			// move_uploaded_file($pdf_tem_loc,$pdf_store);
-
-			$pdf = $new_file_name;
-			$pdf_store = "pdf/" . $pdf;
-			move_uploaded_file($pdf_tem_loc, $pdf_store);
-
-			// Insert the new file with the new file name into the database
-			$result = mysqli_query($conn, "INSERT INTO tbl_order (Admin_id,Cid,Date,File,Reason,Status) VALUES ('$Administrator_id','$Cid','$date','$new_file_name', '$description','Pending')");
+		}
+		else{		
+			mysqli_query($conn,"INSERT INTO tbl_order(Admin_id,Cid,Date,File,Reason,Status) VALUES('$Administrator_id','$Cid','$date','$pdf','$description','Pending')         
+			") or die(mysqli_error()); 
 			?>
 			<Script>
 				window.addEventListener('load',function(){
 					swal.fire({
 						title: "Success",
-						text: "Apply order Successfully  Added if",
+						text: "Apply order Successfully  Added",
 						icon: "success",
 						button: "Ok Done!",
 					})
@@ -64,64 +60,8 @@
 							});
 				});			
 			</Script>	
-			<?php
-		} else {
-			// File name doesn't exist, insert a new record with the original file name
-			$result = mysqli_query($conn, "INSERT INTO tbl_order (Admin_id,Cid,Date,File,Reason,Status) VALUES ('$Administrator_id','$Cid','$date','$pdf', '$description','Pending')");
-			?>
-			<Script>
-				window.addEventListener('load',function(){
-					swal.fire({
-						title: "Success",
-						text: "Apply order Successfully  Added else",
-						icon: "success",
-						button: "Ok Done!",
-					})
-					.then(function() {
-								window.location = "apply_order.php";
-							});
-				});			
-			</Script>	
-			<?php
-		}
-
-		// Check for MySQL errors
-		if (!$result) {
-			echo "An error occurred: " . mysqli_error($conn);
-		}
-
-
-	// $date=$_POST['date'];	
-	// $description=$_POST['description'];	
-
-	// $pdf=$_FILES['pdf']['name'];
-	// $pdf_type=$_FILES['pdf']['type'];
-	// $pdf_size=$_FILES['pdf']['size'];
-	// $pdf_tem_loc=$_FILES['pdf']['tmp_name'];
-	// $pdf_store="pdf/".$pdf;
-
-	// move_uploaded_file($pdf_tem_loc,$pdf_store);
-
-	// 	$Cid = $conn->query("SELECT id as cid from `user` where id='$session_id'  ")->fetch_assoc()['cid'];
-	// 	$Administrator_id = $conn->query("SELECT ID as id from `user` where Role='Administrator' ")->fetch_assoc()['id'];
-
-    //     mysqli_query($conn,"INSERT INTO tbl_order(Admin_id,Cid,Date,File,Reason,Status) VALUES('$Administrator_id','$Cid','$date','$pdf','$description','Pending')         
-	// 	") or die(mysqli_error()); 
-		?>
-		<Script>
-			// window.addEventListener('load',function(){
-			// 	swal({
-			// 		title: "Success",
-			// 		text: "Apply order Successfully  Added",
-			// 		icon: "success",
-			// 		button: "Ok Done!",
-			// 	})
-			// 	.then(function() {
-			// 				window.location = "apply_order.php";
-			// 			});
-			// });			
-		</Script>	
-		<?php   
+			<?php  
+		} 
 }
 ?>
 <body>	

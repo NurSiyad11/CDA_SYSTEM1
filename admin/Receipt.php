@@ -22,16 +22,33 @@
 	$memo=$_POST['memo']; 	 
 
 
-	$Admin_id = $conn->query("SELECT id as Aid from `user` where ID='$session_id'  ")->fetch_assoc()['Aid'];
+	$Admin_id = $conn->query("SELECT ID as Aid from `user` where ID='$session_id'  ")->fetch_assoc()['Aid'];
 	$Cid = $conn->query("SELECT id as cid from `user` where Com_name='$name'  ")->fetch_assoc()['cid'];
 
 	$INV = $conn->query("SELECT sum(Amount) as total FROM `invoice` where Cid='$Cid'  ")->fetch_assoc()['total'];
-	$RV = $conn->query("SELECT sum(Amount) as total FROM `receipt` where Cid='$Cid'  ")->fetch_assoc()['total'];
-	$Bal = $INV - $RV;
-	$cust_Bal_format = number_format((float)$Bal, '2','.',',');
+	$rv = $conn->query("SELECT sum(Amount) as total FROM `receipt` where Cid='$Cid'  ")->fetch_assoc()['total'];
+	$cust_Bal_format = $INV - $rv;
+	// $cust_Bal_format = number_format((float)$bal, '2','.',',');
 
 	
-	if($cust_Bal_format > $amount){
+	if($amount > $cust_Bal_format)
+	{ 
+		?>
+		<Script>
+			window.addEventListener('load',function(){
+				swal.fire({
+					title: "Warning",
+					text: "Your Balance is <?php echo $cust_Bal_format?>, please make invoice <?php echo $amount?>  ",
+					icon: "warning",					
+				})
+				.then(function() {
+					window.location = "Receipt.php" ;
+				});
+			});			
+		</Script>
+		<?php
+	}else
+	{
         mysqli_query($conn,"INSERT INTO receipt(Admin_id,Cid,Date,RV,Amount,Memo,Status) VALUES('$Admin_id','$Cid','$date','$RV','$amount','$memo','Pending')         
 		") or die(mysqli_error()); ?>
 			<Script>
@@ -47,25 +64,10 @@
 					});
 				});			
 			</Script>
-		<?php   
-		}else{
-			?>
-			<Script>
-			window.addEventListener('load',function(){
-				swal.fire({
-					title: "Warning",
-					text: "Your Balance is <?php echo $cust_Bal_format?>, please make invoice   ",
-					icon: "warning",					
-				})
-				.then(function() {
-					window.location = "Receipt.php" ;
-				});
-			});			
-		</Script>
-		<?php
-		}
-
+		<?php 
 	}
+
+}
 ?>
 <body>
 	<?php include('includes/navbar.php')?>

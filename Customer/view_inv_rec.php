@@ -180,12 +180,8 @@ if($Cid != $session_id){
 									while ($info=mysqli_fetch_array($query)) {
 										if($info !=''){
 										?>   
-										<div class="col-12">
-
-										
-									    <a href="../admin/pdf/<?php echo $info['File'] ; ?>" download class="btn btn-primary">Download PDF</a>
-    
-											
+										<div class="col-12">										
+									   		<a href="../admin/pdf/<?php echo $info['File'] ; ?>" download class="btn btn-primary">Download PDF</a>										
 										</div>
 										<embed type="application/pdf" src="../admin/pdf/<?php echo $info['File'] ; ?>" width="900" height="600">
 										<?php

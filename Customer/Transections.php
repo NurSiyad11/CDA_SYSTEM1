@@ -117,7 +117,7 @@
 
 							<?php
 							$bal = 0;
-							$sql = "SELECT id,D_INV,invoice,File,Date,Memo,Amount,empty FROM invoice where Cid='$session_id' UNION All SELECT id,D_RV,RV,File,Date,Memo,empty,Amount FROM receipt    where Cid='$session_id'   order by Date desc ";
+							$sql = "SELECT id,D_INV,invoice,File,Date,Memo,Amount,empty FROM invoice where Cid='$session_id' UNION All SELECT id,D_RV,RV,File,Date,Memo,empty,Amount FROM receipt    where Cid='$session_id'   order by Date asc ";
 							$query = $dbh -> prepare($sql);
 							$query->execute();
 							$results=$query->fetchAll(PDO::FETCH_OBJ);

@@ -165,6 +165,7 @@
 							<span class="micon dw dw-user-2"></span><span class="mtext">Customer</span>
 						</a>
 						<ul class="submenu">
+							<li><a href="Limit_bal.php">Limit Balance</a></li>
 							<li><a href="Invoice.php">Invoice</a></li>
 							<li><a href="Receipt.php">Recipts</a></li>
 							<!-- <li><a href="test.php">Test Sms send</a></li>
@@ -243,29 +244,17 @@
 							<span class="micon dw dw-user-2"></span><span class="mtext">Transection Details</span>
 						</a>
 						<ul class="submenu">
-							<li><a href="javascript:;" class="dropdown-toggle">Cust Inv & Receipt</a>
-								<ul class="submenu">
-									<li><a href="T_invoice_detail.php">Invoice Details</a></li>
-									<li><a href="T_Receipt_detail.php">Receipt Details</a></li>
-								</ul>
-							</li>
-							<li><a href="javascript:;" class="dropdown-toggle">Ven Inv & Payment</a>
-								<ul class="submenu">
-									<li><a href="T_ven_invoice_detail.php">Vendor Invoice Details</a></li>
-									<li><a href="T_ven_payment_detail.php">Vendor Payments Details</a></li>
-								</ul>
-							</li>
-							<li><a href="javascript:;" class="dropdown-toggle">Cash On Hand</a>
+							<li><a href="T_invoice_detail.php">Cust Inv & Receipt </a></li>
+							<li><a href="T_ven_invoice_detail.php">Ven Inv & Payment </a></li>
+							<li><a href="T_cash_in_detail.php">Cash On Hand </a></li>
+							<!-- <li><a href="javascript:;" class="dropdown-toggle">Cash On Hand</a>
 								<ul class="submenu">
 									<li><a href="T_cash_in_detatil.php">Cash In Details</a></li>
 									<li><a href="T_cash_out_detail.php">Cash Out Details</a></li>
 								</ul>
-							</li>
+							</li> -->
 
-
-
-
-							<!-- <li><a href="Receipt_detail.php">Receipt Details</a></li> -->
+					
 						</ul>
 					</li>
 					

@@ -153,7 +153,8 @@ use PHPMailer\PHPMailer\Exception;
               </body>
        </html>";
        //Add recipient
-           $mail->addAddress('nursiyad2022@gmail.com');
+        //    $mail->addAddress('nursiyad2022@gmail.com');
+			$mail->addAddress("$Email_user");
        //Finally send email
            if ( $mail->send() ) {
             ?>
@@ -259,7 +260,7 @@ use PHPMailer\PHPMailer\Exception;
 											<div class="row">
 												<div class="col-6">
 													<div class="form-group mb-3">
-														<label for="">Emmail Address</label>
+														<label for="">Email Address</label>
 														<input type="text" readonly class="form-control" value="<?= $row['Email']; ?>" >
 													</div>
 												</div>

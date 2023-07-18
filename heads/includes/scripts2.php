@@ -22,6 +22,23 @@
 	<!-- Script js sweet alert  -->
 	<script src="../src/scripts/sweetalert2.min.js"></script>
 
+	<!-- js table2excel -->
+	<script src="../vendors/scripts/table2excel.js"></script>
+	<script>
+		document.getElementById('downloadexcel').addEventListener('click', function(){
+			var table2excel = new Table2Excel();
+				table2excel.export(document.querySelectorAll("#example-table"));
+		})
+	</script>
+
+	<script>
+		document.getElementById('downloadexcel1').addEventListener('click', function(){
+			var table2excel = new Table2Excel();
+				table2excel.export(document.querySelectorAll("#example-table1"));
+		})
+	</script>
+	<!-- END js Table2excel -->
+
 	
 	<!-- Modal display info -->
 	    <script type='text/javascript'>
@@ -40,9 +57,13 @@
                 });
             });
         </script>
+
+
 	
 	<!-- js -->
 	<!-- <script src="vendors/scripts/core.js"></script>
 	<script src="vendors/scripts/script.min.js"></script>
 	<script src="vendors/scripts/process.js"></script>
 	<script src="vendors/scripts/layout-settings.js"></script> -->
+
+	

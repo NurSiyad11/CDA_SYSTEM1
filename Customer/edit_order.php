@@ -15,9 +15,38 @@ if($Cid != $session_id){
 <?php
 	if(isset($_POST['update_file']))
 	{
+		$pdf=$_FILES['pdf']['name'];
+		$pdf_type=$_FILES['pdf']['type'];
+		$pdf_size=$_FILES['pdf']['size'];
+		$pdf_tem_loc=$_FILES['pdf']['tmp_name'];
+		$pdf_store="pdf/".$pdf;
+		move_uploaded_file($pdf_tem_loc,$pdf_store);
+
 		$st = $conn->query("SELECT Status as st from `tbl_order` where id='$get_id'  ")->fetch_assoc()['st'];
 
-		if($st !='Pending'){
+		// Check if the file name already exists in the database
+		$result = mysqli_query($conn, "SELECT * FROM tbl_order WHERE File = '$pdf' ");
+
+		if (mysqli_num_rows($result) > 0) {
+			// File name already exists, generate a new file name
+			?>
+			<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+						title: "Warning",
+						text: "File name already exists, generate a new file name",
+						icon: "warning",
+						button: "Ok Done!",
+					})
+					.then(function() {
+						window.location = "edit_order.php?edit=" + <?php echo ($get_id); ?>;
+					});
+				});			
+			</Script>	
+			<?php 
+
+		}
+		elseif($st !='Pending'){
 			?>
 			<Script>
 				window.addEventListener('load',function(){
@@ -35,13 +64,7 @@ if($Cid != $session_id){
 			  </Script>
 			<?php		
 		}else {	
-			$pdf=$_FILES['pdf']['name'];
-			$pdf_type=$_FILES['pdf']['type'];
-			$pdf_size=$_FILES['pdf']['size'];
-			$pdf_tem_loc=$_FILES['pdf']['tmp_name'];
-			$pdf_store="pdf/".$pdf;
-			move_uploaded_file($pdf_tem_loc,$pdf_store);
-
+		
 			$result = mysqli_query($conn,"update tbl_order set  File='$pdf'  where id='$get_id'         
 				"); 		
 			if ($result) {
@@ -61,9 +84,6 @@ if($Cid != $session_id){
 				});			
 				  </Script>
 				<?php
-			
-				// echo "<script>alert('File  Successfully Updated');</script>";
-				// echo "<script type='text/javascript'> document.location = 'order_history.php'; </script>";
 			} else{
 			die(mysqli_error());
 			}		
@@ -220,23 +240,39 @@ if($Cid != $session_id){
 								<?php $query= mysqli_query($conn,"select * from tbl_order where id = '$get_id' and Cid='$session_id' ")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 								?>
-								<div class="row">
-								
-									<!-- <div class="col-md-4 col-sm-12">
-										<div class="form-group">
-											<label>order Date :</label>
-											<input name="date" type="text" class="form-control" required="true" autocomplete="off" value="<?php echo $row['Date']; ?>">
-										</div>
-									</div> -->
-								<!-- 
-								</div>
-								<div class="row"> -->
+
+								<div class="row">					
 									<div class="col-md-12 col-sm-12">
 										<div class="form-group">
 											<label>Description :</label>
 											<textarea id="textarea1" name="Reason" class="form-control" required length="150" maxlength="150" required="true" autocomplete="off"><?php echo $row['Reason']; ?></textarea>
 										</div>
 									</div>
+
+								</div>
+									
+								<div class="row">
+									<div class="col-md-4 col-sm-12">
+										<div class="form-group">
+											<label>Status  :</label>
+											<input name="Status" type="text" class="form-control" required="true" autocomplete="off" readonly value="<?php echo $row['Status']; ?>">
+										</div>
+									</div>	
+								
+									<?php 
+										$sts = $conn->query("SELECT Status as st from `tbl_order` where id='$get_id'  ")->fetch_assoc()['st'];
+										if($sts == 'Reject'){										
+									?>
+									<div class="col-md-8">
+										<div class="form-group">
+											<label>Reason To Rejected</label>
+											<textarea name="Reason" style="height: 3em;" readonly placeholder="Reason" class="form-control text_area" type="text" ><?php echo $row['Reason_RJ']; ?></textarea>
+										</div>
+									</div>																
+									<?php } ?>
+								</div>
+
+								<div class="row">
 									<div class="col-md-2 col-sm-12">
 										<div class="form-group">
 											<label style="font-size:16px;"><b></b></label>
@@ -246,6 +282,8 @@ if($Cid != $session_id){
 										</div>
 									</div>
 								</div>
+
+								
 							</section>
 
 							<section>

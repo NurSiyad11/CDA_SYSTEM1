@@ -4,15 +4,53 @@
 
 
 <?php
-if (isset($_GET['delete'])) {
+if (isset($_GET['delete']))
+{
 	
 	$delete = $_GET['delete'];
-	$sql = "DELETE FROM tbl_order where id = ".$delete;
-	$result = mysqli_query($conn, $sql);
-	if ($result) {
-		echo "<script>alert('Oder deleted Successfully');</script>";
-     	echo "<script type='text/javascript'> document.location = 'All_order.php'; </script>";
-		
+	$status = $conn->query("SELECT Status as st from `tbl_order` where id='$delete'  ")->fetch_assoc()['st'];
+	if($status == 'Approved')
+	{
+		?>
+		<Script>
+			window.addEventListener('load',function(){
+				swal.fire({
+					title: "Warning",
+					text: "This Order Un able Delete, b/c Already Approved ",
+					icon: "warning",
+					button: "Ok Done!",
+				})
+				.then(function() {
+					window.location = "All_order.php";
+				});
+			});			
+		</Script>
+		<?php
+	}else
+	{	
+		$sql = "DELETE FROM tbl_order where id = ".$delete;
+		$result = mysqli_query($conn, $sql);
+		if ($result)
+		{
+			?>
+			<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+						title: "Success",
+						text: "Oder deleted Successfully ",
+						icon: "success",
+						button: "Ok Done!",
+					})
+					.then(function() {
+						window.location = "All_order.php";
+					});
+				});			
+			</Script>
+			<?php
+			// echo "<script>alert('Oder deleted Successfully');</script>";
+			// echo "<script type='text/javascript'> document.location = 'All_order.php'; </script>";
+			
+		}
 	}
 }
 
@@ -590,7 +628,7 @@ if (isset($_GET['delete'])) {
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
 											
-											<a class="dropdown-item" href="All_order.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
+											<!-- <a class="dropdown-item" href="All_order.php?delete=<?php// echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a> -->
 											
 											
 											
@@ -869,7 +907,7 @@ if (isset($_GET['delete'])) {
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
 											
-											<a class="dropdown-item" href="All_order.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
+											<!-- <a class="dropdown-item" href="All_order.php?delete=<?php// echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a> -->
 											
 											
 											
@@ -957,7 +995,7 @@ if (isset($_GET['delete'])) {
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
 											
-											<a class="dropdown-item" href="All_order.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
+											<!-- <a class="dropdown-item" href="All_order.php?delete=<?php //echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a> -->
 											
 											
 											
@@ -1043,7 +1081,7 @@ if (isset($_GET['delete'])) {
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
 											
-											<a class="dropdown-item" href="All_order.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
+											<!-- <a class="dropdown-item" href="All_order.php?delete=<?php //echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a> -->
 											
 											
 											
@@ -1129,7 +1167,7 @@ if (isset($_GET['delete'])) {
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
 											
-											<a class="dropdown-item" href="All_order.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
+											<!-- <a class="dropdown-item" href="All_order.php?delete=<?php// echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a> -->
 											
 											
 											

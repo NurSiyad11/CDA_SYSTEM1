@@ -3,17 +3,17 @@
 <?php include('../database/db.php')?>
 
 <?php
-if (isset($_GET['delete'])) {	
+// if (isset($_GET['delete'])) {	
 	
-	$delete = $_GET['delete'];
-	$sql = "DELETE FROM debt_reminder where id = ".$delete;
-	$result = mysqli_query($conn, $sql);
-	if ($result) {
-		echo "<script>alert('Record deleted Successfully');</script>";
-     	echo "<script type='text/javascript'> document.location = 'mng_debt_reminder.php'; </script>";
+// 	$delete = $_GET['delete'];
+// 	$sql = "DELETE FROM debt_reminder where id = ".$delete;
+// 	$result = mysqli_query($conn, $sql);
+// 	if ($result) {
+// 		echo "<script>alert('Record deleted Successfully');</script>";
+//      	echo "<script type='text/javascript'> document.location = 'mng_debt_reminder.php'; </script>";
 		
-	}
-}
+// 	}
+// }
 
 ?>
 <body>
@@ -408,7 +408,7 @@ if (isset($_GET['delete'])) {
 										</a>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 											<a class="dropdown-item" href="edit_debt_reminder.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
-											<a class="dropdown-item" href="mng_debt_reminder.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
+											<!-- <a class="dropdown-item" href="mng_debt_reminder.php?delete=<?php// echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a> -->
 											
 											
 											

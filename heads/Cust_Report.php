@@ -37,12 +37,16 @@
 
 			<div class="card-box mb-30">
 				<div class="row">				
-					<div class="pd-20">
+					<div class="col-4">
 						<h2 class="text-blue h4">Customer Balance</h2>
 					</div>
-					<div>
-					<a href="#" class="bg-light-blue btn text-blue weight-500"  data-toggle="modal" data-target="#bd-example-modal-lg" type="button"><i class="dw dw-eye"></i> Customer Summary Balance </a>
-					</div>
+					<div class="col-8">
+						<div class="col-md-12 col-sm-12 text-right">
+							<a href="#" class="bg-light-blue btn text-blue weight-500"  data-toggle="modal" data-target="#bd-example-modal-lg" type="button"><i class="dw dw-eye"></i> Customer Summary Balance </a>
+							<button class="bg-light-blue btn text-blue weight-500"  type="button" id="downloadexcel" class="btn btn-primary">Export to Excel</button>
+						</div>
+					</div>	
+					
 				</div>
 
 
@@ -78,8 +82,8 @@
 
 
 				<div class="pb-20">
-					<table class="data-table table stripe hover nowrap">
-						<thead>
+					<table id="example-table" class="data-table table stripe hover nowrap">
+						<thead class="table-dark">
 							<tr>
 								<th class="table-plus">FULL NAME</th>
 								<th>Company Name</th>
@@ -145,7 +149,7 @@
 							<div class="modal-body">
 								<div class="pb-20">
 									<table id="example-table" class="data-table table stripe hover nowrap">
-										<thead>
+										<thead class="">
 											<tr>
 												<th class="table-plus">FULL NAME</th>
 												<th>Company Name</th>
@@ -203,12 +207,7 @@
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 								<button type="button" id="downloadexcel" class="btn btn-primary">Export to Excel</button>
 							</div>
-							<script>
-								document.getElementById('downloadexcel').addEventListener('click', function(){
-									var table2excel = new Table2Excel();
-										table2excel.export(document.querySelectorAll("#example-table"));
-								})
-							</script>
+							
 						</div>
 					</div>
 				</div>			

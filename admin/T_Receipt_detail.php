@@ -27,6 +27,29 @@ if (isset($_GET['delete'])) {
 	<div class="main-container">
 		<div class="pd-ltr-20">
 			
+        		
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="title">
+                            <h4>Customer Receipts</h4>
+                        </div>
+                        <nav aria-label="breadcrumb" role="navigation">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Receipts</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-md-6 col-sm-12 text-right">
+                        <div class="dropdown">
+                            <a class="btn btn-primary " href="T_invoice_detail.php" role="button" >
+                               View Invoice Details
+                            </a>                        
+                        </div>
+                    </div>
+                </div>
+            </div>
 			
 			<div class="row">
                 <?php			

@@ -19,7 +19,8 @@
     $Admin_id = $conn->query("SELECT id as Aid from `user` where Role='Administrator'  ")->fetch_assoc()['Aid'];
 
         mysqli_query($conn,"INSERT INTO support(Cid,Title,Message,Admin_id, Time_user, Status) VALUES('$Cid','$title','$message','$Admin_id' ,'$date1', 'Pending')         
-		") or die(mysqli_error()); ?>
+		") or die(mysqli_error()); 
+        ?>
         <script>
             window.addEventListener('load',function(){
             Swal.fire({
@@ -33,11 +34,7 @@
                 window.location = "Support.php";
             });	
         });
-                    </script>
-		<!-- <script>alert('your Complaint Successfully  Submited');</script>;
-		<script>
-		window.location = "Support.php"; 
-		</script> -->
+        </script>
 		<?php   
 }
 
