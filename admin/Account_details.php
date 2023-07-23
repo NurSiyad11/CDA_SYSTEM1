@@ -53,7 +53,19 @@ $get_id = $_GET['edit'];
                     //   $com_name = $conn->query("SELECT Com_name as cid from `user` where id='$get_id'  ")->fetch_assoc()['cid'];  
                     ?>
                     <div class="pb-20">
-                        <h2 class="text-blue h4"><?php echo "Account Name:  $Account_name"?></h2>
+                        <div class="row">
+                            <div class="col-5">
+                                <h2 class="text-blue h4"><?php echo "Account Name:  $Account_name"?></h2>
+                            </div>                       
+                            <div class="col-7">
+                                <div class="col-md-12 col-sm-12 text-right">
+                                    <button class="bg-light-blue btn text-blue weight-500"  type="button" id="downloadexcel" class="btn btn-primary">Export to Excel</button>
+                                </div>
+                            </div>	
+                        </div>
+
+
+
 
                         <!-- <div class="container pd-5">
                             <?php                     
@@ -93,7 +105,7 @@ $get_id = $_GET['edit'];
 
                         
                      
-                        <table class="data-table table stripe hover nowrap">
+                        <table id="example-table" class="data-table table stripe hover nowrap">
                             <thead class="table-dark">
                                 <tr>
                                     <th>NO#</th>

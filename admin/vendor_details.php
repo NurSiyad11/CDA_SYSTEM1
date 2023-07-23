@@ -13,7 +13,7 @@
 	<div class="main-container">
 		<div class="pd-ltr-20 xs-pd-20-10">
 			<div class="min-height-200px">
-				<div class="page-header">
+				<!-- <div class="page-header">
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
 							<div class="title">
@@ -27,7 +27,7 @@
 							</nav>
 						</div>
 					</div>
-				</div>
+				</div> -->
 
 
 
@@ -42,12 +42,12 @@
                             <div class="d-flex flex-wrap align-items-center">
                                 <div class="progress-data">
                                     <div id="">
-                                    <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="50" height="50" alt="">
+                                    <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="40" height="40" alt="">
                                     </div>
                                 </div>
                                 <div class="widget-data">
-                                    <div class="h4 mb-0"><?php echo "$ ". ($format); ?></div>
-                                    <div class="weight-300 font-18">Vendor Invoices </div>
+                                    <div class="h5 mb-0"><?php echo "$ ". ($format); ?></div>
+                                    <div class="weight-300 font-15">Vendor Invoices </div>
                                 </div>
                             </div>
                         </div>
@@ -63,12 +63,12 @@
                             <div class="d-flex flex-wrap align-items-center ">	
                                 <div class="progress-data">
                                     <div id="">
-                                    <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="50" height="50" alt="">
+                                    <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="40" height="40" alt="">
                                     </div>
                                 </div>						
                                 <div class="widget-data">
-                                    <div class="h4 mb-0"><?php echo "$ ". ($format2); ?></div>
-                                    <div class="weight-300 font-18">Vendor Payment</div>
+                                    <div class="h5 mb-0"><?php echo "$ ". ($format2); ?></div>
+                                    <div class="weight-300 font-15">Vendor Payment</div>
                                 </div>
                             </div>
                         </div>
@@ -86,12 +86,12 @@
                             <div class="d-flex flex-wrap align-items-center">	
                                 <div class="progress-data">
                                     <div id="">
-                                    <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="50" height="50" alt="">
+                                    <img src="../vendors/images/img/dollar3.png" class="border-radius-100 shadow" width="40" height="40" alt="">
                                     </div>
                                 </div>						
                                 <div class="widget-data">
-                                    <div class="h4 mb-0"><?php echo "$ ". ($format3); ?></div>
-                                    <div class="weight-300 font-17">Balance </div>
+                                    <div class="h5 mb-0"><?php echo "$ ". ($format3); ?></div>
+                                    <div class="weight-300 font-15">Balance </div>
                                 </div>
                             </div>
                         </div>
@@ -108,27 +108,46 @@
                     
 				
                     <div class="card-box mb-30">
-                        <div >
-                             <!-- <a href="inv_detail_report.php?edit=<?php //echo $get_id;?>"><i class="dw dw-edit2 "></i> Edit  </a>
-                             <a href="inv_detail_report.php?edit=<?php //echo $get_id;?>"><i class=" dw dw-edit2 "></i> Edit</a> -->
-
-                        </div>
-                        <div class="pd-20" >                               
-                            <div class="row">
+                       
+                        <div class="" >                               
+                            <!-- <div class="row">
                                 <div class="col-8">
-                                <h2 class="text-blue h4"><?php echo "Company Name:  $ven_Com_name"?></h2>
+                                <h2 class="text-blue h4"><?php// echo "Company Name:  $ven_Com_name"?></h2>
 
                                 </div>
                                 <div class="col-4">
-                                <p class="text-blue "><?php echo "Vendor Name:  $ven_name"?></p>
+                                <p class="text-blue "><?php //echo "Vendor Name:  $ven_name"?></p>
 
                                 </div>
-                            </div> 
+                            </div>  -->
+                            <div class="row">
+                                <div class="col-1">                       
+                                    <button  class="bg-light-blue btn text-blue weight-500"  type="button"><a href="Supplier_report.php">Back </a></button>
+                                 </div>
+                                <div class="col-4">
+                                    <div class="col-md-12 col-sm-12 text-left">
+                                        <p class="text-blue "><?php echo "  $ven_Com_name"?></p>
+
+                                    </div>
+
+                                </div>
+                                <div class="col-5">
+                                    <div class="col-md-12 col-sm-12 text-right">
+                                        <p class="text-blue "><?php echo "Vendor Name:  $ven_name"?></p>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="col-md-12 col-sm-12 text-right">
+                                        <button class="bg-light-blue btn text-blue weight-500"  type="button" id="downloadexcel" class="btn btn-primary">Export</button>
+                                    </div>
+                                </div>
+                              
+                            </div>
 
                         </div>
                             
                         <div class="pb-20">
-                            <table class="data-table table stripe hover nowrap">
+                            <table id=example-table class="data-table table stripe hover nowrap">
                                 <thead class="bg-dark text-white">
                                     <tr>				
                                         <th> No#</th>                                       
@@ -136,9 +155,8 @@
                                         <th class="datatable-nosort"> Vendor INV No#</th>
                                         <th class="datatable-nosort">Date</th>
                                         <th class="datatable-nosort">Description</th>
-                                        <th class="datatable-nosort">Payment</th>
                                         <th class="datatable-nosort">Invoice</th>
-                                        
+                                        <th class="datatable-nosort">Payment</th>
                                         <th class="datatable-nosort">Balance</th>
                                                                         
                                     </tr>
@@ -166,9 +184,8 @@
                                         <td><?php echo  $row['V_invoice']; ?></td>
                                         <td><?php echo  $row['Date']; ?></td>								
                                         <td><?php echo $row['Memo']; ?></td>
-                                        <td><?php echo $row['empty']; ?></td>
                                         <td><?php echo $row['Amount']; ?></td>
-                                   
+                                        <td><?php echo $row['empty']; ?></td>
                                         <!-- <td><?php echo $row['balance']; ?></td> -->
 
                                         <?php 
@@ -233,36 +250,7 @@
                                                         } }
                                                         ?>
                                                     </div>                                
-                                                </section>
-                                                                    <!-- <form method="post" action="">
-													<div class="form-group row">
-														<label class="col-md-4">Name :</label>
-														<div class="col-md-8">
-															<input type="text" name="name" class="form-control" readonly autocomplete="off" value="<?php echo $row['Name']; ?>" >
-														</div>
-													</div>
-													<div class="form-group row">
-														<label class="col-md-4">Company Name :</label>
-														<div class="col-md-8">
-															<input type="text" name="com_name" class="form-control"  readonly autocomplete="off" value="<?php echo $row['Com_name']; ?>"> 
-														</div>
-													</div>
-													<div class="form-group row">
-														<label class="col-md-4">Email :</label>
-														<div class="col-md-8">
-															<input type="email" name="email" class="form-control" readonly autocomplete="off" value="<?php echo $row['Email']; ?>"> 
-														</div>
-													</div>
-													<div class="form-group row">
-														<label class="col-md-4">Password :</label>
-														<div class="col-md-8">
-															<input type="text" name="password" class="form-control" required="true" autocomplete="off" value="<?php echo $row['password']; ?>"> 
-														</div>
-													</div>
-													<button type="submit" name="pass_change" id="pass_change"  class="btn btn-primary">Change</button>
-													<button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
-												
-												</form> -->
+                                                </section>                                             
 											</li>											
 										</ul>
 									</div>									
@@ -281,32 +269,9 @@
 		</div>
 	</div>
 	<!-- js -->
-	<?php //include('includes/scripts.php')?>
+	<?php include('includes/scripts2.php')?>
 
-<!-- js -->
 
-<script src="../vendors/scripts/core.js"></script>
-	<script src="../vendors/scripts/script.min.js"></script>
-	<script src="../vendors/scripts/process.js"></script>
-	<script src="../vendors/scripts/layout-settings.js"></script>
-	<script src="../src/plugins/apexcharts/apexcharts.min.js"></script>
-	<script src="../src/plugins/datatables/js/jquery.dataTables.min.js"></script>
-	<script src="../src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-	<script src="../src/plugins/datatables/js/dataTables.responsive.min.js"></script>
-	<script src="../src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-
-    
-
-    
-	<!-- buttons for Export datatable -->
-	<script src="../src/plugins/datatables/js/dataTables.buttons.min.js"></script>
-	<script src="../src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
-	<script src="../src/plugins/datatables/js/buttons.print.min.js"></script>
-	<script src="../src/plugins/datatables/js/buttons.html5.min.js"></script>
-	<script src="../src/plugins/datatables/js/buttons.flash.min.js"></script>
-	<script src="../src/plugins/datatables/js/vfs_fonts.js"></script>
-	
-	<script src="../vendors/scripts/datatable-setting.js"></script></body>
 
 
 

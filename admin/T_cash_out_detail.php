@@ -4,11 +4,24 @@
 <?php
 if (isset($_GET['delete'])) {
 	$delete = $_GET['delete'];
-	$sql = "DELETE FROM ven_invoice where id = ".$delete;
+	$sql = "DELETE FROM cash_payment where id = ".$delete;
 	$result = mysqli_query($conn, $sql);
 	if ($result) {
-		echo "<script>alert('Record deleted Successfully');</script>";															 
-     	echo "<script type='text/javascript'> document.location = 'vendor_Invoice.php'; </script>";		
+		?>
+        <script>
+        window.addEventListener('load',function(){
+            swal.fire({
+                title: "Success",
+                text: "Record deleted Successfully ",
+                icon: "success",
+                button: "Ok Done!",			
+            })
+            .then(function() {
+                    window.location = "T_cash_out_detail.php";
+                });
+            });
+        </script>
+        <?php	
 	}
 }
 ?>
@@ -105,6 +118,8 @@ if (isset($_GET['delete'])) {
 											</a>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 												<a class="dropdown-item" href="edit_cash_payment.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> Edit</a>
+												<a class="dropdown-item" href="T_cash_out_detail.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
+
 											</div>
 										</div>
 									</td>

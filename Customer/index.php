@@ -95,32 +95,34 @@ function showPass()
 						</div>
 						<div class="card-body">
 							<?php
-							$RV = $conn->query("SELECT sum(Amount) as total FROM `cash_receipt`   ")->fetch_assoc()['total'];
-							$PV = $conn->query("SELECT sum(Amount) as total FROM `cash_payment`   ")->fetch_assoc()['total'];
-							$Bal = $RV - $PV;
-							$format_balance =number_format((float)$Bal, '2','.',',');
+								$INV = $conn->query("SELECT sum(Amount) as total FROM `invoice` where Cid='$session_id'  ")->fetch_assoc()['total'];
+								$RV = $conn->query("SELECT sum(Amount) as total FROM `receipt` where Cid='$session_id'  ")->fetch_assoc()['total'];
+								$Bal = $INV - $RV;
+								// $format_balance =number_format((float)$Bal, '2','.',',');
+							
 							?> 	
 						
 							<div class="row">							
 								<div class="col-12">
 									<?php
-										$Limite_balance = $conn->query("SELECT Limit_bal as lmt FROM `limit_customer_bal` where Cid='$session_id'   ")->fetch_assoc()['lmt'];
-										if($format_balance > $Limite_balance){								
-											?>
-											<div class="alert alert-danger" role="alert">
-												DIgniin: Macaamiil Haraagaaga Xisaabta Daynta waxa uu Gaaray Qadarka Cayimida Daynta, Fadalan Sida ugu Dhaqsiyaha Badan iskaga Bixi Lacga daynta ah !!!
-											</div>
-											<?php }else{ ?>
-													<p class=" ml-3 text-cente" style="color:bl">Welcome to our system! Once you log in, you'll be directed to your personalized dashboard where you can easily manage your account, view your recent activity. Your dashboard will display your current account balance, as well as any new or pending invoices. You can also review your recent transactions to keep track of your financial activity. If you have any questions or require assistance, please don't hesitate to contact our support team. We're here to assist you every step of the way.</p>
-											<?php } ?>
-
-									<!-- <form action="" method="POST">	
-										<div id="" class=" ml-5">
-											<button class="btn btn-primary" type="submit" name="Balance"> <i class="icon-copy dw dw-eye"></i> </button><span class="border-0"></span>
-										</div>
-									</form> -->
-									<!-- <p class=" ml-3 text-center" style="color:bl">Video provides a powerful way to help you prove your point. When you click Online Video, you can paste in the embed code for the video you want to add. You can also type a keyword to search online for the video that best fits your document.</p> -->
-									<!-- <h4 class=" ml-3 text-center" style="color:bl"><?php //echo  "$ " .($format) ?> </h4> -->
+										$query = mysqli_query($conn,"select * from limit_customer_bal where Cid = '$session_id' ")or die(mysqli_error());
+										$count = mysqli_num_rows($query); 
+										if ($count > 0){
+											$Limite_balance = $conn->query("SELECT Limit_bal as lmt FROM `limit_customer_bal` where Cid='$session_id'   ")->fetch_assoc()['lmt'];
+											if($Bal > $Limite_balance){								
+												?>
+												<div class="alert alert-danger" role="alert">
+													DIgniin: Macaamiil Haraagaaga Xisaabta Daynta waxa uu Gaaray Qadarka Cayimida Daynta, Fadalan Sida ugu Dhaqsiyaha Badan iskaga Bixi Lacga daynta ah !!!
+												</div>
+												<?php 
+											}else{ ?>
+												<p class=" ml-3 text-cente" style="color:bl">Welcome to our system! Once you log in, you'll be directed to your personalized dashboard where you can easily manage your account, view your recent activity. Your dashboard will display your current account balance, as well as any new or pending invoices. You can also review your recent transactions to keep track of your financial activity. If you have any questions or require assistance, please don't hesitate to contact our support team. We're here to assist you every step of the way.</p>
+												<?php 
+											} 
+										} else{?>
+											<p class=" ml-3 text-cente" style="color:bl">Welcome to our system! Once you log in, you'll be directed to your personalized dashboard where you can easily manage your account, view your recent activity. Your dashboard will display your current account balance, as well as any new or pending invoices. You can also review your recent transactions to keep track of your financial activity. If you have any questions or require assistance, please don't hesitate to contact our support team. We're here to assist you every step of the way.</p>
+											<?php 
+										} ?>
 								</div>
 							</div>							
 						</div>

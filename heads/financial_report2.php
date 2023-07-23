@@ -114,12 +114,12 @@
 							</tbody>
 						</table>
 
-						<script>
+						<!-- <script>
 								document.getElementById('downloadexcel1').addEventListener('click', function(){
 									var table2excel = new Table2Excel();
 										table2excel.export(document.querySelectorAll("#example-table1"));
 								})
-							</script>
+							</script> -->
 
 						<script>
 							function checkdelete(){
@@ -198,12 +198,12 @@
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 								<button type="button" id="downloadexcel" class="btn btn-primary">Export to Excel</button>
 							</div>
-							<script>
+							<!-- <script>
 								document.getElementById('downloadexcel').addEventListener('click', function(){
 									var table2excel = new Table2Excel();
 										table2excel.export(document.querySelectorAll("#example-table"));
 								})
-							</script>
+							</script> -->
 						</div>
 					</div>
 				</div>			

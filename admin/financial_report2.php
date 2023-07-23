@@ -45,16 +45,19 @@
 				//usort($format, 'sortTable');
 				?> 
 				<div class="card-box pd-30 pt-10 height-100-p">
-					<div class="row">				
-						<div class="pd-20">
-							<h2 class="text-blue h4">Account List</h2>
-						</div>
+					<div class="row">	
+						<div class="col-3">
+							<div class="pd-20">
+								<h2 class="text-blue h4">Account List</h2>
+							</div>
+						</div>			
+						
 						<div class="col-9">
-						<div>
-							<a href="#" class="bg-light-blue btn text-blue weight-500"  data-toggle="modal" data-target="#bd-example-modal-lg" type="button"><i class="dw dw-eye"></i> Account Summary Balance </a>
-							<button type="button" id="downloadexcel1" class="btn btn-primary">Export to Excel</button>
+							<div class="col-md-12 col-sm-12 text-right">
+								<a href="#" class="bg-light-blue btn text-blue weight-500"  data-toggle="modal" data-target="#bd-example-modal-lg" type="button"><i class="dw dw-eye"></i> Account Summary Balance </a>
+								<button class="bg-light-blue btn text-blue weight-500"  type="button" id="downloadexcel1" class="btn btn-primary">Export to Excel</button>
 
-						</div>
+							</div>
 						</div>
 				
 					</div>
@@ -111,12 +114,7 @@
 							</tbody>
 						</table>
 
-						<script>
-								document.getElementById('downloadexcel1').addEventListener('click', function(){
-									var table2excel = new Table2Excel();
-										table2excel.export(document.querySelectorAll("#example-table1"));
-								})
-							</script>
+						
 
 						<script>
 							function checkdelete(){
@@ -195,12 +193,7 @@
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 								<button type="button" id="downloadexcel" class="btn btn-primary">Export to Excel</button>
 							</div>
-							<script>
-								document.getElementById('downloadexcel').addEventListener('click', function(){
-									var table2excel = new Table2Excel();
-										table2excel.export(document.querySelectorAll("#example-table"));
-								})
-							</script>
+							
 						</div>
 					</div>
 				</div>			

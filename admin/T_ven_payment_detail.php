@@ -7,8 +7,21 @@ if (isset($_GET['delete'])) {
 	$sql = "DELETE FROM ven_payment where id = ".$delete;
 	$result = mysqli_query($conn, $sql);
 	if ($result) {
-		echo "<script>alert('Vendor Payment deleted Successfully');</script>";															 
-     	echo "<script type='text/javascript'> document.location = 'vendor_payment.php'; </script>";		
+		?>
+        <script>
+        window.addEventListener('load',function(){
+            swal.fire({
+                title: "Success",
+                text: "Record deleted Successfully ",
+                icon: "success",
+                button: "Ok Done!",			
+            })
+            .then(function() {
+                    window.location = "T_ven_payment_detail.php";
+                });
+            });
+        </script>
+        <?php	
 	}
 }
 ?>
@@ -103,7 +116,7 @@ if (isset($_GET['delete'])) {
 											</a>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 												<a class="dropdown-item" href="edit_ven_payment.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> View</a>
-												<a class="dropdown-item" href="vendor_payment.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
+												<a class="dropdown-item" href="T_ven_payment_detail.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
 											</div>
 										</div>
 									</td>

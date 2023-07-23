@@ -10,8 +10,21 @@ if (isset($_GET['delete'])) {
 	$sql = "DELETE FROM receipt where id = ".$delete;
 	$result = mysqli_query($conn, $sql);
 	if ($result) {
-		echo "<script>alert('Record deleted Successfully');</script>";
-     	echo "<script type='text/javascript'> document.location = 'Receipt_detail.php'; </script>";
+        ?>
+        <script>
+        window.addEventListener('load',function(){
+            swal.fire({
+                title: "Success",
+                text: "Record deleted Successfully ",
+                icon: "success",
+                button: "Ok Done!",			
+            })
+            .then(function() {
+                    window.location = "T_Receipt_detail.php";
+                });
+            });
+        </script>
+        <?php
 		
 	}
 }
@@ -221,7 +234,7 @@ if (isset($_GET['delete'])) {
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                             <a class="dropdown-item" href="edit_receipt.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> View</a>
-                                            <a class="dropdown-item" href="Receipt.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
+                                            <a class="dropdown-item" href="T_Receipt_detail.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
                                         </div>
                                     </div>
                                 </td>
@@ -312,7 +325,7 @@ if (isset($_GET['delete'])) {
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                             <a class="dropdown-item" href="edit_receipt.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> View</a>
-                                            <a class="dropdown-item" href="Receipt.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
+                                            <a class="dropdown-item" href="T_Receipt_detail.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
                                         </div>
                                     </div>
                                 </td>
@@ -404,7 +417,7 @@ if (isset($_GET['delete'])) {
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                             <a class="dropdown-item" href="edit_receipt.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> View</a>
-                                            <a class="dropdown-item" href="Receipt.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
+                                            <a class="dropdown-item" href="T_Receipt_detail.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
                                         </div>
                                     </div>
                                 </td>
@@ -496,7 +509,7 @@ if (isset($_GET['delete'])) {
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                             <a class="dropdown-item" href="edit_receipt.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> View</a>
-                                            <a class="dropdown-item" href="Receipt.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
+                                            <a class="dropdown-item" href="T_Receipt_detail.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
                                         </div>
                                     </div>
                                 </td>
@@ -588,7 +601,7 @@ if (isset($_GET['delete'])) {
                                             <a class="dropdown-item" href="edit_receipt.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> View</a>
                                             <a class="dropdown-item" name="update-receipt" href="../admin/A5pdf2.php?edit=<?php echo $row['id'];?>"><i class="dw dw-eye"></i> View PDF</a>
 
-                                            <a class="dropdown-item" href="Receipt.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
+                                            <a class="dropdown-item" href="T_Receipt_detail.php?delete=<?php echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
                                         </div>
                                     </div>
                                 </td>

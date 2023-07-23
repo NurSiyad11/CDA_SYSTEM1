@@ -14,24 +14,25 @@
 				<h2 class="h3 mb-0">Supplier Report</h2>
 			</div>	 -->
 			
-
-			<div class="row">
-				<div class="col-md-6 col-sm-12">
-						<?php 
-							$INV = $conn->query("SELECT sum(Amount) as total FROM `ven_invoice`   ")->fetch_assoc()['total'];
-							$PV = $conn->query("SELECT sum(Amount) as total FROM `ven_payment`  ")->fetch_assoc()['total'];
-							$Bal = $INV - $PV;
-							$ven_format_bal =number_format((float)$Bal, '2','.',',');
-						?>
-					<div class="title">
-						<h4>Supplier Report</h4>
+			<div class="page-header">
+				<div class="row">
+					<div class="col-md-6 col-sm-12">
+							<?php 
+								$INV = $conn->query("SELECT sum(Amount) as total FROM `ven_invoice`   ")->fetch_assoc()['total'];
+								$PV = $conn->query("SELECT sum(Amount) as total FROM `ven_payment`  ")->fetch_assoc()['total'];
+								$Bal = $INV - $PV;
+								$ven_format_bal =number_format((float)$Bal, '2','.',',');
+							?>
+						<div class="title">
+							<h4>Supplier Report</h4>
+						</div>
+						<nav aria-label="breadcrumb" role="navigation">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
+								<li class="breadcrumb-item active" aria-current="page"><?php echo "Total Vendor Balance  $ ".($ven_format_bal); ?></li>
+							</ol>
+						</nav>
 					</div>
-					<nav aria-label="breadcrumb" role="navigation">
-						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-							<li class="breadcrumb-item active" aria-current="page"><?php echo "Total Vendor Balance  $ ".($ven_format_bal); ?></li>
-						</ol>
-					</nav>
 				</div>
 			</div>
 
@@ -42,12 +43,15 @@
 
 			<div class="card-box mb-30">
 				<div class="row">
-					<div class="pd-20">
+					<div class="col-3">
 						<h2 class="text-blue h4">Vendor Balance</h2>
 					</div>
-					<div >
-					<!-- <a  href="#" class="bg-light-blue btn text-blue weight-500" data-toggle="modal" data-target="#Medium-modal"><i class="dw dw-eye"></i> Dept Reminder</a> -->
-					<a href="#" class="bg-light-blue btn text-blue weight-500"  data-toggle="modal" data-target="#bd-example-modal-lg" type="button"><i class="dw dw-eye"></i> Vendor Summary Balance </a>
+					
+					<div class="col-9">
+						<div class="col-md-12 col-sm-12 text-right">
+							<a href="#" class="bg-light-blue btn text-blue weight-500"  data-toggle="modal" data-target="#bd-example-modal-lg" type="button"><i class="dw dw-eye"></i> Vendor Summary Balance </a>
+							<button class="bg-light-blue btn text-blue weight-500"  type="button" id="downloadexcel1" class="btn btn-primary">Export to Excel</button>
+						</div>
 					</div>
 				</div>
 
@@ -125,12 +129,7 @@
 										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 										<button type="button" id="downloadexcel" class="btn btn-primary">Export to Excel</button>
 									</div>
-									<script>
-										document.getElementById('downloadexcel').addEventListener('click', function(){
-											var table2excel = new Table2Excel();
- 											 table2excel.export(document.querySelectorAll("#example-table"));
-										})
-									</script>
+				
 								</div>
 							</div>
 						</div>
@@ -141,7 +140,7 @@
 
 				
 				<div class="pb-20">
-					<table class="data-table table stripe hover nowrap">
+					<table id="example-table1" class="data-table table stripe hover nowrap">
 						<thead class="table-dark">
 							<tr>
 								<th class="table-plus">FULL NAME</th>

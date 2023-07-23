@@ -122,7 +122,7 @@
                             </div>  -->
                             <div class="row">
                                 <div class="col-1">                       
-                                    <button  class="bg-light-blue btn text-blue weight-500"  type="button"><a href="Cust_Report.php">Back </a></button>
+                                    <button  class="bg-light-blue btn text-blue weight-500"  type="button"><a href="Supplier_report.php">Back </a></button>
                                  </div>
                                 <div class="col-4">
                                     <div class="col-md-12 col-sm-12 text-left">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 18, 2023 at 07:02 PM
+-- Generation Time: Jul 23, 2023 at 09:51 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -130,7 +130,6 @@ INSERT INTO `cash_payment` (`id`, `Admin_id`, `Acc_id`, `name`, `PV`, `Amount`, 
 (63, 1, 7, 'Transfer Found', 1545456, '1200.00', '2023-06-20', 'lacag laga warejinyo test loo warejinaayo Amal Bank', 0, 'PV#', '2023-06-20 06:50:05'),
 (64, 2, 3, 'Vendor', 5456, '2150.00', '2023-06-26', 'PV', 0, 'PV#', '2023-06-26 08:58:18'),
 (65, 1, 8, 'Cali ', 546, '200.00', '2023-06-26', 'PV', 0, 'PV#', '2023-06-26 15:59:02'),
-(66, 1, 3, 'ahmed', 654, '50.00', '2023-06-27', 'PV', 0, 'PV#', '2023-06-27 04:32:57'),
 (67, 1, 16, 'Ahmed General Company', 32, '100.00', '2022-01-12', 'PV Lasiiyay Vendor', 0, 'PV#', '2023-07-13 13:50:00');
 
 -- --------------------------------------------------------
@@ -169,7 +168,6 @@ INSERT INTO `cash_receipt` (`id`, `Admin_id`, `Acc_id`, `name`, `RV`, `Date`, `A
 (37, 1, 8, 'test', 121, '2023-05-12', '200.00', 'RV', 0, 'RV#', '2023-05-12 08:54:31'),
 (38, 1, 3, 'Nur Siyad Abdi', 1234, '2023-05-14', '100.00', 'dsf', 0, 'RV#', '2023-05-14 06:48:29'),
 (39, 1, 3, 'Transfer Found', 154, '2023-06-20', '200.00', 'Lacag Ka timid Test Bank', 0, 'RV#', '2023-06-20 06:51:25'),
-(40, 1, 3, 'Farax Cali', 56465, '2023-06-27', '100.00', 'RV', 0, 'RV#', '2023-06-27 04:31:31'),
 (41, 1, 16, 'Ex-Hilaac Pharma', 6335, '2022-01-05', '112.00', 'RV', 0, 'RV#', '2023-07-13 13:45:29');
 
 -- --------------------------------------------------------
@@ -262,7 +260,7 @@ INSERT INTO `invoice` (`id`, `Admin_id`, `Cid`, `Date`, `invoice`, `Amount`, `Me
 (70, 2, 5, '2022-03-30', 11067, '1042.50', 'invoice', 'invoice_11067.JPG', 'Pending', NULL, 0, 'INV#', '2022-12-01 09:58:11'),
 (71, 2, 5, '2022-04-02', 5913, '4917.80', 'invoice\r\n                                                 \r\n                                                ', 'invoice_5913.pdf', 'Pending', NULL, 0, 'INV#', '2023-01-16 12:38:54'),
 (72, 2, 5, '2022-04-09', 11068, '1496.04', 'Invoice\r\n                                           \r\n                                                 \r\n                                                 \r\n        ', 'invoice_11068.JPG', 'Pending', 'okey lkn soo hubi wa ku sugaa okey', 0, 'INV#', '2023-02-07 08:29:55'),
-(73, 2, 4, '2022-02-14', 11054, '648.00', 'Invoice                                                \r\n                                                 \r\n                                                ', 'invoice 11054.JPG', 'Rejected', NULL, 0, 'INV#', '2023-02-07 08:32:42'),
+(73, 2, 4, '2022-02-14', 11054, '648.00', 'Invoice ', 'invoice 11054.JPG', 'Rejected', NULL, 0, 'INV#', '2023-02-07 08:32:42'),
 (74, 2, 22, '2022-04-02', 5914, '2866.44', 'invoice \r\n                                                ', 'inv_5914.pdf', 'Approved', NULL, 0, 'INV#', '2023-02-28 12:43:12'),
 (75, 2, 22, '2022-04-02', 5915, '4057.30', 'invoice \r\n                                                ', 'inv_5915.pdf', 'Approved', NULL, 0, 'INV#', '2023-02-28 12:43:57'),
 (76, 2, 22, '2022-07-21', 11075, '866.00', 'invoice \r\n                                                ', 'inv_11075 .pdf', 'Pending', NULL, 0, 'INV#', '2023-02-28 12:44:58'),
@@ -309,7 +307,8 @@ CREATE TABLE `limit_customer_bal` (
 --
 
 INSERT INTO `limit_customer_bal` (`id`, `Cid`, `Admin_id`, `Limit_bal`, `Memo`, `RegDate`) VALUES
-(4, 3, 1, '20000.00', 'Limited', '2023-07-18 04:03:08');
+(4, 3, 1, '20000.00', 'Limited', '2023-07-18 04:03:08'),
+(5, 22, 1, '50000.00', 'Limited', '2023-07-19 04:56:53');
 
 -- --------------------------------------------------------
 
@@ -524,27 +523,27 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`ID`, `Admin_id`, `Name`, `Com_name`, `Email`, `password`, `Pass_status`, `Phone`, `Role`, `Status`, `Gmail_sent`, `Address`, `Picture`, `otp`, `otp_expiration`, `Login_time`, `Login_status`, `Reg_date`) VALUES
-(1, 1, 'Administrator', 'Test Administrator Company', 'A1@cda.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 610001, 'Administrator', 'Active', 0, 'Madiina', NULL, 652152, 0, 'Tue-18-07-2023 02:48:40 pm', '1689699647', '2022-11-24 12:09:33'),
-(2, 1, 'Admin', 'Admin Company', 'admin@cda.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 6122121, 'Admin', 'Active', 1, 'Howlwadaag', NULL, 123499, 1, 'Mon-17-07-2023 01:10:14 pm', '1689594992', '2022-11-24 14:07:47'),
-(3, 1, 'Nur Siyad Abdi', 'Nur Company', 'nursiyad2022@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 613231772, 'Customer', 'Active', 1, 'Banaadir', 'user3.png', 273528, 0, 'Tue-18-07-2023 08:05:47 am', '1689659285', '2022-11-24 15:22:59'),
+(1, 1, 'Administrator', 'Test Administrator Company', 'A1@cda.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 610001, 'Administrator', 'Active', 0, 'Madiina', NULL, 652152, 0, 'Sun-23-07-2023 07:54:37 am', '1690098733', '2022-11-24 12:09:33'),
+(2, 1, 'Admin', 'Admin Company', 'admin@cda.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 6122121, 'Admin', 'Active', 1, 'Howlwadaag', NULL, 123499, 1, 'Thu-20-07-2023 08:32:25 am', '1689871456', '2022-11-24 14:07:47'),
+(3, 1, 'Nur Siyad Abdi', 'Nur Company', 'nursiyad2022@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 613231772, 'Customer', 'Active', 1, 'Banaadir', 'user3.png', 273528, 0, 'Wed-19-07-2023 06:25:28 pm', '1689785011', '2022-11-24 15:22:59'),
 (4, 1, 'Al-Marwa (4) Pharmacy (Saakow)', 'Al-Marwa (4) Pharmacy (Saakow)', 'Al-marwa4sk@cda.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 610000, 'Customer', 'Active', 1, 'Saakow', '1354944.png', 42299, 0, 'Wed-05-07-2023 08:22:31 am', '1688531041', '2022-11-27 10:26:53'),
 (5, 1, 'Al-Marwa Pharmacy (2) Kismayo', 'Al-Marwa Pharmacy (2) Kismayo', 'al-marwa2k@cda.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 612222, 'Customer', 'Active', 0, 'Kismaayo', NULL, NULL, 0, 'Fri-14-07-2023 10:29:06 am', '1689345966', '2022-11-28 12:22:20'),
 (6, 1, 'Ahmed Ali Kaahiye', 'Ahmed General Company', 'ahmed@cda.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 3333311, 'Vendor', 'Inactive', 1, 'Howlwadag', NULL, 884003, 0, '', '0', '2022-11-30 03:46:17'),
 (7, 1, 'Hashim Muqtar Ali', 'Hashim Gen Company', 'hashim@cda.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 1234567, 'Vendor', 'Active', 0, 'wadajir', NULL, NULL, 0, '', '1681975205', '2022-11-30 05:56:07'),
 (8, 1, 'ggggggg', 'ggggggg', 'gg@cda.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 6555, 'Admin', 'Active', 0, 'Wadajir', NULL, NULL, 0, 'Tue-21-03-2023 09:33:12 am', '1687593618', '2022-12-02 11:07:32'),
-(10, 1, 'Manager', 'Company Gen Trading Co.', 'Manager@cda.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 66665554, 'HOD', 'Active', 0, 'wadajir', 'user3.jpg', 694273, 1, 'Sat-15-07-2023 08:35:20 am', '1689397520', '2022-12-23 04:30:39'),
+(10, 1, 'Manager', 'Company Gen Trading Co.', 'Manager@cda.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 66665554, 'HOD', 'Active', 0, 'wadajir', 'user3.jpg', 694273, 1, 'Sun-23-07-2023 07:58:52 am', '1690086532', '2022-12-23 04:30:39'),
 (11, 1, 'Dahir', 'Dahir Company', 'dahir@cda.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 13456456, 'HOD', 'Active', 0, 'Madiina', NULL, NULL, 0, '', '', '2023-02-06 15:30:43'),
 (13, 1, 'muqtar', 'muqtar Gen company', 'muqtar@cda.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 61465, 'Customer', 'Inactive', 0, 'Wadajir', NULL, NULL, 0, 'Thu-16-02-2023 06:12:33 am', '1676568992', '2023-02-13 13:00:18'),
 (18, 1, 'jamac', 'jamac Company', 'jaamac@cda.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 2561, 'Customer', 'Active', 0, 'kjuh', NULL, NULL, 0, '', '', '2023-02-16 10:22:36'),
 (19, 1, 'qadar', 'qadar Company', 'qadar@cda.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 65626, 'Customer', 'Active', 0, 'ok', NULL, NULL, 0, '', '', '2023-02-18 18:10:16'),
-(20, 1, 'Yuususf Horseed Pharma', 'Yuususf Horseed Pharma', 'yusufh@cda.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 456456, 'Customer', 'Active', 0, 'Kismaayo', '1425812.png', NULL, 0, 'Wed-05-07-2023 08:40:14 am', '1688534073', '2023-02-18 18:16:47'),
+(20, 1, 'Yuususf Horseed Pharma', 'Yuususf Horseed Pharma', 'yusufh@cda.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 456456, 'Customer', 'Active', 0, 'Kismaayo', '1425812.png', NULL, 0, 'Wed-19-07-2023 08:29:41 am', '1689745773', '2023-02-18 18:16:47'),
 (21, 1, 'zaka', 'zaka Comapany', 'zaka@cda.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 656, 'Customer', 'Active', 0, 'hgfh', '8349206.png', 966783, 0, 'Thu-23-02-2023 07:15:27 am', '1686634169', '2023-02-18 18:20:31'),
-(22, 1, 'AL-Madiina Pharma Bosaso', 'AL-Madiina Pharma Bosaso', 'al-madiina@cda.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 6120000, 'Customer', 'Active', 0, 'Bosaso', NULL, 287896, 0, 'Mon-20-03-2023 06:41:13 am', '1688119762', '2023-02-28 12:36:25'),
+(22, 1, 'AL-Madiina Pharma Bosaso', 'AL-Madiina Pharma Bosaso', 'al-madiina@cda.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 6120000, 'Customer', 'Active', 0, 'Bosaso', NULL, 287896, 0, 'Wed-19-07-2023 08:31:29 am', '1689745777', '2023-02-28 12:36:25'),
 (23, 1, 'Customer Name', 'Company Name', 'customer@cda.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 61220, 'Customer', 'Active', 0, 'None', 'user2.png', NULL, 0, 'Sun-26-03-2023 01:07:26 pm', '1687968767', '2023-03-10 11:31:01'),
 (24, 1, 'Saciid Ahmed', 'Saciid Company', 'saciid@cda.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 66666666, 'Customer', 'Active', 0, 'Kaxda', NULL, NULL, 0, 'Mon-13-03-2023 08:26:09 am', '1687440764', '2023-03-12 06:33:21'),
 (25, 1, 'Farax Ali Mohamed', 'Testing Company', 'test@cda.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 610024, 'Customer', 'Active', 0, 'Muqdisho', 'user1.png', 229674, 1, 'Mon-17-07-2023 02:17:48 pm', '1689597308', '2023-03-21 15:56:37'),
 (26, 2, 'Ex-Hilaac Pharma ', 'Ex-Hilaac Pharma ', 'Ex_hilaac@cda.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 6100210, 'Customer', 'Active', 0, 'Howlwadaag', NULL, NULL, 0, 'Tue-04-07-2023 07:40:51 pm', '1688488918', '2023-03-23 06:52:32'),
-(28, 2, 'Farax Cali', 'farax Cali Company', 'faraxcali1289@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 612729414, 'Customer', 'Active', 1, 'madiina', NULL, NULL, 0, '', '1688130797', '2023-04-21 13:30:55'),
+(28, 2, 'Farax Cali', 'farax Cali Company', 'faraxcali1289@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 612729414, 'Customer', 'Active', 1, 'madiina', NULL, NULL, 0, 'Wed-19-07-2023 09:20:00 am', '1689745770', '2023-04-21 13:30:55'),
 (29, 1, 'Sacdiyo', 'sacdiyo company', 'sacdiyo@cda.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 675776776, 'Customer', 'Active', 0, 'Hodan', NULL, 708868, 1, 'Tue-04-07-2023 02:08:09 pm', '1688466688', '2023-05-29 08:38:52'),
 (31, 1, 'Horseed Dhukow Pharma', 'Horseed Dhukow Pharma', 'horseddhk@cda.com', '81dc9bdb52d04dc20036dbd8313ed055', 1, 56456464, 'Customer', 'Active', 1, 'Kismaayo', 'user4.jpg', NULL, 0, 'Wed-05-07-2023 09:13:50 am', '1688539378', '2023-06-20 10:11:51'),
 (32, 1, 'mohamed Khalid', 'mohamed khalid Company ', 'moha@cda.com', '827ccb0eea8a706c4c34a16891f84e7b', 1, 613778517, 'Customer', 'Active', 1, 'Madiin', NULL, NULL, 0, 'Sun-16-07-2023 08:01:51 pm', '1689526697', '2023-06-24 08:53:03'),
@@ -763,8 +762,7 @@ INSERT INTO `ven_payment` (`id`, `Admin_id`, `Vid`, `Date`, `V_payment`, `Amount
 (4, 1, 7, '2022-11-30', 111, '200.00', 'sfsf', 'PV#', 0, '2022-11-30 06:40:49'),
 (5, 1, 6, '2023-02-07', 1262, '100.00', 'okey', 'PV#', 0, '2023-02-07 12:44:15'),
 (6, 2, 6, '2023-05-03', 1901, '600.65', 'PV', 'PV#', 0, '2023-05-04 06:46:46'),
-(7, 1, 7, '2023-05-04', 3255, '30.00', 'PV', 'PV#', 0, '2023-05-04 06:47:35'),
-(8, 1, 7, '2023-06-15', 330, '100.00', 'PV', 'PV#', 0, '2023-06-15 13:51:20');
+(7, 1, 7, '2023-05-04', 3255, '30.00', 'PV', 'PV#', 0, '2023-05-04 06:47:35');
 
 -- --------------------------------------------------------
 
@@ -979,19 +977,19 @@ ALTER TABLE `faq`
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT for table `limit_customer_bal`
 --
 ALTER TABLE `limit_customer_bal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `receipt`
 --
 ALTER TABLE `receipt`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 
 --
 -- AUTO_INCREMENT for table `setting`
@@ -1027,7 +1025,7 @@ ALTER TABLE `user_info`
 -- AUTO_INCREMENT for table `ven_invoice`
 --
 ALTER TABLE `ven_invoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `ven_payment`

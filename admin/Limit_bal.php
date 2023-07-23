@@ -90,7 +90,7 @@
 						<div class="col-md-6 col-sm-12 text-right">
 							<div class="dropdown">
 								<a class="btn btn-primary " href="Limit_bal_manage.php" role="button" >
-								View Receipt Deatils
+								View Customer Bal Limited
 								</a>                      
 							</div>
 						</div>

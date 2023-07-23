@@ -66,7 +66,7 @@ if (isset($_GET['delete'])) {
                             </div>						
                             <div class="widget-data">
                                 <div class="h4 mb-0"><?php echo ($count); ?></div>
-                                <div class="weight-300 font-16">Pending</div>
+                                <div class="weight-300 font-16">Warning</div>
                             </div>
                         </div>
                     </div>
@@ -90,7 +90,7 @@ if (isset($_GET['delete'])) {
                         
                             <div class="widget-data">
                                 <div class="h4 mb-0"><?php echo ($count); ?></div>
-                                <div class="weight-300 font-17">Rejected</div>
+                                <div class="weight-300 font-17">Unwarning</div>
                             </div>
                         </div>
                     </div>
@@ -106,7 +106,16 @@ if (isset($_GET['delete'])) {
 			?>
 			<div class="card-box mb-30">
                 <div class="pd-20">
-                    <h2 class="text-blue h4">Total Customer Limit Balance</h2>
+                    <div class="row">
+                        <div class="col-1">
+                            <p class="breadcrumb-item"><a href="Limit_bal.php">Back</a></p>
+                        </div>
+                        <div class="col-11">
+                        <h2 class="text-blue h4">Total Customer Limit Balance</h2>
+                        </div>
+                    </div>
+                   
+             
                 </div>
                 <div class="pb-20">
                     <!--   table stripe hover data-table-export nowrap         -->
@@ -126,9 +135,9 @@ if (isset($_GET['delete'])) {
                                 <?php
                                 $i =1;                           
                                 
-                                $teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name, limit_customer_bal.id, limit_customer_bal.Admin_id, limit_customer_bal.Cid,limit_customer_bal.Limit_bal, limit_customer_bal.Memo FROM limit_customer_bal INNER JOIN user ON   limit_customer_bal.Cid=user.ID order by limit_customer_bal.id Desc") or die(mysqli_error());
+                                $query = mysqli_query($conn,"SELECT user.Name, user.Com_name, limit_customer_bal.id, limit_customer_bal.Admin_id, limit_customer_bal.Cid,limit_customer_bal.Limit_bal, limit_customer_bal.Memo FROM limit_customer_bal INNER JOIN user ON   limit_customer_bal.Cid=user.ID order by limit_customer_bal.id Desc") or die(mysqli_error());
 
-                                while ($row = mysqli_fetch_array($teacher_query)) {
+                                while ($row = mysqli_fetch_array($query)) {
                                 //$id = $row['id'];
                                     ?>
 

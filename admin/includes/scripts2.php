@@ -26,7 +26,20 @@
 	<!-- js table2excel -->
 	<script src="../vendors/scripts/table2excel.js"></script>
 
-	<!-- js -->
+   <script>
+		document.getElementById('downloadexcel').addEventListener('click', function(){
+			var table2excel = new Table2Excel();
+				table2excel.export(document.querySelectorAll("#example-table"));
+		})
+	</script>
+	
+	<script>
+		document.getElementById('downloadexcel1').addEventListener('click', function(){
+			var table2excel = new Table2Excel();
+				table2excel.export(document.querySelectorAll("#example-table1"));
+		})
+	</script>
+	<!-- END js Table2excel -->
 	
 
 	<!-- switchery js -->
@@ -56,3 +69,4 @@
                 });
             });
         </script>
+
