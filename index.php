@@ -52,9 +52,9 @@ if(isset($_POST['signin']))
            $get_browser= UserInfo::get_browser();
 
            $time=time()+1800; // 30 daqiiqo 
-         //   $F_time = $time->format("h:i:s a");
+      
 
-              $query=mysqli_query($conn,"update user set Login_status='$time', Login_time='$date3' where ID=".$_SESSION['alogin']);
+              $query=mysqli_query($conn,"update user set Login_status='5454', Login_time='$date3' where ID=".$_SESSION['alogin']);
 
 
             // mysqli_query($conn,"INSERT INTO user_info(UID,Device,OS,Browser,Login_time,Login_status) VALUES('$session','$get_device','$get_os','$get_browser', '$date3' ,'$time' )         

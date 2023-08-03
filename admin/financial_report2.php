@@ -155,7 +155,7 @@
 											<tr>
 												<?php
 												$i=1; 
-												$teacher_query = mysqli_query($conn,"select * from Account ") or die(mysqli_error());
+												$teacher_query = mysqli_query($conn,"select * from account ") or die(mysqli_error());
 												while ($row = mysqli_fetch_array($teacher_query)) {
 												$id = $row['id'];
 												

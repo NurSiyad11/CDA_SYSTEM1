@@ -109,7 +109,7 @@ if($role != 'Customer'){
 						<?php 
 						if($count > 0){
 							?>
-							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger " ><p class="ml-2 text-light"> <?php echo ($count);?></p> <span class="visually-hidden"></span></span>
+							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger " ><p class="ml-2 "> <?php echo ($count);?></p> <span class="visually-hidden"></span></span>
 							<?php } ?>
 
 						</i>
@@ -165,7 +165,7 @@ if($role != 'Customer'){
 						<?php 
 						if($count > 0){
 							?>
-							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger " ><p class="ml-2 text-light"> <?php echo ($count);?></p> <span class="visually-hidden"></span></span>
+							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger " ><p class="ml-2  "> <?php echo ($count);?></p> <span class="visually-hidden"></span></span>
 							<?php } ?>
 
 						</i>

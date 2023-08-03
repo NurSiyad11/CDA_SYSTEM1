@@ -19,9 +19,7 @@
     img.onload = function() {
         var width = this.width;
         var height = this.height;
-		// if (width > 500 || height > 500 && width < 600 || height < 600) {
-   		// 	 alert('Image dimensions are between 500x500 and 600x600');
- 		//  }
+
         if (width < 500 || height < 500) {
             alert('Image dimensions are too small. Please select an image with dimensions greater than 500x500."');
             document.getElementById(id).value = '';

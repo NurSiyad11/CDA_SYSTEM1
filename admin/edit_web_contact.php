@@ -210,7 +210,7 @@
 												<label>Status :</label>
 												<select name="Status" id="status" class="custom-select form-control" required="true" autocomplete="off">
 													<option value="<?php echo $Stats ?>"><?php echo $Stats ?></option>								
-													<option value="0">Pending</option>
+													<!-- <option value="0">Pending</option> -->
 													<option value="1">Done</option>
 												</select>
 												</div>

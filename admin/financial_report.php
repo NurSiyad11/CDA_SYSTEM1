@@ -158,10 +158,10 @@
 
                                 <?php
                                 $Ac_id= $row['Acc_id'];
-                                $Acc_name = $conn->query("SELECT Acc_name as Acc_name from `Account` where id='$Ac_id'  ")->fetch_assoc()['Acc_name']; 
+                                $Acc_name = $conn->query("SELECT Acc_name as Acc_name from `account` where id='$Ac_id'  ")->fetch_assoc()['Acc_name']; 
 
                                 ?>
-                                <td><?php echo $Acc_name ;?></td>
+                                <td><?php echo $Acc_name?></td>
                                 <td><?php echo "$ ". number_format((float)$row['Amount'], '2','.',','); ?></td>
                                 <td><?php echo "$ ". number_format((float)$row['empty'], '2','.',','); ?></td>
                                 <!-- <td><?php //echo "$ ". number_format((float)$row['balance'], '2','.',','); ?></td> -->

@@ -18,7 +18,7 @@
 			?>
 			<div class="row">
                 <?php			
-                    $query = mysqli_query($conn,"select * from Support")or die(mysqli_error());
+                    $query = mysqli_query($conn,"select * from support")or die(mysqli_error());
                     $count = mysqli_num_rows($query);					 				
                 ?>
                 <div class="col-xl-4 mb-30">
@@ -41,7 +41,7 @@
                 </div>
                 <div class="col-xl-2 mb-30">
                     <?php							
-                    $query = mysqli_query($conn,"select  Status from Support where  Status = 'Pending'  ")or die(mysqli_error());
+                    $query = mysqli_query($conn,"select  Status from support where  Status = 'Pending'  ")or die(mysqli_error());
                     $count = mysqli_num_rows($query);				
                     ?> 
                     <div class="card-box height-100-p widget-style1 bg-white">
@@ -63,7 +63,7 @@
 
                 <div class="col-xl-2 mb-30">
                     <?php						
-                        $query= mysqli_query($conn,"select  id from Support where Reply != ''  ")or die(mysqli_error());
+                        $query= mysqli_query($conn,"select  id from support where Reply != ''  ")or die(mysqli_error());
                         $count = mysqli_num_rows($query);				 
                     ?> 
                     <div class="card-box height-100-p widget-style1 bg-white">
@@ -86,7 +86,7 @@
 
                 <div class="col-xl-2 mb-30">
                     <?php						
-                        $query= mysqli_query($conn,"select  Status from Support where Status = 'Show'  ")or die(mysqli_error());
+                        $query= mysqli_query($conn,"select  Status from support where Status = 'Show'  ")or die(mysqli_error());
                         $count = mysqli_num_rows($query);					
                     ?> 
                     <div class="card-box height-100-p widget-style1 bg-white">
@@ -110,7 +110,7 @@
 
                 <div class="col-xl-2 mb-30">
                     <?php						
-                        $query= mysqli_query($conn,"select  id from Support where  Status = 'Hide'  ")or die(mysqli_error());
+                        $query= mysqli_query($conn,"select  id from support where  Status = 'Hide'  ")or die(mysqli_error());
                         $count = mysqli_num_rows($query);					 
                     ?> 
                     <div class="card-box height-100-p widget-style1 bg-white">
@@ -630,7 +630,7 @@
            
                 <div class="col-xl-3 mb-30">
                     <?php							
-                    $query = mysqli_query($conn,"select  Status from Support where  Status = 'Pending'  ")or die(mysqli_error());
+                    $query = mysqli_query($conn,"select  Status from support where  Status = 'Pending'  ")or die(mysqli_error());
                     $count = mysqli_num_rows($query);				
                     ?> 
                     <div class="card-box height-100-p widget-style1 bg-white">
@@ -652,7 +652,7 @@
 
                 <div class="col-xl-3 mb-30">
                     <?php						
-                        $query= mysqli_query($conn,"select  id from Support where Reply != ''  AND Admin_id='$session_id'  ")or die(mysqli_error());
+                        $query= mysqli_query($conn,"select  id from support where Reply != ''  AND Admin_id='$session_id'  ")or die(mysqli_error());
                         $count = mysqli_num_rows($query);				 
                     ?> 
                     <div class="card-box height-100-p widget-style1 bg-white">
@@ -675,7 +675,7 @@
 
                 <div class="col-xl-3 mb-30">
                     <?php						
-                        $query= mysqli_query($conn,"select  Status from Support where Status = 'Show'  AND Admin_id='$session_id'  ")or die(mysqli_error());
+                        $query= mysqli_query($conn,"select  Status from support where Status = 'Show'  AND Admin_id='$session_id'  ")or die(mysqli_error());
                         $count = mysqli_num_rows($query);					
                     ?> 
                     <div class="card-box height-100-p widget-style1 bg-white">
@@ -699,7 +699,7 @@
 
                 <div class="col-xl-3 mb-30">
                     <?php						
-                        $query= mysqli_query($conn,"select  id from Support where  Status = 'Hide' AND Admin_id='$session_id' ")or die(mysqli_error());
+                        $query= mysqli_query($conn,"select  id from support where  Status = 'Hide' AND Admin_id='$session_id' ")or die(mysqli_error());
                         $count = mysqli_num_rows($query);					 
                     ?> 
                     <div class="card-box height-100-p widget-style1 bg-white">

@@ -49,7 +49,7 @@ $get_id = $_GET['edit'];
 
                 <div class="pd-20 card-box mb-30">
                     <?php
-                        $Account_name = $conn->query("SELECT Acc_name as Acc_id from `Account` where id='$get_id'  ")->fetch_assoc()['Acc_id']; 
+                        $Account_name = $conn->query("SELECT Acc_name as Acc_id from `account` where id='$get_id'  ")->fetch_assoc()['Acc_id']; 
                     //   $com_name = $conn->query("SELECT Com_name as cid from `user` where id='$get_id'  ")->fetch_assoc()['cid'];  
                     ?>
                     <div class="pb-20">
@@ -183,7 +183,7 @@ $get_id = $_GET['edit'];
 
                                     <?php
                                     $Ac_id= $row['Acc_id'];
-                                    $Acc_name = $conn->query("SELECT Acc_name as Acc_name from `Account` where id='$Ac_id'  ")->fetch_assoc()['Acc_name']; 
+                                    $Acc_name = $conn->query("SELECT Acc_name as Acc_name from `account` where id='$Ac_id'  ")->fetch_assoc()['Acc_name']; 
 
                                     ?>
                                     <td><?php echo $Acc_name ;?></td>

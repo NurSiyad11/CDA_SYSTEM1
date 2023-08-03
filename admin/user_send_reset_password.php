@@ -153,7 +153,7 @@ use PHPMailer\PHPMailer\Exception;
               </body>
        </html>";
        //Add recipient
-           $mail->addAddress('nursiyad2022@gmail.com');
+           $mail->addAddress($Email_user);
        //Finally send email
            if ( $mail->send() ) {
             ?>

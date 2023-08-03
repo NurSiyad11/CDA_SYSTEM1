@@ -22,18 +22,7 @@
 						</a>
 						
                     </li>
-                    
-                    <!-- <li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-user"></span><span class="mtext">User</span>
-						</a>
-						<ul class="submenu">
-							<li><a href="user.php">Register User</a></li>
-							<li><a href="mng_user.php">Manage User</a></li>
-						</ul>
-					</li> -->
-
-                    
+     
                     <li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
 							<span class="micon dw dw-user-2"></span><span class="mtext">Customer</span>
@@ -42,12 +31,9 @@
 							<li><a href="Invoice.php">Invoice</a></li>
 							<li><a href="Receipt.php">Recipts</a></li>
 							<!-- <li><a href="test.php">Test Sms send</a></li>
-
 							<li><a href="test2.php"> Hormud Sms send</a></li> -->
 						</ul>
-					</li>
-
-                    
+					</li>                    
                     <li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
 							<span class="micon dw dw-user-2"></span><span class="mtext">Suppliers</span>
@@ -56,9 +42,7 @@
 							<li><a href="vendor_invoice.php">Vendor Invoice</a></li>
 							<li><a href="vendor_payment.php">Vendor Payment</a></li>
 						</ul>
-					</li>
-
-                    
+					</li>                    
                     <li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
 							<span class="micon dw dw-money-2"></span><span class="mtext">Financial</span>
@@ -68,30 +52,24 @@
 							<li><a href="cash_receipt.php">Cash Receipt</a></li>
 							<li><a href="cash_payment.php">Cash Payment</a></li>
 						</ul>
-					</li>
-
-                    
+					</li>                    
                     <li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
 							<span class="micon dw dw-library"></span><span class="mtext">Report </span>
 						</a>
 						<ul class="submenu">
 							<li><a href="financial_report.php">Financial Report</a></li>
-							<li><a href="financial_report2.php">Financial Report 2</a></li>
+							<li><a href="financial_report2.php">Account Reports</a></li>
 							<li><a href="Cust_Report.php">Customer Report</a></li>
                             <li><a href="Supplier_report.php">Suppliers Report</a></li>
 						</ul>
 					</li>
-
 					<li>
 						<div class="dropdown-divider"></div>
 					</li>
-
 					<li>
 						<div class="sidebar-small-cap">Extra</div>
-					</li>
-
-				
+					</li>				
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
 							<span class="micon dw dw-user-2"></span><span class="mtext">Customer Info</span>
@@ -101,29 +79,6 @@
 							<li><a href="All_Support.php">Support</a></li>												
 						</ul>
 					</li>
-					
-					<!-- <li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-user-2"></span><span class="mtext">Debt Reminder</span>
-						</a>
-						<ul class="submenu">
-							<li><a href="mng_debt_reminder.php">Manage debt reminder</a></li>
-						</ul>
-					</li> -->
-					<!-- <li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-user-2"></span><span class="mtext">Support</span>
-						</a>
-						<ul class="submenu">
-							
-							<li><a href="All_Support.php">All Support</a></li>
-						</ul>
-					</li> -->
-                    <!-- <li class="dropdown">
-						<a href="video.php" class="dropdown-toggle no-arrow">
-							<span class="micon dw dw-eye"></span><span class="mtext">Video</span>
-						</a>						
-                    </li> -->
 			
 				</ul>
 				<?php } 
@@ -169,12 +124,10 @@
 							<li><a href="Invoice.php">Invoice</a></li>
 							<li><a href="Receipt.php">Recipts</a></li>
 							<!-- <li><a href="test.php">Test Sms send</a></li>
-
 							<li><a href="test2.php"> Hormud Sms send</a></li> -->
 						</ul>
 					</li>
 
-                    
                     <li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
 							<span class="micon dw dw-user-2"></span><span class="mtext">Suppliers</span>
@@ -184,7 +137,6 @@
 							<li><a href="vendor_payment.php">Vendor Payment</a></li>
 						</ul>
 					</li>
-
                     
                     <li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
@@ -196,7 +148,6 @@
 							<li><a href="cash_payment.php">Cash Payment</a></li>
 						</ul>
 					</li>
-
                     
                     <li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
@@ -204,7 +155,7 @@
 						</a>
 						<ul class="submenu">
 							<li><a href="financial_report.php">Financial Report</a></li>
-							<li><a href="financial_report2.php">Financial Report 2</a></li>
+							<li><a href="financial_report2.php">Account Report</a></li>
 							<li><a href="Cust_Report.php">Customer Report</a></li>
                             <li><a href="Supplier_report.php">Suppliers Report</a></li>
 						</ul>
@@ -246,15 +197,7 @@
 						<ul class="submenu">
 							<li><a href="T_invoice_detail.php">Cust Inv & Receipt </a></li>
 							<li><a href="T_ven_invoice_detail.php">Ven Inv & Payment </a></li>
-							<li><a href="T_cash_in_detail.php">Cash On Hand </a></li>
-							<!-- <li><a href="javascript:;" class="dropdown-toggle">Cash On Hand</a>
-								<ul class="submenu">
-									<li><a href="T_cash_in_detatil.php">Cash In Details</a></li>
-									<li><a href="T_cash_out_detail.php">Cash Out Details</a></li>
-								</ul>
-							</li> -->
-
-					
+							<li><a href="T_cash_in_detail.php">Cash On Hand </a></li>											
 						</ul>
 					</li>
 					
@@ -265,31 +208,9 @@
 						<ul class="submenu">
 							<li><a href="mng_debt_reminder.php">Manage debt reminder</a></li>
 						</ul>
-					</li>
-					<!-- <li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-user-2"></span><span class="mtext">Support</span>
-						</a>
-						<ul class="submenu">
-							
-							<li><a href="All_Support.php">All Support</a></li>
-						</ul>
-					</li> -->
-					
-                    <!-- <li class="dropdown">
-						<a href="video.php" class="dropdown-toggle no-arrow">
-							<span class="micon dw dw-eye"></span><span class="mtext">Video</span>
-						</a>						
-                    </li>
-					<li class="dropdown">
-						<a href="chat.php" class="dropdown-toggle no-arrow">
-							<span class="micon dw dw-eye"></span><span class="mtext">Chating</span>
-						</a>						
-                    </li> -->
-			
+					</li>			
 				</ul>
 				<?php } ?>	
-
 
 				
 			</div>

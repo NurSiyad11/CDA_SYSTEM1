@@ -158,7 +158,7 @@ use PHPMailer\PHPMailer\Exception;
               </body>
        </html>";
        //Add recipient
-           $mail->addAddress('cabdinur789@gmail.com');
+           $mail->addAddress($Email);
        //Finally send email
            if ( $mail->send() ) {
             ?>

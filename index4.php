@@ -70,7 +70,8 @@ if(isset($_POST['signin']))
             $otp = sprintf("%'.06d",mt_rand(0,999999));
           
             $query=mysqli_query($conn,"update user set otp='$otp', otp_expiration='1' where ID=".$_SESSION['alogin']);
-            $name=$row['Name'];      
+            $name=$row['Name'];  
+            $Email=$row['Email'];      
             
             //Create instance of PHPMailer
                $mail = new PHPMailer();
@@ -108,7 +109,7 @@ if(isset($_POST['signin']))
                </body>
             </html>";
             //Add recipient
-            $mail->addAddress('cabdinur789@gmail.com');
+            $mail->addAddress($Email);
                
             //Finally send email
             if ( $mail->send() ) 
