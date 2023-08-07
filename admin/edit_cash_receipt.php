@@ -34,8 +34,6 @@
             });			
         	</Script>
 		<?php 
-     	// echo "<script>alert('Record Successfully Updated');</script>";
-     	// echo "<script type='text/javascript'> document.location = 'cash_receipt.php'; </script>";
 	} else{
 	  die(mysqli_error());
    }		
@@ -138,8 +136,7 @@
 									</div>							
 								</div>
 																
-								<div class="row">				
-											
+								<div class="row">			
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label style="font-size:16px;"><b></b></label>

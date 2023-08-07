@@ -39,32 +39,7 @@ if (isset($_GET['delete'])) {
 }
 ?>
 
-<?php 
-	//  if (isset($_GET['delete'])) {
-	// 	$get_id = $_GET['delete'];
-	// 	$sql = "DELETE FROM account where id = ".$get_id;
-	// 	$result = mysqli_query($conn, $sql);
-	// 	if ($result) {
-    //         ?>
-	// 		<Script>
-	// 			window.addEventListener('load',function(){
-	// 				swal.fire({
-	// 					title: "Success",
-	// 					text: "Account deleted Successfully' ",
-	// 					icon: "success",
-	// 					button: "Ok Done!",
-	// 				})
-	// 				.then(function() {
-	// 					window.location = "Account_Reg.php";
-	// 						});
-	// 			});			
-	// 		</Script>
-	// 		<?php
 
-			
-	// 	}
-	// }
-?>
 <?php $get_id = $_GET['edit']; ?>
 <?php
  if(isset($_POST['edit']))
@@ -213,10 +188,6 @@ if (isset($_GET['delete'])) {
         </div>
 	</div>
 	<!-- js -->
-
 	<?php include('includes/scripts2.php')?>
-
-
-
 </body>
 </html>

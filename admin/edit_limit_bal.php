@@ -5,7 +5,6 @@
 <?php
 	if(isset($_POST['Update']))
 	{	
-
         $Limit_bal = $_POST['Limit_bal'];
         $Memo = $_POST['Memo'];	
 
@@ -64,8 +63,6 @@
 							<section>
 								<?php
 									$query = mysqli_query($conn,"SELECT user.Name, user.Com_name, user.Email,  user.Phone, limit_customer_bal.id ,limit_customer_bal.Cid, limit_customer_bal.Admin_id,limit_customer_bal.Memo,limit_customer_bal.Limit_bal  FROM limit_customer_bal INNER JOIN user ON   limit_customer_bal.Cid=user.ID where limit_customer_bal.id='$get_id'")or die(mysqli_error());
-									
-									//$query = mysqli_query($conn,"SELECT * FROM apply_form where id='$get_id'")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 									?>
 									<input type="hidden" name="edit" class="form-control" value="<?php if(isset($_GET['edit'])){ echo $_GET['edit']; }else{ echo "$get_id";} ?>" >
@@ -162,10 +159,7 @@
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 							</div>                                    
 							<div class="modal-body">
-								<?php
-								// $query = mysqli_query($conn,"SELECT * FROM apply_form  where id='$get_id'")or die(mysqli_error());
-								// $row = mysqli_fetch_array($query);
-								?>
+								
                                 <?php 
                                 $Company_name=$row['Com_name'];
                                 $Cust_id = $conn->query("SELECT id as cid from `user` where Com_name='$Company_name'  ")->fetch_assoc()['cid'];
@@ -213,20 +207,12 @@
 										<button type="submit" name="Update" class="btn btn-primary" >Update</button>
 										<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 									</div>								
-								</form>
-								
-							</div>
-							
+								</form>								
+							</div>							
 						</div>
 					</div>
 				</div>					
 			</div>
-
-
-
-
-
-
 
 			</div>
 			<?php include('includes/footer.php'); ?>

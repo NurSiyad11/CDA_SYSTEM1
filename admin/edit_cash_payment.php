@@ -57,8 +57,6 @@
             });			
         </Script>
 			<?php
-		// echo "<script>alert('Record Successfully Updated');</script>";
-		// echo "<script type='text/javascript'> document.location = 'cash_payment.php'; </script>";
 		} else{
 		die(mysqli_error());
 		}	
@@ -135,8 +133,6 @@
 										</div>
 									</div>
 
-
-
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label>Account :</label>
@@ -169,10 +165,8 @@
 											<textarea name="memo" style="height: 5em;" placeholder="Description" class="form-control text_area" type="text" ><?php echo $row['Memo']; ?></textarea>
 										</div>
 									</div>							
-								</div>
-																
-								<div class="row">				
-											
+								</div>																
+								<div class="row">			
 									<div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label style="font-size:16px;"><b></b></label>

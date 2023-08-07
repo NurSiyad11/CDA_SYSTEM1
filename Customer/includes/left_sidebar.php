@@ -18,8 +18,7 @@
 							<span class="micon dw dw-house-1"></span><span class="mtext">Dashboard</span>
 						</a>
 						
-                    </li>
-                    <!-- <i class="icon-copy fa fa-user" aria-hidden="true"></i> -->
+                    </li>               
                     <i class="icon-copy iclipboardon-"></i>
                     <li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
@@ -54,29 +53,13 @@
 					</li>
 
 					
-                    <li class="dropdown">
-						<!-- <a href="chat.php" class="dropdown-toggle no-arrow">
-							<span class="micon dw dw-help"></span><span class="mtext">Contact US</span>
-						</a> -->
+                    <li class="dropdown">					
 						<a href="Support.php" class="dropdown-toggle no-arrow">
 							<span class="micon dw dw-help"></span><span class="mtext">Support</span>
-						</a>
-						
-						<!-- <a href="live-chat/index.php" class="dropdown-toggle no-arrow">
-							<span class="micon dw dw-help"></span><span class="mtext">Chating</span>
-						</a>
-						<a href="chat.php" class="dropdown-toggle no-arrow">
-							<span class="micon dw dw-help"></span><span class="mtext">Contact</span>
-						</a> -->
-                    </li>
+						</a>					
 					
-                    <!-- <li class="dropdown">
-						<a href="video.php" class="dropdown-toggle no-arrow">
-							<span class="micon dw dw-eye"></span><span class="mtext">Video</span>
-						</a>
-						
-                    </li> -->
-
+                    </li>			
+                 
 				</ul>
 			</div>
 		</div>

@@ -35,8 +35,6 @@
 			});			
 		</Script>
 		<?php
-     	// echo "<script>alert('Record Successfully Updated');</script>";
-     	// echo "<script type='text/javascript'> document.location = 'mng_debt_reminder.php'; </script>";
 	} else{
 	  die(mysqli_error());
    }		
@@ -133,12 +131,10 @@
                                         <div class="form-group">
                                             <label></label>
                                             <p>Message</p>
-                                            <!-- <textarea name="Memo" style="height: 5em;" placeholder="Description" class="form-control text_area" type="text"></textarea> -->
                                         </div>
                                     </div>	
                                     <div class="col-md-10">
                                         <div class="form-group">
-                                            <!-- <label>Description</label> -->
                                             <textarea name="Memo" style="height: 10em;" placeholder="Description" class="form-control text_area" readonly type="text"><?php echo $row['Message']; ?></textarea>
                                         </div>
                                     </div>	
@@ -149,12 +145,10 @@
                                         <div class="form-group">
                                             <label></label>
                                             <p>Description</p>
-                                            <!-- <textarea name="Memo" style="height: 5em;" placeholder="Description" class="form-control text_area" type="text"></textarea> -->
                                         </div>
                                     </div>	
                                     <div class="col-md-10">
                                         <div class="form-group">
-                                            <!-- <label>Description</label> -->
                                             <textarea name="Memo" style="height: 4em;" placeholder="Description" class="form-control text_area" readonly type="text"><?php echo $row['Memo']; ?></textarea>
                                         </div>
                                     </div>	
@@ -201,16 +195,12 @@
                                 </div>                                    
                                 <div class="modal-body">
                                     <?php
-                                        // $query = mysqli_query($conn,"SELECT user.Name,user.Email, user.Picture, tbl_order.id, tbl_order.Date, tbl_order.Reason, tbl_order.Status FROM tbl_order INNER JOIN user ON   tbl_order.Cid=user.id where tbl_order.id='$get_id'")or die(mysqli_error());
                                         $query = mysqli_query($conn,"select * from debt_reminder where id='$get_id' ") or die(mysqli_error());
                                         $row = mysqli_fetch_array($query);
                                         ?>
 
                                     <form id="add-event" method=post>
-                                        <div class="modal-body">
-                                            <!-- <h4 class="text-blue h4 mb-10">Add Event Detai</h4> -->
-                                         
-                                            
+                                        <div class="modal-body">                                    
                                             <div class="form-group">
 												<label>Date</label>
 												<input name="Date" class="form-control" type="Date" required value="<?php echo $row['Date']; ?>">
@@ -230,8 +220,7 @@
                                                         <option value="Hide">Hide</option>
                                                     </select>
                                                 </div>
-                                            </div>	
-                                            
+                                            </div>	                                            
                                          
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -246,14 +235,11 @@
                                             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                                         </div>
                                     </form>
-                                </div>
-                               
+                                </div>                               
                             </div>
                         </div>
                     </div>					
-                </div>
-
-				
+                </div>				
 
 			</div>
 			<?php include('includes/footer.php'); ?>

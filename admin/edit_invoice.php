@@ -83,9 +83,6 @@
 	}
 ?>
 
-
-
-
 <?php
 	if(isset($_POST['update-invoice']))
 	{
@@ -296,17 +293,6 @@
 									</div>
 								</div>
 							</section>
-
-
-
-							
-
-
-
-
-
-
-
 
 
 							<section>

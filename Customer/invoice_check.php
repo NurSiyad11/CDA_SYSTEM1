@@ -146,14 +146,7 @@
 							if($query->rowCount() > 0)
 							{
 							foreach($results as $result)
-							{            
-								// $Cid= $result->Cid;
-								// if($Cid == $session_id){
-								// 	$id=$result->id;
-								// }else{
-									
-								// }	
-								
+							{            								
 								?>  
 
 
@@ -186,9 +179,7 @@
 											</a>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 												<a class="dropdown-item" href="edit_invoice_check.php?edit=<?php  echo htmlentities($result->id); ?> "><i class="dw dw-eye"></i> View 1</a>
-												<!-- <a class="dropdown-item" href="edit_invoice_check.php?edit" onclick="location.href='edit_invoice_check.phpedit'+<?php //echo htmlentities($result->id); ?>"><i class="dw dw-eye"></i> View</a>
-												<a class="dropdown-item" href="edit_invoice_check.php#" onclick="location.href='edit_invoice_check.php?edit=<?php// echo htmlentities($result->id); ?>edit';"><i class="dw dw-eye"></i> View</a> -->
-												<!-- <a class="dropdown-item" href="#" onclick="window.location.href='edit_invoice_check.php#<?php //echo htmlentities($result->id); ?>';"><i class="dw dw-eye"></i> View</a> -->
+
 											</div>
 										</div>
 								
@@ -197,16 +188,7 @@
 							</tr>
 
 							<?php $cnt++;} }?>  
-
 						</tbody>	
-
-
-
-
-
-
-
-
 						
 					</table>
 			   </div>

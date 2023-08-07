@@ -2,20 +2,6 @@
 <?php include('../database/session.php')?>
 <?php include('../database/db.php')?>
 
-
-<?php 
-	// if (isset($_GET['delete'])) {
-	// 	$get_id = $_GET['delete'];
-	// 	$sql = "DELETE FROM account where id = ".$get_id;
-	// 	$result = mysqli_query($conn, $sql);
-	// 	if ($result) {
-	// 		echo "<script>alert('Account deleted Successfully');</script>";
-    //  		echo "<script type='text/javascript'> document.location = 'Account_Reg.php'; </script>";
-			
-	// 	}
-	// }
-?>
-
 <?php
 	if(isset($_POST['add']))
 	{	
@@ -151,15 +137,12 @@
                                         if($query->rowCount() > 0)
                                         {
                                          foreach($results as $result)  {  
-                                        // while($row = mysqli_fetch_array($query)){
                                             $test= ($result->id);
                                             $total_income = $conn->query("SELECT sum(Amount) as total from `cash_receipt` where Acc_id=$test   ")->fetch_assoc()['total'];
                                             $total_expense = $conn->query("SELECT sum(Amount) as total from `cash_payment` where Acc_id=$test ")->fetch_assoc()['total'];
                                             $Ba_Inc_exp = $total_income - $total_expense;
                                             $bal_format =number_format((float)$Ba_Inc_exp, '2','.',',');
-                                                  
                                              ?>  
-
                                         <tr>
                                             <td> <?php echo htmlentities($cnt);?></td>
                                             <td><?php echo htmlentities($result->Acc_name);?></td>
@@ -175,25 +158,15 @@
                                                    }else{
                                                     ?>
                                                         <a href="edit_Account_Reg.php?edit=<?php echo htmlentities($result->id);?>"  class="btn btn-primary"> <i class="icon-copy dw dw-edit2"></i> Edit</a>
-
                                                     <?php
                                                    }
                                                    ?>
-                                                    <!-- <a href="edit_Account_Reg.php?edit=<?php echo htmlentities($result->id);?>"  class="btn btn-primary"> <i class="icon-copy dw dw-edit2"></i> </a> -->
-                                                    <!-- <a href="Account_Reg.php?delete=<?php //echo htmlentities($result->id);?>" class="btn btn-danger" onclick= ' return checkdelete()' ><i class="icon-copy dw dw-delete-3"></i> </a> -->
                                                 </div>
                                             </td>
                                         </tr>
-
                                         <?php $cnt++;} }?>  
-
                                     </tbody>
-                                </table>
-                                <script>
-                                    function checkdelete(){
-                                        return confirm('Do you Want to Delete this Record ? ');
-                                    }
-                                </script>
+                                </table>                                
                             </div>
                         </div>
                     </div>

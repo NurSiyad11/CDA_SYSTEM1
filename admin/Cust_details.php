@@ -30,10 +30,6 @@
 						});
 			});			
 		</Script>
-		<!-- <script>alert('Record Successfully  Submited');</script>;
-		<script>
-		window.location = "Cust_Report.php"; 
-		</script> -->
 		<?php   }
 ?>
 
@@ -66,27 +62,7 @@
                                 ?>
                                 <a  href="#" class="btn btn-primary" data-toggle="modal" data-target="#Medium-modal"> <i class="icon-copy ion-plus "></i> Dept Reminder</a>
                            <?php  }?>
-							<!-- <div class="dropdown">
-								<a class="btn btn-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-									January 2018
-								</a>
-								<div class="dropdown-menu dropdown-menu-right">
-									<a class="dropdown-item" href="#">Export List</a>
-									<a class="dropdown-item" href="#">Policies</a>
-									<a class="dropdown-item" href="#">View Assets</a>
-								</div>
-							</div> -->
-						</div>
-                        <!-- <div class="row">
-                            <div class="col-12"> 
-                                <?php     
-                                    $admin_rol = $conn->query("SELECT Role as rol from `user` where ID='$session_id' ")->fetch_assoc()['rol'];
-                                    if($admin_rol == 'Administrator'){                                   
-                                ?>
-                                <a  href="#" class="btn btn-primary" data-toggle="modal" data-target="#Medium-modal"> <i class="icon-copy ion-plus "></i> Dept Reminder</a>
-                           <?php  }?>
-                            </div>
-                        </div> -->
+						</div>                     
 					</div>
 				</div>
 
@@ -172,50 +148,19 @@
                     <?php
                       $cust_name = $conn->query("SELECT name as cid from `user` where id='$get_id'  ")->fetch_assoc()['cid']; 
                       $com_name = $conn->query("SELECT Com_name as cid from `user` where id='$get_id'  ")->fetch_assoc()['cid'];  
-                    ?>
-                    
+                    ?>                    
 				
-                    <div class="card-box mb-30">                       
-                     
+                    <div class="card-box mb-30">                                     
                         <div class="row">
                             <div class="col-7">
                                 <h2 class="text-blue h4"><?php echo "Company Name:  $com_name"?></h2>
-
                             </div>
                             <div class="col-5">
                                 <p class="text-blue "><?php echo "Customer Name:  $cust_name"?></p>
 
                             </div>
                         </div>                                                        
-                
-                            
-                        <!-- <div class="container pd-5">
-                            <form action="" method="GET">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <div class="from-group">
-                                            <label > From Date  </label>
-                                            <input type="date" name="from_date" class="form-control" value="<?php if(isset($_GET['from_date'])){ echo $_GET['from_date']; } ?>">
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-4">
-                                        <div class="from-group">
-                                            <label > To Date  </label>
-                                            <input type="date" name="to_date" class="form-control" value="<?php if(isset($_GET['to_date'])){ echo $_GET['to_date']; } ?>" >
-                                        </div>
-                                    </div>
 
-                                    <div class="col-4">
-                                        <div class="from-group">
-                                            <label > Click to Filter  </label> <br>
-                                            <button type="submit" class="btn btn-primary">Filter</button>
-                                           
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div> -->
 
                         <!-- Table Display data -->
                         <div class="pb-10">
@@ -236,20 +181,13 @@
                                 </thead>
                                 <tbody>
                                     <tr>	
-                                    <?php
-									//$query = mysqli_query($conn,"SELECT user.Name, invoice.id, invoice.Cid,invoice.invoice ,invoice.Amount,invoice.Date,invoice.Memo,invoice.File,invoice.Status FROM invoice INNER JOIN user ON   invoice.Cid=user.ID  where invoice.id = '$get_id' ")or die(mysqli_error());
-									//$new_row = mysqli_fetch_array($query);
-									?>
-					
-
                                         <?php 						
                                         $i =1;
                                         $bal=0;
                                         $Cname = $conn->query("SELECT id as cid from `user` where id='$get_id'  ")->fetch_assoc()['cid'];
                                         $sql = "SELECT id,D_INV,invoice,File,Date,Memo,Amount,empty FROM invoice where Cid='$Cname' UNION All SELECT id,D_RV,RV,File,Date,Memo,empty,Amount FROM receipt where Cid='$Cname'  order by Date asc ";
                                             $query = mysqli_query($conn, $sql) or die(mysqli_error());
-                                            while ($row = mysqli_fetch_array($query)) {
-                                    
+                                            while ($row = mysqli_fetch_array($query)) {                                    
                                         ?>  
                                         <td ><?php echo $i++; ?></td>
                                         <?php
@@ -269,33 +207,20 @@
                                         <td><?php echo $row['Memo']; ?></td>
                                         <td><?php echo "$ ". number_format((float)htmlentities($row['Amount']),'2','.',','); ?></td>
 								        <td><?php echo "$ ". number_format((float)htmlentities($row['empty']), '2','.',','); ?></td>
-                                        <!-- <td><?php //echo $row['Amount']; ?></td>
-                                        <td><?php //echo $row['empty']; ?></td> -->
 
-
-                                        <!-- <td><?php //echo $row['File']; ?></td> -->
-                                            
                                         <?php 
                                         $in = $bal + $row['Amount'];;
                                         $out= $row['empty'];
                                         $bal = $in - $out;
                                         ?>
                                         <td><?php echo "$ ". number_format((float)htmlentities($bal),'2','.',','); ?></td>
-
-                                        <!-- <td><?php echo $bal; ?></td> -->
-
-                                        
-                                        
-
                                     </tr>
                                     <?php }?>
                                 </tbody>
                             </table>
                         </div>
-                    </div>                 
+                    </div>            
 				     
-
-
 
 					<!-- Dept reminder popup  Medium modal -->
                     <div class="col-md-4 col-sm-12 mb-30">				
@@ -308,14 +233,12 @@
                                     </div>                                    
                                     <div class="modal-body">
                                         <?php
-                                            // $query = mysqli_query($conn,"SELECT user.Name,user.Email, user.Picture, tbl_order.id, tbl_order.Date, tbl_order.Reason, tbl_order.Status FROM tbl_order INNER JOIN user ON   tbl_order.Cid=user.id where tbl_order.id='$get_id'")or die(mysqli_error());
                                             $query = mysqli_query($conn,"select * from user where Role='Customer' AND ID='$get_id' ") or die(mysqli_error());
                                             $row = mysqli_fetch_array($query);
                                             ?>
 
                                         <form id="add-event" method=post>
                                             <div class="modal-body">
-                                                <!-- <h4 class="text-blue h4 mb-10">Add Event Detai</h4> -->
                                                 <div class="form-group">
                                                     <label>Customer Name</label>
                                                     <input type="text" class="form-control" name="name" required="true" autocomplete="off"  readonly value="<?php echo $row['Name']; ?>">
@@ -351,28 +274,14 @@
                                                         <label>Description</label>
                                                         <textarea name="Memo" style="height: 5em;" placeholder="Description" class="form-control text_area" type="text"></textarea>
                                                     </div>
-                                                </div>	
-                                                <!-- <div class="form-group">
-                                                    <label>Event Icon</label>
-                                                    <select class="form-control" name="eicon">
-                                                        <option value="circle">circle</option>
-                                                        <option value="cog">cog</option>
-                                                        <option value="group">group</option>
-                                                        <option value="suitcase">suitcase</option>
-                                                        <option value="calendar">calendar</option>
-                                                    </select>
-                                                </div> -->
+                                                </div>	                                             
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="submit" name="submit" class="btn btn-primary" >Submit</button>
                                                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                                             </div>
                                         </form>
-                                    </div>
-                                    <!-- <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div> -->
+                                    </div>                              
                                 </div>
                             </div>
                         </div>					
@@ -380,73 +289,38 @@
 				</div>
 
 
+                <!-- add task popup start PDF FILE Display Modal-->
+                <div class="modal fade customscroll" id="empModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">File Pdf</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Close Modal">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body pd-0">
+                                <div class="task-list-form">
+                                    <ul>
+                                        <li>
+                                            <section>
+                                                <div class="row">
+                                                    <div class="col-6">
 
-
-
-
-
-
-
-                
-                <!-- <div class="modal fade" id="empModal"  role="dialog">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">PDF</h4>
-                                      <button type="button" class="close" data-dismiss="modal">×</button>
-                                    </div>
-                                    <div class="modal-body">
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </div>
-                    </div> -->
-
-
-
-
-					<!-- add task popup start PDF FILE Display Modal-->
-					<div class="modal fade customscroll" id="empModal" tabindex="-1" role="dialog">
-						<div class="modal-dialog modal-dialog-centered" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLongTitle">File Pdf</h5>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Close Modal">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body pd-0">
-									<div class="task-list-form">
-										<ul>
-											<li>
-                                                <section>
-                                                    <div class="row">
-                                                        <div class="col-6">
-
-                                                            </div>
                                                         </div>
-                                                    
-                                                    </div>                                
-                                                </section>
-                                                           
-											</li>											
-										</ul>
-									</div>									
-								</div>								
-							</div>
-						</div>
-					</div>
-					<!-- add task popup End -->    
-
-
-
-
-
-
-
-
+                                                    </div>
+                                                
+                                                </div>                                
+                                            </section>
+                                                        
+                                        </li>											
+                                    </ul>
+                                </div>									
+                            </div>								
+                        </div>
+                    </div>
+                </div>
+                <!-- add task popup End -->    
 
 
 			</div>
@@ -455,12 +329,5 @@
 	</div>
 	<!-- js -->
 	<?php include('includes/scripts2.php')?>
-
-<!-- js -->
-
-
-
-
-
 </body>
 </html>

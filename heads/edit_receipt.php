@@ -10,9 +10,20 @@
 		$st = $conn->query("SELECT Status as st from `receipt` where id='$get_id'  ")->fetch_assoc()['st'];
 		$Status=$_POST['Status'];	
 		$Reason=$_POST['Reason'];
-		// $RV_Memo = $conn->query("SELECT Memo as memo from `receipt` where id='$get_id'  ")->fetch_assoc()['memo'];
-		// $Memo_Rv = "$RV_Memo  ( $Memo ) ";
+		$Ac_id=$_POST['Ac_id'];
+
+		$query = mysqli_query($conn, "SELECT * FROM receipt where id='$get_id'") or die(mysqli_error());
+		$row = mysqli_fetch_array($query);
+
+		$Cid =$row['Cid'];
+		$Com_name = $conn->query("SELECT Com_name as cm from `user` where ID='$Cid'  ")->fetch_assoc()['cm'];
+		$RV =$row['RV'];
+		$Date =$row['Date'];
+		$Amount =$row['Amount'];
+		$Memo =$row['Memo'];	
+
 		
+
 
 		if($st =='Approved'){
 			?>
@@ -30,7 +41,9 @@
 				});			
 			</Script>
 			<?php			
-		}else {	
+		}	
+		elseif($Status =='Rejected') {	
+
 			$result = mysqli_query($conn,"update receipt set Status='$Status', Reason='$Reason' where id='$get_id'         
 				"); 		
 			if ($result) {			
@@ -48,15 +61,72 @@
 					});
 				});			
 			</Script>
-			<?php	
-				// echo "<script>alert('Record Successfully Updated');</script>";
-				// echo "<script type='text/javascript'> document.location = 'All_Receipt.php'; </script>";
-				
+			<?php					
 			} else{
 			die(mysqli_error());
-		}
+			}
 			
-	}	
+		}			
+		elseif($Ac_id ==''){		
+			?>
+			<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+						title: "Warning",
+						text: " please select an account ",
+						icon: "warning",
+						// button: "Ok Done!",
+					})
+					.then(function() {
+						window.location = "edit_receipt.php?edit=" + <?php echo ($get_id); ?>;
+					});
+				});			
+			</Script>
+			<?php				
+		}elseif($Status =='Approved'){
+			mysqli_query($conn,"INSERT INTO cash_receipt(Admin_id,name,Date,RV,Amount,Memo,Acc_id) VALUES('$session_id','$Com_name','$Date','$RV','$Amount','$Memo','$Ac_id')         
+			") or die(mysqli_error());
+
+			$result = mysqli_query($conn,"update receipt set Status='$Status', Reason='$Reason' where id='$get_id'         
+				"); 		
+			if ($result) {			
+				?>
+			<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+						title: "Success",
+						text: "Your  Approved This Receipt ",
+						icon: "success",
+						// button: "Ok Done!",
+					})
+					.then(function() {
+						window.location = "edit_receipt.php?edit=" + <?php echo ($get_id); ?>;
+					});
+				});			
+			</Script>
+			<?php					
+			} else{
+			die(mysqli_error());
+			}
+		}	else {			
+				?>
+			<Script>
+				window.addEventListener('load',function(){
+					swal.fire({
+						title: "Success",
+						text: "Un Known Error ",
+						icon: "success",					
+					})
+					.then(function() {
+						window.location = "edit_receipt.php?edit=" + <?php echo ($get_id); ?>;
+					});
+				});			
+			</Script>
+			<?php					
+			
+			
+		}		
+	
 }
 ?>
 
@@ -198,8 +268,7 @@
 									?>
 
 									<form id="add-event" method=post>
-										<div class="modal-body">
-										<!-- <h4 class="text-blue h4 mb-10">Add Event Detai</h4> -->
+										<div class="modal-body">									
 											<div class="col-md-12 col-sm-12">
 												<div class="form-group">
 												<label>Status :</label>
@@ -214,7 +283,23 @@
 											<div class="form-group" id="memo-div" style="display: none;">
 												<label>Reason To Reject</label>
 												<textarea class="form-control"  name="Reason"  autocomplete="off"><?php echo $row['Reason']; ?></textarea>
-											</div>								
+											</div>	
+											
+											<div class="col-md-12 col-sm-12" id="account-div" style="display: none;">
+												<div class="form-group">
+													<label>Account :</label>
+													<select name="Ac_id"  class="custom-select form-control"  autocomplete="off">
+														<option value="">Select Account</option>
+															<?php
+															$query = mysqli_query($conn,"select * from account");
+															while($row = mysqli_fetch_array($query)){													
+															?>
+														<option value="<?php echo $row['id']; ?>"><?php echo $row['Acc_name']; ?></option>
+															<?php } ?>
+													</select>
+												</div>
+											</div>	
+											
 										</div>
 										<div class="modal-footer">
 											<button type="submit" name="Update" class="btn btn-primary">Done</button>
@@ -222,22 +307,53 @@
 										</div>
 									</form>
 								</div>
-
-									<script>
+			
+								<script>
 									// Get the select element and the memo-div element
 									const statusSelect = document.getElementById('status');
 									const memoDiv = document.getElementById('memo-div');
+									const accountDiv = document.getElementById('account-div');
 
 									// Add a change event listener to the select element
 									statusSelect.addEventListener('change', function() {
-										// If the selected value is "Rejected", show the memo-div element, otherwise hide it
+										// If the selected value is "Rejected", show the memo-div element and hide the account-div element, otherwise hide the memo-div element and show the account-div element
 										if (statusSelect.value === 'Rejected') {
 										memoDiv.style.display = 'block';
+										accountDiv.style.display = 'none';
+										} else if (statusSelect.value === 'Approved') {
+										memoDiv.style.display = 'none';
+										accountDiv.style.display = 'block';
 										} else {
 										memoDiv.style.display = 'none';
+										accountDiv.style.display = 'none';
 										}
 									});
-									</script>                               
+								</script>
+
+
+									<script>
+									// // Get the select element and the memo-div element
+									// const statusSelect = document.getElementById('status');									
+									// const memoDiv = document.getElementById('memo-div');
+
+									// // const statusSelect = document.getElementById('status');									
+									// const accounDiv = document.getElementById('account-div');
+
+
+									// // Add a change event listener to the select element
+									// statusSelect.addEventListener('change', function() {
+									// 	// If the selected value is "Rejected", show the memo-div element, otherwise hide it
+									// 	if (statusSelect.value === 'Rejected') {
+									// 	memoDiv.style.display = 'block';
+									// 	}else if (statusSelect.value === 'Approved') {
+									// 	accountDiv.style.display = 'block';
+									// 	} else {
+									// 	memoDiv.style.display = 'none';
+									// 	}
+									// });
+									</script>    
+									
+									
                             </div>
                         </div>
                     </div>					

@@ -106,7 +106,7 @@ if (isset($_GET['delete'])) {
 									<td><?php echo "$ ". $row['Amount']; ?></td>
                                     <?php
                                         $admins = $row['Admin_id'];
-                                        $query_admin_record = mysqli_query($conn,"SELECT user.Name, ven_invoice.id, ven_invoice.Vid FROM ven_invoice INNER JOIN user ON   ven_invoice.Admin_id=user.ID  where ven_invoice.Admin_id='$admins' ") or die(mysqli_error());
+                                        $query_admin_record = mysqli_query($conn,"SELECT user.Name, cash_payment.id, cash_payment.Admin_id FROM cash_payment INNER JOIN user ON   cash_payment.Admin_id=user.ID  where cash_payment.Admin_id='$admins' ") or die(mysqli_error());
                                         $row_admin = mysqli_fetch_array($query_admin_record);
                                         ?>
                                         <td><?php echo $row_admin['Name']; ?></td>

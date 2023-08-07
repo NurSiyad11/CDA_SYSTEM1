@@ -26,8 +26,7 @@
                         <div class="d-flex flex-wrap align-items-center">
                             <div class="progress-data">
 								<form action="" method="GET">
-									<div id="">	
-										<!--  <i class="icon-copy ion-disc" data-color="#17a2b8"></i> -->
+									<div id="">									
 										<button class="btn  btn-primary" type="submit" name="All_support"> <i class="icon-copy dw dw-support-1"></i></button><span class="border-0"></span>
 									</div>
 								</form>
@@ -73,8 +72,7 @@
 									<div id="">									
 										<button class="btn btn-primary" type="submit" name="Replied"> <i class="icon-copy dw dw-file-134"></i></button>
 									</div>
-								</form>
-                             
+								</form>                             
                             </div>						
                             <div class="widget-data">
                                 <div class="h4 mb-0"><?php echo ($count); ?></div>
@@ -96,8 +94,7 @@
 									<div id="">									
 										<button class="btn btn-success" type="submit" name="Show"><i class="icon-copy dw dw-eye"></i></button>
 									</div>
-								</form>
-                                
+								</form>                                
                             </div>
                         
                             <div class="widget-data">
@@ -155,14 +152,12 @@
 						</thead>
 						<tbody>
 							<tr>
-
 								 <?php
 								 $i =1;
 		                         $teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name, user.Picture, support.id, support.Message, support.Time_user, support.Reply, support.Status  FROM support INNER JOIN user ON   support.Cid=user.id order by support.Time_user Desc") or die(mysqli_error());
 		                         while ($row = mysqli_fetch_array($teacher_query)) {
 		                         $id = $row['id'];
 		                             ?>
-
 								<td><?php echo $i++; ?></td>
 								<td class="table-plus">
 									<div class="name-avatar d-flex align-items-center">
@@ -176,13 +171,11 @@
 								</td>						
 								
 	                            <td><?php echo $row['Com_name']; ?></td>							
-								<td><?php echo $row['Time_user']; ?></td>                              
-
+								<td><?php echo $row['Time_user']; ?></td>                      
 								<td><?php $stats=$row['Status'];
 	                             if($stats=="Hide"){
 	                              ?>
 								  	<span class="badge badge-danger">Hide</span>
-	                                  <!-- <span style="color: red">Hide</span> -->
 	                                  <?php } if($stats=="Show")  { ?>
 									<span class="badge badge-success">Show</span>	                                
 	                                  <?php } if($stats=="Pending")  { ?>
@@ -197,8 +190,7 @@
 											<i class="dw dw-more"></i>
 										</a>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-											<a class="dropdown-item" href="edit_support.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> View</a>
-											
+											<a class="dropdown-item" href="edit_support.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> View</a>											
 										</div>
 									</div>
 								</td>
@@ -230,14 +222,12 @@
 						</thead>
 						<tbody>
 							<tr>
-
 								 <?php
 								 $i =1;
 		                         $teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name, user.Picture, support.id, support.Message, support.Time_user, support.Reply, support.Status  FROM support INNER JOIN user ON   support.Cid=user.id  where support.Status='Pending' order by support.Time_user Desc") or die(mysqli_error());
 		                         while ($row = mysqli_fetch_array($teacher_query)) {
 		                         $id = $row['id'];
 		                             ?>
-
 								<td><?php echo $i++; ?></td>
 								<td class="table-plus">
 									<div class="name-avatar d-flex align-items-center">
@@ -251,8 +241,7 @@
 								</td>						
 								
 	                            <td><?php echo $row['Com_name']; ?></td>							
-								<td><?php echo $row['Time_user']; ?></td>                              
-
+								<td><?php echo $row['Time_user']; ?></td>
 								<td><?php $stats=$row['Status'];
 	                             if($stats=="Hide"){
 	                              ?>
@@ -272,8 +261,7 @@
 											<i class="dw dw-more"></i>
 										</a>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-											<a class="dropdown-item" href="edit_support.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> View</a>
-											
+											<a class="dropdown-item" href="edit_support.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> View</a>	
 										</div>
 									</div>
 								</td>
@@ -306,7 +294,6 @@
 						</thead>
 						<tbody>
 							<tr>
-
 								 <?php
 								 $i =1;
 		                         $teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name, user.Picture, support.id, support.Admin_id, support.Message, support.Time_user, support.Reply, support.Status  FROM support INNER JOIN user ON   support.Cid=user.id  where support.Reply !='' order by support.Time_user Desc") or die(mysqli_error());
@@ -387,14 +374,12 @@
 						</thead>
 						<tbody>
 							<tr>
-
 								 <?php
 								 $i =1;
 		                         $teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name, user.Picture,  support.id, support.Admin_id, support.Message, support.Time_user, support.Reply, support.Status  FROM support INNER JOIN user ON   support.Cid=user.id where support.Status ='Show' order by support.Time_user Desc") or die(mysqli_error());
 		                         while ($row = mysqli_fetch_array($teacher_query)) {
 		                         $id = $row['id'];
 		                             ?>
-
 								<td><?php echo $i++; ?></td>
 								<td class="table-plus">
 									<div class="name-avatar d-flex align-items-center">
@@ -409,7 +394,6 @@
 								
 	                            <td><?php echo $row['Com_name']; ?></td>							
 								<td><?php echo $row['Time_user']; ?></td>                              
-
 								<td><?php $stats=$row['Status'];
 	                             if($stats=="Hide"){
 	                              ?>
@@ -435,8 +419,7 @@
 											<i class="dw dw-more"></i>
 										</a>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-											<a class="dropdown-item" href="edit_support.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> View</a>
-											
+											<a class="dropdown-item" href="edit_support.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> View</a>			
 										</div>
 									</div>
 								</td>
@@ -477,7 +460,6 @@
 		                         while ($row = mysqli_fetch_array($teacher_query)) {
 		                         $id = $row['id'];
 		                             ?>
-
 								<td><?php echo $i++; ?></td>
 								<td class="table-plus">
 									<div class="name-avatar d-flex align-items-center">
@@ -488,11 +470,10 @@
 											<div class="weight-600"><?php echo $row['Name']; ?></div>
 										</div>
 									</div>
-								</td>						
+								</td>					
 								
 	                            <td><?php echo $row['Com_name']; ?></td>							
 								<td><?php echo $row['Time_user']; ?></td>                              
-
 								<td><?php $stats=$row['Status'];
 	                             if($stats=="Hide"){
 	                              ?>
@@ -520,7 +501,6 @@
 										</a>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 											<a class="dropdown-item" href="edit_support.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> View</a>
-											
 										</div>
 									</div>
 								</td>
@@ -553,14 +533,12 @@
 						</thead>
 						<tbody>
 							<tr>
-
 								 <?php
 								 $i =1;
 		                         $teacher_query = mysqli_query($conn,"SELECT user.Name, user.Com_name, user.Picture, support.id, support.Message, support.Time_user, support.Reply, support.Status  FROM support INNER JOIN user ON   support.Cid=user.id order by support.Time_user Desc") or die(mysqli_error());
 		                         while ($row = mysqli_fetch_array($teacher_query)) {
 		                         $id = $row['id'];
 		                             ?>
-
 								<td><?php echo $i++; ?></td>
 								<td class="table-plus">
 									<div class="name-avatar d-flex align-items-center">
@@ -596,7 +574,6 @@
 										</a>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 											<a class="dropdown-item" href="edit_support.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> View</a>
-											
 										</div>
 									</div>
 								</td>
@@ -769,7 +746,6 @@
 	                             if($stats=="Hide"){
 	                              ?>
 								  	<span class="badge badge-danger">Hide</span>
-	                                  <!-- <span style="color: red">Hide</span> -->
 	                                  <?php } if($stats=="Show")  { ?>
 									<span class="badge badge-success">Show</span>	                                
 	                                  <?php } if($stats=="Pending")  { ?>
@@ -844,7 +820,6 @@
 	                             if($stats=="Hide"){
 	                              ?>
 								  	<span class="badge badge-danger">Hide</span>
-	                                  <!-- <span style="color: red">Hide</span> -->
 	                                  <?php } if($stats=="Show")  { ?>
 									<span class="badge badge-success">Show</span>	                                
 	                                  <?php } if($stats=="Pending")  { ?>
@@ -919,7 +894,6 @@
 	                             if($stats=="Hide"){
 	                              ?>
 								  	<span class="badge badge-danger">Hide</span>
-	                                  <!-- <span style="color: red">Hide</span> -->
 	                                  <?php } if($stats=="Show")  { ?>
 									<span class="badge badge-success">Show</span>	                                
 	                                  <?php } if($stats=="Pending")  { ?>
@@ -995,7 +969,6 @@
 	                             if($stats=="Hide"){
 	                              ?>
 								  	<span class="badge badge-danger">Hide</span>
-	                                  <!-- <span style="color: red">Hide</span> -->
 	                                  <?php } if($stats=="Show")  { ?>
 									<span class="badge badge-success">Show</span>	                                
 	                                  <?php } if($stats=="Pending")  { ?>
@@ -1071,7 +1044,6 @@
 	                             if($stats=="Hide"){
 	                              ?>
 								  	<span class="badge badge-danger">Hide</span>
-	                                  <!-- <span style="color: red">Hide</span> -->
 	                                  <?php } if($stats=="Show")  { ?>
 									<span class="badge badge-success">Show</span>	                                
 	                                  <?php } if($stats=="Pending")  { ?>
@@ -1099,16 +1071,7 @@
 			</div>
 			<?php }?>
 			<!-- Customer Else Pars Displayed Support END -->
-
-
-
 			<?php	}	?>
-
-
-
-
-
-
 
 			<?php include('includes/footer.php'); ?>
 		</div>

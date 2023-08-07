@@ -3,8 +3,6 @@
 <?php include('../database/db.php')?>
 <?php $get_id = $_GET['edit']; ?>
 
-
-
 <?php
 	if(isset($_POST['update-receipt']))
 	{
@@ -23,10 +21,7 @@
 		$INV = $conn->query("SELECT sum(Amount) as total from `invoice` where Cid=$Cid   ")->fetch_assoc()['total'];
 		$Rv = $conn->query("SELECT sum(Amount) as total from `receipt` where Cid=$Cid ")->fetch_assoc()['total'];
 		$Bal_Inv_RV = $INV - $Rv;
-		//echo "$Bal_Inc_exp";
 		
-		
-
 		if($st =='Approved')
 		{
 			?>
@@ -122,10 +117,7 @@
 							<div class="pull-left">
 								<h4 class="text-blue h4"> Update Receipt Form</h4>
 								<p class="mb-20"></p>
-							</div>
-							<!-- <div class="col-md-4 col-sm-12 text-right">
-								<a href="modal" class="bg-light-blue btn text-blue weight-500" data-toggle="modal" data-target="#modal" class="edit-avatar"><i class="dw dw-edit-2 "></i> Choose New File</a>
-							</div> -->
+							</div>						
 						</div>
 					</div>
 					<div class="wizard-content">

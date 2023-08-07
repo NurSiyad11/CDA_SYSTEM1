@@ -140,8 +140,6 @@ if($Cid != $session_id){
 					});
 				</script>
 				<?php
-				// echo "<script>alert('Record Successfully Updated');</script>";
-				// echo "<script type='text/javascript'> document.location = 'order_history.php'; </script>";
 			} else{
 			die(mysqli_error());
 			}		

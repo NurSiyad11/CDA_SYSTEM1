@@ -49,18 +49,6 @@
 	}
 ?>
 
-<!-- Delete Receipts -->
-<?php
-// if (isset($_GET['delete'])) {
-// 	$delete = $_GET['delete'];
-// 	$sql = "DELETE FROM cash_receipt where id = ".$delete;
-// 	$result = mysqli_query($conn, $sql);
-// 	if ($result) {
-// 		echo "<script>alert('Cash_Receipt deleted Successfully');</script>";															 
-//      	echo "<script type='text/javascript'> document.location = 'cash_receipt.php'; </script>";		
-// 	}
-// }
-?>
 
 
 <!-- Insert Receipt Data -->
@@ -300,7 +288,6 @@
 											</a>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 												<a class="dropdown-item" href="edit_cash_receipt.php?edit=<?php echo $row['id'];?>"><i class="dw dw-edit2"></i> Edit</a>
-												<!-- <a class="dropdown-item" href="cash_receipt.php?delete=<?php //echo $row['id'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a> -->
 											</div>
 										</div>
 									</td>
@@ -308,11 +295,6 @@
 								<?php } ?>  
 							</tbody>
 						</table>
-						<!-- <script>
-							function checkdelete(){
-								return confirm('Do you Want to Delete this Record ? ');
-							}
-						</script> -->
 					</div>			   
 				</div>			
 			</div>

@@ -60,9 +60,6 @@ if($Cid != $session_id){
 			</Script>
 			<?php	
 				
-				// echo "<script>alert('Record Successfully Updated');</script>";
-				// echo "<script type='text/javascript'> document.location = 'invoice_check.php'; </script>";
-				// header('location: edit_invoice_check.php');
 			} else{
 			die(mysqli_error());
 		}	

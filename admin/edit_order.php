@@ -154,9 +154,7 @@
 										<div class="form-group">
 											<label style="font-size:16px;"><b></b></label>
 											<div class="modal-footer justify-content-center">
-												<!-- <button class="btn btn-primary" name="order" id="order" data-toggle="modal">Apply&nbsp;Order</button> -->
 												<a  href="#" class="btn btn-primary" data-toggle="modal" data-target="#Medium-modal"><i class="dw dw-edit-2"></i> Take Action</a>
-
 											</div>
 										</div>
 									</div>

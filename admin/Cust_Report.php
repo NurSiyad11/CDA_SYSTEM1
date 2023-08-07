@@ -10,9 +10,6 @@
 
 	<div class="main-container">
 		<div class="pd-ltr-20">
-			<!-- <div class="title pb-20">
-				<h2 class="h3 mb-0">Customer Report</h2>
-			</div>	 -->
 			<div class="page-header">
 				<div class="row">
 					<div class="col-md-6 col-sm-12">
@@ -45,42 +42,8 @@
 							<a href="#" class="bg-light-blue btn text-blue weight-500"  data-toggle="modal" data-target="#bd-example-modal-lg" type="button"><i class="dw dw-eye"></i> Customer Summary Balance </a>
 							<button class="bg-light-blue btn text-blue weight-500"  type="button" id="downloadexcel1" class="btn btn-primary">Export to Excel</button>
 						</div>
-					</div>	
-					
+					</div>						
 				</div>
-
-
-
-				<!-- <div class="container pd-5">
-					<form action="" method="GET">
-						<div class="row">
-							<div class="col-4">
-								<div class="from-group">
-									<label > From Date  </label>
-									<input type="date" name="from_date" class="form-control" value="<?php //if(isset($_GET['from_date'])){ echo $_GET['from_date']; } ?>">
-								</div>
-							</div>
-							
-							<div class="col-4">
-								<div class="from-group">
-									<label > To Date  </label>
-									<input type="date" name="to_date" class="form-control" value="<?php //if(isset($_GET['to_date'])){ echo $_GET['to_date']; } ?>" >
-								</div>
-							</div>
-
-							<div class="col-4">
-								<div class="from-group">
-									<label > Click to Filter  </label> <br>
-									<button type="submit" class="btn btn-primary">Filter</button>
-								</div>
-							</div>
-						</div>
-					</form>
-				</div> -->
-
-
-
-
 				<div class="pb-20">
 					<table id="example-table1" class="data-table table stripe hover nowrap">
 						<thead class="table-dark">
@@ -98,7 +61,6 @@
 		                         $teacher_query = mysqli_query($conn,"select * from user where Role='Customer' ") or die(mysqli_error());
 		                         while ($row = mysqli_fetch_array($teacher_query)) {
 		                         $id = $row['ID'];
-
 
                                  $today_budget = $conn->query("SELECT id as eid from `user` where id='$id' ")->fetch_assoc()['eid'];
                                  $INV = $conn->query("SELECT sum(Amount) as total FROM `invoice` where Cid='$today_budget'  ")->fetch_assoc()['total'];
@@ -157,8 +119,7 @@
 												<th class="datatable-nosort">ACTION</th>
 											</tr>
 										</thead>
-										<tbody>
-											
+										<tbody>											
 											<tr>
 												<?php
 												$teacher_query = mysqli_query($conn,"select * from user where Role='Customer' ") or die(mysqli_error());
@@ -206,24 +167,15 @@
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 								<button type="button" id="downloadexcel" class="btn btn-primary">Export to Excel</button>
-							</div>
-							
+							</div>							
 						</div>
 					</div>
 				</div>			
 			</div>
-
 		</div>
         <?php include('includes/footer.php'); ?>
-
 	</div>
 	<!-- js -->
-    <?php  include('includes/scripts2.php'); ?>
-
-
-<!-- js -->
-
-
-   
+    <?php  include('includes/scripts2.php'); ?> 
 </body>
 </html>

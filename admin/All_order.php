@@ -46,18 +46,13 @@ if (isset($_GET['delete']))
 					});
 				});			
 			</Script>
-			<?php
-			// echo "<script>alert('Oder deleted Successfully');</script>";
-			// echo "<script type='text/javascript'> document.location = 'All_order.php'; </script>";
-			
+			<?php			
 		}
 	}
 }
-
 ?>
 
 <body>
-
 	<?php include('includes/navbar.php')?>
 	<?php include('includes/right_sidebar.php')?>
 	<?php include('includes/left_sidebar.php')?>
@@ -82,7 +77,6 @@ if (isset($_GET['delete']))
                             <div class="progress-data">
 								<form action="" method="GET">
 									<div id="">	
-										<!--  <i class="icon-copy ion-disc" data-color="#17a2b8"></i> -->
 										<button class="btn btn-primary" type="submit" name="All_order"> <i class="icon-copy dw dw-invoice-1"></i> </button><span class="border-0"></span>
 									</div>
 								</form>
@@ -245,13 +239,7 @@ if (isset($_GET['delete']))
 									 <?php } if($stats=="Reject")  { ?>
 										<span class="badge badge-danger">Rejected</span>	
 	                             <?php } ?>
-
 								</td>
-
-							
-
-								
-								<!-- <td><?php //echo $row['File']; ?></td>				 -->
 
 								<td>
 									<div class="dropdown">
@@ -261,9 +249,6 @@ if (isset($_GET['delete']))
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>											
 											<a class="dropdown-item" href="All_order.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
-											
-											
-											
 										</div>
 									</div>
 								</td>
@@ -348,9 +333,6 @@ if (isset($_GET['delete']))
 											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
 											
 											<a class="dropdown-item" href="All_order.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
-											
-											
-											
 										</div>
 									</div>
 								</td>
@@ -440,12 +422,8 @@ if (isset($_GET['delete']))
 											<i class="dw dw-more"></i>
 										</a>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
-											
+											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>											
 											<a class="dropdown-item" href="All_order.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
-											
-											
-											
 										</div>
 									</div>
 								</td>
@@ -457,8 +435,7 @@ if (isset($_GET['delete']))
 						function checkdelete(){
 							return confirm('Do you Want to Delete this Record ? ');
 						}
-					</script>
-					
+					</script>					
 			   </div>
 			</div>
 			<?php } elseif(isset($_GET['Rejected'])){?>
@@ -533,12 +510,8 @@ if (isset($_GET['delete']))
 											<i class="dw dw-more"></i>
 										</a>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
-											
+											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>											
 											<a class="dropdown-item" href="All_order.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
-											
-											
-											
 										</div>
 									</div>
 								</td>
@@ -627,11 +600,6 @@ if (isset($_GET['delete']))
 										</a>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
-											
-											<!-- <a class="dropdown-item" href="All_order.php?delete=<?php// echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a> -->
-											
-											
-											
 										</div>
 									</div>
 								</td>
@@ -675,7 +643,6 @@ if (isset($_GET['delete']))
 								$sql = "SELECT user.Name, user.Com_name, user.Picture, tbl_order.id, tbl_order.RegDate, tbl_order.Date,tbl_order.File,tbl_order.Status FROM tbl_order INNER JOIN user ON   tbl_order.Cid=user.id  ORDER BY tbl_order.id desc  ";
 									$query = mysqli_query($conn, $sql) or die(mysqli_error());
 									while ($row = mysqli_fetch_array($query)) {
-
 								 ?>  
 								<td ><?php echo $i++; ?></td>
 								<td class="table-plus">
@@ -712,12 +679,8 @@ if (isset($_GET['delete']))
 											<i class="dw dw-more"></i>
 										</a>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
-											
+											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>											
 											<a class="dropdown-item" href="All_order.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
-											
-											
-											
 										</div>
 									</div>
 								</td>
@@ -906,24 +869,13 @@ if (isset($_GET['delete']))
 										</a>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
-											
-											<!-- <a class="dropdown-item" href="All_order.php?delete=<?php// echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a> -->
-											
-											
-											
 										</div>
 									</div>
 								</td>
 							</tr>
 							<?php }?>
 						</tbody>
-					</table>
-					<script>
-						function checkdelete(){
-							return confirm('Do you Want to Delete this Record ? ');
-						}
-					</script>
-					
+					</table>									
 			   </div>
 			</div>
 			<?php } elseif(isset($_GET['Preparing'])){?>
@@ -994,23 +946,13 @@ if (isset($_GET['delete']))
 										</a>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
-											
-											<!-- <a class="dropdown-item" href="All_order.php?delete=<?php //echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a> -->
-											
-											
-											
 										</div>
 									</div>
 								</td>
 							</tr>
 							<?php }?>
 						</tbody>
-					</table>
-					<script>
-						function checkdelete(){
-							return confirm('Do you Want to Delete this Record ? ');
-						}
-					</script>
+					</table>				
 					
 			   </div>
 			</div>
@@ -1080,24 +1022,13 @@ if (isset($_GET['delete']))
 										</a>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
-											
-											<!-- <a class="dropdown-item" href="All_order.php?delete=<?php //echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a> -->
-											
-											
-											
 										</div>
 									</div>
 								</td>
 							</tr>
 							<?php }?>
 						</tbody>
-					</table>
-					<script>
-						function checkdelete(){
-							return confirm('Do you Want to Delete this Record ? ');
-						}
-					</script>
-					
+					</table>				
 			   </div>
 			</div>
 			<?php } elseif(isset($_GET['Approved'])){?>
@@ -1166,24 +1097,14 @@ if (isset($_GET['delete']))
 										</a>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
-											
-											<!-- <a class="dropdown-item" href="All_order.php?delete=<?php// echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a> -->
-											
-											
-											
+
 										</div>
 									</div>
 								</td>
 							</tr>
 							<?php }?>
 						</tbody>
-					</table>
-					<script>
-						function checkdelete(){
-							return confirm('Do you Want to Delete this Record ? ');
-						}
-					</script>
-					
+					</table>					
 			   </div>
 			</div>
 			<?php } else{ ?>
@@ -1231,7 +1152,6 @@ if (isset($_GET['delete']))
 								<td><?php echo $row['Com_name']; ?></td>
 	                            <td><?php echo $row['Date']; ?></td>
 								<td><?php echo $row['RegDate']; ?></td>
-
 								<td><?php $stats=$row['Status'];
 	                             if($stats=="Pending"){
 	                              ?>
@@ -1251,25 +1171,14 @@ if (isset($_GET['delete']))
 											<i class="dw dw-more"></i>
 										</a>
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
-											
-											<a class="dropdown-item" href="All_order.php?delete=<?php echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a>
-											
-											
-											
+											<a class="dropdown-item" href="edit_order.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>	
 										</div>
 									</div>
 								</td>
 							</tr>
 							<?php }?>
 						</tbody>
-					</table>
-					<script>
-						function checkdelete(){
-							return confirm('Do you Want to Delete this Record ? ');
-						}
-					</script>
-					
+					</table>			
 			   </div>
 			</div>
 			<?php }?>
@@ -1277,20 +1186,6 @@ if (isset($_GET['delete']))
 				<?php
 				}
 			?>
-
-
-
-
-
-
-
-
-
-
-
-
-			
-
 
 			<?php include('includes/footer.php'); ?>
 		</div>

@@ -60,11 +60,9 @@
 			<div class="user-notification">
 				<?php
 					$query_count = mysqli_query($conn,"select * from tbl_order where Status = 'Pending'  ")or die(mysqli_error());
-					$count = mysqli_num_rows($query_count);						
-					
+					$count = mysqli_num_rows($query_count);					
 				?>
-				<div class="dropdown">
-					
+				<div class="dropdown">					
 					<a class="dropdown-toggle no-arrow" href="#" role="button" data-toggle="dropdown">
 						<i class="icon-copy dw dw-notification "> 
 						<?php 
@@ -72,32 +70,19 @@
 							?>
 							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger " ><p class="ml-2  "> <?php echo ($count);?></p> <span class="visually-hidden"></span></span>
 							<?php } ?>
-
 						</i>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right">
 					<h5><?php echo "Orders: ". ($count); ?></h5>
-						<div class="notification-list mx-h-350 customscroll">
-							<?php 
-							//$count = $conn->query("SELECT sum(Amount) as total FROM `cash_receipt`   ")->fetch_assoc()['total'];
-							
-							// $query_count = mysqli_query($conn,"select * from tbl_order where Status = 'Pending' ")or die(mysqli_error());
-							// $count = mysqli_num_rows($query_count);						
-							 ?>
-					
-						 
+						<div class="notification-list mx-h-350 customscroll">				 
 							<ul>
-							<?php 
-								//$status="Pending Order";
+							<?php 								
 								$sql = "SELECT user.Name, user.Com_name, user.Picture, tbl_order.id, tbl_order.Date,tbl_order.Reason, tbl_order.File,tbl_order.Status FROM tbl_order INNER JOIN user ON   tbl_order.Cid=user.id where tbl_order.Status ='Pending' order by tbl_order.id desc";
 									$query = mysqli_query($conn, $sql) or die(mysqli_error());
 									while ($row = mysqli_fetch_array($query)) {
-
 								 ?> 
 								<li>
 									<a href="All_order.php?Pending_order=">
-										
-										<!-- <img src="../vendors/images/img.jpg" alt=""> -->
 										<img src="<?php echo (!empty($row['Picture'])) ? '../uploads/'.$row['Picture'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt="">
 										<h3><?php echo $row['Name'];?></h3>
 										<p><?php echo $row['Com_name'];?></p>
@@ -144,9 +129,7 @@
 
 
 
-			<!-- <button type="button" class="btn btn-primary position-relative">
-			Mails <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+99 <span class="visually-hidden">unread messages</span></span>
-			</button> -->
+			
 
 			<!-- Support Notification -->
 			<div class="user-notification">
@@ -161,44 +144,27 @@
 						if($count > 0){
 							?>
 							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger " ><p class="ml-2 "> <?php echo ($count);?></p> <span class="visually-hidden"></span></span>
-							<?php } ?>
-						<!-- <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+99 <span class="visually-hidden">unread messages</span></span> -->
-						
-						<!-- <span class="badge notification-active"></span> -->
+							<?php } ?>			
 					</a>
 					<div class="dropdown-menu dropdown-menu-right">
 						<h5><?php echo "Supported: ". ($count); ?></h5>
-
-						<div class="notification-list mx-h-350 customscroll">
-							<!-- onclick="document.getElementById('notification-sound').play()"> -->
-
+						<div class="notification-list mx-h-350 customscroll">				
 							<ul>
-								<!-- <audio id="notification-sound">
-									<source src="../uploads/audio/notifaction_audio.wav" type="audio/wav">
-								</audio> -->
 								<?php 
-								
-								
 								$sql = "SELECT user.Name, user.Com_name, user.Picture, support.id, support.Message FROM support INNER JOIN user ON   support.Cid=user.ID where support.Status ='Pending' order by support.Time_user desc";
 									$query = mysqli_query($conn, $sql) or die(mysqli_error());
 									while ($row = mysqli_fetch_array($query)) {
-
 								 ?> 
 								<li>
 								<a href="All_Support.php?Pending=">
 									<img src="<?php echo (!empty($row['Picture'])) ? '../uploads/'.$row['Picture'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt="">
-									
-									
 										<h3><?php echo $row['Name'];?></h3>										
 										<p><?php echo $row['Com_name'];?></p>
 										<p><?php echo $row['Message'];?></p>
-								
 									</a>
 								</li>
 								<?php }?>
-
 							</ul>
-
 						</div>
 					</div>
 				</div>
@@ -212,7 +178,6 @@
 				<div class="dropdown">
 					<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
 						<span class="user-icon">
-							<!-- <img src="vendors/images/photo1.jpg" alt=""> -->
 							<img src="<?php echo (!empty($row['Picture'])) ? '../uploads/'.$row['Picture'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" alt="">
 						</span>
 						<span class="user-name"><?php echo $row['Name']; ?></span>

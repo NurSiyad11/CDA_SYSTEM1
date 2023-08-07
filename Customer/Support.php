@@ -168,12 +168,6 @@
                                                         ?>                                                    
                                                             <p class="text-primary"><?php echo $Reply?></p>
 
-
-                                                        <!--                                                     
-                                                        <div class="pt-10">
-                                                            <p>reply</p>
-                                                            <a href="#" class="btn btn-outline-primary">Read More</a>
-                                                        </div> -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -186,34 +180,7 @@
                     </div>
                     <?php } ?>  
                 </div>
-            </div>              
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            </div>        
 
 			<?php include('includes/footer.php'); ?>
 		</div>

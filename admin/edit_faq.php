@@ -10,7 +10,6 @@
         $Description=$_POST['Description']; 
         $Video=$_POST['Video']; 
 
-
 	$result = mysqli_query($conn,"update faq set Question='$Question',   Description='$Description', Video='$Video'  where id='$get_id'         
 		"); 		
 	if ($result) {
@@ -29,8 +28,6 @@
 			});			
 		</Script>
 		<?php
-     	// echo "<script>alert('Record Successfully Updated');</script>";
-     	// echo "<script type='text/javascript'> document.location = 'faq.php'; </script>";
 	} else{
 	  die(mysqli_error());
    }		
@@ -64,7 +61,6 @@
                 <div class="pd-20 card-box mb-30">
 					<div class="clearfix">
 						<div class="pull-left">
-							<!-- <h4 class="text-blue h4"> Update Vendor Invoice Form</h4> -->
 							<p class="mb-20"></p>
 						</div>
 					</div>
@@ -72,12 +68,10 @@
 						<form method="post" action="" enctype="multipart/form-data">
 							<section>
                             	<?php
-									// $query = mysqli_query($conn,"SELECT user.Name, user.Com_name,ven_invoice.id, ven_invoice.Vid,ven_invoice.V_invoice ,ven_invoice.Amount,ven_invoice.Date,ven_invoice.Memo FROM ven_invoice INNER JOIN user ON   ven_invoice.Vid=user.ID  where ven_invoice.id = '$get_id' ")or die(mysqli_error());
 									$query = mysqli_query($conn,"SELECT * FROM faq where id = '$get_id' ")or die(mysqli_error());
                                     $row = mysqli_fetch_array($query);
 									?>
 									<input type="hidden" name="edit" class="form-control" value="<?php if(isset($_GET['edit'])){ echo $_GET['edit']; }else{ echo "$get_id";} ?>" >
-
 								<div class="row">
 								    <div class="col-md-12 col-sm-12">
 										<div class="form-group">

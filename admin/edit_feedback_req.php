@@ -226,17 +226,10 @@ use PHPMailer\PHPMailer\Exception;
 				</div>
 
 				<div class="pd-20 card-box mb-30">
-					<!-- <div class="clearfix">
-						<div class="pull-left">
-							<h4 class="text-blue h4">Invoice Check </h4>
-							<p class="mb-20"></p>
-						</div>
-					</div> -->
 					<div class="wizard-content">
 						<form method="post" action="">
 							<section>
 								<?php
-									//$query = mysqli_query($conn,"SELECT user.Name ,  invoice_receipt.invoice ,invoice_receipt.Amount,invoice_receipt.Date,invoice_receipt.Memo,invoice_receipt.Status, invoice_receipt.File  FROM invoice_receipt INNER JOIN user ON   invoice_receipt.Cid=user.ID where invoice_receipt.id='$get_id'")or die(mysqli_error());
 									
 									$query = mysqli_query($conn,"SELECT * FROM apply_form where id='$get_id'")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
@@ -350,8 +343,7 @@ use PHPMailer\PHPMailer\Exception;
 
                                     <form id="add-event" method=post>
                                         <div class="modal-body">
-                                            <!-- <h4 class="text-blue h4 mb-10">Add Event Detai</h4> -->
-                                         
+                                        
 											<div class="col-md-12 col-sm-12">
                                                 <div class="form-group">
                                                     <label>From :</label>
@@ -413,18 +405,6 @@ use PHPMailer\PHPMailer\Exception;
                         </div>
                     </div>					
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 			</div>

@@ -14,41 +14,7 @@ if($Cid != $session_id){
 
 
 
-<style>
-	.pdf-container {
-  position: relative;
-  width: 100%;
-  height: 0;
-  padding-top: 100%; /* 1:1 aspect ratio */
-  overflow: hidden;
-}
-
-#pdf-viewer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-@media (max-width: 768px) {
-  .pdf-container {
-    padding-top: 150%; /* 2:3 aspect ratio */
-  }
-}
-</style>
-
-
-
-
-
-
-
-
-
-
 <body>
-	
 	
 	<?php include('includes/navbar.php')?>
 	<?php include('includes/right_sidebar.php')?>
@@ -85,10 +51,7 @@ if($Cid != $session_id){
 						<form method="post" action="">
 							<section>
 								<?php
-									// $inv = $conn->query("SELECT invoice as invoice from `invoice` where id='$get_id'  ")->fetch_assoc()['invoice'];
-									// $Rv = $conn->query("SELECT RV as Rv from `receipt` where id='$get_id'  ")->fetch_assoc()['Rv'];
-									// $query = mysqli_query($conn,"SELECT user.Name as Name,  invoice.invoice, invoice.Amount as Amount, invoice.Date as Date, invoice.Memo as Memo, invoice.Status as Status, invoice.File as File  FROM invoice INNER JOIN user ON   invoice.Cid=user.ID where invoice.id='$get_id' and invoice.Cid='$session_id' and invoice.invoice='$inv' UNION All SELECT  user.Name as Name, receipt.RV, receipt.Amount as Amount, receipt.Date as Date, receipt.Memo as Memo, receipt.Status as Status, receipt.File as File From receipt INNER JOIN user ON receipt.Cid=user.ID  where receipt.id='$get_id' and receipt.Cid='$session_id' and receipt.RV='$Rv' ")or die(mysqli_error());
-									
+								
 									$query = mysqli_query($conn,"SELECT user.Name ,  invoice.invoice ,invoice.Amount,invoice.Date,invoice.Memo,invoice.Status, invoice.File  FROM invoice INNER JOIN user ON   invoice.Cid=user.ID where invoice.id='$get_id'")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 									?>
@@ -144,34 +107,11 @@ if($Cid != $session_id){
 											<input name="date" type="text" class="form-control wizard-required" required="true" autocomplete="off"  readonly value="<?php echo $row['Status']; ?>">
 										</div>
 									</div>		
-									<div class="col-md-4 col-sm-12">
-										<div class="form-group">
-											<label style="font-size:16px;"><b></b></label>
-											<div class="modal-footer justify-content-center">
-											<?php
-												// $query2 = "SELECT * FROM invoice_receipt where id='$get_id' ";
-												// $run2 = mysqli_query($conn,$query2);
-												
-												// $row = mysqli_fetch_assoc($run2);
-													?>
-												<!-- <a href="download.php?file=<?php// echo $rows['filename'] ?>">Download</a><br> -->
-												<?php
-												//}
-												?>
-											<!-- <a href="download.php?file=<?php //echo $row['File'] ?>">Download</a><br> -->
-              
-												<!-- <button class="btn btn-primary" name="Order_check" id="Order_check" data-toggle="modal">Update&nbsp;Invoice_Check</button> -->
-											
-												<!-- <a  href="#" class="btn btn-primary" data-toggle="modal" data-target="#Medium-modal"><i class="dw dw-edit-2"></i> Take Action</a> -->
-
-											</div>
-										</div>
-									</div>							
+														
 								</div>		
 							</section>
 
-							<section>
-							
+							<section>							
 								<div class="row">								
 									<?php
 																	
@@ -193,92 +133,14 @@ if($Cid != $session_id){
 										?>
 									<?php
 									}
-
-									?>							
+									?>					
                                     
-                                </div>
-							
-							</section>
-
-
-
-
-							
-
-						</form>
-						
+                                </div>							
+							</section>						
+						</form>		
 					
 					</div>
 				</div>
-
-
-				
-                <!-- Take Action Medium modal -->
-                <!-- <div class="col-md-4 col-sm-12 mb-30">				
-                    <div class="modal fade" id="Medium-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="myLargeModalLabel">Invoice Status Update</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                </div>                                    
-                                <div class="modal-body">
-								<?php
-									$query = mysqli_query($conn,"SELECT * FROM invoice where id='$get_id'")or die(mysqli_error());
-									$row = mysqli_fetch_array($query);
-									?>
-
-                                    <form id="add-event" method=post>
-                                        <div class="modal-body">
-                                         
-                                         
-											<div class="col-md-12 col-sm-12">
-                                                <div class="form-group">
-                                                    <label>Status :</label>
-                                                    <select name="Status" class="custom-select form-control" required="true" autocomplete="off">
-                                                        <option value="<?php echo $row['Status']; ?>"><?php echo $row['Status']; ?></option>
-                                                    
-                                                        <option value="Approved">Approved</option>
-                                                        <option value="Rejected">Rejected</option>
-                                                    </select>
-                                                </div>
-                                            </div>	   
-                                          
-                                            <div class="form-group">
-                                                <label>Message</label>
-                                                <textarea class="form-control" name="Memo" required autocomplete="off" ><?php echo $row['Memo']; ?> 
-                                                </textarea>
-                                            </div>
-                                                                                 
-                                         
-                                       
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" name="Update" class="btn btn-primary" >Update</button>
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </form>
-									
-                                </div>
-                               
-                            </div>
-                        </div>
-                    </div>					
-                </div> -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			</div>
 			<?php include('includes/footer.php'); ?>
 		</div>

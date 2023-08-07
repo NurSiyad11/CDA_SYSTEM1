@@ -144,28 +144,10 @@
 									//$bal = $bal;
 									$in = $bal + $result->Amount;
 									$out= $result->empty;
-									$bal = $in - $out;
-
-									//$Total = $bal 
-									
-									// if($out = 0){
-									// 	$Bal = $in;
-									// }elseif($in = 0){
-									// 	$Bal = $out;
-									// }
-
-									// if($in = 0){
-									// 	$bal -= $out;
-									// }elseif($out = 0){
-									// 	$bal += $in ;
-									// }
+									$bal = $in - $out;					
 									
 
 									 echo "$ ". number_format((float)htmlentities($bal), '2','.',',');
-									// $total= $bal + $in - $out;
-									 //echo "$ ". number_format((float)htmlentities($total), '2','.',',');
-									//echo "$ ". number_format((float)htmlentities($result->balance), '2','.',',');
-
 									?>
 								</td>
 								
@@ -206,21 +188,6 @@
 							 } } ?>  
 
 						</tbody>
-
-						<!-- <tfoot class="table-secondary">
-							<tr>				
-								<th> </th>	
-								<th> </th>							
-								<th> </th>
-								<th></th>
-								<th>Total</th>
-								<th>500</th>
-								<th>600</th>
-								<th></th>							
-							
-																
-							</tr>
-									</tfoot> -->
 					</table>
 			   </div>
 			</div>

@@ -1,37 +1,7 @@
-<?php include('includes/header.php') ?>
-<?php include('../database/db.php') ?>
-<?php include('../database/session.php') 
-// $time=time();
+<?php include('includes/header.php'); ?>
+<?php include('../database/db.php'); ?>
+<?php include('../database/session.php');
 ?>
-      <!-- <script>
-            window.addEventListener('load',function(){
-            Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'your Complaint Successfully  Submited',
-            showConfirmButton: false,
-            timer: 3000
-            })
-            .then(function() {
-                window.location = "index.php";
-            });	
-        });
-        </script> -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script> -->
-<script>
-function showPass()
-{
-	var pass = document.getElementById('pass');
-	if(document.getElementById('check').checked)
-	{
-		pass.setAttribute('type','text');
-	}else{
-		pass.setAttribute('type','password');
-	}
-}
-
-</script>
-
 
 
 <?php
@@ -48,12 +18,8 @@ function showPass()
 			window.addEventListener('load',function(){
 				swal.fire({
 					title: "Your Balance is  <?Php echo "USD ". $format_balance?>",
-					// text: "<?Php //echo "$ ". $format?>",
-					
-					//iconHtml: ' <i class="icon-copy ion-social-usd-outline"></i>',
 					iconHtml: ' <i class="icon-copy ion-social-usd"></i>',
-					//icon: "money",
-					// button: "Ok Done!",
+					
 				})
 				.then(function() {
 							window.location = "index.php";
@@ -72,18 +38,13 @@ function showPass()
 	<?php include('includes/left_sidebar.php') ?>	
 	<div class="mobile-menu-overlay"></div>
 
-
-
 	<div class="main-container">
 		<div class="pd-ltr-20">	
 			
 			<div class="row">
 				<div class="col-xl-12 mb-30">
-					<div class="card text-bg-primary mb-3">
-
-						
+					<div class="card text-bg-primary mb-3">					
 					
-
 						<div class="row">
 							<div class="col-12">
 								<div class="card-header text-center bg-blue" style="color:white">
@@ -130,56 +91,11 @@ function showPass()
 				</div>
 			</div>
 
-		
-		
-			<!-- 
-			<div class="row">
-				<div class="col-xl-6 mb-30">
-					<div class="card-box height-100-p pd-20">
-						<h2 class="h4 mb-20">Activity</h2>
-					
-						<div id="chart5"></div>
-					</div>
-				</div>
-
-				<div class="col-xl-6 mb-30">
-					<div class="card-box height-100-p pd-20">
-						<h2 class="h4 mb-20">Lead Target</h2>
-						<div id="chart6"></div>
-					</div>
-				</div>
-			</div> -->
-			<!-- data-table table stripe hover nowrap -->
 
 			
 
 
-			<!-- Small modal -->
-			<!-- <div class="col-md-4 col-sm-12 mb-30">
-				<div class="pd-20 card-box height-100-p">
-					<h5 class="h4">Small modal</h5>
-					<a href="#" class="btn-block" data-toggle="modal" data-target="#small-modal" type="button">
-						<img src="vendors/images/modal-img3.jpg" alt="modal">
-					</a>
-					<div class="modal fade" id="small-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-						<div class="modal-dialog modal-sm modal-dialog-centered">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h4 class="modal-title" id="myLargeModalLabel">Large modal</h4>
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-								</div>
-								<div class="modal-body">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-									tempor incididunt ut labore et dolore magna aliqua.</p>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div> -->
+		
 
 
 			<div class="card-box mb-30">
@@ -196,9 +112,7 @@ function showPass()
 								<th>Date</th>
 								<th>Description</th>
 								<th>Invoice</th>
-								<th>Receipt</th>
-								<!-- <th>Balance</th> -->
-								<!-- <th>Action</th>					 -->							
+								<th>Receipt</th>					
 																
 							</tr>
 						</thead>
@@ -206,8 +120,7 @@ function showPass()
 						<tbody>
 
 							<?php
-							// $Cname = $conn->query("SELECT id as eid from `user` where id='$session_id'  ")->fetch_assoc()['eid'];
-							// $sql = "SELECT * FROM Invoice_Receipt where Cid='$Cname' order by Date desc ";						
+					
 							$sql = "SELECT id,D_INV,invoice,File,Date,Memo,Amount,empty FROM invoice where Cid='$session_id' UNION All SELECT id,D_RV,RV,File,Date,Memo,empty,Amount FROM receipt    where Cid='$session_id'   order by Date desc  Limit 10 ";
 							$query = $dbh -> prepare($sql);
 							$query->execute();
@@ -226,48 +139,13 @@ function showPass()
 								<td><?php echo htmlentities($result->Memo);?></td>
 								<td ><?php echo "$ ". number_format((float)htmlentities($result->Amount), '2','.',','); ?></td>
 								<td ><?php echo "$ ". number_format((float)htmlentities($result->empty), '2','.',','); ?></td>
-								<!-- <td class="Amounts">10</td>
-								<td class="Amounts">20</td> -->
-								<!-- <td id="Total"></td> -->
-								<!-- 
-								<td>
-									<div class="table-actions">										
-										<div class="dropdown">
-											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-												<i class="dw dw-more"></i>
-											</a>
-											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-												<a class="dropdown-item" href="edit_invoice_check.php?edit=<?php //echo  htmlentities($result->id); ?>"><i class="dw dw-eye"></i> View</a>
-												
-											</div>
-										</div>
-								
-									</div>
-								</td> -->
+							
 							</tr>
 
 							<?php $cnt++;} }?>  
 
-						</tbody>
-
-
-
-
+						</tbody>					
 					
-						<tfoot class="">
-							<tr>				
-								<th> </th>	
-								<th> </th>							
-								<th> </th>
-								<th></th>
-								<th>Total</th>
-								<th></th>
-								<th></th>
-									
-							
-																
-							</tr>
-									</tfoot>
 					</table>
 			   </div>
 			</div>
