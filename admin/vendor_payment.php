@@ -27,9 +27,9 @@
 		$INV = $conn->query("SELECT sum(Amount) as total FROM `ven_invoice` where Vid='$Vid'  ")->fetch_assoc()['total'];
 		$RV = $conn->query("SELECT sum(Amount) as total FROM `ven_payment` where Vid='$Vid'  ")->fetch_assoc()['total'];
 		$Bal = $INV - $RV;
-		$Ven_Bal_format =number_format((float)$Bal, '2','.',',');
+		// $Ven_Bal_format =number_format((float)$Bal, '2','.',',');
 
-		if($Ven_Bal_format > $amount ){
+		if($Bal > $amount ){
 			mysqli_query($conn,"INSERT INTO ven_payment(Admin_id,Vid,Date,V_payment,Amount,Memo) VALUES('$Admin_id','$Vid','$date','$PV','$amount','$memo')         
 			") or die(mysqli_error()); ?>
 			<Script>
@@ -51,7 +51,7 @@
 			window.addEventListener('load',function(){
 				swal.fire({
 					title: "Warning",
-					text: "Your Balance is <?php echo $Ven_Bal_format?>, please make vendor invoice   ",
+					text: "Your Balance is <?php echo $Bal?>, please make vendor invoice   ",
 					icon: "warning",					
 				})
 				.then(function() {

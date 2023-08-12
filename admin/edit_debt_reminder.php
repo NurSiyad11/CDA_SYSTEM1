@@ -6,7 +6,7 @@
 <?php
 	if(isset($_POST['update']))
 	{	
-    $Date=$_POST['Date'];	
+    $Title=$_POST['Title'];	
     $Message=$_POST['Message'];	
     $Memo=$_POST['Memo'];	
     $Status=$_POST['Status'];
@@ -17,7 +17,7 @@
 	$date1 = $date->format("Y-m-d h:i:s a");
 
 
-	$result = mysqli_query($conn,"update debt_reminder set Date='$Date', Update_date='$date1', Message='$Message', Memo='$Memo', Status='$Status' where id='$get_id'         
+	$result = mysqli_query($conn,"update debt_reminder set  Title='$Title', Update_date='$date1', Message='$Message', Memo='$Memo', Status='$Status' where id='$get_id'         
 		"); 		
 	if ($result) {
 		?>
@@ -77,7 +77,7 @@
 						<form method="post" action="">
 							<section>
 								<?php
-									$query = mysqli_query($conn,"SELECT user.Name, user.Com_name, user.Picture, user.Phone, user.Address, debt_reminder.id, debt_reminder.Date, debt_reminder.RegDate, debt_reminder.Update_date, debt_reminder.Message, debt_reminder.Memo, debt_reminder.Status FROM debt_reminder INNER JOIN user ON   debt_reminder.Cid=user.id where debt_reminder.id='$get_id'")or die(mysqli_error());
+									$query = mysqli_query($conn,"SELECT user.Name, user.Com_name, user.Picture, user.Phone, user.Address, debt_reminder.id, debt_reminder.Title, debt_reminder.RegDate, debt_reminder.Update_date, debt_reminder.Message, debt_reminder.Memo, debt_reminder.Status FROM debt_reminder INNER JOIN user ON   debt_reminder.Cid=user.id where debt_reminder.id='$get_id'")or die(mysqli_error());
 									$row = mysqli_fetch_array($query);
 									?>
 									<input type="hidden" name="edit" class="form-control" value="<?php if(isset($_GET['edit'])){ echo $_GET['edit']; }else{ echo "$get_id";} ?>" >
@@ -107,25 +107,39 @@
 
 
 								<div class="row">
-                                    <div class="col-md-4 col-sm-12">
+                                    <div class="col-md-6 col-sm-12">
 										<div class="form-group">
 											<label >Address :</label>
 											<input name="address" type="text" class="form-control wizard-required" required="true" autocomplete="off"  readonly value="<?php echo $row['Address']; ?>">
 										</div>
 									</div>	
-									<div class="col-md-4 col-sm-12">
+									<!-- <div class="col-md-4 col-sm-12">
 										<div class="form-group">
 											<label >Date of sending  :</label>
 											<input name="date" type="date" class="form-control wizard-required" required="true" autocomplete="off"  readonly value="<?php echo $row['Date']; ?>">
 										</div>
-									</div>		
-                                    <div class="col-md-4 col-sm-12">
+									</div>		 -->
+                                    <div class="col-md-6 col-sm-12">
 										<div class="form-group">
 											<label >System Register Date  :</label>
 											<input name="sys_date" type="text" class="form-control wizard-required" required="true" autocomplete="off"  readonly value="<?php echo $row['RegDate']; ?>">
 										</div>
 									</div>					
 								</div>
+
+								<div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label></label>
+                                            <p>Title</p>
+                                        </div>
+                                    </div>	
+                                    <div class="col-md-10">
+                                        <div class="form-group">
+                                            <textarea name="Title" style="height: 3em;" placeholder="Description" class="form-control text_area" readonly type="text"><?php echo $row['Title']; ?></textarea>
+                                        </div>
+                                    </div>	
+                                </div>
                                 <div class="row">
                                     <div class="col-md-2">
                                         <div class="form-group">
@@ -202,8 +216,8 @@
                                     <form id="add-event" method=post>
                                         <div class="modal-body">                                    
                                             <div class="form-group">
-												<label>Date</label>
-												<input name="Date" class="form-control" type="Date" required value="<?php echo $row['Date']; ?>">
+												<label>Title</label>
+												<input name="Title" class="form-control" type="text" autocomplete="off" required value="<?php echo $row['Title']; ?>">
 											</div>
                                             <div class="form-group">
                                                 <label>Message</label>

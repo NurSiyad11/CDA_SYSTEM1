@@ -206,6 +206,7 @@
 							<span class="micon dw dw-user-2"></span><span class="mtext">Debt Reminder</span>
 						</a>
 						<ul class="submenu">
+							<li><a href="Reg_debt_reminder.php">Register Message</a></li>
 							<li><a href="mng_debt_reminder.php">Manage debt reminder</a></li>
 						</ul>
 					</li>			

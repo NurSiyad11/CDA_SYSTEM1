@@ -115,8 +115,8 @@
 							<tr>
 								<th>NO#</th>
 								<th class="table-plus datatable-nosort">Customer Name</th>
-								<th>Company Name </th>						
-								<th>DATE </th>
+								<th>Company Name </th>
+								<th> Title</th>	
 								<th>Registration Date</th>
 								<th> Status</th>							
 								<th class="datatable-nosort">ACTION</th>
@@ -127,7 +127,7 @@
 
 								<?php 
 								$i =1;
-								$sql = "SELECT user.Name, user.Com_name, user.Picture, debt_reminder.id, debt_reminder.RegDate, debt_reminder.Date,debt_reminder.Status FROM debt_reminder INNER JOIN user ON   debt_reminder.Cid=user.id ORDER BY debt_reminder.id desc  ";
+								$sql = "SELECT user.Name, user.Com_name, user.Picture, debt_reminder.id, debt_reminder.RegDate, debt_reminder.Title,debt_reminder.Status FROM debt_reminder INNER JOIN user ON   debt_reminder.Cid=user.id ORDER BY debt_reminder.id desc  ";
 									$query = mysqli_query($conn, $sql) or die(mysqli_error());
 									while ($row = mysqli_fetch_array($query)) {
 
@@ -144,7 +144,7 @@
 									</div>
 								</td>	
 								<td><?php echo $row['Com_name']; ?></td>					
-	                            <td><?php echo $row['Date']; ?></td>
+								<td><?php echo $row['Title']; ?></td>
 								<td><?php echo $row['RegDate']; ?></td>
 
 								<td><?php $stats=$row['Status'];
@@ -197,8 +197,8 @@
 							<tr>
 								<th>NO#</th>
 								<th class="table-plus datatable-nosort">Customer Name</th>	
-								<th>Company Name </th>						
-								<th>DATE </th>
+								<th>Company Name </th>
+								<th> Title</th>							
 								<th>Registration Date</th>
 								<th> Status</th>							
 								<th class="datatable-nosort">ACTION</th>
@@ -209,7 +209,7 @@
 
 								<?php 
 								$i =1;
-								$sql = "SELECT user.Name, user.Com_name, user.Picture, debt_reminder.id, debt_reminder.RegDate, debt_reminder.Date,debt_reminder.Status FROM debt_reminder INNER JOIN user ON   debt_reminder.Cid=user.id  where debt_reminder.Status = 'Show' ORDER BY debt_reminder.id desc  ";
+								$sql = "SELECT user.Name, user.Com_name, user.Picture, debt_reminder.id, debt_reminder.RegDate, debt_reminder.Title, debt_reminder.Status FROM debt_reminder INNER JOIN user ON   debt_reminder.Cid=user.id  where debt_reminder.Status = 'Show' ORDER BY debt_reminder.id desc  ";
 									$query = mysqli_query($conn, $sql) or die(mysqli_error());
 									while ($row = mysqli_fetch_array($query)) {
 
@@ -225,8 +225,8 @@
 										</div>
 									</div>
 								</td>	
-								<td><?php echo $row['Com_name']; ?></td>					
-	                            <td><?php echo $row['Date']; ?></td>
+								<td><?php echo $row['Com_name']; ?></td>	
+								<td><?php echo $row['Title']; ?></td>				
 								<td><?php echo $row['RegDate']; ?></td>
 
 								<td><?php $stats=$row['Status'];
@@ -278,8 +278,8 @@
 							<tr>
 								<th>NO#</th>
 								<th class="table-plus datatable-nosort">Customer Name</th>	
-								<th>Company Name</th>					
-								<th>DATE </th>
+								<th>Company Name</th>
+								<th> Title</th>						
 								<th>Registration Date</th>
 								<th> Status</th>							
 								<th class="datatable-nosort">ACTION</th>
@@ -290,7 +290,7 @@
 
 								<?php 
 								$i =1;
-								$sql = "SELECT user.Name,user.Com_name, user.Picture, debt_reminder.id, debt_reminder.RegDate, debt_reminder.Date,debt_reminder.Status FROM debt_reminder INNER JOIN user ON   debt_reminder.Cid=user.id  where debt_reminder.Status = 'Hide' ORDER BY debt_reminder.id desc  ";
+								$sql = "SELECT user.Name,user.Com_name, user.Picture, debt_reminder.id, debt_reminder.RegDate, debt_reminder.Title,debt_reminder.Status FROM debt_reminder INNER JOIN user ON   debt_reminder.Cid=user.id  where debt_reminder.Status = 'Hide' ORDER BY debt_reminder.id desc  ";
 									$query = mysqli_query($conn, $sql) or die(mysqli_error());
 									while ($row = mysqli_fetch_array($query)) {
 
@@ -306,8 +306,8 @@
 										</div>
 									</div>
 								</td>		
-								<td><?php echo $row['Com_name']; ?></td>				
-	                            <td><?php echo $row['Date']; ?></td>
+								<td><?php echo $row['Com_name']; ?></td>
+								<td><?php echo $row['Title']; ?></td>				
 								<td><?php echo $row['RegDate']; ?></td>
 
 								<td><?php $stats=$row['Status'];
@@ -360,8 +360,8 @@
 							<tr>
 								<th>NO#</th>
 								<th class="table-plus datatable-nosort">Customer Name</th>
-								<th>Company Name </th>						
-								<th>DATE </th>
+								<th>Company Name </th>	
+								<th> Title</th>						
 								<th>Registration Date</th>
 								<th> Status</th>							
 								<th class="datatable-nosort">ACTION</th>
@@ -372,7 +372,7 @@
 
 								<?php 
 								$i =1;
-								$sql = "SELECT user.Name, user.Com_name, user.Picture, debt_reminder.id, debt_reminder.RegDate, debt_reminder.Date,debt_reminder.Status FROM debt_reminder INNER JOIN user ON   debt_reminder.Cid=user.id ORDER BY debt_reminder.id desc  ";
+								$sql = "SELECT user.Name, user.Com_name, user.Picture, debt_reminder.id, debt_reminder.RegDate, debt_reminder.Title,debt_reminder.Status FROM debt_reminder INNER JOIN user ON   debt_reminder.Cid=user.id ORDER BY debt_reminder.id desc  ";
 									$query = mysqli_query($conn, $sql) or die(mysqli_error());
 									while ($row = mysqli_fetch_array($query)) {
 
@@ -388,8 +388,8 @@
 										</div>
 									</div>
 								</td>		
-								<td><?php echo $row['Com_name']; ?></td>				
-	                            <td><?php echo $row['Date']; ?></td>
+								<td><?php echo $row['Com_name']; ?></td>
+								<td><?php echo $row['Title']; ?></td>			
 								<td><?php echo $row['RegDate']; ?></td>
 
 								<td><?php $stats=$row['Status'];
@@ -409,9 +409,7 @@
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 											<a class="dropdown-item" href="edit_debt_reminder.php?edit=<?php echo $row['id']; ?>"><i class="dw dw-eye"></i> Edit</a>
 											<!-- <a class="dropdown-item" href="mng_debt_reminder.php?delete=<?php// echo $row['id']; ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"  ></i> Delete</a> -->
-											
-											
-											
+										
 										</div>
 									</div>
 								</td>

@@ -1,7 +1,7 @@
 <?php
- include('database/db.php');
-//  include('database/session.php');
-session_start(); 
+//  include('database/db.php');
+ include('Lg_status.php');
+// session_start(); 
 $_SESSION = array();
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
@@ -10,13 +10,6 @@ if (ini_get("session.use_cookies")) {
         $params["secure"], $params["httponly"]
     );
 }
-// $Login_status = $conn->query("SELECT Login_status as st from `user` where ID='$session_id' ")->fetch_assoc()['st'];
-
-if (isset($_SESSION['alogin'])) {
-    $time = time();
-    $query = mysqli_query($conn, "UPDATE user SET Login_status='$time' WHERE ID='{$_SESSION['alogin']}'");
-
-} 
 unset($_SESSION['alogin']);
 session_destroy(); // destroy session
 header("location: index.php"); 

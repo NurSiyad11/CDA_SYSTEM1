@@ -82,27 +82,29 @@ if($role != 'Customer'){
 						<?php 					
 						if($count > 0){
 							?>
-							<h5><?php echo "Xasuusin: ". ($count); ?></h5>
+							<h5><?php echo "Message: ". ($count); ?></h5>
 							<?php }else{
-								echo "Wax Xusuusin Ah Majiraan Mahadsanid.";
+								echo "Wax Message Ah Majiraan Mahadsanid.";
 							} ?>
 						<div class="notification-list mx-h-350 customscroll">
 							
 							<ul>
 							<?php 
 								//$status="Pending Order";
-								$sql = "SELECT user.Name, user.Com_name, user.Picture, debt_reminder.id, debt_reminder.Date, debt_reminder.Message, debt_reminder.Memo,debt_reminder.Status FROM debt_reminder INNER JOIN user ON   debt_reminder.Cid=user.id where debt_reminder.Status ='Show' AND Cid='$session_id' order by debt_reminder.Date desc";
+
+								$sql = "SELECT user.Name, user.Com_name, user.Picture, debt_reminder.id, debt_reminder.Title, debt_reminder.Message, debt_reminder.Memo,debt_reminder.Status FROM debt_reminder INNER JOIN user ON   debt_reminder.Cid=user.id where debt_reminder.Status ='Show' AND Cid='$session_id' order by debt_reminder.id desc";
 									$query = mysqli_query($conn, $sql) or die(mysqli_error());
-									while ($row = mysqli_fetch_array($query)) {
+									while ($row = mysqli_fetch_array($query)) {										
 								 ?> 
 								<li>
-									<a href="#">		
+									<a href="#">
+
 										<img src="../vendors/images/img/xasusin.png" class="border-radius-100 shadow" width="50" height="50" alt="">
 								
 										<!-- <img src="../vendors/images/img.jpg" alt=""> -->
 										<!-- <img src="<?php //echo (!empty($row['Picture'])) ? '../uploads/'.$row['Picture'] : '../uploads/NO-IMAGE-AVAILABLE.jpg'; ?>" class="border-radius-100 shadow" width="40" height="40" alt=""> -->
-										<h3>Title : Fariin</h3>
-										<p><?php  echo "Date : ". $row['Date'];?></p>
+										<h3><?php echo "Fariin: ". $row['Title']; ?></h3>
+										<p><?php  echo "Dear : ". $row['Name'];?></p>
 										<p><?php echo $row['Message'];?></p>
 										
 										

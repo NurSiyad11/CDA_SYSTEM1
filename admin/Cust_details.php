@@ -7,15 +7,15 @@
 <?php
 	if(isset($_POST['submit']))
 	{   
-	$Date=$_POST['Date']; 	
+	$Title=$_POST['Title']; 	
 	$Message=$_POST['Message'];	
 	$Status=$_POST['Status']; 
 	$Memo=$_POST['Memo']; 	
 	     
      $cid = $conn->query("SELECT id as cid from `user` where id='$get_id'  ")->fetch_assoc()['cid'];
 
-        mysqli_query($conn,"INSERT INTO debt_reminder(Cid,Date,Message,Status,Memo) 
-		VALUES('$cid','$Date','$Message','$Status','$Memo')         
+        mysqli_query($conn,"INSERT INTO debt_reminder(Cid,Title,Message,Status,Memo) 
+		VALUES('$cid','$Title','$Message','$Status','$Memo')         
 		") or die(mysqli_error()); ?>
         <Script>
 			window.addEventListener('load',function(){
@@ -32,6 +32,13 @@
 		</Script>
 		<?php   }
 ?>
+
+
+
+
+
+
+
 
 <body>
 	<?php include('includes/navbar.php')?>
@@ -252,15 +259,26 @@
                                                     <label>Balance</label>
                                                     <input type='text' class="form-control" name="Com_name" required="true" autocomplete="off"  readonly value=" <?php echo "$ " .($format_balance); ?>">
                                                 </div>
+
+
+                                                <!-- Message Display automatic  -->
                                                 <div class="form-group">
-                                                    <label>Date</label>
-                                                    <input type='date' class="form-control" name="Date" required="true" autocomplete="off" >
+                                                    <label>Title 2</label>
+                                                    <select name="Title" id="Tid" class="custom-select form-control" required="true" autocomplete="off">
+                                                        <option value="">Select Title</option>
+                                                        <?php
+                                                        $query = mysqli_query($conn, "SELECT * FROM reg_debt_reminder where Status='1' ");
+                                                        while ($row = mysqli_fetch_array($query)) {
+                                                            ?>
+                                                            <option value="<?php echo $row['Title']; ?>"><?php echo $row['Title']; ?></option>
+                                                        <?php } ?>
+                                                    </select>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Message</label>
-                                                    <textarea class="form-control" name="Message" required autocomplete="off" >Xasuusin. Asc <?php echo $row['Name']; ?>  , Haraaga xisaabta deynta laguugu leeyahay waa <?php echo "$ " .($format_balance); ?>  Wixii faahfaahin ah kala xiriir +252613231772</textarea>
-                                                </div>
-                                             
+                                                    <textarea class="form-control" name="Message" id="message" required autocomplete="off"> jhgdsjhgds </textarea>
+                                                </div>                                             
+                                                                                           
                                                 <div class="form-group">
                                                     <label>Status</label>
                                                     <select class="form-control" name="Status">
@@ -274,7 +292,34 @@
                                                         <label>Description</label>
                                                         <textarea name="Memo" style="height: 5em;" placeholder="Description" class="form-control text_area" type="text"></textarea>
                                                     </div>
-                                                </div>	                                             
+                                                </div>                                            
+
+                                                <!-- Script Automatic Display Mesage acording Title -->
+                                                <script>
+                                                    // Get the select element
+                                                    var select = document.getElementById("Tid");
+                                                    // Get the message textarea
+                                                    var messageTextarea = document.getElementById("message");
+
+                                                    // Add event listener for the "change" event
+                                                    select.addEventListener("change", function() {
+                                                        // Get the selected title
+                                                        var selectedTitle = select.value;
+
+                                                        // Send an AJAX request to retrieve the message for the selected title
+                                                        var xhr = new XMLHttpRequest();
+                                                        xhr.onreadystatechange = function() {
+                                                            if (xhr.readyState === 4 && xhr.status === 200) {
+                                                                // Update the message textarea with the retrieved message
+                                                                messageTextarea.value = xhr.responseText;
+                                                            }
+                                                        };
+                                                        xhr.open("POST", "get_message.php", true);
+                                                        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                                                        xhr.send("SelectedTitle=" + selectedTitle);
+                                                    });
+                                                </script>
+
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="submit" name="submit" class="btn btn-primary" >Submit</button>
@@ -321,6 +366,7 @@
                     </div>
                 </div>
                 <!-- add task popup End -->    
+
 
 
 			</div>

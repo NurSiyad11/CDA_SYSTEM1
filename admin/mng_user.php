@@ -204,6 +204,13 @@ if (isset($_GET['delete'])) {
 		                         while ($row = mysqli_fetch_array($teacher_query)) {
 		                         $id = $row['ID'];
 
+								// $status='Offline';
+								// $class="btn-danger";
+								// if($row['Lg_status']==1){
+								// 		$status='Online';
+								// 		$class="btn-success";
+								// }
+
 								$status='Offline';
 								$class="btn-danger";
 								if($row['Login_status']>$time){
@@ -266,7 +273,7 @@ if (isset($_GET['delete'])) {
 										<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 											<a class="dropdown-item" href="edit_user.php?edit=<?php echo $row['ID'];?>"><i class="dw dw-edit2"></i> Edit</a>
 											<!-- <a class="dropdown-item" href="generate_user_info.php?edit=<?php// echo $row['ID'];?>"><i class="dw dw-edit2"></i> Pdf</a> -->
-											<a class="dropdown-item" href="Mng_user.php?delete=<?php echo $row['ID'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
+											<a class="dropdown-item" href="mng_user.php?delete=<?php echo $row['ID'] ?>" onclick= ' return checkdelete()' ><i class="dw dw-delete-3"></i> Delete</a>
 										</div>
 									</div>
 								</td>
@@ -282,7 +289,7 @@ if (isset($_GET['delete'])) {
 					</script>
 
 					<!-- Sceripts Online User Update  -->
-					<script>
+					<!-- <script>
 						function updateUserStatus(){
 							jQuery.ajax({
 								url:'../update_user_status.php',
@@ -308,7 +315,7 @@ if (isset($_GET['delete'])) {
 						setInterval(function(){
 							getUserStatus();
 						},3000);
-					</script>
+					</script> -->
 
 			   	</div>	
 			</div>  		
